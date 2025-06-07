@@ -1,0 +1,56 @@
+/*
+Theme Name: Astra Child
+Description: Child theme of Astra for Reuben J. Brown Portfolio
+Author: Reuben J. Brown
+Template: astra
+Version: 1.0.0
+*/
+
+/* Adobe Fonts - Legitima */
+@import url("https://use.typekit.net/ffl7rra.css");
+
+/* Local font - Innovator Grotesk */
+@font-face {
+  font-family: 'Innovator Grotesk';
+  src: url('./fonts/innovator-grotesk-regular.woff2') format('woff2'),
+       url('./fonts/innovator-grotesk-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Innovator Grotesk';
+  src: url('./fonts/innovator-grotesk-regularitalic.woff2') format('woff2'),
+       url('./fonts/innovator-grotesk-regularitalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Innovator Grotesk';
+  src: url('./fonts/innovator-grotesk-semibold.woff2') format('woff2'),
+       url('./fonts/innovator-grotesk-semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Innovator Grotesk';
+  src: url('./fonts/innovator-grotesk-semibolditalic.woff2') format('woff2'),
+       url('./fonts/innovator-grotesk-semibolditalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Custom styles for portfolio site */
+:root {
+  --highlight-color: #39e58f;
+  --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
+}
+
+/* Base styles will be added as we build each section */
