@@ -194,7 +194,7 @@ add_action('wp_enqueue_scripts', function() {
             background: transparent;
             transform: translateY(-100%);
             transition: all 0.3s ease;
-            padding: 0 3vw 0 3vw;
+            padding: 0 3vw 0 3vw 0;
         }
 
         .site-header.visible {
