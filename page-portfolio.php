@@ -214,6 +214,7 @@ add_action('wp_enqueue_scripts', function() {
             justify-content: space-between;
             align-items: center;
             max-width: 100%;
+            padding: 0;
         }
 
         .site-title {
