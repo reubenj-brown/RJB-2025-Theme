@@ -1,4 +1,4 @@
-
+s
 <?php
 /*
 Template Name: Portfolio Page
@@ -34,7 +34,7 @@ add_action('wp_enqueue_scripts', function() {
     ?>
     
 <link rel="stylesheet" href="https://use.typekit.net/ffl7rra.css">
-<link rel="stylesheet" href="/wp-content/plugins/rjb-portfolio-plugin/assets/portfolio-sections.css">
+<link rel="stylesheet" href="/wp-content/plugins/rjb-portfolio-sections/assets/portfolio-sections.css">
 
 <style>
 
