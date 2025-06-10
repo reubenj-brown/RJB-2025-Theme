@@ -319,7 +319,7 @@ add_action('wp_enqueue_scripts', function() {
             right: 0;
             z-index: 1000;
             background: transparent;
-            padding: 0 2vw 2vw 2vw;
+            padding: 0 2vw 1vw 2vw;
         }
 
         .footer-content {
