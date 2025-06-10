@@ -213,7 +213,6 @@ add_action('wp_enqueue_scripts', function() {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
             max-width: 100%;
         }
 
@@ -326,7 +325,6 @@ add_action('wp_enqueue_scripts', function() {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
         }
 
         .social-links {
