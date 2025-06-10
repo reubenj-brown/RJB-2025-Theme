@@ -1,4 +1,3 @@
-s
 <?php
 /*
 Template Name: Portfolio Page
