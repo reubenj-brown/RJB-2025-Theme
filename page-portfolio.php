@@ -481,27 +481,15 @@ add_action('wp_enqueue_scripts', function() {
             <div class="copyright">© Reuben J. Brown 2025</div>
         </div>
     </footer>
-    
-    <?php echo do_shortcode('[reuben_about]'); ?>
 
-    <?php echo do_shortcode('[reuben_writing]'); ?>
-    
-    <!-- Temporary placeholder sections for other areas -->
-
-    <section class="content-section" id="photography">
-        <h2>Photography Section</h2>
-        <p>This is placeholder content to test the scroll behavior...</p>
-    </section>
-
-    <section class="content-section" id="strategy">
-        <h2>Strategy Section</h2>
-        <p>This is placeholder content to test the scroll behavior...</p>
-    </section>
-
-    <section class="content-section" id="cv">
-        <h2>CV Section</h2>
-        <p>This is placeholder content to test the scroll behavior...</p>
-    </section>
+    <!-- Main Content Wrapper -->
+    <main class="main-content">
+        <?php echo do_shortcode('[reuben_about]'); ?>
+        <?php echo do_shortcode('[reuben_writing]'); ?>
+        <?php echo do_shortcode('[reuben_photography]'); ?>
+        <?php echo do_shortcode('[reuben_strategy]'); ?>
+        <?php echo do_shortcode('[reuben_cv]'); ?>
+    </main>
 
     <script>
         // Carousel functionality
