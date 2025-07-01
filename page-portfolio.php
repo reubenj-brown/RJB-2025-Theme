@@ -349,6 +349,7 @@ add_action('wp_enqueue_scripts', function() {
         /* Main Content Wrapper */
         .main-content {
             padding: 0 2vw;
+            width: 100vw;
             max-width: 100vw;
             background: white;
             margin-top: 100vh;
