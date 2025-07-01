@@ -345,6 +345,17 @@ add_action('wp_enqueue_scripts', function() {
             color: #39e58f;
         }
 
+        /* Main Content Wrapper */
+        .main-content {
+            padding: 0 2vw;
+            background: white;
+        }
+        
+        .content-section {
+            min-height: 100vh;
+            background: white;
+        }
+
         /* Footer styling - always 50% grey in splash area */
         .site-footer .social-links a {
             color: #808080;
