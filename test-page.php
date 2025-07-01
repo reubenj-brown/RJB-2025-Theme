@@ -97,16 +97,16 @@ get_header();
 
         /* Main content container */
         .test-content {
-            max-width: 100%;
+            max-width: 100vw;
+            width: 100vw;
             margin: 0;
+            padding: 0 2vw;
         }
     </style>
 </head>
 
 <body class="page-template-page-test">
-    <!-- Main Content -->
     <main class="test-content">
-        
         <?php echo do_shortcode('[reuben_about]'); ?>
         <?php echo do_shortcode('[reuben_writing]'); ?>
         <?php echo do_shortcode('[reuben_photography]'); ?>
