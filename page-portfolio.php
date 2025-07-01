@@ -483,12 +483,10 @@ add_action('wp_enqueue_scripts', function() {
     </footer>
     
     <?php echo do_shortcode('[reuben_about]'); ?>
+
+    <?php echo do_shortcode('[reuben_writing]'); ?>
     
     <!-- Temporary placeholder sections for other areas -->
-    <section class="content-section" id="writing">
-        <h2>Writing Section</h2>
-        <p>This is placeholder content to test the scroll behavior...</p>
-    </section>
 
     <section class="content-section" id="photography">
         <h2>Photography Section</h2>
