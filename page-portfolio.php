@@ -147,7 +147,7 @@ add_action('wp_enqueue_scripts', function() {
             position: absolute;
             top: -2vw;
             width: 100vw;
-            height: 100vh;
+            height: calc(100vh + 2vw);
             overflow: hidden;
         }
 
