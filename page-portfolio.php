@@ -144,7 +144,8 @@ add_action('wp_enqueue_scripts', function() {
 
         /* Splash Section */
         .splash-section {
-            position-top: -2vw;
+            position: absolute;
+            top: -2vw;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
