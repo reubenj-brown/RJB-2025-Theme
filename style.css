@@ -53,4 +53,6 @@ Version: 1.0.0
   --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
 }
 
-/* Base styles will be added as we build each section */
+.ast-icon {
+  display: none !important;
+}
