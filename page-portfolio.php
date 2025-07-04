@@ -359,7 +359,6 @@ wp_head();
     }
     
     .content-section {
-        min-height: 100vh;
         background: white;
     }
 
