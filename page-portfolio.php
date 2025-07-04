@@ -338,7 +338,6 @@ wp_head();
 
     .social-links a {
         text-decoration: none;
-        font-weight: 400;
         transition: color 0.3s ease;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
@@ -362,9 +361,8 @@ wp_head();
         background: white;
     }
 
-    /* Footer styling - always 50% grey in splash area */
+    /* Footer styling - inherit from caption class */
     .site-footer .social-links a {
-        color: #808080;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
@@ -374,7 +372,6 @@ wp_head();
 
     /* Footer styling when not in splash area */
     .site-footer.dark-mode .social-links a {
-        color: #000;
         text-shadow: none;
     }
 
@@ -383,14 +380,11 @@ wp_head();
     }
 
     .copyright {
-        color: #808080;
-        font-size: 0.9rem;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* Copyright when not in splash area */
     .site-footer.dark-mode .copyright {
-        color: #000;
         text-shadow: none;
     }
 
@@ -484,11 +478,11 @@ wp_head();
                 <img src="https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
             </div>
             <div class="social-links">
-                <a href="#">email</a>
-                <a href="#">instagram</a>
-                <a href="#">linkedin</a>
+                <a href="#" class="caption">email</a>
+                <a href="#" class="caption">instagram</a>
+                <a href="#" class="caption">linkedin</a>
             </div>
-            <div class="copyright">© Reuben J. Brown 2025</div>
+            <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
     </footer>
 
