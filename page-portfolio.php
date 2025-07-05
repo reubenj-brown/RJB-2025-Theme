@@ -245,9 +245,12 @@ wp_head();
 
     /* Footer Styles */
     .site-footer {
+        position: sticky;
+        bottom: 0;
         background: white;
         padding: 2vw;
         margin-top: 2rem;
+        z-index: 100;
     }
 
     .footer-content {
