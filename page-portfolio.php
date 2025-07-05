@@ -425,7 +425,15 @@ wp_head();
         <?php echo do_shortcode('[reuben_about]'); ?>
         
         <h1 class="section-heading">Stories</h1>
-        <?php echo do_shortcode('[reuben_stories]'); ?>
+        <section class="content-section stories-section" id="stories">
+            <div class="section-container">
+                <div class="stories-content">
+                    <?php echo do_shortcode('[featured_story_text]'); ?>
+                    <?php echo do_shortcode('[story_grid]'); ?>
+                    <?php echo do_shortcode('[story_list]'); ?>
+                </div>
+            </div>
+        </section>
         
         <h1 class="section-heading">Strategy</h1>
         <?php echo do_shortcode('[reuben_strategy]'); ?>
