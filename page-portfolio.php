@@ -268,7 +268,7 @@ wp_head();
         text-decoration: none;
         transition: color 0.3s ease;
         color: #808080;
-        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        text-shadow: 0 4px 12px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.7);
     }
 
     .social-links a:hover {
@@ -276,11 +276,11 @@ wp_head();
     }
 
     .social-links p {
-        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        text-shadow: 0 4px 12px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.7);
     }
 
     .copyright {
-        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        text-shadow: 0 4px 12px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.7);
     }
 
     /* Main Content Wrapper */
@@ -319,7 +319,7 @@ wp_head();
         width: 100%;
         height: 100%;
         object-fit: contain;
-        filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.8));
+        filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.7));
     }
 
     /* Mobile Responsive */
