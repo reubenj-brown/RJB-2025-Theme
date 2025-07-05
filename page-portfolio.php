@@ -290,7 +290,7 @@ wp_head();
         max-width: 100vw;
         background: white;
         margin-top: 0;
-        padding-top: 12rem;
+        padding-top: calc(min(3.6vw, 64px) + min(3vw, 54px) + 8vw);
         position: relative;
         z-index: 10;
     }
@@ -357,7 +357,7 @@ wp_head();
         }
 
         .main-content {
-            padding-top: 10rem;
+            padding-top: calc(2.4rem + 2rem + 4rem);
         }
 
         .footer-content {
