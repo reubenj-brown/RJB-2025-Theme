@@ -505,6 +505,28 @@ wp_head();
 
         window.addEventListener('scroll', updateActiveNav);
         updateActiveNav(); // Run on page load
+
+        // Header transparency for full-bleed sections
+        function updateHeaderForFullBleed() {
+            const header = document.querySelector('.site-header');
+            const fullBleedSection = document.querySelector('.featured-story-full-bleed');
+            
+            if (!header || !fullBleedSection) return;
+            
+            const headerHeight = header.offsetHeight;
+            const fullBleedRect = fullBleedSection.getBoundingClientRect();
+            
+            // Check if header overlaps with full-bleed section
+            if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
+                header.classList.add('over-full-bleed');
+            } else {
+                header.classList.remove('over-full-bleed');
+            }
+        }
+
+        window.addEventListener('scroll', updateHeaderForFullBleed);
+        window.addEventListener('resize', updateHeaderForFullBleed);
+        updateHeaderForFullBleed(); // Run on page load
     </script>
 
     <?php wp_footer(); ?>
