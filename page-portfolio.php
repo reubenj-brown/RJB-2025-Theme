@@ -184,6 +184,9 @@ wp_head();
         .carousel-image:nth-child(3) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft9.webp')); ?>'); }
         .carousel-image:nth-child(4) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft13.webp')); ?>'); }
         .carousel-image:nth-child(5) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft22.webp')); ?>'); }
+        .carousel-image:nth-child(6) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/07/Material-Cultures_Studio-Gil_Wolves-Lane_Image-Luke-ODonovan_In-Use_Small_23.jpg')); ?>'); }
+        .carousel-image:nth-child(7) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/07/NWLND-Rogiers-Vandeputte-Ostend-School-PPW-Atelier-Architecture-Architectural-Review-Reuben-J-Brown.jpg')); ?>'); }
+        .carousel-image:nth-child(8) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/07/Storror-Big-Wall-Open-Brighton-2023-Reuben-J-Brown-parkour.avif')); ?>'); }
   
     /* Header Styles */
     .site-header {
@@ -497,6 +500,9 @@ wp_head();
     <section class="splash-section" id="splash">
         <div class="carousel-container">
             <div class="carousel-image active"></div>
+            <div class="carousel-image"></div>
+            <div class="carousel-image"></div>
+            <div class="carousel-image"></div>
             <div class="carousel-image"></div>
             <div class="carousel-image"></div>
             <div class="carousel-image"></div>
