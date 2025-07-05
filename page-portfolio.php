@@ -322,7 +322,7 @@ wp_head();
         font-weight: 600;
         color: #808080;
         text-align: center;
-        margin: 4rem 0 2rem 0;
+        margin: 4rem 0;
     }
 
     .footer-logo {
