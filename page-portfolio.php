@@ -144,7 +144,7 @@ wp_head();
         left: 0;
         right: 0;
         z-index: 1000;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
@@ -157,7 +157,7 @@ wp_head();
         gap: 1vw;
         align-items: center;
         max-width: 100%;
-        padding: 0 0 1vw 0;
+        padding: 0;
     }
 
     .site-title {
@@ -172,7 +172,6 @@ wp_head();
     }
 
     .site-title .subtitle {
-        font-size: 20px;
         font-weight: 400;
         color: #808080;
         transition: opacity 0.3s ease;
