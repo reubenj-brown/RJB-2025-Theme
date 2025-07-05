@@ -261,12 +261,19 @@ wp_head();
 
     .social-links {
         display: flex;
-        gap: 1.5rem;
+        gap: 0;
+        align-items: center;
     }
 
     .social-links a {
         text-decoration: none;
         transition: color 0.3s ease;
+    }
+
+    .social-links a:not(:last-child)::after {
+        content: " / ";
+        color: inherit;
+        margin: 0 0.5rem;
     }
 
     .social-links a:hover {
@@ -333,9 +340,11 @@ wp_head();
         }
 
         .social-links {
-            gap: 1rem;
-            position: static;
-            transform: none;
+            gap: 0;
+        }
+
+        .social-links a:not(:last-child)::after {
+            margin: 0 0.25rem;
         }
 
         .footer-logo {
