@@ -459,7 +459,6 @@ wp_head();
             <div class="section-container">
                 <div class="stories-content">
                     <?php echo do_shortcode('[featured_story_full_bleed]'); ?>
-                    <?php echo do_shortcode('[featured_story_text]'); ?>
                     <?php echo do_shortcode('[story_grid]'); ?>
                     <?php echo do_shortcode('[story_list]'); ?>
                 </div>
