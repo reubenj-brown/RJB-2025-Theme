@@ -129,13 +129,6 @@ wp_head();
         margin-top: 0 !important;
     }
 
-    /* Fix WordPress body classes interference */
-    body.page-template-page-portfolio .splash-section {
-        position: relative !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        overflow: hidden !important;
-    }
 
     body {
         font-family: var(--primary-font) !important;
@@ -143,50 +136,6 @@ wp_head();
         overflow-x: hidden;
     }
 
-    /* Splash Section */
-    .splash-section {
-        position: absolute;
-        top: -2vw;
-        width: 100vw;
-        height: calc(100vh + 2vw);
-        overflow: hidden;
-    }
-
-    /* Image Carousel Background */
-    .carousel-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
-
-    .carousel-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0;
-        transition: opacity 2s ease-in-out;
-    }
-
-    .carousel-image.active {
-        opacity: 1;
-    }
-
-        .carousel-image:nth-child(1) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft5.webp')); ?>'); }
-        .carousel-image:nth-child(2) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft2.webp')); ?>'); }
-        .carousel-image:nth-child(3) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft9.webp')); ?>'); }
-        .carousel-image:nth-child(4) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft13.webp')); ?>'); }
-        .carousel-image:nth-child(5) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/06/Reuben-j-brown-multimedia-journalist-homepage-images-draft22.webp')); ?>'); }
-        .carousel-image:nth-child(6) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/07/Material-Cultures_Studio-Gil_Wolves-Lane_Image-Luke-ODonovan_In-Use_Small_23.jpg')); ?>'); }
-        .carousel-image:nth-child(7) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/07/NWLND-Rogiers-Vandeputte-Ostend-School-PPW-Atelier-Architecture-Architectural-Review-Reuben-J-Brown.jpg')); ?>'); }
-        .carousel-image:nth-child(8) { background-image: url('<?php echo esc_url(home_url('/wp-content/uploads/2025/07/Storror-Big-Wall-Open-Brighton-2023-Reuben-J-Brown-parkour.avif')); ?>'); }
   
     /* Header Styles */
     .site-header {
@@ -195,23 +144,11 @@ wp_head();
         left: 0;
         right: 0;
         z-index: 1000;
-        background: transparent;
-        transform: translateY(-100%);
-        transition: all 0.3s ease;
-        padding: 2vw 2vw 0 2vw;
-    }
-
-    .site-header.visible {
-        transform: translateY(0);
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    }
-
-    .site-header.splash-overlay {
-        transform: translateY(0);
-        background: transparent;
-        border-bottom: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        padding: 2vw;
     }
 
     .header-content {
@@ -251,24 +188,12 @@ wp_head();
         }
     }
 
-    /* White text for splash overlay */
-    .site-header.splash-overlay .site-title {
-        color: white;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .site-header.splash-overlay .site-title .subtitle {
-        color: #808080;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Normal dark text for scrolled header */
-    .site-header.visible .site-title {
+    .site-title {
         color: #000;
         text-shadow: none;
     }
 
-    .site-header.visible .site-title .subtitle {
+    .site-title .subtitle {
         color: #808080;
         text-shadow: none;
     }
@@ -296,42 +221,18 @@ wp_head();
         position: relative;
     }
 
-    /* White text for splash overlay */
-    .site-header.splash-overlay .main-nav a {
-        color: white;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .site-header.splash-overlay .main-nav a:hover,
-    .site-header.splash-overlay .main-nav a.active {
-        color: #39e58f;
-        font-weight: 600;
-    }
-
-    .site-header.splash-overlay .main-nav a.active::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: #39e58f;
-        border-radius: 1px;
-    }
-
-    /* Normal dark text for scrolled header */
-    .site-header.visible .main-nav a {
+    .main-nav a {
         color: #000;
         text-shadow: none;
     }
 
-    .site-header.visible .main-nav a:hover,
-    .site-header.visible .main-nav a.active {
+    .main-nav a:hover,
+    .main-nav a.active {
         color: #39e58f;
         font-weight: 600;
     }
 
-    .site-header.visible .main-nav a.active::after {
+    .main-nav a.active::after {
         content: '';
         position: absolute;
         bottom: -4px;
@@ -344,13 +245,14 @@ wp_head();
 
     /* Footer Styles */
     .site-footer {
-        position: fixed;
+        position: relative;
         bottom: 0;
         left: 0;
         right: 0;
         z-index: 1000;
         background: transparent;
-        padding: 0 2vw 1vw 2vw;
+        padding: 2vw;
+        margin-top: 4rem;
     }
 
     .footer-content {
@@ -380,7 +282,8 @@ wp_head();
         width: 100vw;
         max-width: 100vw;
         background: white;
-        margin-top: 100vh;
+        margin-top: 0;
+        padding-top: 8rem;
         position: relative;
         z-index: 10;
     }
@@ -478,7 +381,7 @@ wp_head();
 </head>
 <body>
     <!-- Header -->
-    <header class="site-header splash-overlay" id="site-header">
+    <header class="site-header" id="site-header">
         <div class="header-content">
             <a href="#" class="site-title">
                 Reuben J. Brown
@@ -487,8 +390,7 @@ wp_head();
             <nav class="main-nav">
                 <ul>
                     <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#writing" class="nav-link">Writing</a></li>
-                    <li><a href="#photography" class="nav-link">Photography</a></li>
+                    <li><a href="#stories" class="nav-link">Stories</a></li>
                     <li><a href="#strategy" class="nav-link">Strategy</a></li>
                     <li><a href="#cv" class="nav-link">CV</a></li>
                 </ul>
@@ -496,19 +398,6 @@ wp_head();
         </div>
     </header>
 
-    <!-- Splash Section -->
-    <section class="splash-section" id="splash">
-        <div class="carousel-container">
-            <div class="carousel-image active"></div>
-            <div class="carousel-image"></div>
-            <div class="carousel-image"></div>
-            <div class="carousel-image"></div>
-            <div class="carousel-image"></div>
-            <div class="carousel-image"></div>
-            <div class="carousel-image"></div>
-            <div class="carousel-image"></div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="site-footer" id="site-footer">
@@ -528,55 +417,17 @@ wp_head();
     <!-- Main Content Wrapper -->
     <main class="main-content">
         <?php echo do_shortcode('[reuben_about]'); ?>
-        <?php echo do_shortcode('[reuben_writing]'); ?>
-        <?php echo do_shortcode('[reuben_photography]'); ?>
+        <?php echo do_shortcode('[reuben_stories]'); ?>
         <?php echo do_shortcode('[reuben_strategy]'); ?>
         <?php echo do_shortcode('[reuben_cv]'); ?>
     </main>
 
     <script>
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-image');
-        const totalSlides = slides.length;
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % totalSlides;
-            slides[currentSlide].classList.add('active');
-        }
-
-        // Change slide every 4 seconds
-        setInterval(nextSlide, 4000);
-
-        // Header scroll behavior - simplified to just show/hide splash overlay
-        const header = document.getElementById('site-header');
-        const footer = document.getElementById('site-footer');
+        // Set footer logo to black since no splash area
         const footerLogo = document.getElementById('footer-logo-img');
-
-        function updateHeader() {
-            const scrollY = window.scrollY;
-            
-            if (scrollY <= 100) {
-                // In splash area - show transparent overlay with white text
-                header.classList.add('splash-overlay');
-                header.classList.remove('visible');
-                footer.classList.remove('dark-mode');
-                footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
-            } else {
-                // Past splash area - show solid header with dark text
-                header.classList.remove('splash-overlay');
-                header.classList.add('visible');
-                footer.classList.add('dark-mode');
-                footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
-            }
+        if (footerLogo) {
+            footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
         }
-
-        function requestTick() {
-            requestAnimationFrame(updateHeader);
-        }
-
-        window.addEventListener('scroll', requestTick);
 
         // Smooth scroll navigation
         document.querySelectorAll('.nav-link').forEach(link => {
