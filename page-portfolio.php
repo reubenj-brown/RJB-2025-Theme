@@ -393,7 +393,7 @@ wp_head();
                 <img src="https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
             </div>
             <div class="social-links" style="color: #808080">
-                <a href="mailto:reubenjbrown@protonmail.com" class="caption">email</a> / <a href="https://www.instagram.com/reubenj.brown/" class="caption">instagram</a> / <a href="#" class="caption">linkedin</a>
+                <p class="caption"><a href="mailto:reubenjbrown@protonmail.com">email</a> / <a href="https://www.instagram.com/reubenj.brown/">instagram</a> / <a href="https://www.linkedin.com/in/reuben-j-brown/">linkedin</a>
             </div>
             <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
