@@ -232,9 +232,11 @@ wp_head();
     }
 
     .site-title .subtitle {
+        font-size: 20px;
         font-weight: 400;
         color: #808080;
         transition: opacity 0.3s ease;
+        line-height: 1.2;
     }
 
     /* Hide subtitle on mobile when not in splash area */
@@ -283,6 +285,7 @@ wp_head();
 
     .main-nav a {
         font-family: var(--primary-font) !important;
+        font-size: 20px;
         text-decoration: none;
         font-weight: 400;
         transition: all 0.3s ease;
@@ -302,6 +305,17 @@ wp_head();
         font-weight: 600;
     }
 
+    .site-header.splash-overlay .main-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #39e58f;
+        border-radius: 1px;
+    }
+
     /* Normal dark text for scrolled header */
     .site-header.visible .main-nav a {
         color: #000;
@@ -312,6 +326,17 @@ wp_head();
     .site-header.visible .main-nav a.active {
         color: #39e58f;
         font-weight: 600;
+    }
+
+    .site-header.visible .main-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #39e58f;
+        border-radius: 1px;
     }
 
     /* Footer Styles */
@@ -411,8 +436,16 @@ wp_head();
             line-height: 2.4rem;
         }
 
+        .site-title .subtitle {
+            font-size: 18px;
+        }
+
         .main-nav ul {
             flex-wrap: wrap;
+        }
+
+        .main-nav a {
+            font-size: 18px;
         }
 
         .main-nav li:not(:last-child)::after {
