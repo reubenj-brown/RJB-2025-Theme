@@ -247,7 +247,7 @@ wp_head();
     .site-footer {
         position: sticky;
         bottom: 0;
-        background: white;
+        background: transparent;
         padding: 2vw;
         margin-top: 2rem;
         z-index: 100;
@@ -269,10 +269,19 @@ wp_head();
         text-decoration: none;
         transition: color 0.3s ease;
         color: #808080;
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
     }
 
     .social-links a:hover {
         color: #39e58f;
+    }
+
+    .social-links p {
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+    }
+
+    .copyright {
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
     }
 
     /* Main Content Wrapper */
@@ -300,6 +309,7 @@ wp_head();
         width: 100%;
         height: 100%;
         object-fit: contain;
+        filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.8));
     }
 
     /* Mobile Responsive */
