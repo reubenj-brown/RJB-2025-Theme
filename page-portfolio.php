@@ -268,19 +268,11 @@ wp_head();
     .social-links a {
         text-decoration: none;
         transition: color 0.3s ease;
-    }
-
-    .social-links a:not(:last-child)::after {
-        content: " / ";
-        color: #000;
+        color: #808080;
     }
 
     .social-links a:hover {
         color: #39e58f;
-    }
-
-    .social-links a:hover::after {
-        color: #000;
     }
 
     /* Main Content Wrapper */
