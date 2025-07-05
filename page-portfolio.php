@@ -291,7 +291,7 @@ wp_head();
         max-width: 100vw;
         background: white;
         margin-top: 0;
-        padding-top: 8rem;
+        padding-top: 12rem;
         position: relative;
         z-index: 10;
     }
@@ -355,6 +355,10 @@ wp_head();
             font-size: 2rem;
             line-height: 2.4rem;
             margin: 3rem 0 1.5rem 0;
+        }
+
+        .main-content {
+            padding-top: 10rem;
         }
 
         .footer-content {
