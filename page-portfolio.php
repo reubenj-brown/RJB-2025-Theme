@@ -272,12 +272,15 @@ wp_head();
 
     .social-links a:not(:last-child)::after {
         content: " / ";
-        color: inherit;
-        margin: 0 0.5rem;
+        color: #000;
     }
 
     .social-links a:hover {
         color: #39e58f;
+    }
+
+    .social-links a:hover::after {
+        color: #000;
     }
 
     /* Main Content Wrapper */
@@ -343,9 +346,6 @@ wp_head();
             gap: 0;
         }
 
-        .social-links a:not(:last-child)::after {
-            margin: 0 0.25rem;
-        }
 
         .footer-logo {
             width: 35px;
