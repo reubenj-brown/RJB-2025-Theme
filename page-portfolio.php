@@ -342,6 +342,36 @@ wp_head();
             drop-shadow(0 0 108px rgba(255, 255, 255, 0.3));
     }
 
+    /* Header overlay styles for full-bleed section */
+    .site-header.over-full-bleed {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        border-bottom: none !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .site-title {
+        color: white !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .site-title .subtitle {
+        color: rgba(255, 255, 255, 0.8) !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .site-header.over-full-bleed .main-nav a {
+        color: white !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .main-nav a:hover,
+    .site-header.over-full-bleed .main-nav a.active {
+        color: #39e58f !important;
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .header-content {
@@ -511,15 +541,26 @@ wp_head();
             const header = document.querySelector('.site-header');
             const fullBleedSection = document.querySelector('.featured-story-full-bleed');
             
-            if (!header || !fullBleedSection) return;
+            console.log('Header:', header);
+            console.log('Full bleed section:', fullBleedSection);
+            
+            if (!header || !fullBleedSection) {
+                console.log('Missing elements for header transparency');
+                return;
+            }
             
             const headerHeight = header.offsetHeight;
             const fullBleedRect = fullBleedSection.getBoundingClientRect();
             
+            console.log('Header height:', headerHeight);
+            console.log('Full bleed rect:', fullBleedRect);
+            
             // Check if header overlaps with full-bleed section
             if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
+                console.log('Adding over-full-bleed class');
                 header.classList.add('over-full-bleed');
             } else {
+                console.log('Removing over-full-bleed class');
                 header.classList.remove('over-full-bleed');
             }
         }
