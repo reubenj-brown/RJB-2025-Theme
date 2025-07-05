@@ -53,6 +53,10 @@ Version: 1.0.0
   --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
 }
 
-.ast-icon {
-  display: none !important;
+a {
+  color: #808080;
+}
+
+a:hover {
+  color:  var(--highlight-color);
 }
