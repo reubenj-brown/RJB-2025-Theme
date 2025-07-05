@@ -300,6 +300,17 @@ wp_head();
         background: white;
     }
 
+    /* Section Headings */
+    .section-heading {
+        font-family: var(--primary-font) !important;
+        font-size: min(3vw, 54px);
+        line-height: min(3.6vw, 64px);
+        font-weight: 600;
+        color: #808080;
+        text-align: center;
+        margin: 4rem 0 2rem 0;
+    }
+
     .footer-logo {
         width: 40px;
         height: 40px;
@@ -338,6 +349,12 @@ wp_head();
 
         .main-nav li:not(:last-child)::after {
             margin: 0 0.5rem;
+        }
+
+        .section-heading {
+            font-size: 2rem;
+            line-height: 2.4rem;
+            margin: 3rem 0 1.5rem 0;
         }
 
         .footer-content {
@@ -383,8 +400,14 @@ wp_head();
     <!-- Main Content Wrapper -->
     <main class="main-content">
         <?php echo do_shortcode('[reuben_about]'); ?>
+        
+        <h1 class="section-heading">Stories</h1>
         <?php echo do_shortcode('[reuben_stories]'); ?>
+        
+        <h1 class="section-heading">Strategy</h1>
         <?php echo do_shortcode('[reuben_strategy]'); ?>
+        
+        <h1 class="section-heading">CV</h1>
         <?php echo do_shortcode('[reuben_cv]'); ?>
     </main>
 
