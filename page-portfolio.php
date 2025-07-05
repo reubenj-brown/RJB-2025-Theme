@@ -245,14 +245,9 @@ wp_head();
 
     /* Footer Styles */
     .site-footer {
-        position: relative;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: transparent;
+        background: white;
         padding: 2vw;
-        margin-top: 4rem;
+        margin-top: 2rem;
     }
 
     .footer-content {
@@ -269,7 +264,6 @@ wp_head();
     .social-links a {
         text-decoration: none;
         transition: color 0.3s ease;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .social-links a:hover {
@@ -290,33 +284,6 @@ wp_head();
     
     .content-section {
         background: white;
-    }
-
-    /* Footer styling - inherit from caption class */
-    .site-footer .social-links a {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .site-footer .social-links a:hover {
-        color: #39e58f;
-    }
-
-    /* Footer styling when not in splash area */
-    .site-footer.dark-mode .social-links a {
-        text-shadow: none;
-    }
-
-    .site-footer.dark-mode .social-links a:hover {
-        color: #39e58f;
-    }
-
-    .copyright {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Copyright when not in splash area */
-    .site-footer.dark-mode .copyright {
-        text-shadow: none;
     }
 
     .footer-logo {
@@ -399,6 +366,14 @@ wp_head();
     </header>
 
 
+    <!-- Main Content Wrapper -->
+    <main class="main-content">
+        <?php echo do_shortcode('[reuben_about]'); ?>
+        <?php echo do_shortcode('[reuben_stories]'); ?>
+        <?php echo do_shortcode('[reuben_strategy]'); ?>
+        <?php echo do_shortcode('[reuben_cv]'); ?>
+    </main>
+
     <!-- Footer -->
     <footer class="site-footer" id="site-footer">
         <div class="footer-content">
@@ -413,14 +388,6 @@ wp_head();
             <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
     </footer>
-
-    <!-- Main Content Wrapper -->
-    <main class="main-content">
-        <?php echo do_shortcode('[reuben_about]'); ?>
-        <?php echo do_shortcode('[reuben_stories]'); ?>
-        <?php echo do_shortcode('[reuben_strategy]'); ?>
-        <?php echo do_shortcode('[reuben_cv]'); ?>
-    </main>
 
     <script>
         // Set footer logo to black since no splash area
