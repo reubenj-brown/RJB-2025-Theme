@@ -227,16 +227,6 @@ wp_head();
         font-weight: 600;
     }
 
-    .main-nav a.active::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: #39e58f;
-        border-radius: 1px;
-    }
 
 
     /* Footer Styles */
