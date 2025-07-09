@@ -156,6 +156,9 @@ wp_head();
         position: relative;
         width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .site-title-left {
@@ -176,12 +179,63 @@ wp_head();
         font-family: var(--primary-font) !important;
         font-size: min(3vw, 54px);
         line-height: min(3.6vw, 64px);
-        font-weight: 400;
+        font-weight: 600;
         color: #808080;
         text-shadow: none;
         position: absolute;
         right: 2vw;
         top: 2vw;
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .main-nav ul {
+        display: flex;
+        list-style: none;
+        gap: 0;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-nav li:not(:last-child)::after {
+        content: " / ";
+        color: inherit;
+        margin: 0 0.8rem;
+    }
+
+    .main-nav a {
+        font-family: var(--primary-font) !important;
+        font-size: 20px;
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+        padding: 0.5rem 0;
+        position: relative;
+        color: #000;
+        text-shadow: none;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+        color: #39e58f;
+        font-weight: 600;
+    }
+
+    .main-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #39e58f;
+        border-radius: 1px;
     }
 
 
@@ -305,6 +359,17 @@ wp_head();
         transition: all 0.3s ease !important;
     }
 
+    .site-header.over-full-bleed .main-nav a {
+        color: white !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .main-nav a:hover,
+    .site-header.over-full-bleed .main-nav a.active {
+        color: #39e58f !important;
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .site-title-left {
@@ -313,8 +378,23 @@ wp_head();
         }
 
         .site-title-right {
+            display: none;
+        }
+
+        .main-nav {
+            position: absolute;
+            top: 50%;
+            right: 2vw;
+            left: auto;
+            transform: translateY(-50%);
+        }
+
+        .main-nav a {
             font-size: 18px;
-            line-height: 2.4rem;
+        }
+
+        .main-nav li:not(:last-child)::after {
+            margin: 0 0.5rem;
         }
 
         .section-heading {
@@ -354,6 +434,14 @@ wp_head();
             <a href="#" class="site-title-left">
                 Reuben J. Brown
             </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#stories" class="nav-link">Stories</a></li>
+                    <li><a href="#strategy" class="nav-link">Strategy</a></li>
+                    <li><a href="#cv" class="nav-link">CV</a></li>
+                </ul>
+            </nav>
             <div class="site-title-right">
                 Multimedia Journalist
             </div>
