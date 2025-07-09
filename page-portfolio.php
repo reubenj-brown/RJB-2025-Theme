@@ -12,13 +12,7 @@ add_action('wp_enqueue_scripts', function() {
     wp_dequeue_style('astra-theme-css');
     wp_deregister_style('astra-theme-css');
     
-    // Manually enqueue our plugin CSS here to ensure it loads
-    wp_enqueue_style(
-        'reuben-portfolio-sections',
-        plugin_dir_url(__FILE__) . '../plugins/reuben-portfolio-sections/assets/portfolio-sections.css',
-        [],
-        '1.0.1'
-    );
+    // Remove the manual CSS enqueue - the plugin handles this
 }, 100);
 
 ?>

@@ -28,14 +28,7 @@ function astra_child_enqueue_styles() {
         wp_get_theme()->get('Version')
     );
     
-    // Enqueue custom JavaScript (we'll add this as we build)
-    wp_enqueue_script(
-        'portfolio-custom-js',
-        get_stylesheet_directory_uri() . '/portfolio.js',
-        array('jquery'),
-        wp_get_theme()->get('Version'),
-        true
-    );
+    // Custom JavaScript will be added as needed
 }
 add_action( 'wp_enqueue_scripts', 'astra_child_enqueue_styles' );
 
