@@ -439,7 +439,7 @@ wp_head();
     <footer class="site-footer" id="site-footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
+                <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
             </div>
             <div class="social-links" style="color: #808080">
                 <p class="caption"><a href="mailto:reubenjbrown@protonmail.com">email</a> / <a href="https://www.instagram.com/reubenj.brown/">instagram</a> / <a href="https://www.linkedin.com/in/reuben-j-brown/">linkedin</a>
@@ -452,7 +452,7 @@ wp_head();
         // Set footer logo to black since no splash area
         const footerLogo = document.getElementById('footer-logo-img');
         if (footerLogo) {
-            footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+            footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
         }
 
         // Smooth scroll navigation
@@ -527,11 +527,12 @@ wp_head();
             // Footer overlaps with hero section if hero section bottom is below footer top
             if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
                 // Footer is overlapping hero section - use white logo/text
-                if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
+                if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
                 if (copyright) copyright.style.color = 'white';
+                if (socialLinks) socialLinks.style.visibility = 'none';
             } else {
                 // Footer is not overlapping hero section - use black logo/gray text
-                if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+                if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
                 if (copyright) copyright.style.color = '#808080';
             }
         }
