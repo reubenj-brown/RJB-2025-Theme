@@ -537,38 +537,37 @@ wp_head();
         window.addEventListener('scroll', updateActiveNav);
         updateActiveNav(); // Run on page load
 
-        // Header transparency for full-bleed sections
-        function updateHeaderForFullBleed() {
+        // Header transparency and footer visibility for full-bleed sections
+        function updateHeaderAndFooterForFullBleed() {
             const header = document.querySelector('.site-header');
+            const footer = document.querySelector('.site-footer');
             const fullBleedSection = document.querySelector('.featured-story-full-bleed');
             
-            console.log('Header:', header);
-            console.log('Full bleed section:', fullBleedSection);
-            
-            if (!header || !fullBleedSection) {
-                console.log('Missing elements for header transparency');
+            if (!header || !footer || !fullBleedSection) {
                 return;
             }
             
             const headerHeight = header.offsetHeight;
             const fullBleedRect = fullBleedSection.getBoundingClientRect();
             
-            console.log('Header height:', headerHeight);
-            console.log('Full bleed rect:', fullBleedRect);
-            
             // Check if header overlaps with full-bleed section
             if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
-                console.log('Adding over-full-bleed class');
                 header.classList.add('over-full-bleed');
             } else {
-                console.log('Removing over-full-bleed class');
                 header.classList.remove('over-full-bleed');
+            }
+            
+            // Hide footer when full-bleed section is visible in viewport
+            if (fullBleedRect.bottom > 0 && fullBleedRect.top < window.innerHeight) {
+                footer.style.display = 'none';
+            } else {
+                footer.style.display = 'block';
             }
         }
 
-        window.addEventListener('scroll', updateHeaderForFullBleed);
-        window.addEventListener('resize', updateHeaderForFullBleed);
-        updateHeaderForFullBleed(); // Run on page load
+        window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
+        window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
+        updateHeaderAndFooterForFullBleed(); // Run on page load
     </script>
 
     <?php wp_footer(); ?>
