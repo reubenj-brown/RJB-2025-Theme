@@ -365,6 +365,8 @@ wp_head();
         .site-title-left {
             font-size: 2rem;
             line-height: 2.4rem;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .site-title-right {
