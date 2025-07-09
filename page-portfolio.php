@@ -514,6 +514,7 @@ wp_head();
             
             const headerHeight = header.offsetHeight;
             const fullBleedRect = fullBleedSection.getBoundingClientRect();
+            const footerRect = footer.getBoundingClientRect();
             
             // Check if header overlaps with full-bleed section
             if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
@@ -522,21 +523,18 @@ wp_head();
                 header.classList.remove('over-full-bleed');
             }
             
-            // Show footer with modified content when full-bleed section is visible
+            // Check if footer overlaps with full-bleed section
             const socialLinks = footer.querySelector('.social-links');
             const footerLogo = footer.querySelector('.footer-logo img');
             const copyright = footer.querySelector('.copyright');
             
-            if (fullBleedRect.bottom > 0 && fullBleedRect.top < window.innerHeight) {
-                // Show footer but hide social links and use white logo/text
-                footer.style.display = 'block';
-                if (socialLinks) socialLinks.style.display = 'none';
+            // Footer overlaps with hero section if hero section bottom is below footer top
+            if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
+                // Footer is overlapping hero section - use white logo/text
                 if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
                 if (copyright) copyright.style.color = 'white';
             } else {
-                // Show full footer with social links and black logo/gray text
-                footer.style.display = 'block';
-                if (socialLinks) socialLinks.style.display = 'flex';
+                // Footer is not overlapping hero section - use black logo/gray text
                 if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
                 if (copyright) copyright.style.color = '#808080';
             }
