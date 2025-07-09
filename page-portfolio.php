@@ -179,7 +179,7 @@ wp_head();
         font-family: var(--primary-font) !important;
         font-size: min(3vw, 54px);
         line-height: min(3.6vw, 64px);
-        font-weight: 600;
+        font-weight: 400;
         color: #808080;
         text-shadow: none;
         position: absolute;
@@ -390,7 +390,7 @@ wp_head();
         }
 
         .main-nav a {
-            font-size: 18px;
+            font-size: 20px;
         }
 
         .main-nav li:not(:last-child)::after {
