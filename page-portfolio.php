@@ -262,7 +262,7 @@ wp_head();
     }
 
     .copyright {
-        color: white;
+        color: #808080;
     }
 
     /* Main Content Wrapper */
@@ -525,17 +525,20 @@ wp_head();
             // Show footer with modified content when full-bleed section is visible
             const socialLinks = footer.querySelector('.social-links');
             const footerLogo = footer.querySelector('.footer-logo img');
+            const copyright = footer.querySelector('.copyright');
             
             if (fullBleedRect.bottom > 0 && fullBleedRect.top < window.innerHeight) {
-                // Show footer but hide social links and use white logo
+                // Show footer but hide social links and use white logo/text
                 footer.style.display = 'block';
                 if (socialLinks) socialLinks.style.display = 'none';
                 if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
+                if (copyright) copyright.style.color = 'white';
             } else {
-                // Show full footer with social links and black logo
+                // Show full footer with social links and black logo/gray text
                 footer.style.display = 'block';
                 if (socialLinks) socialLinks.style.display = 'flex';
                 if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+                if (copyright) copyright.style.color = '#808080';
             }
         }
 
