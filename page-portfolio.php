@@ -148,99 +148,42 @@ wp_head();
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
-        padding: 2vw;
+        padding: 0;
+        height: calc(min(3.6vw, 64px) + 4vw);
     }
 
     .header-content {
-        display: flex;
-        justify-content: space-between;
-        gap: 1vw;
-        align-items: center;
-        max-width: 100%;
-        padding: 0;
+        position: relative;
+        width: 100%;
+        height: 100%;
     }
 
-    .site-title {
+    .site-title-left {
         font-family: var(--primary-font) !important;
         font-size: min(3vw, 54px);
         line-height: min(3.6vw, 64px);
         font-weight: 600;
         text-decoration: none;
         transition: color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .site-title .subtitle {
-        font-weight: 400;
-        color: #808080;
-        transition: opacity 0.3s ease;
-        line-height: 1.2;
-    }
-
-    /* Hide subtitle on mobile when not in splash area */
-    @media (max-width: 768px) {
-        .site-header.visible .site-title .subtitle {
-            opacity: 0;
-            height: 0;
-            overflow: hidden;
-        }
-    }
-
-    .site-title {
         color: #000;
         text-shadow: none;
-    }
-
-    .site-title .subtitle {
-        color: #808080;
-        text-shadow: none;
-    }
-
-    .main-nav ul {
-        display: flex;
-        list-style: none;
-        gap: 0;
-        align-items: center;
-    }
-
-    .main-nav li:not(:last-child)::after {
-        content: " / ";
-        color: inherit;
-        margin: 0 0.8rem;
-    }
-
-    .main-nav a {
-        font-family: var(--primary-font) !important;
-        font-size: 20px;
-        text-decoration: none;
-        font-weight: 400;
-        transition: all 0.3s ease;
-        padding: 0.5rem 0;
-        position: relative;
-    }
-
-    .main-nav a {
-        color: #000;
-        text-shadow: none;
-    }
-
-    .main-nav a:hover,
-    .main-nav a.active {
-        color: #39e58f;
-        font-weight: 600;
-    }
-
-    .main-nav a.active::after {
-        content: '';
         position: absolute;
-        bottom: -4px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: #39e58f;
-        border-radius: 1px;
+        left: 2vw;
+        top: 2vw;
     }
+
+    .site-title-right {
+        font-family: var(--primary-font) !important;
+        font-size: min(3vw, 54px);
+        line-height: min(3.6vw, 64px);
+        font-weight: 400;
+        color: #808080;
+        text-shadow: none;
+        position: absolute;
+        right: 2vw;
+        top: 2vw;
+    }
+
 
     /* Footer Styles */
     .site-footer {
@@ -305,7 +248,7 @@ wp_head();
         max-width: 100vw;
         background: white;
         margin-top: 0;
-        padding-top: calc(min(3.6vw, 64px) + min(3vw, 54px) + 8vw);
+        padding-top: calc(min(3.6vw, 64px) + 4vw);
         position: relative;
         z-index: 10;
     }
@@ -350,54 +293,28 @@ wp_head();
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .site-title {
+    .site-header.over-full-bleed .site-title-left {
         color: white !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .site-title .subtitle {
+    .site-header.over-full-bleed .site-title-right {
         color: rgba(255, 255, 255, 0.8) !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
-    }
-
-    .site-header.over-full-bleed .main-nav a {
-        color: white !important;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
-    }
-
-    .site-header.over-full-bleed .main-nav a:hover,
-    .site-header.over-full-bleed .main-nav a.active {
-        color: #39e58f !important;
     }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
-        .header-content {
-            gap: 0.8rem;
-            padding: 1rem 0;
-        }
-
-        .site-title {
+        .site-title-left {
             font-size: 2rem;
             line-height: 2.4rem;
         }
 
-        .site-title .subtitle {
+        .site-title-right {
             font-size: 18px;
-        }
-
-        .main-nav ul {
-            flex-wrap: wrap;
-        }
-
-        .main-nav a {
-            font-size: 18px;
-        }
-
-        .main-nav li:not(:last-child)::after {
-            margin: 0 0.5rem;
+            line-height: 2.4rem;
         }
 
         .section-heading {
@@ -407,7 +324,7 @@ wp_head();
         }
 
         .main-content {
-            padding-top: calc(2.4rem + 2rem + 4rem);
+            padding-top: calc(2.4rem + 4rem);
         }
 
         .footer-content {
@@ -434,18 +351,12 @@ wp_head();
     <!-- Header -->
     <header class="site-header" id="site-header">
         <div class="header-content">
-            <a href="#" class="site-title">
+            <a href="#" class="site-title-left">
                 Reuben J. Brown
-                <span class="subtitle">Multimedia Journalist</span>
             </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#stories" class="nav-link">Stories</a></li>
-                    <li><a href="#strategy" class="nav-link">Strategy</a></li>
-                    <li><a href="#cv" class="nav-link">CV</a></li>
-                </ul>
-            </nav>
+            <div class="site-title-right">
+                Multimedia Journalist
+            </div>
         </div>
     </header>
 
