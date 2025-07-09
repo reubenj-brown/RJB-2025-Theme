@@ -146,7 +146,7 @@ wp_head();
         z-index: 1000;
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
         transition: all 0.3s ease;
         padding: 0;
         height: calc(min(3.6vw, 64px) + 4vw);
@@ -289,7 +289,7 @@ wp_head();
     .site-header.over-full-bleed {
         background: transparent !important;
         backdrop-filter: none !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 1) !important;
         transition: all 0.3s ease !important;
     }
 
