@@ -249,7 +249,7 @@ wp_head();
         text-decoration: none;
         transition: color 0.3s ease;
         color: #808080;
-        font-size: 20px;
+        font-size: 14px;
     }
 
     .social-links a:hover {
@@ -258,7 +258,7 @@ wp_head();
 
     .copyright {
         color: #808080;
-        font-size: 20px;
+        font-size: 14px;
     }
 
     /* Main Content Wrapper */
