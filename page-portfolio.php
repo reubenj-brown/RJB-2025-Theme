@@ -336,6 +336,11 @@ wp_head();
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
+
+        .site-header {
+            height: calc(2rem) + 2vw);
+        }
+
         .site-title-name {
             font-size: 2rem;
             line-height: 2.4rem;
