@@ -305,7 +305,7 @@ wp_head();
     .site-header.over-full-bleed {
         background: transparent !important;
         backdrop-filter: none !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 1) !important;
+        border-bottom: none !important;
         transition: all 0.3s ease !important;
     }
 
