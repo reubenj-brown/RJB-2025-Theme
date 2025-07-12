@@ -165,20 +165,21 @@ wp_head();
         color: #000;
         text-shadow: none;
         position: absolute;
-        left: 2vw;
+        left: 50%;
         top: 2vw;
+        transform: translateX(-50%);
     }
 
     .site-title-role {
         font-family: var(--primary-font) !important;
-        font-size: min(3vw, 40px);
-        line-height: min(3.6vw, 48px);
+        font-size: 20px;
+        line-height: 20px;
         font-weight: 400;
         color: #808080;
         text-shadow: none;
         position: absolute;
         left: 2vw;
-        top: 4vw;
+        top: 2vw;
     }
 
     .main-nav {
