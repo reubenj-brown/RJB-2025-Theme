@@ -166,7 +166,6 @@ wp_head();
         position: absolute;
         left: 2vw;
         top: 1vw;
-        transform: translateX(-50%);
     }
 
     .site-title-role {
