@@ -430,6 +430,7 @@ wp_head();
                 <div class="stories-content">
                     <?php echo do_shortcode('[story_grid]'); ?>
                     <?php echo do_shortcode('[story_list]'); ?>
+                    <?php echo do_shortcode('[story_grid_2x2]'); ?>
                 </div>
             </div>
         </section>
