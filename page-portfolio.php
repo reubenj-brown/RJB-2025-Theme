@@ -155,8 +155,8 @@ wp_head();
         align-items: center;
     }
 
-    .site-title-left {
-        font-family: var(--primary-font) !important;
+    .site-title-name {
+        font-family: var(--serif-font) !important;
         font-size: min(3vw, 40px);
         line-height: min(3.6vw, 48px);
         font-weight: 600;
@@ -169,7 +169,7 @@ wp_head();
         top: 2vw;
     }
 
-    .site-title-right {
+    .site-title-role {
         font-family: var(--primary-font) !important;
         font-size: min(3vw, 40px);
         line-height: min(3.6vw, 48px);
@@ -177,15 +177,14 @@ wp_head();
         color: #808080;
         text-shadow: none;
         position: absolute;
-        right: 2vw;
-        top: 2vw;
+        left: 2vw;
+        top: 4vw;
     }
 
     .main-nav {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        right: 2vw%;
+        top: 2vw%;
     }
 
     .main-nav ul {
@@ -393,7 +392,7 @@ wp_head();
     <!-- Header -->
     <header class="site-header" id="site-header">
         <div class="header-content">
-            <a href="#" class="site-title-left">
+            <a href="#" class="site-title-name">
                 Reuben J. Brown
             </a>
             <nav class="main-nav">
@@ -404,7 +403,7 @@ wp_head();
                     <li><a href="#cv" class="nav-link">CV</a></li>
                 </ul>
             </nav>
-            <div class="site-title-right">
+            <div class="site-title-role">
                 Multimedia Journalist
             </div>
         </div>
