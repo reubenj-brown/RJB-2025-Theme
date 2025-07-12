@@ -229,9 +229,9 @@ wp_head();
     /* Footer Styles */
     .site-footer {
         position: sticky;
-        bottom: 1vw;
+        bottom: 0;
         background: transparent;
-        padding: 2vw;
+        padding: 2vw 2vw 1vw 2vw;
         margin-top: 2rem;
         z-index: 100;
     }
