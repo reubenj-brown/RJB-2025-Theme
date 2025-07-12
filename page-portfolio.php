@@ -340,6 +340,7 @@ wp_head();
             font-size: 2rem;
             line-height: 2.4rem;
             top: 50%;
+            left: 2vw;
             transform: translateY(-50%);
         }
 
