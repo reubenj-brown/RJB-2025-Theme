@@ -159,7 +159,7 @@ wp_head();
         font-family: var(--serif-font) !important;
         font-size: min(3vw, 40px);
         line-height: min(3.6vw, 48px);
-        font-weight: 600;
+        font-weight: 400;
         text-decoration: none;
         transition: color 0.3s ease;
         color: #000;
@@ -306,13 +306,13 @@ wp_head();
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .site-title-left {
+    .site-header.over-full-bleed .site-title-name {
         color: white !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .site-title-right {
+    .site-header.over-full-bleed .site-title-role {
         color: rgba(255, 255, 255, 0.8) !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
@@ -331,14 +331,14 @@ wp_head();
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
-        .site-title-left {
+        .site-title-name {
             font-size: 2rem;
             line-height: 2.4rem;
             top: 50%;
             transform: translateY(-50%);
         }
 
-        .site-title-right {
+        .site-title-role {
             display: none;
         }
 
