@@ -229,7 +229,7 @@ wp_head();
         position: sticky;
         bottom: 0;
         background: transparent;
-        padding: 2vw 2vw 1vw 2vw;
+        padding: 1vw 2vw;
         margin-top: 2rem;
         z-index: 100;
     }
@@ -376,7 +376,7 @@ wp_head();
             padding: 0 4vw;
         }
 
-        .footer-content {
+        site-footer {
             padding: 0 4vw;
         }
 
