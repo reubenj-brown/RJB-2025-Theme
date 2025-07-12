@@ -405,8 +405,8 @@ wp_head();
 
 
         .footer-logo {
-            width: 35px;
-            height: 35px;
+            width: 28px;
+            height: 28px;
         }
 
         .copyright {
