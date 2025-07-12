@@ -183,8 +183,8 @@ wp_head();
 
     .main-nav {
         position: absolute;
-        right: 2vw%;
-        top: 2vw%;
+        right: 2vw;
+        top: 2vw;
     }
 
     .main-nav ul {
