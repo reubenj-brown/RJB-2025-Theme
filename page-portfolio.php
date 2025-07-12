@@ -371,7 +371,7 @@ wp_head();
         }
 
         .main-content {
-            padding-top: calc(2.4rem + 4rem);
+            padding: 0 4vw;
         }
 
         .footer-content {
