@@ -270,7 +270,6 @@ wp_head();
         max-width: 100vw;
         background: white;
         margin-top: 0;
-        padding-top: calc(min(3vw, 40px) + 2vw);
         position: relative;
         z-index: 10;
     }
