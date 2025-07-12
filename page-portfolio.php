@@ -329,6 +329,10 @@ wp_head();
         color: #39e58f !important;
     }
 
+    .social-links.over-full-bleed {
+        display: none !important;
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .site-title-name {
