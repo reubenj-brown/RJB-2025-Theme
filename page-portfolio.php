@@ -337,6 +337,13 @@ wp_head();
         color: #39e58f !important;
     }
 
+    /* Footer overlay styles for full-bleed section */
+    .site-footer.over-full-bleed {
+        backdrop-filter: none !important;
+        -webkit-mask: none !important;
+        mask: none !important;
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
 
@@ -568,12 +575,14 @@ wp_head();
             
             // Footer overlaps with hero section if hero section bottom is below footer top
             if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
-                // Footer is overlapping hero section - use white logo/text
+                // Footer is overlapping hero section - use white logo/text and disable blur
+                footer.classList.add('over-full-bleed');
                 if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
                 if (copyright) copyright.style.color = 'white';
                 if (socialLinks) socialLinks.style.display = 'none';
             } else {
-                // Footer is not overlapping hero section - use black logo/gray text
+                // Footer is not overlapping hero section - use black logo/gray text and enable blur
+                footer.classList.remove('over-full-bleed');
                 if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
                 if (copyright) copyright.style.color = '#808080';
                 if (socialLinks) socialLinks.style.display = 'block';
