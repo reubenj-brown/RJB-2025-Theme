@@ -142,7 +142,7 @@ wp_head();
         border-bottom: 1px solid rgba(0, 0, 0, 1);
         transition: all 0.5s ease;
         padding: 0;
-        height: calc(49.2px + 2vw);
+        height: calc(60px + 2vw);
     }
 
     .header-content {
@@ -178,14 +178,14 @@ wp_head();
         transition: all 0.5s ease;
         position: absolute;
         left: 2vw;
-        top: calc((1vw + 60px) / 2);
+        top: calc((2vw + 60px) / 2);
         transform: translateY(-50%);
     }
 
     .main-nav {
         position: absolute;
         right: 2vw;
-        top: calc((1vw + 60px) / 2);
+        top: calc((2vw + 60px) / 2);
         transform: translateY(-50%);
     }
 
