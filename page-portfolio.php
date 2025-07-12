@@ -341,7 +341,7 @@ wp_head();
             font-size: 2.46rem;
             line-height: 2.46rem;
             top: 50%;
-            left: 2vw;
+            left: 4vw;
             transform: translateY(-50%);
         }
 
@@ -352,7 +352,7 @@ wp_head();
         .main-nav {
             position: absolute;
             top: 50%;
-            right: 2vw;
+            right: 4vw;
             left: auto;
             transform: translateY(-50%);
         }
