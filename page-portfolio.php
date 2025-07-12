@@ -478,28 +478,45 @@ wp_head();
             });
         });
 
-        // Update active navigation
+        // Update active navigation - only highlight when section fills majority of screen
         function updateActiveNav() {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-link');
+            const viewportHeight = window.innerHeight;
+            const scrollTop = window.scrollY;
             
-            let current = '';
+            let bestMatch = '';
+            let bestMatchScore = 0;
+            
+            // Remove all active classes first
+            navLinks.forEach(link => link.classList.remove('active'));
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
+                const sectionBottom = sectionTop + section.clientHeight;
+                const viewportTop = scrollTop;
+                const viewportBottom = scrollTop + viewportHeight;
                 
-                if (window.scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
+                // Calculate how much of the viewport this section occupies
+                const visibleTop = Math.max(sectionTop, viewportTop);
+                const visibleBottom = Math.min(sectionBottom, viewportBottom);
+                const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                const sectionScore = visibleHeight / viewportHeight;
+                
+                // Only consider this section if it occupies more than 50% of viewport
+                if (sectionScore > 0.5 && sectionScore > bestMatchScore) {
+                    bestMatchScore = sectionScore;
+                    bestMatch = section.getAttribute('id');
                 }
             });
             
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+            // Highlight the section that best fills the viewport
+            if (bestMatch) {
+                const activeLink = document.querySelector(`.nav-link[href="#${bestMatch}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
                 }
-            });
+            }
         }
 
         window.addEventListener('scroll', updateActiveNav);
