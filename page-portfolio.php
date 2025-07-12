@@ -395,7 +395,7 @@ wp_head();
         }
 
         .site-footer {
-            padding: 2vw 4vw 2vw 4vw;
+            padding: 3vw 4vw 2vw 4vw;
         }
 
         .social-links {
