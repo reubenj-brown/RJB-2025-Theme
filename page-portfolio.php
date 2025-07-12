@@ -156,15 +156,15 @@ wp_head();
 
     .site-title-name {
         font-family: var(--serif-font) !important;
-        font-size: 49.2px;
-        line-height: 59px;
+        font-size: 60px;
+        line-height: 60px;
         font-weight: 400;
         text-decoration: none;
         transition: all 0.5s ease;
         color: #000;
         text-shadow: none;
         position: absolute;
-        left: 50%;
+        left: 2vw;
         top: 1vw;
         transform: translateX(-50%);
     }
@@ -179,14 +179,14 @@ wp_head();
         transition: all 0.5s ease;
         position: absolute;
         left: 2vw;
-        top: calc(1vw + min(3.6vw, 48px) / 2);
+        top: calc((1vw + 60px) / 2);
         transform: translateY(-50%);
     }
 
     .main-nav {
         position: absolute;
         right: 2vw;
-        top: calc(1vw + min(3.6vw, 48px) / 2);
+        top: calc((1vw + 60px) / 2);
         transform: translateY(-50%);
     }
 
