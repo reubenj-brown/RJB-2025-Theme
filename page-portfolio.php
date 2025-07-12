@@ -422,7 +422,9 @@ wp_head();
     
     <!-- Main Content Wrapper -->
     <main class="main-content">
-        <?php echo do_shortcode('[reuben_about]'); ?>
+        <section class="content-section about-section" id="about">
+            <?php echo do_shortcode('[reuben_about]'); ?>
+        </section>
         
         <h1 class="section-heading">Stories</h1>
         <section class="content-section stories-section" id="stories">
@@ -436,10 +438,14 @@ wp_head();
         </section>
         
         <h1 class="section-heading">Strategy</h1>
-        <?php echo do_shortcode('[reuben_strategy]'); ?>
+        <section class="content-section strategy-section" id="strategy">
+            <?php echo do_shortcode('[reuben_strategy]'); ?>
+        </section>
         
         <h1 class="section-heading">CV</h1>
-        <?php echo do_shortcode('[reuben_cv]'); ?>
+        <section class="content-section cv-section" id="cv">
+            <?php echo do_shortcode('[reuben_cv]'); ?>
+        </section>
     </main>
 
     <!-- Footer -->
