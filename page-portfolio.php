@@ -329,10 +329,6 @@ wp_head();
         color: #39e58f !important;
     }
 
-    .social-links.over-full-bleed {
-        display: none !important;
-    }
-
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .site-title-name {
@@ -537,6 +533,7 @@ wp_head();
                 // Footer is not overlapping hero section - use black logo/gray text
                 if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
                 if (copyright) copyright.style.color = '#808080';
+                if (socialLinks) socialLinks.style.display = 'block';
             }
         }
 
