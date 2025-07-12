@@ -376,7 +376,7 @@ wp_head();
             padding: 0 4vw;
         }
 
-        site-footer {
+        .site-footer {
             padding: 0 4vw 1vw 4vw;
         }
 
