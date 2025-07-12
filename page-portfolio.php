@@ -143,7 +143,7 @@ wp_head();
         border-bottom: 1px solid rgba(0, 0, 0, 1);
         transition: all 0.3s ease;
         padding: 0;
-        height: calc(min(3.6vw, 48px) + 4vw);
+        height: calc(min(3vw, 40px) + 2vw);
     }
 
     .header-content {
