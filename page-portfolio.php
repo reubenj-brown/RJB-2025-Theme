@@ -137,7 +137,7 @@ wp_head();
         left: 0;
         right: 0;
         z-index: 1000;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(10px);
         transition: all 0.5s ease;
         padding: 0;
