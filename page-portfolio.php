@@ -179,13 +179,15 @@ wp_head();
         text-shadow: none;
         position: absolute;
         left: 2vw;
-        top: 1.5vw;
+        top: calc(1vw + min(3.6vw, 48px) / 2);
+        transform: translateY(-50%);
     }
 
     .main-nav {
         position: absolute;
         right: 2vw;
-        top: 1.5vw;
+        top: calc(1vw + min(3.6vw, 48px) / 2);
+        transform: translateY(-50%);
     }
 
     .main-nav ul {
