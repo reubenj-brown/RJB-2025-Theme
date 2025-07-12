@@ -287,6 +287,7 @@ wp_head();
         color: #808080;
         text-align: center;
         margin: 4rem 0;
+        border-top: 1px solid #808080;
     }
 
     .footer-logo {
