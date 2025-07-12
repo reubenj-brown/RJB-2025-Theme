@@ -166,7 +166,7 @@ wp_head();
         text-shadow: none;
         position: absolute;
         left: 50%;
-        top: 2vw;
+        top: 1vw;
         transform: translateX(-50%);
     }
 
@@ -179,13 +179,13 @@ wp_head();
         text-shadow: none;
         position: absolute;
         left: 2vw;
-        top: 2vw;
+        top: 1.5vw;
     }
 
     .main-nav {
         position: absolute;
         right: 2vw;
-        top: 2vw;
+        top: 1.5vw;
     }
 
     .main-nav ul {
