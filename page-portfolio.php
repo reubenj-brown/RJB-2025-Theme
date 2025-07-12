@@ -235,7 +235,6 @@ wp_head();
         -webkit-mask: linear-gradient(to bottom, transparent 0%, black 12px);
         mask: linear-gradient(to bottom, transparent 0%, black 12px);
         padding: 1vw 2vw;
-        margin-top: 2rem;
         z-index: 100;
     }
 
