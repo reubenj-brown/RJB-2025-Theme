@@ -341,15 +341,22 @@ wp_head();
     @media (max-width: 768px) {
 
         .site-header {
-            height: calc(2.46rem + 2vw);
+            height: auto;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .site-title-name {
             font-size: 2.46rem;
             line-height: 2.46rem;
-            top: 50%;
-            left: 4vw;
-            transform: translateY(-50%);
+            position: static;
+            transform: none;
+            left: auto;
+            top: auto;
         }
 
         .site-title-role {
@@ -357,15 +364,15 @@ wp_head();
         }
 
         .main-nav {
-            position: absolute;
-            top: 50%;
-            right: 4vw;
+            position: static;
+            transform: none;
+            top: auto;
+            right: auto;
             left: auto;
-            transform: translateY(-50%);
         }
 
         .main-nav a {
-            font-size: 20px;
+            font-size: 17px;
         }
 
         .main-nav li:not(:last-child)::after {
