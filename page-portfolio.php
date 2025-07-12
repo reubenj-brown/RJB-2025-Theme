@@ -156,8 +156,8 @@ wp_head();
 
     .site-title-name {
         font-family: var(--serif-font) !important;
-        font-size: max(2.46rem, 40px);
-        line-height: min(3rem, 48px);
+        font-size: 49.2px;
+        line-height: 59px;
         font-weight: 400;
         text-decoration: none;
         transition: all 0.5s ease;
