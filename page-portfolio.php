@@ -155,11 +155,11 @@ wp_head();
         align-items: center;
     }
 
-    .site-title-left {
-        font-family: var(--primary-font) !important;
+    .site-title-name {
+        font-family: var(--serif-font) !important;
         font-size: min(3vw, 40px);
         line-height: min(3.6vw, 48px);
-        font-weight: 600;
+        font-weight: 400;
         text-decoration: none;
         transition: color 0.3s ease;
         color: #000;
@@ -169,7 +169,7 @@ wp_head();
         top: 2vw;
     }
 
-    .site-title-right {
+    .site-title-role {
         font-family: var(--primary-font) !important;
         font-size: min(3vw, 40px);
         line-height: min(3.6vw, 48px);
@@ -177,15 +177,14 @@ wp_head();
         color: #808080;
         text-shadow: none;
         position: absolute;
-        right: 2vw;
-        top: 2vw;
+        left: 2vw;
+        top: 4vw;
     }
 
     .main-nav {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        right: 2vw;
+        top: 2vw;
     }
 
     .main-nav ul {
@@ -307,13 +306,13 @@ wp_head();
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .site-title-left {
+    .site-header.over-full-bleed .site-title-name {
         color: white !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .site-title-right {
+    .site-header.over-full-bleed .site-title-role {
         color: rgba(255, 255, 255, 0.8) !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
@@ -332,14 +331,14 @@ wp_head();
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
-        .site-title-left {
+        .site-title-name {
             font-size: 2rem;
             line-height: 2.4rem;
             top: 50%;
             transform: translateY(-50%);
         }
 
-        .site-title-right {
+        .site-title-role {
             display: none;
         }
 
@@ -393,7 +392,7 @@ wp_head();
     <!-- Header -->
     <header class="site-header" id="site-header">
         <div class="header-content">
-            <a href="#" class="site-title-left">
+            <a href="#" class="site-title-name">
                 Reuben J. Brown
             </a>
             <nav class="main-nav">
@@ -404,7 +403,7 @@ wp_head();
                     <li><a href="#cv" class="nav-link">CV</a></li>
                 </ul>
             </nav>
-            <div class="site-title-right">
+            <div class="site-title-role">
                 Multimedia Journalist
             </div>
         </div>
@@ -439,7 +438,7 @@ wp_head();
     <footer class="site-footer" id="site-footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
+                <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
             </div>
             <div class="social-links" style="color: #808080">
                 <p class="caption"><a href="mailto:reubenjbrown@protonmail.com">email</a> / <a href="https://www.instagram.com/reubenj.brown/">instagram</a> / <a href="https://www.linkedin.com/in/reuben-j-brown/">linkedin</a>
@@ -452,7 +451,7 @@ wp_head();
         // Set footer logo to black since no splash area
         const footerLogo = document.getElementById('footer-logo-img');
         if (footerLogo) {
-            footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+            footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
         }
 
         // Smooth scroll navigation
@@ -527,12 +526,14 @@ wp_head();
             // Footer overlaps with hero section if hero section bottom is below footer top
             if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
                 // Footer is overlapping hero section - use white logo/text
-                if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
+                if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
                 if (copyright) copyright.style.color = 'white';
+                if (socialLinks) socialLinks.style.display = 'none';
             } else {
                 // Footer is not overlapping hero section - use black logo/gray text
-                if (footerLogo) footerLogo.src = 'https://skyblue-mongoose-220265.hostingersite.com/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+                if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
                 if (copyright) copyright.style.color = '#808080';
+                if (socialLinks) socialLinks.style.display = 'block';
             }
         }
 
