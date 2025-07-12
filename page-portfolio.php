@@ -288,7 +288,6 @@ wp_head();
         text-align: center;
         margin: 0;
         padding: 4vw 0;
-        border-top: 1px solid #808080;
     }
 
     .footer-logo {
@@ -371,7 +370,6 @@ wp_head();
         .section-heading {
             font-size: 2rem;
             line-height: 2.4rem;
-            margin: 3rem 0 1.5rem 0;
         }
 
         .main-content {
