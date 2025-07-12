@@ -140,6 +140,8 @@ wp_head();
         z-index: 1000;
         background: transparent;
         backdrop-filter: blur(10px);
+        -webkit-mask: linear-gradient(to bottom, black calc(100% - 8px), transparent 100%);
+        mask: linear-gradient(to bottom, black calc(100% - 8px), transparent 100%);
         transition: all 0.5s ease;
         padding: 0;
         height: calc(60px + 2vw);
