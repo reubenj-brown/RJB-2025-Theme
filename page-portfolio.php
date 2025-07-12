@@ -323,7 +323,7 @@ wp_head();
 
     .site-header.over-full-bleed .main-nav a {
         color: white !important;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        text-shadow: none !important;
         transition: all 0.3s ease !important;
     }
 
