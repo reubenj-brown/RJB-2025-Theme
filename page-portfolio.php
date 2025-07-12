@@ -413,7 +413,6 @@ wp_head();
                 </ul>
             </nav>
             <div class="site-title-role">
-                Multimedia Journalist
             </div>
         </div>
     </header>
