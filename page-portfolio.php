@@ -338,7 +338,7 @@ wp_head();
     @media (max-width: 768px) {
 
         .site-header {
-            height: calc(2.46rem + 1.5vw);
+            height: calc(2.46rem + 2vw);
         }
 
         .site-title-name {
