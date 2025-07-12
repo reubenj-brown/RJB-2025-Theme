@@ -1,3 +1,4 @@
+
 <?php
 /*
 Template Name: Portfolio Page
@@ -376,7 +377,7 @@ wp_head();
         }
 
         .footer-content {
-            padding: 1rem 0;
+            padding: 0 4vw;
         }
 
         .social-links {
