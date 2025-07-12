@@ -229,7 +229,7 @@ wp_head();
     /* Footer Styles */
     .site-footer {
         position: sticky;
-        bottom: 0;
+        bottom: 1vw;
         background: transparent;
         padding: 2vw;
         margin-top: 2rem;
