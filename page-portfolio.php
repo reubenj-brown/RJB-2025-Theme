@@ -281,12 +281,13 @@ wp_head();
     /* Section Headings */
     .section-heading {
         font-family: var(--primary-font) !important;
-        font-size: min(3vw, 54px);
-        line-height: min(3.6vw, 64px);
+        font-size: 48px;
+        line-height: 48px;
         font-weight: 600;
         color: #808080;
         text-align: center;
-        padding: 2vw 0;
+        margin: 0;
+        padding: 4vw 0;
         border-top: 1px solid #808080;
     }
 
