@@ -532,7 +532,7 @@ wp_head();
                 // Footer is overlapping hero section - use white logo/text
                 if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
                 if (copyright) copyright.style.color = 'white';
-                if (socialLinks) socialLinks.style.visibility = 'none';
+                if (socialLinks) socialLinks.style.display = 'none';
             } else {
                 // Footer is not overlapping hero section - use black logo/gray text
                 if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
