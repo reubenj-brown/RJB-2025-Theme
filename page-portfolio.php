@@ -286,7 +286,7 @@ wp_head();
         font-weight: 600;
         color: #808080;
         text-align: center;
-        margin: 4rem 0;
+        padding: 2vw 0;
         border-top: 1px solid #808080;
     }
 
