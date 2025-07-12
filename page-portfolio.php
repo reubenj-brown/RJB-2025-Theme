@@ -126,7 +126,6 @@ wp_head();
 
     body {
         font-family: var(--primary-font) !important;
-        line-height: 1.6;
         overflow-x: hidden;
     }
 
