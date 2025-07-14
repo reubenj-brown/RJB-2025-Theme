@@ -144,7 +144,7 @@ wp_head();
         height: calc(60px + 2vw);
     }
 
-    /* Gradient blur effect for header */
+    /* Gradient blur effect for header - 3 points: 10px, 5px, 2px */
     .site-header::before {
         content: '';
         position: absolute;
@@ -153,8 +153,8 @@ wp_head();
         right: 0;
         bottom: 0;
         backdrop-filter: blur(10px);
-        mask: linear-gradient(to bottom, black 0%, black calc(100% - 20px), transparent 100%);
-        -webkit-mask: linear-gradient(to bottom, black 0%, black calc(100% - 20px), transparent 100%);
+        mask: linear-gradient(to bottom, black 0%, black calc(100% - 30px), transparent calc(100% - 10px));
+        -webkit-mask: linear-gradient(to bottom, black 0%, black calc(100% - 30px), transparent calc(100% - 10px));
         z-index: -1;
     }
 
@@ -166,8 +166,22 @@ wp_head();
         right: 0;
         bottom: 0;
         backdrop-filter: blur(2px);
-        mask: linear-gradient(to bottom, transparent 0%, transparent calc(100% - 20px), black 100%);
-        -webkit-mask: linear-gradient(to bottom, transparent 0%, transparent calc(100% - 20px), black 100%);
+        mask: linear-gradient(to bottom, transparent calc(100% - 20px), black calc(100% - 10px), black 100%);
+        -webkit-mask: linear-gradient(to bottom, transparent calc(100% - 20px), black calc(100% - 10px), black 100%);
+        z-index: -1;
+    }
+
+    /* Third pseudo-element for middle blur point */
+    .site-header .header-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(5px);
+        mask: linear-gradient(to bottom, transparent calc(100% - 30px), black calc(100% - 20px), transparent calc(100% - 10px));
+        -webkit-mask: linear-gradient(to bottom, transparent calc(100% - 30px), black calc(100% - 20px), transparent calc(100% - 10px));
         z-index: -1;
     }
 
@@ -259,7 +273,7 @@ wp_head();
         z-index: 100;
     }
 
-    /* Gradient blur effect for footer */
+    /* Gradient blur effect for footer - 3 points: 2px, 5px, 10px */
     .site-footer::before {
         content: '';
         position: absolute;
@@ -268,8 +282,8 @@ wp_head();
         right: 0;
         bottom: 0;
         backdrop-filter: blur(10px);
-        mask: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
-        -webkit-mask: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
+        mask: linear-gradient(to bottom, transparent 10px, black 30px, black 100%);
+        -webkit-mask: linear-gradient(to bottom, transparent 10px, black 30px, black 100%);
         z-index: -1;
     }
 
@@ -281,8 +295,22 @@ wp_head();
         right: 0;
         bottom: 0;
         backdrop-filter: blur(2px);
-        mask: linear-gradient(to bottom, black 0%, transparent 20px);
-        -webkit-mask: linear-gradient(to bottom, black 0%, transparent 20px);
+        mask: linear-gradient(to bottom, black 0%, black 20px, transparent 30px);
+        -webkit-mask: linear-gradient(to bottom, black 0%, black 20px, transparent 30px);
+        z-index: -1;
+    }
+
+    /* Third pseudo-element for middle blur point */
+    .site-footer .footer-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(5px);
+        mask: linear-gradient(to bottom, transparent 10px, black 20px, transparent 30px);
+        -webkit-mask: linear-gradient(to bottom, transparent 10px, black 20px, transparent 30px);
         z-index: -1;
     }
 
@@ -355,7 +383,8 @@ wp_head();
 
     /* Header overlay styles for full-bleed section */
     .site-header.over-full-bleed::before,
-    .site-header.over-full-bleed::after {
+    .site-header.over-full-bleed::after,
+    .site-header.over-full-bleed .header-content::before {
         backdrop-filter: none !important;
         transition: all 0.3s ease !important;
     }
@@ -385,7 +414,8 @@ wp_head();
 
     /* Footer overlay styles for full-bleed section */
     .site-footer.over-full-bleed::before,
-    .site-footer.over-full-bleed::after {
+    .site-footer.over-full-bleed::after,
+    .site-footer.over-full-bleed .footer-content::before {
         backdrop-filter: none !important;
         -webkit-mask: none !important;
         mask: none !important;
