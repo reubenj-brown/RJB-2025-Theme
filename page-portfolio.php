@@ -139,12 +139,36 @@ wp_head();
         right: 0;
         z-index: 1000;
         background: transparent;
-        backdrop-filter: blur(10px);
-        -webkit-mask: linear-gradient(to bottom, black calc(100% - 12px), transparent 100%);
-        mask: linear-gradient(to bottom, black calc(100% - 12px), transparent 100%);
         transition: all 0.5s ease;
         padding: 0;
         height: calc(60px + 2vw);
+    }
+
+    /* Gradient blur effect for header */
+    .site-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(10px);
+        mask: linear-gradient(to bottom, black 0%, black calc(100% - 20px), transparent 100%);
+        -webkit-mask: linear-gradient(to bottom, black 0%, black calc(100% - 20px), transparent 100%);
+        z-index: -1;
+    }
+
+    .site-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(2px);
+        mask: linear-gradient(to bottom, transparent 0%, transparent calc(100% - 20px), black 100%);
+        -webkit-mask: linear-gradient(to bottom, transparent 0%, transparent calc(100% - 20px), black 100%);
+        z-index: -1;
     }
 
     .header-content {
@@ -231,11 +255,35 @@ wp_head();
         position: sticky;
         bottom: 0;
         background: transparent;
-        backdrop-filter: blur(10px);
-        -webkit-mask: linear-gradient(to bottom, transparent 0%, black 12px);
-        mask: linear-gradient(to bottom, transparent 0%, black 12px);
         padding: 1vw 2vw;
         z-index: 100;
+    }
+
+    /* Gradient blur effect for footer */
+    .site-footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(10px);
+        mask: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
+        -webkit-mask: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
+        z-index: -1;
+    }
+
+    .site-footer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(2px);
+        mask: linear-gradient(to bottom, black 0%, transparent 20px);
+        -webkit-mask: linear-gradient(to bottom, black 0%, transparent 20px);
+        z-index: -1;
     }
 
     .footer-content {
@@ -306,10 +354,9 @@ wp_head();
     }
 
     /* Header overlay styles for full-bleed section */
-    .site-header.over-full-bleed {
-        background: transparent !important;
+    .site-header.over-full-bleed::before,
+    .site-header.over-full-bleed::after {
         backdrop-filter: none !important;
-        border-bottom: none !important;
         transition: all 0.3s ease !important;
     }
 
@@ -337,7 +384,8 @@ wp_head();
     }
 
     /* Footer overlay styles for full-bleed section */
-    .site-footer.over-full-bleed {
+    .site-footer.over-full-bleed::before,
+    .site-footer.over-full-bleed::after {
         backdrop-filter: none !important;
         -webkit-mask: none !important;
         mask: none !important;
@@ -404,8 +452,8 @@ wp_head();
 
 
         .footer-logo {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
         }
 
         .copyright {
