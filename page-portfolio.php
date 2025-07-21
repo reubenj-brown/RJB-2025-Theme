@@ -502,7 +502,11 @@ wp_head();
             <nav class="main-nav">
                 <ul>
                     <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#stories" class="nav-link">Stories</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                    <li><a href="#profiles" class="nav-link">Profiles</a></li>
+                    <li><a href="#interviews" class="nav-link">Interviews</a></li>
+                    <li><a href="#photographs" class="nav-link">Photographs</a></li>
                     <li><a href="#strategy" class="nav-link">Strategy</a></li>
                     <li><a href="#cv" class="nav-link">CV</a></li>
                 </ul>
@@ -522,22 +526,28 @@ wp_head();
             <?php echo do_shortcode('[reuben_about]'); ?>
         </section>
         
-        <h1 class="section-heading">Stories</h1>
-        <section class="content-section stories-section" id="stories">
-            
-            <h1 class="section-heading">Features</h1>
+        <h1 class="section-heading">Features</h1>
+        <section class="content-section features-section" id="features">
             <?php echo do_shortcode('[reuben_features]'); ?>
-            
-            <h1 class="section-heading">Reviews</h1>
+        </section>
+        
+        <h1 class="section-heading">Reviews</h1>
+        <section class="content-section reviews-section" id="reviews">
             <?php echo do_shortcode('[reuben_reviews]'); ?>
-            
-            <h1 class="section-heading">Profiles</h1>
+        </section>
+        
+        <h1 class="section-heading">Profiles</h1>
+        <section class="content-section profiles-section" id="profiles">
             <?php echo do_shortcode('[reuben_profiles]'); ?>
-            
-            <h1 class="section-heading">Interviews</h1>
+        </section>
+        
+        <h1 class="section-heading">Interviews</h1>
+        <section class="content-section interviews-section" id="interviews">
             <?php echo do_shortcode('[reuben_interviews]'); ?>
-            
-            <h1 class="section-heading">Photographs</h1>
+        </section>
+        
+        <h1 class="section-heading">Photographs</h1>
+        <section class="content-section photographs-section" id="photographs">
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
         
