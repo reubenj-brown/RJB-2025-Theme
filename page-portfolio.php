@@ -524,19 +524,20 @@ wp_head();
         
         <h1 class="section-heading">Stories</h1>
         <section class="content-section stories-section" id="stories">
-            <!-- Features Subsection -->
+            
+            <h1 class="section-heading">Features</h1>
             <?php echo do_shortcode('[reuben_features]'); ?>
             
-            <!-- Reviews Subsection -->
+            <h1 class="section-heading">Reviews</h1>
             <?php echo do_shortcode('[reuben_reviews]'); ?>
             
-            <!-- Profiles Subsection -->
+            <h1 class="section-heading">Profiles</h1>
             <?php echo do_shortcode('[reuben_profiles]'); ?>
             
-            <!-- Interviews Subsection -->
+            <h1 class="section-heading">Interviews</h1>
             <?php echo do_shortcode('[reuben_interviews]'); ?>
             
-            <!-- Photographs Subsection -->
+            <h1 class="section-heading">Photographs</h1>
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
         
