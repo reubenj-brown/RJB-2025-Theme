@@ -53,6 +53,7 @@ add_action('wp_head', function() {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                background: linear-gradient(135deg, white 0%, var(--highlight-color) 100%);
             }
 
             .contact-links {
