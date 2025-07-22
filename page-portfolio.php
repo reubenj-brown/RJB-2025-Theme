@@ -196,8 +196,8 @@ wp_head();
 
     .site-title-name {
         font-family: var(--serif-font) !important;
-        font-size: 60px;
-        line-height: 60px;
+        font-size: 48px;
+        line-height: 48px;
         font-weight: 400;
         text-decoration: none;
         transition: all 0.5s ease;
@@ -206,20 +206,6 @@ wp_head();
         position: absolute;
         left: 2vw;
         top: 1vw;
-    }
-
-    .site-title-role {
-        font-family: var(--primary-font) !important;
-        font-size: 20px;
-        line-height: 20px;
-        font-weight: 400;
-        color: #808080;
-        text-shadow: none;
-        transition: all 0.5s ease;
-        position: absolute;
-        left: 2vw;
-        top: calc((2vw + 60px) / 2);
-        transform: translateY(-50%);
     }
 
     .main-nav {
@@ -443,10 +429,6 @@ wp_head();
             top: auto;
         }
 
-        .site-title-role {
-            display: none;
-        }
-
         .main-nav {
             position: static;
             transform: none;
@@ -511,8 +493,6 @@ wp_head();
                     <li><a href="#cv" class="nav-link">CV</a></li>
                 </ul>
             </nav>
-            <div class="site-title-role">
-            </div>
         </div>
     </header>
 
