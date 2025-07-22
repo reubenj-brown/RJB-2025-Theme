@@ -53,7 +53,19 @@ add_action('wp_head', function() {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: linear-gradient(135deg, white 0%, var(--highlight-color) 100%);
+                position: relative;
+            }
+
+            /* Contact section gradient - mirrors About section but reversed */
+            .contact-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -2vw;
+                right: -2vw;
+                bottom: -200px; /* Extend below footer area */
+                background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
+                z-index: -1;
             }
 
             .contact-links {
@@ -92,6 +104,12 @@ add_action('wp_head', function() {
 
                 .contact-section {
                     height: 100vh;
+                }
+
+                /* Contact section gradient mobile - extend to screen edges */
+                .contact-section::before {
+                    left: -4vw;
+                    right: -4vw;
                 }
 
                 .contact-links {
