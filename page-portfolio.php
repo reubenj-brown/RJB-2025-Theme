@@ -421,8 +421,6 @@ wp_head();
         }
 
         .site-title-name {
-            font-size: 2.46rem;
-            line-height: 2.46rem;
             position: static;
             transform: none;
             left: auto;
