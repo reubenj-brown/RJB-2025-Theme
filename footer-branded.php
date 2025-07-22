@@ -4,9 +4,6 @@
             <div class="footer-logo">
                 <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
             </div>
-            <div class="social-links" style="color: #808080">
-                <p class="caption"><a href="mailto:reubenjbrown@protonmail.com">email</a> / <a href="https://www.instagram.com/reubenj.brown/">instagram</a> / <a href="https://www.linkedin.com/in/reuben-j-brown/">linkedin</a></p>
-            </div>
             <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
     </footer>
@@ -69,22 +66,6 @@
         position: relative;
     }
 
-    .social-links {
-        display: flex;
-        gap: 0;
-        align-items: center;
-    }
-
-    .social-links a {
-        text-decoration: none;
-        transition: all 0.5s ease;
-        color: #808080;
-        font-size: 14px;
-    }
-
-    .social-links a:hover {
-        color: #39e58f;
-    }
 
     .copyright {
         color: #808080;
@@ -116,9 +97,6 @@
         color: white !important;
     }
 
-    .site-footer.over-full-bleed .social-links {
-        display: none !important;
-    }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
@@ -132,9 +110,6 @@
             text-align: center;
         }
 
-        .social-links {
-            gap: 0;
-        }
 
         .footer-logo {
             width: 28px;

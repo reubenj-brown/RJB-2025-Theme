@@ -344,7 +344,6 @@
                     <li><a href="<?php echo get_post_type_archive_link('story'); ?>" class="nav-link">Stories</a></li>
                     <li><a href="<?php echo home_url('/#strategy'); ?>" class="nav-link">Strategy</a></li>
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
-                    <li><a href="<?php echo home_url('/#contact'); ?>" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             <div class="site-title-role">
@@ -463,7 +462,6 @@
         }
         
         // Check if footer overlaps with full-bleed section
-        const socialLinks = footer.querySelector('.social-links');
         const footerLogo = footer.querySelector('.footer-logo img');
         const copyright = footer.querySelector('.copyright');
         
@@ -483,14 +481,12 @@
             footer.classList.add('over-full-bleed');
             if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
             if (copyright) copyright.style.color = 'white';
-            if (socialLinks) socialLinks.style.display = 'none';
         } else {
             // Footer is not overlapping hero section - use black logo/gray text and enable blur
             console.log('Footer not overlapping - setting black logo');
             footer.classList.remove('over-full-bleed');
             if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
             if (copyright) copyright.style.color = '#808080';
-            if (socialLinks) socialLinks.style.display = 'block';
         }
     }
 
