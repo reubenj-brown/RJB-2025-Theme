@@ -64,7 +64,7 @@ add_action('wp_head', function() {
                 top: 0;
                 left: -2vw;
                 right: -2vw;
-                bottom: -3vw; /* Extend to cover footer height (1vw padding + extra) */
+                bottom: -5vw; /* Extend to fully cover footer area and eliminate white gap */
                 background: #39e58f;
                 z-index: -1;
             }

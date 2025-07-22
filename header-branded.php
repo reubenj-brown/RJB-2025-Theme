@@ -472,20 +472,11 @@
 
     // Header transparency and footer visibility for full-bleed sections (portfolio page only)
     function updateHeaderAndFooterForFullBleed() {
-        console.log('updateHeaderAndFooterForFullBleed called');
-        
         const header = document.querySelector('.site-header');
         const footer = document.querySelector('.site-footer');
         const fullBleedSection = document.querySelector('.featured-story-full-bleed');
         
-        console.log('Elements check:', {
-            header: !!header,
-            footer: !!footer,
-            fullBleedSection: !!fullBleedSection
-        });
-        
         if (!header || !footer || !fullBleedSection) {
-            console.log('Missing elements, returning early');
             return;
         }
         
@@ -495,18 +486,10 @@
         
         // Check if header overlaps with full-bleed section
         const headerOverlaps = fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0;
-        console.log('Header overlap check:', {
-            fullBleedTop: fullBleedRect.top,
-            fullBleedBottom: fullBleedRect.bottom,
-            headerHeight: headerHeight,
-            overlapping: headerOverlaps
-        });
         
         if (headerOverlaps) {
-            console.log('Adding over-full-bleed to header');
             header.classList.add('over-full-bleed');
         } else {
-            console.log('Removing over-full-bleed from header');
             header.classList.remove('over-full-bleed');
         }
         
@@ -516,55 +499,31 @@
         
         // Footer overlaps with hero section if hero section bottom is below footer top
         const footerOverlaps = fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom;
-        console.log('Footer overlap check:', {
-            fullBleedTop: fullBleedRect.top,
-            fullBleedBottom: fullBleedRect.bottom,
-            footerTop: footerRect.top,
-            footerBottom: footerRect.bottom,
-            overlapping: footerOverlaps
-        });
         
         if (footerOverlaps) {
             // Footer is overlapping hero section - use white logo/text and disable blur
-            console.log('Footer overlapping - setting white logo');
             footer.classList.add('over-full-bleed');
             if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
             if (copyright) copyright.style.color = 'white';
         } else {
             // Footer is not overlapping hero section - use black logo/gray text and enable blur
-            console.log('Footer not overlapping - setting black logo');
             footer.classList.remove('over-full-bleed');
             if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
             if (copyright) copyright.style.color = '#808080';
         }
     }
 
-    // Debug: Always log basic info
-    console.log('Header script loaded!');
-    console.log('Body classes:', document.body.classList.toString());
-    console.log('Current URL:', window.location.href);
     
     // Function to initialize effects once everything is loaded
     function initializeFullBleedEffects() {
-        console.log('Initializing full-bleed effects...');
-        
         const header = document.querySelector('.site-header');
         const footer = document.querySelector('.site-footer');
         const fullBleedSection = document.querySelector('.featured-story-full-bleed');
         
-        console.log('Found elements:', {
-            header: !!header,
-            footer: !!footer,
-            fullBleedSection: !!fullBleedSection
-        });
-        
         if (header && footer) {
-            console.log('Setting up scroll listeners...');
             window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
             window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
             updateHeaderAndFooterForFullBleed(); // Run initial check
-        } else {
-            console.log('Missing required elements - header or footer not found');
         }
     }
     
