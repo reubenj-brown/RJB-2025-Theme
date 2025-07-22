@@ -341,11 +341,7 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
-                    <li><a href="<?php echo home_url('/#features'); ?>" class="nav-link">Features</a></li>
-                    <li><a href="<?php echo home_url('/#reviews'); ?>" class="nav-link">Reviews</a></li>
-                    <li><a href="<?php echo home_url('/#profiles'); ?>" class="nav-link">Profiles</a></li>
-                    <li><a href="<?php echo home_url('/#interviews'); ?>" class="nav-link">Interviews</a></li>
-                    <li><a href="<?php echo home_url('/#photographs'); ?>" class="nav-link">Photographs</a></li>
+                    <li><a href="<?php echo get_post_type_archive_link('story'); ?>" class="nav-link">Stories</a></li>
                     <li><a href="<?php echo home_url('/#strategy'); ?>" class="nav-link">Strategy</a></li>
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
                 </ul>
