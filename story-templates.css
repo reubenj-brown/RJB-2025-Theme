@@ -1,0 +1,356 @@
+/* Story Templates CSS */
+
+/* Single Story Template */
+.story-single-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.story-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.story-title {
+    font-family: var(--serif-font);
+    font-size: calc(40px * 1.23);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #000;
+}
+
+.story-standfirst {
+    font-family: var(--primary-font);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.story-publication-info {
+    color: #808080;
+    font-size: 16px;
+    margin-bottom: 1rem;
+}
+
+.story-publication-info em {
+    color: #000;
+    font-style: italic;
+}
+
+.story-external-link a {
+    color: #39e58f;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.story-external-link a:hover {
+    color: #2dc776;
+}
+
+.story-featured-image {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.story-featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.story-image-credit {
+    font-size: 12px;
+    color: #808080;
+    text-align: right;
+    margin-top: 4px;
+    padding: 2px 0;
+}
+
+.story-content-inner {
+    font-family: var(--primary-font);
+    font-size: 20px;
+    line-height: 1.6;
+    color: #000;
+}
+
+.story-content-inner p {
+    margin-bottom: 1.5rem;
+}
+
+.story-content-inner h2 {
+    font-family: var(--serif-font);
+    font-size: calc(32px * 1.23);
+    font-weight: 400;
+    margin: 2rem 0 1rem 0;
+    color: #000;
+}
+
+.story-content-inner h3 {
+    font-family: var(--serif-font);
+    font-size: calc(24px * 1.23);
+    font-weight: 400;
+    margin: 1.5rem 0 1rem 0;
+    color: #000;
+}
+
+.story-categories {
+    margin: 3rem 0;
+    padding: 1.5rem 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.story-categories h3 {
+    font-size: 16px;
+    color: #808080;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.story-categories ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.story-categories a {
+    color: #39e58f;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.story-categories a:hover {
+    color: #2dc776;
+}
+
+.story-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.story-navigation a {
+    color: #39e58f;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.story-navigation a:hover {
+    color: #2dc776;
+}
+
+/* Stories Archive Template */
+.stories-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.archive-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.archive-title {
+    font-family: var(--serif-font);
+    font-size: calc(48px * 1.23);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.archive-description {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.story-category-filter ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.story-category-filter a {
+    color: #808080;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.story-category-filter a:hover,
+.story-category-filter a.active {
+    color: #39e58f;
+    border-color: #39e58f;
+}
+
+.stories-archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.story-archive-item {
+    position: relative;
+}
+
+.story-archive-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.story-archive-link:hover {
+    transform: translateY(-5px);
+}
+
+.story-archive-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.story-archive-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.story-archive-credit {
+    font-size: 12px;
+    color: #808080;
+    text-align: right;
+    margin-top: 4px;
+    margin-bottom: 1rem;
+}
+
+.story-archive-title {
+    font-family: var(--serif-font);
+    font-size: calc(24px * 1.23);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    color: #000;
+}
+
+.story-archive-excerpt {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.story-archive-publication {
+    font-size: 14px;
+    color: #808080;
+}
+
+.story-archive-publication em {
+    color: #000;
+    font-style: italic;
+}
+
+.stories-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.stories-pagination .page-numbers {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.stories-pagination a,
+.stories-pagination .current {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #808080;
+    text-decoration: none;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.stories-pagination a:hover,
+.stories-pagination .current {
+    color: #39e58f;
+    border-color: #39e58f;
+}
+
+.no-stories {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin: 3rem 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .story-single-container,
+    .stories-archive-container {
+        padding: 1rem;
+    }
+    
+    .story-title {
+        font-size: calc(32px * 1.23);
+    }
+    
+    .story-standfirst {
+        font-size: 20px;
+    }
+    
+    .story-content-inner {
+        font-size: 18px;
+    }
+    
+    .archive-title {
+        font-size: calc(36px * 1.23);
+    }
+    
+    .stories-archive-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .story-category-filter ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .story-navigation {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
