@@ -208,15 +208,42 @@
         color: white; /* Start white for hero section */
         text-shadow: none;
         position: absolute;
-        left: 2vw;
-        top: 1vw;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .main-nav {
         position: absolute;
+        left: 2vw;
+        top: calc((2vw + 60px) / 2);
+        transform: translateY(-50%);
+    }
+
+    .contact-button {
+        position: absolute;
         right: 2vw;
         top: calc((2vw + 60px) / 2);
         transform: translateY(-50%);
+    }
+
+    .contact-pill {
+        display: inline-block;
+        padding: 8px 20px;
+        background: white;
+        border: 1px solid var(--highlight-color);
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: var(--primary-font) !important;
+        font-size: 16px;
+        font-weight: 500;
+        color: #000;
+        transition: all 0.3s ease;
+    }
+
+    .contact-pill:hover {
+        background: var(--highlight-color);
+        color: white;
     }
 
     .main-nav ul {
@@ -283,6 +310,17 @@
         color: #39e58f !important;
     }
 
+    .site-header.over-full-bleed .contact-pill {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-color: white !important;
+        color: white !important;
+    }
+
+    .site-header.over-full-bleed .contact-pill:hover {
+        background: white !important;
+        color: #000 !important;
+    }
+
     /* Header NOT over full-bleed (normal sections) - black text */
     .site-header:not(.over-full-bleed) .site-title-name {
         color: #000 !important;
@@ -309,16 +347,24 @@
             line-height: 24px;
             position: static;
             transform: none;
-            left: auto;
-            top: auto;
+            order: 1;
         }
 
         .main-nav {
             position: static;
             transform: none;
-            top: auto;
-            right: auto;
-            left: auto;
+            order: 2;
+        }
+
+        .contact-button {
+            position: static;
+            transform: none;
+            order: 3;
+        }
+
+        .contact-pill {
+            font-size: 14px;
+            padding: 6px 16px;
         }
 
         .main-nav a {
@@ -335,9 +381,6 @@
     <!-- Header -->
     <header class="site-header" id="site-header">
         <div class="header-content">
-            <a href="<?php echo home_url('/'); ?>" class="site-title-name">
-                Reuben J. Brown
-            </a>
             <nav class="main-nav">
                 <ul>
                     <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
@@ -346,7 +389,13 @@
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
                 </ul>
             </nav>
-            <div class="site-title-role">
+            
+            <a href="<?php echo home_url('/'); ?>" class="site-title-name">
+                Reuben J. Brown
+            </a>
+            
+            <div class="contact-button">
+                <a href="<?php echo home_url('/#contact'); ?>" class="contact-pill">contact ↓</a>
             </div>
         </div>
     </header>
