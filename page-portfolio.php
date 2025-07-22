@@ -54,6 +54,7 @@ add_action('wp_head', function() {
                 align-items: center;
                 justify-content: center;
                 position: relative;
+                background: transparent !important; /* Override white background from .content-section */
             }
 
             /* Contact section gradient - mirrors About section but reversed */
