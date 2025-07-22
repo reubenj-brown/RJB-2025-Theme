@@ -345,3 +345,123 @@
             </div>
         </div>
     </header>
+
+<script>
+    // Smooth scroll navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            
+            // Handle both full URLs and hash-only hrefs
+            let hash;
+            if (targetId.includes('#')) {
+                hash = targetId.split('#')[1];
+            } else {
+                hash = targetId;
+            }
+            
+            const targetElement = document.querySelector('#' + hash);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Update active navigation - only highlight when section fills majority of screen
+    function updateActiveNav() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const viewportHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+        
+        let bestMatch = '';
+        let bestMatchScore = 0;
+        
+        // Remove all active classes first
+        navLinks.forEach(link => link.classList.remove('active'));
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.clientHeight;
+            const viewportTop = scrollTop;
+            const viewportBottom = scrollTop + viewportHeight;
+            
+            // Calculate how much of the viewport this section occupies
+            const visibleTop = Math.max(sectionTop, viewportTop);
+            const visibleBottom = Math.min(sectionBottom, viewportBottom);
+            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+            const sectionScore = visibleHeight / viewportHeight;
+            
+            // Only consider this section if it occupies more than 50% of viewport
+            if (sectionScore > 0.5 && sectionScore > bestMatchScore) {
+                bestMatchScore = sectionScore;
+                bestMatch = section.getAttribute('id');
+            }
+        });
+        
+        // Highlight the section that best fills the viewport
+        if (bestMatch) {
+            const activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav(); // Run on page load
+
+    // Header transparency and footer visibility for full-bleed sections (portfolio page only)
+    function updateHeaderAndFooterForFullBleed() {
+        const header = document.querySelector('.site-header');
+        const footer = document.querySelector('.site-footer');
+        const fullBleedSection = document.querySelector('.featured-story-full-bleed');
+        
+        if (!header || !footer || !fullBleedSection) {
+            return;
+        }
+        
+        const headerHeight = header.offsetHeight;
+        const fullBleedRect = fullBleedSection.getBoundingClientRect();
+        const footerRect = footer.getBoundingClientRect();
+        
+        // Check if header overlaps with full-bleed section
+        if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
+            header.classList.add('over-full-bleed');
+        } else {
+            header.classList.remove('over-full-bleed');
+        }
+        
+        // Check if footer overlaps with full-bleed section
+        const socialLinks = footer.querySelector('.social-links');
+        const footerLogo = footer.querySelector('.footer-logo img');
+        const copyright = footer.querySelector('.copyright');
+        
+        // Footer overlaps with hero section if hero section bottom is below footer top
+        if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
+            // Footer is overlapping hero section - use white logo/text and disable blur
+            footer.classList.add('over-full-bleed');
+            if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
+            if (copyright) copyright.style.color = 'white';
+            if (socialLinks) socialLinks.style.display = 'none';
+        } else {
+            // Footer is not overlapping hero section - use black logo/gray text and enable blur
+            footer.classList.remove('over-full-bleed');
+            if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+            if (copyright) copyright.style.color = '#808080';
+            if (socialLinks) socialLinks.style.display = 'block';
+        }
+    }
+
+    // Only run full-bleed logic on portfolio pages
+    if (document.body.classList.contains('page-template-page-portfolio')) {
+        window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
+        window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
+        updateHeaderAndFooterForFullBleed(); // Run on page load
+    }
+</script>

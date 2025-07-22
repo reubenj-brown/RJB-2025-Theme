@@ -145,55 +145,6 @@
         if (footerLogo && (document.body.classList.contains('single-story') || document.body.classList.contains('post-type-archive-story'))) {
             footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
         }
-
-        // Header transparency and footer visibility for full-bleed sections (portfolio page only)
-        function updateHeaderAndFooterForFullBleed() {
-            const header = document.querySelector('.site-header');
-            const footer = document.querySelector('.site-footer');
-            const fullBleedSection = document.querySelector('.featured-story-full-bleed');
-            
-            if (!header || !footer || !fullBleedSection) {
-                return;
-            }
-            
-            const headerHeight = header.offsetHeight;
-            const fullBleedRect = fullBleedSection.getBoundingClientRect();
-            const footerRect = footer.getBoundingClientRect();
-            
-            // Check if header overlaps with full-bleed section
-            if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
-                header.classList.add('over-full-bleed');
-            } else {
-                header.classList.remove('over-full-bleed');
-            }
-            
-            // Check if footer overlaps with full-bleed section
-            const socialLinks = footer.querySelector('.social-links');
-            const footerLogo = footer.querySelector('.footer-logo img');
-            const copyright = footer.querySelector('.copyright');
-            
-            // Footer overlaps with hero section if hero section bottom is below footer top
-            if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
-                // Footer is overlapping hero section - use white logo/text and disable blur
-                footer.classList.add('over-full-bleed');
-                if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
-                if (copyright) copyright.style.color = 'white';
-                if (socialLinks) socialLinks.style.display = 'none';
-            } else {
-                // Footer is not overlapping hero section - use black logo/gray text and enable blur
-                footer.classList.remove('over-full-bleed');
-                if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
-                if (copyright) copyright.style.color = '#808080';
-                if (socialLinks) socialLinks.style.display = 'block';
-            }
-        }
-
-        // Only run full-bleed logic on portfolio pages
-        if (document.body.classList.contains('page-template-page-portfolio')) {
-            window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
-            window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
-            updateHeaderAndFooterForFullBleed(); // Run on page load
-        }
     </script>
 
     <?php wp_footer(); ?>
