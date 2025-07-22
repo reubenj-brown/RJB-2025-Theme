@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
+
+<link rel="stylesheet" href="https://use.typekit.net/ffl7rra.css">
+
+<?php wp_head(); ?>
+
+<style>
+    @font-face {
+    font-family: 'Innovator Grotesk';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-Regular.woff2') format('woff2'),
+        url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Innovator Grotesk';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-RegularItalic.woff2') format('woff2'),
+        url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-RegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Innovator Grotesk';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-SemiBold.woff2') format('woff2'),
+        url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Innovator Grotesk';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-SemiBoldItalic.woff2') format('woff2'),
+        url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+    }
+
+    /* CSS Variables */
+    :root {
+    --highlight-color: #39e58f;
+    --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Remove all theme styles for branded pages */
+    body.page-template-page-portfolio *,
+    body.single-story *,
+    body.post-type-archive-story * {
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Hide WordPress theme elements */
+    body.page-template-page-portfolio #header,
+    body.page-template-page-portfolio .site-header:not(#site-header),
+    body.page-template-page-portfolio .site-footer:not(#site-footer),
+    body.page-template-page-portfolio .main-navigation,
+    body.page-template-page-portfolio .entry-header,
+    body.page-template-page-portfolio .entry-content,
+    body.page-template-page-portfolio .entry-footer,
+    body.page-template-page-portfolio .widget-area,
+    body.page-template-page-portfolio .sidebar,
+    body.page-template-page-portfolio #primary,
+    body.page-template-page-portfolio #secondary,
+    body.page-template-page-portfolio #content,
+    body.page-template-page-portfolio .container,
+    body.page-template-page-portfolio .content-area,
+    body.single-story #header,
+    body.single-story .site-header:not(#site-header),
+    body.single-story .site-footer:not(#site-footer),
+    body.single-story .main-navigation,
+    body.single-story .entry-header,
+    body.single-story .entry-content,
+    body.single-story .entry-footer,
+    body.single-story .widget-area,
+    body.single-story .sidebar,
+    body.single-story #primary,
+    body.single-story #secondary,
+    body.single-story #content,
+    body.single-story .container,
+    body.single-story .content-area,
+    body.post-type-archive-story #header,
+    body.post-type-archive-story .site-header:not(#site-header),
+    body.post-type-archive-story .site-footer:not(#site-footer),
+    body.post-type-archive-story .main-navigation,
+    body.post-type-archive-story .entry-header,
+    body.post-type-archive-story .entry-content,
+    body.post-type-archive-story .entry-footer,
+    body.post-type-archive-story .widget-area,
+    body.post-type-archive-story .sidebar,
+    body.post-type-archive-story #primary,
+    body.post-type-archive-story #secondary,
+    body.post-type-archive-story #content,
+    body.post-type-archive-story .container,
+    body.post-type-archive-story .content-area {
+        display: none !important;
+    }
+
+    /* Remove WordPress default margins/padding */
+    body.page-template-page-portfolio,
+    body.single-story,
+    body.post-type-archive-story {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        overflow-x: hidden !important;
+        font-family: var(--primary-font) !important;
+    }
+
+    /* Hide admin bar completely */
+    #wpadminbar {
+        display: none !important;
+    }
+
+    html {
+        margin-top: 0 !important;
+    }
+
+    /* Header Styles */
+    .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: transparent;
+        transition: all 0.5s ease;
+        padding: 0;
+        height: calc(60px + 2vw);
+    }
+
+    /* Gradient blur effect for header - 3 points: 10px, 5px, 2px */
+    .site-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(10px);
+        mask: linear-gradient(to bottom, black 0%, black calc(100% - 30px), transparent calc(100% - 10px));
+        -webkit-mask: linear-gradient(to bottom, black 0%, black calc(100% - 30px), transparent calc(100% - 10px));
+        z-index: -1;
+    }
+
+    .site-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(2px);
+        mask: linear-gradient(to bottom, transparent calc(100% - 20px), black calc(100% - 10px), black 100%);
+        -webkit-mask: linear-gradient(to bottom, transparent calc(100% - 20px), black calc(100% - 10px), black 100%);
+        z-index: -1;
+    }
+
+    /* Third pseudo-element for middle blur point */
+    .site-header .header-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(5px);
+        mask: linear-gradient(to bottom, transparent calc(100% - 30px), black calc(100% - 20px), transparent calc(100% - 10px));
+        -webkit-mask: linear-gradient(to bottom, transparent calc(100% - 30px), black calc(100% - 20px), transparent calc(100% - 10px));
+        z-index: -1;
+    }
+
+    .header-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .site-title-name {
+        font-family: var(--serif-font) !important;
+        font-size: 60px;
+        line-height: 60px;
+        font-weight: 400;
+        text-decoration: none;
+        transition: all 0.5s ease;
+        color: #000;
+        text-shadow: none;
+        position: absolute;
+        left: 2vw;
+        top: 1vw;
+    }
+
+    .site-title-role {
+        font-family: var(--primary-font) !important;
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: 400;
+        color: #808080;
+        text-shadow: none;
+        transition: all 0.5s ease;
+        position: absolute;
+        left: 2vw;
+        top: calc((2vw + 60px) / 2);
+        transform: translateY(-50%);
+    }
+
+    .main-nav {
+        position: absolute;
+        right: 2vw;
+        top: calc((2vw + 60px) / 2);
+        transform: translateY(-50%);
+    }
+
+    .main-nav ul {
+        display: flex;
+        list-style: none;
+        gap: 0;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-nav li:not(:last-child)::after {
+        content: " / ";
+        color: inherit;
+        margin: 0 0.8rem;
+    }
+
+    .main-nav a {
+        font-family: var(--primary-font) !important;
+        font-size: 20px;
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.5s ease;
+        padding: 0.5rem 0;
+        position: relative;
+        color: #000;
+        text-shadow: none;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+        color: #39e58f;
+        font-weight: 600;
+    }
+
+    /* Header overlay styles for full-bleed section */
+    .site-header.over-full-bleed::before,
+    .site-header.over-full-bleed::after,
+    .site-header.over-full-bleed .header-content::before {
+        backdrop-filter: none !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .site-title-name {
+        color: white !important;
+        text-shadow: none !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .site-title-role {
+        color: rgba(255, 255, 255, 0.8) !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .main-nav a {
+        color: white !important;
+        text-shadow: none !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .site-header.over-full-bleed .main-nav a:hover,
+    .site-header.over-full-bleed .main-nav a.active {
+        color: #39e58f !important;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .site-header {
+            height: auto;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .site-title-name {
+            font-size: 2.46rem;
+            line-height: 2.46rem;
+            position: static;
+            transform: none;
+            left: auto;
+            top: auto;
+        }
+
+        .site-title-role {
+            display: none;
+        }
+
+        .main-nav {
+            position: static;
+            transform: none;
+            top: auto;
+            right: auto;
+            left: auto;
+        }
+
+        .main-nav a {
+            font-size: 17px;
+        }
+
+        .main-nav li:not(:last-child)::after {
+            margin: 0 0.5rem;
+        }
+    }
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header" id="site-header">
+        <div class="header-content">
+            <a href="<?php echo home_url('/'); ?>" class="site-title-name">
+                Reuben J. Brown
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
+                    <li><a href="<?php echo home_url('/#features'); ?>" class="nav-link">Features</a></li>
+                    <li><a href="<?php echo home_url('/#reviews'); ?>" class="nav-link">Reviews</a></li>
+                    <li><a href="<?php echo home_url('/#profiles'); ?>" class="nav-link">Profiles</a></li>
+                    <li><a href="<?php echo home_url('/#interviews'); ?>" class="nav-link">Interviews</a></li>
+                    <li><a href="<?php echo home_url('/#photographs'); ?>" class="nav-link">Photographs</a></li>
+                    <li><a href="<?php echo home_url('/#strategy'); ?>" class="nav-link">Strategy</a></li>
+                    <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
+                </ul>
+            </nav>
+            <div class="site-title-role">
+            </div>
+        </div>
+    </header>
