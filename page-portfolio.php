@@ -48,19 +48,26 @@ add_action('wp_head', function() {
             }
 
             /* Contact Section */
+            .contact-section {
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             .contact-links {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                justify-content: center;
                 gap: 4rem;
-                padding: 6rem 0;
             }
 
             .contact-link {
                 font-family: var(--primary-font) !important;
                 font-size: 6rem;
                 line-height: 1.2;
-                font-weight: 400;
+                font-weight: 600; /* Semi-bold */
                 text-decoration: none;
                 color: #000;
                 transition: all 0.3s ease;
@@ -82,13 +89,17 @@ add_action('wp_head', function() {
                     padding: 0 4vw;
                 }
 
+                .contact-section {
+                    height: 100vh;
+                }
+
                 .contact-links {
                     gap: 3rem;
-                    padding: 4rem 0;
                 }
 
                 .contact-link {
                     font-size: 3rem;
+                    font-weight: 600;
                 }
             }
         </style>
