@@ -344,6 +344,7 @@
                     <li><a href="<?php echo get_post_type_archive_link('story'); ?>" class="nav-link">Stories</a></li>
                     <li><a href="<?php echo home_url('/#strategy'); ?>" class="nav-link">Strategy</a></li>
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
+                    <li><a href="<?php echo home_url('/#contact'); ?>" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             <div class="site-title-role">
