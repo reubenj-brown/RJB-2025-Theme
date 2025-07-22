@@ -463,5 +463,11 @@
         window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
         window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
         updateHeaderAndFooterForFullBleed(); // Run on page load
+        
+        // Set footer logo to black initially since no splash area at page load
+        const footerLogo = document.getElementById('footer-logo-img');
+        if (footerLogo) {
+            footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+        }
     }
 </script>
