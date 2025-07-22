@@ -460,14 +460,38 @@
 
     // Only run full-bleed logic on portfolio pages
     if (document.body.classList.contains('page-template-page-portfolio')) {
-        window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
-        window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
-        updateHeaderAndFooterForFullBleed(); // Run on page load
-        
-        // Set footer logo to black initially since no splash area at page load
-        const footerLogo = document.getElementById('footer-logo-img');
-        if (footerLogo) {
-            footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+        // Function to initialize effects once everything is loaded
+        function initializeFullBleedEffects() {
+            console.log('Initializing full-bleed effects...');
+            
+            const header = document.querySelector('.site-header');
+            const footer = document.querySelector('.site-footer');
+            const fullBleedSection = document.querySelector('.featured-story-full-bleed');
+            
+            console.log('Found elements:', {
+                header: !!header,
+                footer: !!footer,
+                fullBleedSection: !!fullBleedSection
+            });
+            
+            if (header && footer) {
+                window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
+                window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
+                updateHeaderAndFooterForFullBleed(); // Run initial check
+            }
         }
+        
+        // Try multiple timing approaches
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeFullBleedEffects);
+        } else {
+            initializeFullBleedEffects();
+        }
+        
+        // Also try after window load for shortcode content
+        window.addEventListener('load', initializeFullBleedEffects);
+        
+        // And after a short delay to ensure shortcodes are rendered
+        setTimeout(initializeFullBleedEffects, 1000);
     }
 </script>

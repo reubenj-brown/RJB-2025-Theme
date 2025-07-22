@@ -2,7 +2,7 @@
     <footer class="site-footer" id="site-footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png" alt="RJB Logo" id="footer-logo-img">
+                <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
             </div>
             <div class="social-links" style="color: #808080">
                 <p class="caption"><a href="mailto:reubenjbrown@protonmail.com">email</a> / <a href="https://www.instagram.com/reubenj.brown/">instagram</a> / <a href="https://www.linkedin.com/in/reuben-j-brown/">linkedin</a></p>
@@ -110,6 +110,14 @@
         backdrop-filter: none !important;
         -webkit-mask: none !important;
         mask: none !important;
+    }
+
+    .site-footer.over-full-bleed .copyright {
+        color: white !important;
+    }
+
+    .site-footer.over-full-bleed .social-links {
+        display: none !important;
     }
 
     /* Mobile Responsive */
