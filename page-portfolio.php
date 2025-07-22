@@ -15,48 +15,55 @@ add_action('wp_enqueue_scripts', function() {
     // Remove the manual CSS enqueue - the plugin handles this
 }, 100);
 
+// Add portfolio-specific styles to header
+add_action('wp_head', function() {
+    if (is_page_template('page-portfolio.php')) {
+        ?>
+        <style>
+            /* Main Content Wrapper */
+            .main-content {
+                padding: 0 2vw;
+                width: 100vw;
+                max-width: 100vw;
+                background: white;
+                margin-top: 0;
+                position: relative;
+                z-index: 10;
+            }
+            
+            .content-section {
+                background: white;
+            }
+
+            /* Section Headings */
+            .section-heading {
+                font-family: var(--primary-font) !important;
+                font-size: 48px;
+                line-height: 48px;
+                font-weight: 600;
+                color: #808080;
+                text-align: center;
+                margin: 0;
+                padding: 4vw 0;
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 768px) {
+                .section-heading {
+                    font-size: 2rem;
+                    line-height: 2.4rem;
+                }
+
+                .main-content {
+                    padding: 0 4vw;
+                }
+            }
+        </style>
+        <?php
+    }
+});
+
 get_header('branded'); ?>
-
-<style>
-    /* Main Content Wrapper */
-    .main-content {
-        padding: 0 2vw;
-        width: 100vw;
-        max-width: 100vw;
-        background: white;
-        margin-top: 0;
-        position: relative;
-        z-index: 10;
-    }
-    
-    .content-section {
-        background: white;
-    }
-
-    /* Section Headings */
-    .section-heading {
-        font-family: var(--primary-font) !important;
-        font-size: 48px;
-        line-height: 48px;
-        font-weight: 600;
-        color: #808080;
-        text-align: center;
-        margin: 0;
-        padding: 4vw 0;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-        .section-heading {
-            font-size: 2rem;
-            line-height: 2.4rem;
-        }
-
-        .main-content {
-            padding: 0 4vw;
-        }
-    }
-</style>
 
     <!-- Full Bleed Hero Section -->
     <?php echo do_shortcode('[featured_story_full_bleed]'); ?>
