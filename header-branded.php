@@ -205,7 +205,7 @@
         font-weight: 400;
         text-decoration: none;
         transition: all 0.5s ease;
-        color: #000;
+        color: white; /* Start white for hero section */
         text-shadow: none;
         position: absolute;
         left: 2vw;
@@ -242,7 +242,7 @@
         transition: all 0.5s ease;
         padding: 0.5rem 0;
         position: relative;
-        color: #000;
+        color: white; /* Start white for hero section */
         text-shadow: none;
     }
 
@@ -281,6 +281,15 @@
     .site-header.over-full-bleed .main-nav a:hover,
     .site-header.over-full-bleed .main-nav a.active {
         color: #39e58f !important;
+    }
+
+    /* Header NOT over full-bleed (normal sections) - black text */
+    .site-header:not(.over-full-bleed) .site-title-name {
+        color: #000 !important;
+    }
+
+    .site-header:not(.over-full-bleed) .main-nav a {
+        color: #000 !important;
     }
 
     /* Mobile Responsive */
