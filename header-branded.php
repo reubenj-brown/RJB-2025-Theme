@@ -199,8 +199,9 @@
 
     .site-title-name {
         font-family: var(--serif-font) !important;
-        font-size: 60px;
-        line-height: 60px;
+        font-size: 48px;
+        font-style: italic;
+        line-height: 48px;
         font-weight: 400;
         text-decoration: none;
         transition: all 0.5s ease;
@@ -209,20 +210,6 @@
         position: absolute;
         left: 2vw;
         top: 1vw;
-    }
-
-    .site-title-role {
-        font-family: var(--primary-font) !important;
-        font-size: 20px;
-        line-height: 20px;
-        font-weight: 400;
-        color: #808080;
-        text-shadow: none;
-        transition: all 0.5s ease;
-        position: absolute;
-        left: 2vw;
-        top: calc((2vw + 60px) / 2);
-        transform: translateY(-50%);
     }
 
     .main-nav {
@@ -309,16 +296,12 @@
         }
 
         .site-title-name {
-            font-size: 2.46rem;
-            line-height: 2.46rem;
+            font-size: 24px;
+            line-height: 24px;
             position: static;
             transform: none;
             left: auto;
             top: auto;
-        }
-
-        .site-title-role {
-            display: none;
         }
 
         .main-nav {
