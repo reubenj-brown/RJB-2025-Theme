@@ -200,7 +200,7 @@
     .site-title-name {
         font-family: var(--serif-font) !important;
         font-size: 48px;
-        font-style: italic;
+        font-style: italic !important;
         line-height: 48px;
         font-weight: 400;
         text-decoration: none;
