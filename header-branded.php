@@ -418,11 +418,20 @@
 
     // Header transparency and footer visibility for full-bleed sections (portfolio page only)
     function updateHeaderAndFooterForFullBleed() {
+        console.log('updateHeaderAndFooterForFullBleed called');
+        
         const header = document.querySelector('.site-header');
         const footer = document.querySelector('.site-footer');
         const fullBleedSection = document.querySelector('.featured-story-full-bleed');
         
+        console.log('Elements check:', {
+            header: !!header,
+            footer: !!footer,
+            fullBleedSection: !!fullBleedSection
+        });
+        
         if (!header || !footer || !fullBleedSection) {
+            console.log('Missing elements, returning early');
             return;
         }
         
@@ -431,9 +440,19 @@
         const footerRect = footer.getBoundingClientRect();
         
         // Check if header overlaps with full-bleed section
-        if (fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0) {
+        const headerOverlaps = fullBleedRect.top <= headerHeight && fullBleedRect.bottom >= 0;
+        console.log('Header overlap check:', {
+            fullBleedTop: fullBleedRect.top,
+            fullBleedBottom: fullBleedRect.bottom,
+            headerHeight: headerHeight,
+            overlapping: headerOverlaps
+        });
+        
+        if (headerOverlaps) {
+            console.log('Adding over-full-bleed to header');
             header.classList.add('over-full-bleed');
         } else {
+            console.log('Removing over-full-bleed from header');
             header.classList.remove('over-full-bleed');
         }
         
@@ -443,14 +462,25 @@
         const copyright = footer.querySelector('.copyright');
         
         // Footer overlaps with hero section if hero section bottom is below footer top
-        if (fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom) {
+        const footerOverlaps = fullBleedRect.bottom > footerRect.top && fullBleedRect.top < footerRect.bottom;
+        console.log('Footer overlap check:', {
+            fullBleedTop: fullBleedRect.top,
+            fullBleedBottom: fullBleedRect.bottom,
+            footerTop: footerRect.top,
+            footerBottom: footerRect.bottom,
+            overlapping: footerOverlaps
+        });
+        
+        if (footerOverlaps) {
             // Footer is overlapping hero section - use white logo/text and disable blur
+            console.log('Footer overlapping - setting white logo');
             footer.classList.add('over-full-bleed');
             if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
             if (copyright) copyright.style.color = 'white';
             if (socialLinks) socialLinks.style.display = 'none';
         } else {
             // Footer is not overlapping hero section - use black logo/gray text and enable blur
+            console.log('Footer not overlapping - setting black logo');
             footer.classList.remove('over-full-bleed');
             if (footerLogo) footerLogo.src = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
             if (copyright) copyright.style.color = '#808080';
@@ -458,40 +488,47 @@
         }
     }
 
-    // Only run full-bleed logic on portfolio pages
-    if (document.body.classList.contains('page-template-page-portfolio')) {
-        // Function to initialize effects once everything is loaded
-        function initializeFullBleedEffects() {
-            console.log('Initializing full-bleed effects...');
-            
-            const header = document.querySelector('.site-header');
-            const footer = document.querySelector('.site-footer');
-            const fullBleedSection = document.querySelector('.featured-story-full-bleed');
-            
-            console.log('Found elements:', {
-                header: !!header,
-                footer: !!footer,
-                fullBleedSection: !!fullBleedSection
-            });
-            
-            if (header && footer) {
-                window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
-                window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
-                updateHeaderAndFooterForFullBleed(); // Run initial check
-            }
-        }
+    // Debug: Always log basic info
+    console.log('Header script loaded!');
+    console.log('Body classes:', document.body.classList.toString());
+    console.log('Current URL:', window.location.href);
+    
+    // Function to initialize effects once everything is loaded
+    function initializeFullBleedEffects() {
+        console.log('Initializing full-bleed effects...');
         
-        // Try multiple timing approaches
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeFullBleedEffects);
+        const header = document.querySelector('.site-header');
+        const footer = document.querySelector('.site-footer');
+        const fullBleedSection = document.querySelector('.featured-story-full-bleed');
+        
+        console.log('Found elements:', {
+            header: !!header,
+            footer: !!footer,
+            fullBleedSection: !!fullBleedSection
+        });
+        
+        if (header && footer) {
+            console.log('Setting up scroll listeners...');
+            window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
+            window.addEventListener('resize', updateHeaderAndFooterForFullBleed);
+            updateHeaderAndFooterForFullBleed(); // Run initial check
         } else {
-            initializeFullBleedEffects();
+            console.log('Missing required elements - header or footer not found');
         }
-        
-        // Also try after window load for shortcode content
-        window.addEventListener('load', initializeFullBleedEffects);
-        
-        // And after a short delay to ensure shortcodes are rendered
-        setTimeout(initializeFullBleedEffects, 1000);
     }
+    
+    // Always run the initialization (not just on portfolio pages)
+    // Try multiple timing approaches
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeFullBleedEffects);
+    } else {
+        initializeFullBleedEffects();
+    }
+    
+    // Also try after window load for shortcode content
+    window.addEventListener('load', initializeFullBleedEffects);
+    
+    // And after a short delay to ensure shortcodes are rendered
+    setTimeout(initializeFullBleedEffects, 1000);
+    setTimeout(initializeFullBleedEffects, 3000); // Even longer delay
 </script>
