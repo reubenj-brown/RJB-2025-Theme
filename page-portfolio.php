@@ -63,8 +63,8 @@ add_action('wp_head', function() {
                 top: 0;
                 left: -2vw;
                 right: -2vw;
-                bottom: -200px; /* Extend below footer area */
-                background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
+                bottom: -3vw; /* Extend to cover footer height (1vw padding + extra) */
+                background: #39e58f;
                 z-index: -1;
             }
 
