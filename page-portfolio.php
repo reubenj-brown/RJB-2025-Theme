@@ -65,7 +65,7 @@ add_action('wp_head', function() {
                 left: -2vw;
                 right: -2vw;
                 bottom: -5vw; /* Extend to fully cover footer area and eliminate white gap */
-                background: #39e58f;
+                background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
                 z-index: -1;
             }
 
