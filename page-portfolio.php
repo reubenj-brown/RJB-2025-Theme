@@ -50,10 +50,12 @@ add_action('wp_head', function() {
             /* Contact Section */
             .contact-section {
                 height: 100vh;
+                max-height: 100vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 position: relative;
+                overflow: hidden; /* Ensure section doesn't exceed 100vh */
                 background: transparent !important; /* Override white background from .content-section */
             }
 
