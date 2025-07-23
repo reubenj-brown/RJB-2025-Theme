@@ -90,12 +90,18 @@ function get_story_featured_image($post_id, $size = 'medium') {
         // Handle relative URLs and domain slugs
         if (strpos($original_image_url, '/') === 0) {
             // Relative URL starting with / - prepend site URL
-            return home_url($original_image_url);
+            $final_url = home_url($original_image_url);
+            // Debug: Log the URL conversion
+            error_log("ACF Image URL conversion: '$original_image_url' -> '$final_url' (home_url: '" . home_url() . "')");
+            return $final_url;
         } elseif (!filter_var($original_image_url, FILTER_VALIDATE_URL)) {
             // Not a valid URL - treat as relative path and prepend site URL
-            return home_url('/' . ltrim($original_image_url, '/'));
+            $final_url = home_url('/' . ltrim($original_image_url, '/'));
+            error_log("ACF Image URL conversion (relative): '$original_image_url' -> '$final_url'");
+            return $final_url;
         } else {
             // Valid full URL - return as is
+            error_log("ACF Image URL (full URL): '$original_image_url'");
             return $original_image_url;
         }
     }
