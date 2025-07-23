@@ -79,11 +79,28 @@ function get_portfolio_stories($category = '', $limit = 6) {
  * @return string
  */
 function get_story_featured_image($post_id, $size = 'medium') {
+    // First priority: WordPress featured image
     if (has_post_thumbnail($post_id)) {
         return get_the_post_thumbnail_url($post_id, $size);
     }
     
-    // Return a placeholder if no featured image
+    // Second priority: ACF Original Image URL field
+    $original_image_url = get_field('original_image_url', $post_id);
+    if (!empty($original_image_url)) {
+        // Handle relative URLs and domain slugs
+        if (strpos($original_image_url, '/') === 0) {
+            // Relative URL starting with / - prepend site URL
+            return home_url($original_image_url);
+        } elseif (!filter_var($original_image_url, FILTER_VALIDATE_URL)) {
+            // Not a valid URL - treat as relative path and prepend site URL
+            return home_url('/' . ltrim($original_image_url, '/'));
+        } else {
+            // Valid full URL - return as is
+            return $original_image_url;
+        }
+    }
+    
+    // Fallback: placeholder image
     return get_stylesheet_directory_uri() . '/images/story-placeholder.jpg';
 }
 
@@ -98,7 +115,8 @@ function get_story_metadata($post_id) {
         'publication' => get_field('publication', $post_id),
         'publish_date' => get_field('publish_date', $post_id),
         'external_url' => get_field('external_url', $post_id),
-        'photo_credit' => get_field('photo_credit', $post_id)
+        'photo_credit' => get_field('photo_credit', $post_id),
+        'original_image_url' => get_field('original_image_url', $post_id)
     ];
 }
 
