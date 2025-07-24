@@ -18,7 +18,7 @@ add_action('wp_enqueue_scripts', function() {
 // Add portfolio-specific styles to header
 add_action('wp_head', function() {
     // Always load CSS when this template is used
-        ?>
+    ?>
         <style>
             /* Main Content Wrapper */
             .main-content {
@@ -126,7 +126,6 @@ add_action('wp_head', function() {
             }
         </style>
         <?php
-    }
 });
 
 get_header('branded'); ?>
