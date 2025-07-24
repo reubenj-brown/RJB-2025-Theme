@@ -17,7 +17,7 @@ add_action('wp_enqueue_scripts', function() {
 
 // Add portfolio-specific styles to header
 add_action('wp_head', function() {
-    if (is_page_template('page-portfolio.php')) {
+    // Always load CSS when this template is used
         ?>
         <style>
             /* Main Content Wrapper */
