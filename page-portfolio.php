@@ -64,11 +64,18 @@ add_action('wp_head', function() {
                 content: '';
                 position: absolute;
                 top: 0;
-                left: -2vw;
-                right: -2vw;
+                left: 0; /* Full viewport width since section is outside main wrapper */
+                right: 0; /* Full viewport width since section is outside main wrapper */
                 bottom: -5vw; /* Extend to fully cover footer area and eliminate white gap */
                 background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
                 z-index: -1;
+            }
+
+            /* Ensure Contact heading has proper styling outside main wrapper */
+            .contact-section ~ .section-heading,
+            body .section-heading + .contact-section {
+                position: relative;
+                z-index: 1;
             }
 
             .contact-links {
@@ -173,15 +180,16 @@ get_header('branded'); ?>
         <section class="content-section cv-section" id="cv">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
-        
-        <h1 class="section-heading">Contact</h1>
-        <section class="content-section contact-section" id="contact">
-            <div class="contact-links">
-                <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
-                <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
-                <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
-            </div>
-        </section>
     </main>
+
+    <!-- Contact Section - Outside main wrapper for full width gradient -->
+    <h1 class="section-heading">Contact</h1>
+    <section class="content-section contact-section" id="contact">
+        <div class="contact-links">
+            <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
+            <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
+            <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
+        </div>
+    </section>
 
 <?php get_footer('branded'); ?>
