@@ -69,7 +69,7 @@
 
     .copyright {
         color: #808080;
-        font-size: 14px;
+        font-size: 16px;
         transition: all 0.5s ease;
     }
 
