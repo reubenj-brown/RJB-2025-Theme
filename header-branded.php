@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#39e58f">
 <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
 
-<link rel="stylesheet" href="https://use.typekit.net/ffl7rra.css">
+<link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css">
 
 <?php wp_head(); ?>
 
