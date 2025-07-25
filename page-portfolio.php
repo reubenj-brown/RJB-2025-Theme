@@ -124,6 +124,7 @@ add_action('wp_head', function() {
 
             .features-left {
                 width: 50%;
+                padding: 32px;
             }
 
             .features-story-main {
@@ -135,6 +136,13 @@ add_action('wp_head', function() {
             .features-story-main .story-content {
                 flex: 0 0 37.5%;
                 text-align: center;
+            }
+
+            /* Ensure headlines are black */
+            .features-story-main h2 a,
+            .features-story-small h2 a {
+                color: #000 !important;
+                text-decoration: none;
             }
 
             .features-story-main .story-image {
@@ -155,6 +163,7 @@ add_action('wp_head', function() {
 
             .features-right {
                 width: 50%;
+                padding: 32px;
                 display: flex;
                 flex-direction: column;
                 gap: 32px;
@@ -202,6 +211,7 @@ add_action('wp_head', function() {
                 .features-left,
                 .features-right {
                     width: 100%;
+                    padding: 16px;
                 }
 
                 .features-left {
@@ -213,21 +223,28 @@ add_action('wp_head', function() {
                     gap: 24px;
                 }
 
+                /* Primary story text stays center-aligned on tablet */
                 .features-story-main .story-content {
-                    text-align: left;
+                    text-align: center;
                 }
             }
 
             /* Mobile responsive */
             @media (max-width: 768px) {
-                .features-story-main {
-                    flex-direction: column;
-                    text-align: center;
+                .features-left,
+                .features-right {
+                    padding: 8px;
                 }
 
+                .features-story-main {
+                    flex-direction: column;
+                }
+
+                /* Primary story text stays center-aligned on mobile */
                 .features-story-main .story-content {
                     width: 100%;
                     margin-bottom: 16px;
+                    text-align: center;
                 }
 
                 .features-story-main .story-image {
