@@ -147,11 +147,7 @@ add_action('wp_head', function() {
                 text-decoration: none;
             }
 
-            /* Primary story spacing to match Reviews section */
-            .features-story-main h2 {
-                margin-bottom: 1.5rem;
-                line-height: 1.1;
-            }
+            /* Primary story spacing removed - now handled below with font styling */
 
             .features-story-main p:not(.story-meta) {
                 color: #808080;
@@ -161,8 +157,15 @@ add_action('wp_head', function() {
                 font-size: 24.5px;
             }
 
-            /* Secondary story headlines - Span Compressed Regular at 48px */
+            /* Secondary story headlines - back to original */
             .features-story-small h2 {
+                font-size: 29.5px;
+            }
+
+            /* Primary story headline - Span Compressed Regular at 48px */
+            .features-story-main h2 {
+                margin-bottom: 1.5rem;
+                line-height: 1.1;
                 font-family: var(--compressed-font);
                 font-size: 48px;
                 font-weight: 400;
