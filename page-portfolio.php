@@ -42,8 +42,8 @@ add_action('wp_head', function() {
             /* Section Headings */
             .section-heading {
                 font-family: var(--primary-font) !important;
-                font-size: 48px;
-                line-height: 48px;
+                font-size: 32px;
+                line-height: 32px;
                 font-weight: 600;
                 color: #808080;
                 text-align: center;
@@ -161,9 +161,12 @@ add_action('wp_head', function() {
                 font-size: 24.5px;
             }
 
-            /* Secondary story headlines should be 29.5px */
+            /* Secondary story headlines - Span Compressed Regular at 48px */
             .features-story-small h2 {
-                font-size: 29.5px;
+                font-family: var(--compressed-font);
+                font-size: 48px;
+                font-weight: 400;
+                font-style: normal;
             }
 
             .features-story-main .story-image {
