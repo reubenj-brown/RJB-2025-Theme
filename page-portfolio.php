@@ -157,6 +157,8 @@ add_action('wp_head', function() {
                 color: #808080;
                 margin-bottom: 2rem;
                 line-height: 1.3;
+                font-family: var(--serif-font);
+                font-size: 24.5px;
             }
 
             /* Secondary story headlines should be 29.5px */
