@@ -145,6 +145,16 @@ add_action('wp_head', function() {
                 text-decoration: none;
             }
 
+            /* Primary story standfirst should be grey p text */
+            .features-story-main p:not(.story-meta) {
+                color: #808080;
+            }
+
+            /* Secondary story headlines should be 29.5px */
+            .features-story-small h2 {
+                font-size: 29.5px;
+            }
+
             .features-story-main .story-image {
                 flex: 0 0 62.5%;
                 aspect-ratio: 4/3;
@@ -352,7 +362,7 @@ get_header('branded'); ?>
                                     </a>
                                 </h2>
                                 <?php if (!empty($first_story['excerpt'])) : ?>
-                                    <h3><?php echo $first_story['excerpt']; ?></h3>
+                                    <p><?php echo $first_story['excerpt']; ?></p>
                                 <?php endif; ?>
                                 <p class="story-meta">
                                     <?php if (!empty($first_story['metadata']['publication'])) : ?>
