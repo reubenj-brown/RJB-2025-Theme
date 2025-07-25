@@ -333,8 +333,8 @@
         color: #000 !important;
     }
 
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
+    /* Tablet Responsive - Header Stacking */
+    @media (max-width: 1024px) {
         .site-header {
             height: auto;
             padding: 1rem 0;

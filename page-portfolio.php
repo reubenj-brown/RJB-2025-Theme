@@ -265,6 +265,11 @@ add_action('wp_head', function() {
                 .features-story-main .story-content {
                     text-align: center;
                 }
+
+                /* Features section body text 16px on tablet */
+                .features-story-main p:not(.story-meta) {
+                    font-size: 16px;
+                }
             }
 
             /* Mobile responsive */
@@ -283,6 +288,11 @@ add_action('wp_head', function() {
 
                 .features-story-main .story-image {
                     width: 100%;
+                }
+
+                /* Features section body text 16px on mobile */
+                .features-story-main p:not(.story-meta) {
+                    font-size: 16px;
                 }
 
                 /* Keep secondary stories horizontal on mobile with square images */
