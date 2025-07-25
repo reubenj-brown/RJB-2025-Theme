@@ -153,7 +153,7 @@ add_action('wp_head', function() {
                 color: #808080;
                 margin-bottom: 2rem;
                 line-height: 1.3;
-                font-family: var(--serif-font);
+                font-family: var(--serif-font-scaled);
                 font-size: 24.5px;
             }
 
