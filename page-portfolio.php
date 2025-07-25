@@ -105,34 +105,56 @@ add_action('wp_head', function() {
                 transform: translateY(-5px);
             }
 
-            /* Features Section - Custom Layout based on mockup */
+            /* Features Section - Desktop split layout */
             .features-section {
-                padding: 4vw 2vw !important;
+                padding: 0 !important;
                 margin: 0 !important;
                 display: flex;
-                flex-direction: column;
-                gap: 4rem;
+                min-height: 80vh;
                 position: relative;
             }
 
-            /* Main story - full width at top */
-            .features-story-main {
+            /* Vertical separator line - desktop only */
+            .features-section::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background-color: #808080;
+                z-index: 10;
+            }
+
+            /* Left half - Main story */
+            .features-left {
+                width: 50%;
+                padding: 4vw 2vw;
                 display: flex;
                 flex-direction: column;
+                justify-content: center;
+            }
+
+            .features-story-main {
+                display: flex;
+                height: 100%;
                 align-items: center;
-                text-align: center;
-                max-width: 800px;
-                margin: 0 auto;
             }
 
             .features-story-main .story-content {
-                width: 100%;
-                margin-bottom: 2rem;
+                width: 37.5%;
+                text-align: center;
+                padding-right: 2rem;
+            }
+
+            .features-story-main .story-image-wrapper {
+                width: 62.5%;
+                position: relative;
             }
 
             .features-story-main .story-title {
                 font-family: var(--serif-font) !important;
-                font-size: 3rem;
+                font-size: 2.5rem;
                 line-height: 1.2;
                 font-weight: 400;
                 font-style: italic;
@@ -141,11 +163,10 @@ add_action('wp_head', function() {
             }
 
             .features-story-main .story-standfirst {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 line-height: 1.6;
                 color: #808080;
                 margin-bottom: 1.5rem;
-                max-width: 600px;
             }
 
             .features-story-main .story-meta {
@@ -154,14 +175,9 @@ add_action('wp_head', function() {
                 font-weight: 400;
             }
 
-            .features-story-main .story-image-wrapper {
-                width: 100%;
-                position: relative;
-            }
-
             .features-story-main .story-image {
                 width: 100%;
-                height: 60vh;
+                height: 50vh;
                 object-fit: cover;
                 border-radius: 8px;
             }
@@ -175,24 +191,32 @@ add_action('wp_head', function() {
                 font-style: italic;
             }
 
-            /* Secondary stories grid */
-            .features-secondary {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 3rem;
-                margin-top: 2rem;
+            /* Right half - Secondary stories */
+            .features-right {
+                width: 50%;
+                padding: 4vw 2vw;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
             }
 
             .features-story-small {
                 display: flex;
-                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+                padding: 1rem 0;
+            }
+
+            .features-story-small .story-content {
+                flex: 1;
                 text-align: left;
             }
 
             .features-story-small .story-image-wrapper {
-                width: 100%;
-                height: 200px;
-                margin-bottom: 1rem;
+                width: 120px;
+                height: 120px;
+                flex-shrink: 0;
             }
 
             .features-story-small .story-image {
@@ -204,7 +228,7 @@ add_action('wp_head', function() {
 
             .features-story-small .story-title {
                 font-family: var(--serif-font) !important;
-                font-size: 1.4rem;
+                font-size: 1.5rem;
                 line-height: 1.3;
                 font-weight: 400;
                 font-style: italic;
@@ -218,32 +242,58 @@ add_action('wp_head', function() {
                 font-weight: 400;
             }
 
-            /* Tablet responsive */
+            /* Tablet responsive - stacked layout */
             @media (max-width: 1024px) {
-                .features-secondary {
-                    grid-template-columns: 1fr 1fr;
-                    gap: 2rem;
+                .features-section {
+                    flex-direction: column;
+                    min-height: auto;
+                    padding: 4vw 2vw !important;
                 }
 
-                .features-story-main .story-title {
-                    font-size: 2.5rem;
+                .features-section::before {
+                    display: none;
+                }
+
+                .features-left,
+                .features-right {
+                    width: 100%;
+                    padding: 0;
+                }
+
+                .features-left {
+                    margin-bottom: 3rem;
+                }
+
+                .features-story-main {
+                    flex-direction: column;
+                    text-align: center;
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+
+                .features-story-main .story-content {
+                    width: 100%;
+                    padding-right: 0;
+                    margin-bottom: 2rem;
+                }
+
+                .features-story-main .story-image-wrapper {
+                    width: 100%;
                 }
 
                 .features-story-main .story-image {
                     height: 50vh;
                 }
+
+                .features-right {
+                    gap: 2rem;
+                }
             }
 
-            /* Mobile responsive */
+            /* Mobile responsive - double-stacked layout */
             @media (max-width: 768px) {
                 .features-section {
                     padding: 2vw 4vw !important;
-                    gap: 3rem;
-                }
-
-                .features-secondary {
-                    grid-template-columns: 1fr;
-                    gap: 2rem;
                 }
 
                 .features-story-main .story-title {
@@ -254,12 +304,19 @@ add_action('wp_head', function() {
                     height: 40vh;
                 }
 
+                .features-story-small {
+                    flex-direction: column;
+                    text-align: left;
+                    gap: 1rem;
+                }
+
                 .features-story-small .story-image-wrapper {
-                    height: 150px;
+                    width: 100%;
+                    height: 200px;
                 }
 
                 .features-story-small .story-title {
-                    font-size: 1.2rem;
+                    font-size: 1.3rem;
                 }
             }
 
@@ -336,42 +393,41 @@ get_header('branded'); ?>
                     $first_story = $stories[0];
                     $remaining_stories = array_slice($stories, 1);
             ?>
-                    <!-- Main featured story -->
-                    <div class="features-story-main">
-                        <div class="story-content">
-                            <h2 class="story-title">
-                                <a href="<?php echo $first_story['permalink']; ?>" style="text-decoration: none; color: inherit;">
-                                    <?php echo $first_story['title']; ?>
-                                </a>
-                            </h2>
-                            <?php if (!empty($first_story['excerpt'])) : ?>
-                                <p class="story-standfirst"><?php echo $first_story['excerpt']; ?></p>
-                            <?php endif; ?>
-                            <div class="story-meta">
-                                <?php if (!empty($first_story['metadata']['publication'])) : ?>
-                                    For <em><?php echo $first_story['metadata']['publication']; ?></em>
+                    <!-- Left half - Main featured story -->
+                    <div class="features-left">
+                        <div class="features-story-main">
+                            <div class="story-content">
+                                <h2 class="story-title">
+                                    <a href="<?php echo $first_story['permalink']; ?>" style="text-decoration: none; color: inherit;">
+                                        <?php echo $first_story['title']; ?>
+                                    </a>
+                                </h2>
+                                <?php if (!empty($first_story['excerpt'])) : ?>
+                                    <p class="story-standfirst"><?php echo $first_story['excerpt']; ?></p>
                                 <?php endif; ?>
-                                <?php if (!empty($first_story['metadata']['publish_date'])) : ?>
-                                    <?php if (!empty($first_story['metadata']['publication'])) echo ' '; ?>
-                                    in <?php echo date('F Y', strtotime($first_story['metadata']['publish_date'])); ?>
+                                <div class="story-meta">
+                                    <?php if (!empty($first_story['metadata']['publication'])) : ?>
+                                        For <em><?php echo $first_story['metadata']['publication']; ?></em>
+                                    <?php endif; ?>
+                                    <?php if (!empty($first_story['metadata']['publish_date'])) : ?>
+                                        <?php if (!empty($first_story['metadata']['publication'])) echo ' '; ?>
+                                        in <?php echo date('F Y', strtotime($first_story['metadata']['publish_date'])); ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="story-image-wrapper">
+                                <img src="<?php echo $first_story['image_url']; ?>" alt="<?php echo $first_story['title']; ?>" class="story-image">
+                                <?php if (!empty($first_story['metadata']['photo_credit'])) : ?>
+                                    <div class="image-credit">photograph: <?php echo $first_story['metadata']['photo_credit']; ?></div>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="story-image-wrapper">
-                            <img src="<?php echo $first_story['image_url']; ?>" alt="<?php echo $first_story['title']; ?>" class="story-image">
-                            <?php if (!empty($first_story['metadata']['photo_credit'])) : ?>
-                                <div class="image-credit">photograph: <?php echo $first_story['metadata']['photo_credit']; ?></div>
-                            <?php endif; ?>
-                        </div>
                     </div>
                     
-                    <!-- Secondary stories grid -->
-                    <div class="features-secondary">
+                    <!-- Right half - Secondary stories -->
+                    <div class="features-right">
                         <?php foreach ($remaining_stories as $story) : ?>
                             <div class="features-story-small">
-                                <div class="story-image-wrapper">
-                                    <img src="<?php echo $story['image_url']; ?>" alt="<?php echo $story['title']; ?>" class="story-image">
-                                </div>
                                 <div class="story-content">
                                     <h3 class="story-title">
                                         <a href="<?php echo $story['permalink']; ?>" style="text-decoration: none; color: inherit;">
@@ -387,6 +443,9 @@ get_header('branded'); ?>
                                             in <?php echo date('F Y', strtotime($story['metadata']['publish_date'])); ?> →
                                         <?php endif; ?>
                                     </div>
+                                </div>
+                                <div class="story-image-wrapper">
+                                    <img src="<?php echo $story['image_url']; ?>" alt="<?php echo $story['title']; ?>" class="story-image">
                                 </div>
                             </div>
                         <?php endforeach; ?>
