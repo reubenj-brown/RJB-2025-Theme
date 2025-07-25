@@ -59,4 +59,31 @@ a {
 
 a:hover {
   color:  var(--highlight-color);
+  text-decoration
 }
+
+p a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+p a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0; /* Overlaps with descenders */
+  width: 0; /* Hidden by default */
+  height: 8px;
+  background-color: var(--highlight-color);
+  z-index: -1;
+}
+
+p a:hover::after {
+  width: 100%;
+}
+
+p a:hover {
+  color: #000;
+}
+
+
