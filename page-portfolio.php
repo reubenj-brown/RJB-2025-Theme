@@ -361,7 +361,7 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_about]'); ?>
         </section>
         
-        <h1 class="section-heading">Features</h1>
+        <h1 class="section-heading" id="stories">Features</h1>
         <section class="content-section features-section" id="features">
             <?php
             // Get features stories
@@ -474,20 +474,20 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_dynamic_stories category="photographs" layout="grid" limit="6"]'); ?>
         </section>
         
-        <h1 class="section-heading">Strategy</h1>
-        <section class="content-section strategy-section" id="strategy">
+        <h1 class="section-heading" id="strategy">Strategy</h1>
+        <section class="content-section strategy-section">
             <?php echo do_shortcode('[reuben_strategy]'); ?>
         </section>
         
-        <h1 class="section-heading">CV</h1>
-        <section class="content-section cv-section" id="cv">
+        <h1 class="section-heading" id="cv">CV</h1>
+        <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
     </main>
 
     <!-- Contact Section - Outside main wrapper for full width gradient -->
-    <h1 class="section-heading">Contact</h1>
-    <section class="content-section contact-section" id="contact">
+    <h1 class="section-heading" id="contact">Contact</h1>
+    <section class="content-section contact-section">
         <div class="contact-links">
             <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
             <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
