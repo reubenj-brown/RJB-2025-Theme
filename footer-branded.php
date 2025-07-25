@@ -18,7 +18,7 @@
         z-index: 100;
     }
 
-    /* Gradient blur effect for footer - 3 points: 2px, 5px, 10px */
+    /* Smoother gradient blur effect for footer - 3 points with softer transitions */
     .site-footer::before {
         content: '';
         position: absolute;
@@ -26,9 +26,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        backdrop-filter: blur(10px);
-        mask: linear-gradient(to bottom, transparent 10px, black 30px, black 100%);
-        -webkit-mask: linear-gradient(to bottom, transparent 10px, black 30px, black 100%);
+        backdrop-filter: blur(8px);
+        mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
+        -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
         z-index: -1;
     }
 
@@ -39,13 +39,13 @@
         left: 0;
         right: 0;
         bottom: 0;
-        backdrop-filter: blur(2px);
-        mask: linear-gradient(to bottom, black 0%, black 20px, transparent 30px);
-        -webkit-mask: linear-gradient(to bottom, black 0%, black 20px, transparent 30px);
+        backdrop-filter: blur(3px);
+        mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
+        -webkit-mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
         z-index: -1;
     }
 
-    /* Third pseudo-element for middle blur point */
+    /* Third pseudo-element for middle blur point with softer blending */
     .site-footer .footer-content::before {
         content: '';
         position: absolute;
@@ -54,8 +54,8 @@
         right: 0;
         bottom: 0;
         backdrop-filter: blur(5px);
-        mask: linear-gradient(to bottom, transparent 10px, black 20px, transparent 30px);
-        -webkit-mask: linear-gradient(to bottom, transparent 10px, black 20px, transparent 30px);
+        mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
+        -webkit-mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
         z-index: -1;
     }
 
