@@ -105,12 +105,11 @@ add_action('wp_head', function() {
                 transform: translateY(-5px);
             }
 
-            /* Features Section - Desktop split layout */
+            /* Features Section - Using existing styles */
             .features-section {
                 padding: 0 !important;
                 margin: 0 !important;
                 display: flex;
-                min-height: 80vh;
                 position: relative;
             }
 
@@ -122,132 +121,93 @@ add_action('wp_head', function() {
                 top: 0;
                 bottom: 0;
                 width: 1px;
-                background-color: #808080;
+                background-color: #e0e0e0;
                 z-index: 10;
             }
 
-            /* Left half - Main story */
+            /* Left half - Main story using featured-story class */
             .features-left {
                 width: 50%;
-                padding: 4vw 2vw;
+                padding: 2rem;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
             }
 
             .features-story-main {
                 display: flex;
-                height: 100%;
-                align-items: center;
+                align-items: flex-start;
+                gap: 1.5rem;
             }
 
             .features-story-main .story-content {
-                width: 37.5%;
+                flex: 0 0 37.5%;
                 text-align: center;
-                padding-right: 2rem;
-            }
-
-            .features-story-main .story-image-wrapper {
-                width: 62.5%;
-                position: relative;
-            }
-
-            .features-story-main .story-title {
-                font-family: var(--serif-font) !important;
-                font-size: 2.5rem;
-                line-height: 1.2;
-                font-weight: 400;
-                font-style: italic;
-                margin-bottom: 1.5rem;
-                color: #000;
-            }
-
-            .features-story-main .story-standfirst {
-                font-size: 1.1rem;
-                line-height: 1.6;
-                color: #808080;
-                margin-bottom: 1.5rem;
-            }
-
-            .features-story-main .story-meta {
-                font-size: 16px;
-                color: #808080;
-                font-weight: 400;
             }
 
             .features-story-main .story-image {
-                width: 100%;
-                height: 50vh;
-                object-fit: cover;
-                border-radius: 8px;
+                flex: 0 0 62.5%;
+                aspect-ratio: 4/3;
+                overflow: hidden;
             }
 
-            .features-story-main .image-credit {
-                position: absolute;
-                bottom: -1.5rem;
-                right: 0;
+            .features-story-main .story-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+            }
+
+            .features-story-main .caption {
                 font-size: 12px;
                 color: #808080;
-                font-style: italic;
+                text-align: right;
+                background: white;
+                padding: 2px 0;
+                margin-top: 4px;
             }
 
-            /* Right half - Secondary stories */
+            /* Right half - Secondary stories using story-item-2x2 style */
             .features-right {
                 width: 50%;
-                padding: 4vw 2vw;
+                padding: 2rem;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                gap: 2rem;
+                justify-content: flex-start;
+                gap: 1.5rem;
             }
 
             .features-story-small {
                 display: flex;
+                flex-direction: row;
                 align-items: flex-start;
                 gap: 1.5rem;
-                padding: 1rem 0;
             }
 
             .features-story-small .story-content {
-                flex: 1;
-                text-align: left;
-            }
-
-            .features-story-small .story-image-wrapper {
-                width: 120px;
-                height: 120px;
-                flex-shrink: 0;
+                flex: 0 0 60%;
             }
 
             .features-story-small .story-image {
+                flex: 0 0 40%;
+                aspect-ratio: 4/3;
+                overflow: hidden;
+            }
+
+            .features-story-small .story-image img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                border-radius: 4px;
-            }
-
-            .features-story-small .story-title {
-                font-family: var(--serif-font) !important;
-                font-size: 1.5rem;
-                line-height: 1.3;
-                font-weight: 400;
-                font-style: italic;
-                margin-bottom: 0.75rem;
-                color: #000;
-            }
-
-            .features-story-small .story-meta {
-                font-size: 16px;
-                color: #808080;
-                font-weight: 400;
+                object-position: center;
+                display: block;
             }
 
             /* Tablet responsive - stacked layout */
             @media (max-width: 1024px) {
                 .features-section {
                     flex-direction: column;
-                    min-height: auto;
-                    padding: 4vw 2vw !important;
+                    padding: 2rem !important;
                 }
 
                 .features-section::before {
@@ -261,62 +221,45 @@ add_action('wp_head', function() {
                 }
 
                 .features-left {
-                    margin-bottom: 3rem;
+                    margin-bottom: 2rem;
                 }
 
                 .features-story-main {
                     flex-direction: column;
                     text-align: center;
-                    max-width: 800px;
-                    margin: 0 auto;
+                    gap: 1rem;
                 }
 
                 .features-story-main .story-content {
-                    width: 100%;
-                    padding-right: 0;
-                    margin-bottom: 2rem;
-                }
-
-                .features-story-main .story-image-wrapper {
+                    flex: none;
                     width: 100%;
                 }
 
                 .features-story-main .story-image {
-                    height: 50vh;
+                    flex: none;
+                    width: 100%;
                 }
 
                 .features-right {
-                    gap: 2rem;
+                    gap: 1.5rem;
                 }
             }
 
             /* Mobile responsive - double-stacked layout */
             @media (max-width: 768px) {
                 .features-section {
-                    padding: 2vw 4vw !important;
-                }
-
-                .features-story-main .story-title {
-                    font-size: 2rem;
-                }
-
-                .features-story-main .story-image {
-                    height: 40vh;
+                    padding: 1rem !important;
                 }
 
                 .features-story-small {
                     flex-direction: column;
-                    text-align: left;
-                    gap: 1rem;
+                    gap: 8px;
                 }
 
-                .features-story-small .story-image-wrapper {
+                .features-story-small .story-content,
+                .features-story-small .story-image {
+                    flex: none;
                     width: 100%;
-                    height: 200px;
-                }
-
-                .features-story-small .story-title {
-                    font-size: 1.3rem;
                 }
             }
 
@@ -397,17 +340,17 @@ get_header('branded'); ?>
                     <div class="features-left">
                         <div class="features-story-main">
                             <div class="story-content">
-                                <h2 class="story-title">
+                                <h2>
                                     <a href="<?php echo $first_story['permalink']; ?>" style="text-decoration: none; color: inherit;">
                                         <?php echo $first_story['title']; ?>
                                     </a>
                                 </h2>
                                 <?php if (!empty($first_story['excerpt'])) : ?>
-                                    <p class="story-standfirst"><?php echo $first_story['excerpt']; ?></p>
+                                    <h3><?php echo $first_story['excerpt']; ?></h3>
                                 <?php endif; ?>
                                 <div class="story-meta">
                                     <?php if (!empty($first_story['metadata']['publication'])) : ?>
-                                        For <em><?php echo $first_story['metadata']['publication']; ?></em>
+                                        For <i><?php echo $first_story['metadata']['publication']; ?></i>
                                     <?php endif; ?>
                                     <?php if (!empty($first_story['metadata']['publish_date'])) : ?>
                                         <?php if (!empty($first_story['metadata']['publication'])) echo ' '; ?>
@@ -415,10 +358,10 @@ get_header('branded'); ?>
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            <div class="story-image-wrapper">
-                                <img src="<?php echo $first_story['image_url']; ?>" alt="<?php echo $first_story['title']; ?>" class="story-image">
+                            <div class="story-image">
+                                <img src="<?php echo $first_story['image_url']; ?>" alt="<?php echo $first_story['title']; ?>">
                                 <?php if (!empty($first_story['metadata']['photo_credit'])) : ?>
-                                    <div class="image-credit">photograph: <?php echo $first_story['metadata']['photo_credit']; ?></div>
+                                    <div class="caption">photograph: <?php echo $first_story['metadata']['photo_credit']; ?></div>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -429,14 +372,14 @@ get_header('branded'); ?>
                         <?php foreach ($remaining_stories as $story) : ?>
                             <div class="features-story-small">
                                 <div class="story-content">
-                                    <h3 class="story-title">
+                                    <h2>
                                         <a href="<?php echo $story['permalink']; ?>" style="text-decoration: none; color: inherit;">
                                             <?php echo $story['title']; ?>
                                         </a>
-                                    </h3>
+                                    </h2>
                                     <div class="story-meta">
                                         <?php if (!empty($story['metadata']['publication'])) : ?>
-                                            For <em><?php echo $story['metadata']['publication']; ?></em>
+                                            For <i><?php echo $story['metadata']['publication']; ?></i>
                                         <?php endif; ?>
                                         <?php if (!empty($story['metadata']['publish_date'])) : ?>
                                             <?php if (!empty($story['metadata']['publication'])) echo ' '; ?>
@@ -444,8 +387,8 @@ get_header('branded'); ?>
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="story-image-wrapper">
-                                    <img src="<?php echo $story['image_url']; ?>" alt="<?php echo $story['title']; ?>" class="story-image">
+                                <div class="story-image">
+                                    <img src="<?php echo $story['image_url']; ?>" alt="<?php echo $story['title']; ?>">
                                 </div>
                             </div>
                         <?php endforeach; ?>
