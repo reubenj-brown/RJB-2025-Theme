@@ -129,11 +129,12 @@ add_action('wp_head', function() {
             .features-story-main {
                 display: flex;
                 align-items: flex-start;
-                gap: 32px;
+                gap: 24px;
+                width: 100%; /* Use full available width of parent */
             }
 
             .features-story-main .story-content {
-                flex: 0 0 37.5%;
+                flex: 0 0 calc(40% - 9.6px); /* 40% minus 40% of gap */
                 text-align: center;
             }
 
@@ -162,7 +163,7 @@ add_action('wp_head', function() {
             }
 
             .features-story-main .story-image {
-                flex: 0 0 62.5%;
+                flex: 0 0 calc(60% - 14.4px); /* 60% minus 60% of gap */
                 aspect-ratio: 4/3;
                 overflow: hidden;
                 position: relative;
