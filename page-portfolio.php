@@ -250,6 +250,7 @@ add_action('wp_head', function() {
                 .features-left,
                 .features-right {
                     width: 100%;
+                    padding: 0;
                 }
 
                 .features-left {
