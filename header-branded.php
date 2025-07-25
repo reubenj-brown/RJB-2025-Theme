@@ -3,6 +3,7 @@
 <head>
 <meta charset="<?php bloginfo('charset'); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#39e58f">
 <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
 
 <link rel="stylesheet" href="https://use.typekit.net/ffl7rra.css">

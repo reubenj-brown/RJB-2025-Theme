@@ -127,5 +127,13 @@ function get_story_metadata($post_id) {
 }
 
 /**
+ * Add theme-color meta tag to all pages
+ */
+function add_theme_color_meta() {
+    echo '<meta name="theme-color" content="#39e58f">' . "\n";
+}
+add_action('wp_head', 'add_theme_color_meta');
+
+/**
  * Custom functions for portfolio site will be added here
  */
