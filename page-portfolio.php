@@ -124,7 +124,6 @@ add_action('wp_head', function() {
 
             .features-left {
                 width: 50%;
-                padding: 32px;
             }
 
             .features-story-main {
@@ -246,9 +245,6 @@ add_action('wp_head', function() {
 
             /* Mobile responsive */
             @media (max-width: 768px) {
-                .features-left,
-                .features-right {
-                }
 
                 .features-story-main {
                     flex-direction: column;
