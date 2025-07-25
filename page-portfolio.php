@@ -173,8 +173,9 @@ add_action('wp_head', function() {
                 text-transform: uppercase;
             }
 
-            /* Hero section headline - Span Compressed Regular at 48px, block caps */
-            .featured-story-full-bleed h2 {
+            /* Hero section headline - Span Compressed Regular at 48px, block caps, not italic */
+            .featured-story-full-bleed h2,
+            .featured-story-full-bleed h2 i {
                 font-family: var(--compressed-font) !important;
                 font-size: 48px !important;
                 font-weight: 400 !important;
