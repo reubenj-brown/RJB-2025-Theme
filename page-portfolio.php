@@ -145,9 +145,16 @@ add_action('wp_head', function() {
                 text-decoration: none;
             }
 
-            /* Primary story standfirst should be grey p text */
+            /* Primary story spacing to match Reviews section */
+            .features-story-main h2 {
+                margin-bottom: 1.5rem;
+                line-height: 1.1;
+            }
+
             .features-story-main p:not(.story-meta) {
                 color: #808080;
+                margin-bottom: 2rem;
+                line-height: 1.3;
             }
 
             /* Secondary story headlines should be 29.5px */
