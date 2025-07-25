@@ -184,7 +184,8 @@ add_action('wp_head', function() {
                 padding-left: 16px;
                 display: flex;
                 flex-direction: column;
-                gap: 32px;
+                justify-content: flex-start;
+                gap: 16px;
             }
 
             .features-story-small {
