@@ -53,6 +53,7 @@
     --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
     --compressed-font: 'span-compressed', serif;
+    --compressed-italic-font: 'span-compressed', serif;
     }
 
     * {
