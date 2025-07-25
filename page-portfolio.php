@@ -125,7 +125,7 @@ add_action('wp_head', function() {
 
             .features-left {
                 width: 50%;
-                padding-right: 16px;
+                padding-right: 32px;
             }
 
             .features-story-main {
@@ -201,7 +201,7 @@ add_action('wp_head', function() {
 
             .features-right {
                 width: 50%;
-                padding-left: 16px;
+                padding-left: 32px;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;

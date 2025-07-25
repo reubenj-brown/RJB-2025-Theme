@@ -437,7 +437,7 @@
         });
     });
 
-    // Update active navigation - only highlight when section fills majority of screen
+    // Update active navigation - highlight when section fills majority of screen
     function updateActiveNav() {
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -450,9 +450,13 @@
         // Remove all active classes first
         navLinks.forEach(link => link.classList.remove('active'));
         
+        // Debug: Log scroll position and viewport info
+        console.log('Scroll position:', scrollTop, 'Viewport height:', viewportHeight);
+        
         sections.forEach(section => {
+            const sectionId = section.getAttribute('id');
             const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.clientHeight;
+            const sectionBottom = sectionTop + section.offsetHeight; // Use offsetHeight instead of clientHeight
             const viewportTop = scrollTop;
             const viewportBottom = scrollTop + viewportHeight;
             
@@ -462,18 +466,35 @@
             const visibleHeight = Math.max(0, visibleBottom - visibleTop);
             const sectionScore = visibleHeight / viewportHeight;
             
-            // Only consider this section if it occupies more than 50% of viewport
-            if (sectionScore > 0.5 && sectionScore > bestMatchScore) {
+            // Debug: Log section info
+            console.log(`Section ${sectionId}: top=${sectionTop}, bottom=${sectionBottom}, score=${sectionScore.toFixed(2)}`);
+            
+            // Lower threshold to 40% for better responsiveness
+            if (sectionScore > 0.4 && sectionScore > bestMatchScore) {
                 bestMatchScore = sectionScore;
-                bestMatch = section.getAttribute('id');
+                bestMatch = sectionId;
             }
         });
         
+        // Debug: Log best match
+        console.log('Best match:', bestMatch, 'Score:', bestMatchScore.toFixed(2));
+        
         // Highlight the section that best fills the viewport
         if (bestMatch) {
-            const activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
+            // Try multiple selector approaches to ensure we find the right link
+            let activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
+            if (!activeLink) {
+                activeLink = document.querySelector(`.nav-link[href$="#${bestMatch}"]`);
+            }
+            if (!activeLink) {
+                activeLink = document.querySelector(`.nav-link[href="${location.origin}/#${bestMatch}"]`);
+            }
+            
             if (activeLink) {
                 activeLink.classList.add('active');
+                console.log('Activated link for:', bestMatch);
+            } else {
+                console.log('Could not find link for:', bestMatch);
             }
         }
     }
