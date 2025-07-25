@@ -108,6 +108,7 @@ add_action('wp_head', function() {
             /* Features Section */
             .features-section {
                 display: flex;
+                align-items: flex-start;
                 position: relative;
             }
 
