@@ -3,6 +3,9 @@
 Template Name: Portfolio Page
 */
 
+// Debug: Template is loading
+error_log('Portfolio template is loading');
+
 // Disable WordPress admin bar for this page
 show_admin_bar(false);
 
