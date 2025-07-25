@@ -141,6 +141,16 @@ add_action('wp_head', function() {
                 flex: 0 0 62.5%;
                 aspect-ratio: 4/3;
                 overflow: hidden;
+                position: relative;
+                margin-bottom: 8px;
+            }
+
+            .features-story-main .story-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
             }
 
             .features-right {
@@ -167,6 +177,16 @@ add_action('wp_head', function() {
                 aspect-ratio: 1/1;
                 overflow: hidden;
                 flex-shrink: 0;
+                position: relative;
+                margin-bottom: 8px;
+            }
+
+            .features-story-small .story-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
             }
 
             /* Tablet responsive */
@@ -295,21 +315,21 @@ get_header('branded'); ?>
                     <div class="features-left">
                         <div class="features-story-main">
                             <div class="story-content">
-                                <h2>
-                                    <a href="<?php echo $first_story['permalink']; ?>" style="text-decoration: none; color: inherit;">
+                                <h2 class="serif-font-scaled">
+                                    <a href="<?php echo $first_story['permalink']; ?>">
                                         <?php echo $first_story['title']; ?>
                                     </a>
                                 </h2>
                                 <?php if (!empty($first_story['excerpt'])) : ?>
-                                    <p><?php echo $first_story['excerpt']; ?></p>
+                                    <h3><?php echo $first_story['excerpt']; ?></h3>
                                 <?php endif; ?>
                                 <p class="story-meta">
                                     <?php if (!empty($first_story['metadata']['publication'])) : ?>
                                         For <i><?php echo $first_story['metadata']['publication']; ?></i>
                                     <?php endif; ?>
                                     <?php if (!empty($first_story['metadata']['publish_date'])) : ?>
-                                        <?php if (!empty($first_story['metadata']['publication'])) echo ' '; ?>
-                                        in <?php echo date('F Y', strtotime($first_story['metadata']['publish_date'])); ?>
+                                        <?php echo !empty($first_story['metadata']['publication']) ? ' in ' : ''; ?>
+                                        <?php echo date('F Y', strtotime($first_story['metadata']['publish_date'])); ?>
                                     <?php endif; ?>
                                 </p>
                             </div>
@@ -327,18 +347,18 @@ get_header('branded'); ?>
                         <?php foreach ($remaining_stories as $story) : ?>
                             <div class="features-story-small">
                                 <div class="story-content">
-                                    <h3>
-                                        <a href="<?php echo $story['permalink']; ?>" style="text-decoration: none; color: inherit;">
+                                    <h2 class="serif-font-scaled">
+                                        <a href="<?php echo $story['permalink']; ?>">
                                             <?php echo $story['title']; ?>
                                         </a>
-                                    </h3>
+                                    </h2>
                                     <p class="story-meta">
                                         <?php if (!empty($story['metadata']['publication'])) : ?>
                                             For <i><?php echo $story['metadata']['publication']; ?></i>
                                         <?php endif; ?>
                                         <?php if (!empty($story['metadata']['publish_date'])) : ?>
-                                            <?php if (!empty($story['metadata']['publication'])) echo ' '; ?>
-                                            in <?php echo date('F Y', strtotime($story['metadata']['publish_date'])); ?> →
+                                            <?php echo !empty($story['metadata']['publication']) ? ' in ' : ''; ?>
+                                            <?php echo date('F Y', strtotime($story['metadata']['publish_date'])); ?>
                                         <?php endif; ?>
                                     </p>
                                 </div>
