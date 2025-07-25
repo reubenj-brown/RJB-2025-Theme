@@ -269,6 +269,7 @@ add_action('wp_head', function() {
 
                 /* Features section body text 16px on tablet */
                 .features-story-main p:not(.story-meta) {
+                    font-family: var(--serif-font);
                     font-size: 16px;
                 }
             }
@@ -293,6 +294,7 @@ add_action('wp_head', function() {
 
                 /* Features section body text 16px on mobile */
                 .features-story-main p:not(.story-meta) {
+                    font-family: var(--serif-font);
                     font-size: 16px;
                 }
 
