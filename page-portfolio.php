@@ -183,12 +183,6 @@ add_action('wp_head', function() {
                 text-transform: uppercase !important;
             }
 
-            /* Hero section story-text positioning */
-            .featured-story-full-bleed .story-text {
-                position: absolute !important;
-                bottom: 8vw !important;
-            }
-
             .features-story-main .story-image {
                 flex: 0 0 calc(60% - 14.4px); /* 60% minus 60% of gap */
                 aspect-ratio: 4/3;
