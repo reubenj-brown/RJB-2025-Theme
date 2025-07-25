@@ -395,7 +395,7 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
-                    <li><a href="<?php echo get_post_type_archive_link('story'); ?>" class="nav-link">Stories</a></li>
+                    <li><a href="<?php echo home_url('/#stories'); ?>" class="nav-link">Stories</a></li>
                     <li><a href="<?php echo home_url('/#strategy'); ?>" class="nav-link">Strategy</a></li>
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
                 </ul>
