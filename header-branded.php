@@ -346,8 +346,8 @@
         }
 
         .site-title-name {
-            font-size: 24px;
-            line-height: 24px;
+            font-size: 29.5px;
+            line-height: 29.5px;
             position: static;
             transform: none;
             order: 1;
@@ -376,6 +376,14 @@
 
         .main-nav li:not(:last-child)::after {
             margin: 0 0.5rem;
+        }
+    }
+
+    /* Mobile Responsive - Further size reduction */
+    @media (max-width: 768px) {
+        .site-title-name {
+            font-size: 24px;
+            line-height: 24px;
         }
     }
 </style>
