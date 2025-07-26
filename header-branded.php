@@ -439,7 +439,8 @@
 
     // Update active navigation - highlight when section fills majority of screen
     function updateActiveNav() {
-        const sections = document.querySelectorAll('section[id]');
+        // Get all sections and navigation links
+        const sections = document.querySelectorAll('section[id], .section-heading[id]');
         const navLinks = document.querySelectorAll('.nav-link');
         const viewportHeight = window.innerHeight;
         const scrollTop = window.scrollY;
@@ -450,13 +451,34 @@
         // Remove all active classes first
         navLinks.forEach(link => link.classList.remove('active'));
         
-        // Debug: Log scroll position and viewport info
-        console.log('Scroll position:', scrollTop, 'Viewport height:', viewportHeight);
+        // Create a mapping for special cases
+        const sectionMapping = {
+            'stories': 'features', // Navigation points to #stories but section is #features
+            'features': 'stories'  // Allow both to work
+        };
         
-        sections.forEach(section => {
-            const sectionId = section.getAttribute('id');
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight; // Use offsetHeight instead of clientHeight
+        sections.forEach(element => {
+            const sectionId = element.getAttribute('id');
+            if (!sectionId) return;
+            
+            let sectionTop, sectionBottom;
+            
+            // Handle different element types
+            if (element.tagName.toLowerCase() === 'section') {
+                sectionTop = element.offsetTop;
+                sectionBottom = sectionTop + element.offsetHeight;
+            } else {
+                // For heading elements, find the associated section
+                const nextSection = element.nextElementSibling;
+                if (nextSection && nextSection.tagName.toLowerCase() === 'section') {
+                    sectionTop = element.offsetTop;
+                    sectionBottom = nextSection.offsetTop + nextSection.offsetHeight;
+                } else {
+                    sectionTop = element.offsetTop;
+                    sectionBottom = sectionTop + 200; // Fallback height
+                }
+            }
+            
             const viewportTop = scrollTop;
             const viewportBottom = scrollTop + viewportHeight;
             
@@ -466,35 +488,26 @@
             const visibleHeight = Math.max(0, visibleBottom - visibleTop);
             const sectionScore = visibleHeight / viewportHeight;
             
-            // Debug: Log section info
-            console.log(`Section ${sectionId}: top=${sectionTop}, bottom=${sectionBottom}, score=${sectionScore.toFixed(2)}`);
-            
-            // Lower threshold to 40% for better responsiveness
-            if (sectionScore > 0.4 && sectionScore > bestMatchScore) {
+            // Only consider sections that occupy significant viewport space
+            if (sectionScore > 0.3 && sectionScore > bestMatchScore) {
                 bestMatchScore = sectionScore;
                 bestMatch = sectionId;
             }
         });
         
-        // Debug: Log best match
-        console.log('Best match:', bestMatch, 'Score:', bestMatchScore.toFixed(2));
-        
         // Highlight the section that best fills the viewport
         if (bestMatch) {
-            // Try multiple selector approaches to ensure we find the right link
+            // Check if we need to map the section ID
+            const mappedMatch = sectionMapping[bestMatch] || bestMatch;
+            
+            // Try to find the navigation link
             let activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
-            if (!activeLink) {
-                activeLink = document.querySelector(`.nav-link[href$="#${bestMatch}"]`);
-            }
-            if (!activeLink) {
-                activeLink = document.querySelector(`.nav-link[href="${location.origin}/#${bestMatch}"]`);
+            if (!activeLink && mappedMatch !== bestMatch) {
+                activeLink = document.querySelector(`.nav-link[href*="#${mappedMatch}"]`);
             }
             
             if (activeLink) {
                 activeLink.classList.add('active');
-                console.log('Activated link for:', bestMatch);
-            } else {
-                console.log('Could not find link for:', bestMatch);
             }
         }
     }
