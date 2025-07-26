@@ -270,7 +270,7 @@ add_action('wp_head', function() {
                 /* Features section body text 16px on tablet */
                 .features-story-main p:not(.story-meta) {
                     font-family: var(--serif-font);
-                    font-size: 16px;
+                    font-size: calc(16px * 1.23); /* 16px * 1.23 = 19.68px - scaled for serif font */
                 }
             }
 
@@ -295,7 +295,7 @@ add_action('wp_head', function() {
                 /* Features section body text 16px on mobile */
                 .features-story-main p:not(.story-meta) {
                     font-family: var(--serif-font);
-                    font-size: 16px;
+                    font-size: calc(16px * 1.23); /* 16px * 1.23 = 19.68px - scaled for serif font */
                 }
 
                 /* Keep secondary stories horizontal on mobile with square images */
