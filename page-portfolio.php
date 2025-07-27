@@ -458,7 +458,7 @@ get_header('branded'); ?>
         
         <h1 class="section-heading">Reviews</h1>
         <section class="content-section reviews-section" id="reviews">
-            <?php echo do_shortcode('[reuben_dynamic_stories category="reviews" layout="grid" limit="6"]'); ?>
+            <?php echo do_shortcode('[reuben_reviews]'); ?>
         </section>
         
         <h1 class="section-heading">Profiles</h1>
