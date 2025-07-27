@@ -6,7 +6,7 @@
             </div>
             <!-- Contact button for responsive display -->
             <div class="footer-contact-button">
-                <a href="#contact" class="footer-contact-pill">Contact</a>
+                <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact ↓</a>
             </div>
             <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
@@ -81,18 +81,19 @@
     .footer-contact-pill {
         display: inline-block;
         padding: 8px 20px;
-        border: 1px solid #808080;
-        border-radius: 20px;
-        color: #808080;
+        background: white;
+        border: 1px solid var(--highlight-color);
+        border-radius: 25px;
         text-decoration: none;
-        font-size: 14px;
+        font-family: var(--primary-font) !important;
+        font-size: 16px;
         font-weight: 500;
+        color: #000;
         transition: all 0.3s ease;
-        background: transparent;
     }
 
     .footer-contact-pill:hover {
-        background: #808080;
+        background: var(--highlight-color);
         color: white;
     }
 
