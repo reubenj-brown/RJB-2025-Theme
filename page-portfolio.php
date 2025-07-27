@@ -171,6 +171,7 @@ add_action('wp_head', function() {
                 font-weight: 400;
                 font-style: normal;
                 text-transform: uppercase;
+                font-feature-settings: "ss02" 1;
             }
 
             /* Hero section headline - Span Compressed Regular at 48px, block caps, not italic */
@@ -181,6 +182,7 @@ add_action('wp_head', function() {
                 font-weight: 400 !important;
                 font-style: normal !important;
                 text-transform: uppercase !important;
+                font-feature-settings: "ss02" 1 !important;
             }
 
             .features-story-main .story-image {
