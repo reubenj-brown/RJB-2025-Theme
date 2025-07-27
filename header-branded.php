@@ -54,6 +54,20 @@
     --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
     --compressed-font: 'span-compressed', serif;
     --compressed-italic-font: 'span-compressed', serif;
+    --compressed-semibold-font: 'span-compressed', serif;
+    }
+
+    /* Span Compressed Font Utility Classes */
+    .compressed-regular {
+        font-family: var(--compressed-font);
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .compressed-semibold {
+        font-family: var(--compressed-semibold-font);
+        font-weight: 600;
+        font-style: normal;
     }
 
     * {
