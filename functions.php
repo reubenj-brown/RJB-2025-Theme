@@ -130,7 +130,8 @@ function get_story_metadata($post_id) {
         'external_url' => get_field('external_url', $post_id),
         'photo_credit' => get_field('photo_credit', $post_id),
         'original_image_url' => get_field('original_image_url', $post_id),
-        'short_headline' => get_field('short_headline', $post_id)
+        'short_headline' => get_field('short_headline', $post_id),
+        'photo_gallery' => get_field('photo_gallery', $post_id)
     ];
 }
 
