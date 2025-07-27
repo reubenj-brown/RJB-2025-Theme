@@ -160,6 +160,7 @@ add_action('wp_head', function() {
             /* Secondary story headlines - back to original */
             .features-story-small h2 {
                 font-size: 29.5px;
+                margin-bottom: 12px;
             }
 
             /* Primary story headline - Span Compressed Regular at 48px */
