@@ -395,7 +395,7 @@ get_header('branded'); ?>
                             <div class="story-content">
                                 <h2 class="serif-font-scaled">
                                     <a href="<?php echo $first_story['permalink']; ?>">
-                                        <?php echo $first_story['title']; ?>
+                                        <?php echo !empty($first_story['metadata']['short_headline']) ? $first_story['metadata']['short_headline'] : $first_story['title']; ?>
                                     </a>
                                 </h2>
                                 <?php if (!empty($first_story['excerpt'])) : ?>
