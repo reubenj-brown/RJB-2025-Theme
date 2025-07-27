@@ -55,6 +55,7 @@
     --compressed-font: 'span-compressed', serif;
     --compressed-italic-font: 'span-compressed', serif;
     --compressed-semibold-font: 'span-compressed', serif;
+    /* Note: Tablet breakpoint is 1200px across all files */
     }
 
     /* Span Compressed Font Utility Classes */

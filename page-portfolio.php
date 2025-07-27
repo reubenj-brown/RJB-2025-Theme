@@ -240,7 +240,7 @@ add_action('wp_head', function() {
             }
 
             /* Tablet responsive */
-            @media (max-width: 1024px) {
+            @media (max-width: 1200px) {
                 .features-section {
                     flex-direction: column;
                 }
