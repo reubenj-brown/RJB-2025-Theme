@@ -84,7 +84,14 @@ function get_story_featured_image($post_id, $size = 'medium') {
         return get_the_post_thumbnail_url($post_id, $size);
     }
     
-    // Second priority: ACF Original Image URL field
+    // Second priority: ACF Image Picker field (media library)
+    $original_image_picker = get_field('original_image_picker', $post_id);
+    if (!empty($original_image_picker)) {
+        error_log("ACF Image Picker (media library): '$original_image_picker'");
+        return $original_image_picker;
+    }
+    
+    // Third priority: ACF Original Image URL field
     $original_image_url = get_field('original_image_url', $post_id);
     if (!empty($original_image_url)) {
         // Handle relative URLs and domain slugs
