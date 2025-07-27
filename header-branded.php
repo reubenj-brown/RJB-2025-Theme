@@ -63,14 +63,14 @@
         font-family: var(--compressed-font);
         font-weight: 400;
         font-style: normal;
-        font-feature-settings: "ss02" 1;
+        font-feature-settings: "ss02" 1, "ss04" 1;
     }
 
     .compressed-semibold {
         font-family: var(--compressed-semibold-font);
         font-weight: 600;
         font-style: normal;
-        font-feature-settings: "ss02" 1;
+        font-feature-settings: "ss02" 1, "ss04" 1;
     }
 
     * {
