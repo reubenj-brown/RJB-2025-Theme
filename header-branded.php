@@ -350,7 +350,7 @@
     }
 
     /* Tablet Responsive - Header Stacking */
-    @media (max-width: 1024px) {
+    @media (max-width: 1200px) {
         .site-header {
             height: auto;
             padding: 1rem 0;
@@ -375,15 +375,9 @@
             order: 2;
         }
 
+        /* Hide contact button below 1200px */
         .contact-button {
-            position: static;
-            transform: none;
-            order: 3;
-        }
-
-        .contact-pill {
-            font-size: 14px;
-            padding: 6px 16px;
+            display: none;
         }
 
         .main-nav a {

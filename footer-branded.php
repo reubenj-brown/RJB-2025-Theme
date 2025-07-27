@@ -4,6 +4,10 @@
             <div class="footer-logo">
                 <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
             </div>
+            <!-- Contact button for responsive display -->
+            <div class="footer-contact-button">
+                <a href="#contact" class="footer-contact-pill">Contact</a>
+            </div>
             <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
     </footer>
@@ -66,6 +70,31 @@
         position: relative;
     }
 
+    /* Footer contact button - hidden by default, shown on tablet/mobile */
+    .footer-contact-button {
+        display: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-contact-pill {
+        display: inline-block;
+        padding: 8px 20px;
+        border: 1px solid #808080;
+        border-radius: 20px;
+        color: #808080;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: transparent;
+    }
+
+    .footer-contact-pill:hover {
+        background: #808080;
+        color: white;
+    }
 
     .copyright {
         color: #808080;
@@ -97,6 +126,22 @@
         color: white !important;
     }
 
+    .site-footer.over-full-bleed .footer-contact-pill {
+        color: white !important;
+        border-color: white !important;
+    }
+
+    .site-footer.over-full-bleed .footer-contact-pill:hover {
+        background: white !important;
+        color: #000 !important;
+    }
+
+    /* Tablet Responsive - Show contact button in center */
+    @media (max-width: 1200px) {
+        .footer-contact-button {
+            display: block;
+        }
+    }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
@@ -105,11 +150,17 @@
         }
 
         .footer-content {
-            flex-direction: column;
-            gap: 1rem;
-            text-align: center;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        /* Move contact button to right on mobile */
+        .footer-contact-button {
+            position: static;
+            transform: none;
+            left: auto;
+        }
 
         .footer-logo {
             width: 28px;
