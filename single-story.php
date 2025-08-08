@@ -160,7 +160,7 @@ get_header('branded'); ?>
         }
 
         .story-title {
-            font-size: calc(28px * 1.23);
+            font-size: 24px;
         }
 
         .story-standfirst {

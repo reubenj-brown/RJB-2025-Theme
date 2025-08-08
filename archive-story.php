@@ -187,7 +187,7 @@ get_header('branded'); ?>
         }
 
         .archive-title {
-            font-size: calc(36px * 1.23);
+            font-size: 24px;
         }
 
         .stories-archive-grid {

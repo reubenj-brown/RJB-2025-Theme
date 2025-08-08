@@ -322,8 +322,8 @@ add_action('wp_head', function() {
             /* General Mobile Responsive */
             @media (max-width: 768px) {
                 .section-heading {
-                    font-size: 2rem;
-                    line-height: 2.4rem;
+                    font-size: 24px;
+                    line-height: 28px;
                 }
 
                 .main-content {
