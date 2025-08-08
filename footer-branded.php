@@ -128,6 +128,7 @@
     }
 
     .site-footer.over-full-bleed .footer-contact-pill {
+        background: rgba(255, 255, 255, 0.2) !important;
         color: white !important;
         border-color: white !important;
     }
