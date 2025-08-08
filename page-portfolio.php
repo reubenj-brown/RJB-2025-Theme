@@ -295,6 +295,15 @@ add_action('wp_head', function() {
                     width: 100%;
                 }
 
+                /* Features section headline sizes on mobile */
+                .features-story-main h2 {
+                    font-size: 28px; /* Primary story headline - compressed font */
+                }
+                
+                .features-story-small h2 {
+                    font-size: 24px; /* Secondary story headlines */
+                }
+
                 /* Features section body text 16px on mobile */
                 .features-story-main p:not(.story-meta) {
                     font-family: var(--serif-font);
