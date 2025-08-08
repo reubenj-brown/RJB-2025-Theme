@@ -297,7 +297,7 @@ add_action('wp_head', function() {
 
                 /* Features section headline sizes on mobile */
                 .features-story-main h2 {
-                    font-size: 28px; /* Primary story headline - compressed font */
+                    font-size: 32px; /* Primary story headline - compressed font */
                 }
                 
                 .features-story-small h2 {
