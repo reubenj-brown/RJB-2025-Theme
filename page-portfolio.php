@@ -343,10 +343,10 @@ add_action('wp_head', function() {
                     min-height: 60vh;
                 }
 
-                /* Contact section gradient mobile - extend to screen edges */
+                /* Contact section gradient mobile - constrain to viewport */
                 .contact-section::before {
-                    left: -4vw;
-                    right: -4vw;
+                    left: 0;
+                    right: 0;
                     bottom: calc(-2vw - 35px); /* Mobile footer height: 1vw top + logo + contact pill + 1vw bottom */
                 }
 
