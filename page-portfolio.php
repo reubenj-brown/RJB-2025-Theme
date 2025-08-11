@@ -53,8 +53,7 @@ add_action('wp_head', function() {
 
             /* Contact Section */
             .contact-section {
-                height: 100vh;
-                min-height: 100vh;
+                min-height: 60vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -341,7 +340,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-section {
-                    height: 100vh;
+                    min-height: 60vh;
                 }
 
                 /* Contact section gradient mobile - extend to screen edges */
