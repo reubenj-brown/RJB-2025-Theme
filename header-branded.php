@@ -454,11 +454,19 @@
 
     // Update active navigation - highlight when section fills majority of screen
     function updateActiveNav() {
-        // Get all sections and navigation links
-        const sections = document.querySelectorAll('section[id], .section-heading[id]');
         const navLinks = document.querySelectorAll('.nav-link');
         const viewportHeight = window.innerHeight;
         const scrollTop = window.scrollY;
+        const viewportTop = scrollTop;
+        const viewportBottom = scrollTop + viewportHeight;
+        
+        // Navigation mapping: nav href -> section selectors to check
+        const navSectionMap = {
+            'about': ['#about', '.about-section'],
+            'stories': ['#stories', '#features', '.features-section', '.section-heading[id="stories"]'],
+            'strategy': ['#strategy', '.strategy-section'],
+            'cv': ['#cv', '.cv-section']
+        };
         
         let bestMatch = '';
         let bestMatchScore = 0;
@@ -466,61 +474,41 @@
         // Remove all active classes first
         navLinks.forEach(link => link.classList.remove('active'));
         
-        // Create a mapping for special cases
-        const sectionMapping = {
-            'stories': 'features', // Navigation points to #stories but section is #features
-            'features': 'stories'  // Allow both to work
-        };
-        
-        sections.forEach(element => {
-            const sectionId = element.getAttribute('id');
-            if (!sectionId) return;
+        // Check each navigation item
+        Object.keys(navSectionMap).forEach(navKey => {
+            const selectors = navSectionMap[navKey];
+            let totalVisibleHeight = 0;
             
-            let sectionTop, sectionBottom;
+            // Check all selectors for this nav item
+            selectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const elementTop = scrollTop + rect.top;
+                    const elementBottom = elementTop + rect.height;
+                    
+                    // Calculate visible portion of this element
+                    const visibleTop = Math.max(elementTop, viewportTop);
+                    const visibleBottom = Math.min(elementBottom, viewportBottom);
+                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                    
+                    totalVisibleHeight += visibleHeight;
+                });
+            });
             
-            // Handle different element types
-            if (element.tagName.toLowerCase() === 'section') {
-                sectionTop = element.offsetTop;
-                sectionBottom = sectionTop + element.offsetHeight;
-            } else {
-                // For heading elements, find the associated section
-                const nextSection = element.nextElementSibling;
-                if (nextSection && nextSection.tagName.toLowerCase() === 'section') {
-                    sectionTop = element.offsetTop;
-                    sectionBottom = nextSection.offsetTop + nextSection.offsetHeight;
-                } else {
-                    sectionTop = element.offsetTop;
-                    sectionBottom = sectionTop + 200; // Fallback height
-                }
-            }
+            // Calculate what percentage of viewport this nav section occupies
+            const sectionScore = totalVisibleHeight / viewportHeight;
             
-            const viewportTop = scrollTop;
-            const viewportBottom = scrollTop + viewportHeight;
-            
-            // Calculate how much of the viewport this section occupies
-            const visibleTop = Math.max(sectionTop, viewportTop);
-            const visibleBottom = Math.min(sectionBottom, viewportBottom);
-            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-            const sectionScore = visibleHeight / viewportHeight;
-            
-            // Only consider sections that occupy significant viewport space
-            if (sectionScore > 0.3 && sectionScore > bestMatchScore) {
+            // If this section takes up more than 50% of viewport and is the best match
+            if (sectionScore > 0.5 && sectionScore > bestMatchScore) {
                 bestMatchScore = sectionScore;
-                bestMatch = sectionId;
+                bestMatch = navKey;
             }
         });
         
-        // Highlight the section that best fills the viewport
+        // Highlight the best matching navigation link
         if (bestMatch) {
-            // Check if we need to map the section ID
-            const mappedMatch = sectionMapping[bestMatch] || bestMatch;
-            
-            // Try to find the navigation link
-            let activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
-            if (!activeLink && mappedMatch !== bestMatch) {
-                activeLink = document.querySelector(`.nav-link[href*="#${mappedMatch}"]`);
-            }
-            
+            const activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
