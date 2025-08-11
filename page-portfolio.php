@@ -348,7 +348,7 @@ add_action('wp_head', function() {
                 .contact-section::before {
                     left: -4vw;
                     right: -4vw;
-                    bottom: calc(-2vw - 28px); /* Mobile footer height: 1vw top + 28px logo + 1vw bottom */
+                    bottom: calc(-2vw - 35px); /* Mobile footer height: 1vw top + logo + contact pill + 1vw bottom */
                 }
 
                 .contact-links {

@@ -172,6 +172,10 @@
         .copyright {
             display: none; /* Always hidden on mobile */
         }
+        
+        .footer-contact-pill {
+            font-size: 14px; /* Smaller font size on mobile */
+        }
     }
     </style>
 
