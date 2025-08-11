@@ -393,7 +393,7 @@
     /* Mobile Responsive - Further size reduction */
     @media (max-width: 768px) {
         .site-header {
-            max-width: 100%;
+            max-width: 100vw;
         }
         
         .site-title-name {
