@@ -392,6 +392,10 @@
 
     /* Mobile Responsive - Further size reduction */
     @media (max-width: 768px) {
+        .site-header {
+            max-width: 100%;
+        }
+        
         .site-title-name {
             font-size: 24px;
             line-height: 24px;
