@@ -19,7 +19,7 @@
         bottom: 0;
         background: transparent;
         padding: 1vw 2vw;
-        z-index: 100;
+        z-index: 1001; /* Ensure footer sits above contact section gradient */
     }
 
     /* Smoother gradient blur effect for footer - 3 points with softer transitions */

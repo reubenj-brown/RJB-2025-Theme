@@ -54,13 +54,14 @@ add_action('wp_head', function() {
             /* Contact Section */
             .contact-section {
                 height: 100vh;
-                max-height: 100vh;
+                min-height: 100vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 position: relative;
-                overflow: hidden; /* Ensure section doesn't exceed 100vh */
                 background: transparent !important; /* Override white background from .content-section */
+                margin-bottom: 0;
+                padding-bottom: 0;
             }
 
             /* Contact section gradient - mirrors About section but reversed */
@@ -70,7 +71,7 @@ add_action('wp_head', function() {
                 top: 0;
                 left: 0; /* Full viewport width since section is outside main wrapper */
                 right: 0; /* Full viewport width since section is outside main wrapper */
-                bottom: -5vw; /* Extend to fully cover footer area and eliminate white gap */
+                bottom: -20vh; /* Extend well beyond viewport to ensure full green coverage */
                 background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
                 z-index: -1;
             }
