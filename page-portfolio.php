@@ -71,7 +71,7 @@ add_action('wp_head', function() {
                 top: 0;
                 left: 0; /* Full viewport width since section is outside main wrapper */
                 right: 0; /* Full viewport width since section is outside main wrapper */
-                bottom: -20vh; /* Extend well beyond viewport to ensure full green coverage */
+                bottom: calc(-2vw - 40px); /* Extend by footer height: 1vw top + 40px logo + 1vw bottom */
                 background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
                 z-index: -1;
             }
@@ -348,6 +348,7 @@ add_action('wp_head', function() {
                 .contact-section::before {
                     left: -4vw;
                     right: -4vw;
+                    bottom: calc(-2vw - 28px); /* Mobile footer height: 1vw top + 28px logo + 1vw bottom */
                 }
 
                 .contact-links {
