@@ -47,30 +47,36 @@
     font-display: swap;
     }
 
+    @font-face {
+    font-family: 'PP Right Serif';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    }
+
     /* CSS Variables */
     :root {
     --highlight-color: #39e58f;
     --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
-    --compressed-font: 'span-compressed', serif;
-    --compressed-italic-font: 'span-compressed', serif;
-    --compressed-semibold-font: 'span-compressed', serif;
+    --compressed-font: 'PP Right Serif', serif;
+    --compressed-italic-font: 'PP Right Serif', serif;
+    --compressed-semibold-font: 'PP Right Serif', serif;
     /* Note: Tablet breakpoint is 1200px across all files */
     }
 
-    /* Span Compressed Font Utility Classes */
+    /* PP Right Serif Font Utility Classes */
     .compressed-regular {
         font-family: var(--compressed-font);
         font-weight: 400;
         font-style: normal;
-        font-feature-settings: "ss02" 1, "ss04" 1;
     }
 
     .compressed-semibold {
         font-family: var(--compressed-semibold-font);
         font-weight: 600;
         font-style: normal;
-        font-feature-settings: "ss02" 1, "ss04" 1;
     }
 
     * {
