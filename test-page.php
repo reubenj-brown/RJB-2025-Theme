@@ -63,7 +63,7 @@ get_header();
         :root {
             --highlight-color: #39e58f;
             --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            --serif-font: 'Legitima', 'SF Pro Display', ui-serif, Georgia, 'Times New Roman', serif;
+            --serif-font: 'Legitima', Georgia, 'Times New Roman', serif;
         }
 
         /* Hide WordPress theme elements for clean testing */
