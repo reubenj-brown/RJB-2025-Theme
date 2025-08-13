@@ -163,22 +163,22 @@ add_action('wp_head', function() {
                 margin-bottom: 12px;
             }
 
-            /* Primary story headline - Span Compressed Regular at 48px */
+            /* Primary story headline - PP Right Serif at 96px */
             .features-story-main h2 {
                 margin-bottom: 1.5rem;
                 line-height: 1.1;
                 font-family: var(--compressed-font);
-                font-size: 48px;
+                font-size: 96px;
                 font-weight: 400;
                 font-style: normal;
                 text-transform: uppercase;
             }
 
-            /* Hero section headline - Span Compressed Regular at 48px, block caps, not italic */
+            /* Hero section headline - PP Right Serif at 96px, block caps, not italic */
             .featured-story-full-bleed h2,
             .featured-story-full-bleed h2 i {
                 font-family: var(--compressed-font) !important;
-                font-size: 48px !important;
+                font-size: 96px !important;
                 font-weight: 400 !important;
                 font-style: normal !important;
                 text-transform: uppercase !important;
@@ -295,7 +295,7 @@ add_action('wp_head', function() {
 
                 /* Features section headline sizes on mobile */
                 .features-story-main h2 {
-                    font-size: 32px; /* Primary story headline - compressed font */
+                    font-size: 64px; /* Primary story headline - compressed font */
                 }
                 
                 .features-story-small h2 {
