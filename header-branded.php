@@ -47,23 +47,14 @@
     font-display: swap;
     }
 
-    @font-face {
-    font-family: 'PP Right Serif';
-    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    }
 
     /* CSS Variables */
     :root {
     --highlight-color: #39e58f;
     --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     --serif-font: 'Legitima', Georgia, 'Times New Roman', serif;
-    --compressed-font: 'PP Right Serif', serif;
-    --compressed-italic-font: 'PP Right Serif', serif;
-    --compressed-semibold-font: 'PP Right Serif', serif;
     /* Note: Tablet breakpoint is 1200px across all files */
+    /* Note: --compressed-font variables now defined in main style.css for faster loading */
     }
 
     /* PP Right Serif Font Utility Classes */

@@ -405,7 +405,7 @@ get_header('branded'); ?>
                         <div class="features-story-main">
                             <div class="story-content">
                                 <h2 class="serif-font-scaled">
-                                    <a href="<?php echo $first_story['permalink']; ?>">
+                                    <a href="<?php echo !empty($first_story['metadata']['external_url']) ? esc_url($first_story['metadata']['external_url']) : $first_story['permalink']; ?>"<?php echo !empty($first_story['metadata']['external_url']) ? ' target="_blank" rel="noopener"' : ''; ?>>
                                         <?php echo !empty($first_story['metadata']['short_headline']) ? $first_story['metadata']['short_headline'] : $first_story['title']; ?>
                                     </a>
                                 </h2>
@@ -437,7 +437,7 @@ get_header('branded'); ?>
                             <div class="features-story-small">
                                 <div class="story-content">
                                     <h2 class="serif-font-scaled">
-                                        <a href="<?php echo $story['permalink']; ?>">
+                                        <a href="<?php echo !empty($story['metadata']['external_url']) ? esc_url($story['metadata']['external_url']) : $story['permalink']; ?>"<?php echo !empty($story['metadata']['external_url']) ? ' target="_blank" rel="noopener"' : ''; ?>>
                                             <?php echo $story['title']; ?>
                                         </a>
                                     </h2>
