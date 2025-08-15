@@ -60,8 +60,6 @@ Version: 1.0.0
   --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --serif-font: 'Legitima', Georgia, 'Times New Roman', serif;
   --compressed-font: 'PP Right Serif', serif;
-  --compressed-italic-font: 'PP Right Serif', serif;
-  --compressed-semibold-font: 'PP Right Serif', serif;
 }
 
 a {
