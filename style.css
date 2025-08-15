@@ -57,9 +57,19 @@ Version: 1.0.1
 /* Custom styles for portfolio site - DEBUG: Child theme CSS is loading */
 :root {
   --highlight-color: #39e58f;
-  --primary-font: 'Innovator Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --serif-font: 'Legitima', Georgia, 'Times New Roman', serif;
-  --compressed-font: 'PP Right Serif', serif;
+  --primary-font: 'Innovator Grotesk';
+  --serif-font: 'Legitima';
+  --compressed-font: 'PP Right Serif';
+}
+
+/* Ensure only custom fonts are used - no browser defaults */
+html, body {
+  font-family: var(--primary-font) !important;
+}
+
+/* Force custom fonts on all text elements */
+h1, h2, h3, h4, h5, h6, p, div, span, a, li, td, th, label, input, textarea, button {
+  font-family: inherit !important;
 }
 
 a {
