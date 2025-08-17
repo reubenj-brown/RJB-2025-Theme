@@ -2,9 +2,16 @@
 
 /* Single Story Template */
 .story-single-container {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding: 2rem;
+}
+
+/* Content wrapper for proper text centering within full-width container */
+.story-content-wrapper {
     max-width: 900px;
     margin: 0 auto;
-    padding: 2rem 1rem;
 }
 
 .story-header {
@@ -156,9 +163,10 @@
 
 /* Stories Archive Template */
 .stories-archive-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding: 2rem;
 }
 
 .archive-header {
@@ -319,7 +327,7 @@
 @media (max-width: 768px) {
     .story-single-container,
     .stories-archive-container {
-        padding: 1rem;
+        padding: 1rem 4vw;
     }
     
     .story-title {
