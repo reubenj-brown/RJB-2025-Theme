@@ -417,7 +417,6 @@
                 <ul>
                     <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
                     <li><a href="<?php echo home_url('/#stories'); ?>" class="nav-link">Stories</a></li>
-                    <li><a href="<?php echo home_url('/#strategy'); ?>" class="nav-link">Strategy</a></li>
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
                 </ul>
             </nav>
@@ -474,7 +473,6 @@
         const sectionsToCheck = [
             { nav: 'about', element: document.querySelector('#about') },
             { nav: 'stories', element: document.querySelector('#features') }, // Stories nav points to features section
-            { nav: 'strategy', element: document.querySelector('#strategy') },
             { nav: 'cv', element: document.querySelector('#cv') }
         ];
         

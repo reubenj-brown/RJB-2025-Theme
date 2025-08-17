@@ -485,11 +485,6 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
         
-        <h1 class="section-heading" id="strategy">Strategy</h1>
-        <section class="content-section strategy-section">
-            <?php echo do_shortcode('[reuben_strategy]'); ?>
-        </section>
-        
         <h1 class="section-heading" id="cv">CV</h1>
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
