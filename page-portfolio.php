@@ -53,7 +53,7 @@ add_action('wp_head', function() {
 
             /* Contact Section */
             .contact-section {
-                min-height: 60vh;
+                min-height: 80vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -86,7 +86,7 @@ add_action('wp_head', function() {
             .contact-content {
                 display: flex;
                 align-items: center;
-                gap: 1rem;
+                gap: 2rem;
                 width: 100%;
                 max-width: 100vw;
                 margin: 0;
@@ -95,7 +95,7 @@ add_action('wp_head', function() {
             }
 
             .contact-image {
-                flex: 0 0 calc(50% - 0.5rem);
+                flex: 0 0 calc(50% - 1rem);
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
@@ -108,10 +108,11 @@ add_action('wp_head', function() {
                 height: auto;
                 display: block;
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+                transform: rotate(-10deg);
             }
 
             .contact-links {
-                flex: 0 0 calc(50% - 0.5rem);
+                flex: 0 0 calc(50% - 1rem);
                 display: flex;
                 flex-direction: column;
                 gap: 1.5rem;
@@ -401,7 +402,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-section {
-                    min-height: 60vh;
+                    min-height: 80vh;
                 }
 
                 /* Contact section gradient mobile - constrain to viewport */
