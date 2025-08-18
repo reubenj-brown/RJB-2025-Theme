@@ -233,6 +233,20 @@ add_action('wp_head', function() {
                 display: block;
             }
 
+            /* Features section caption styling */
+            .features-story-main .caption {
+                font-family: var(--primary-font);
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 1.4;
+                color: #808080;
+                margin: 8px 0 0 0;
+                text-align: right;
+                background: white;
+                padding: 2px 0;
+                width: 100%;
+            }
+
             .features-right {
                 width: 50%;
                 padding-left: 32px;
