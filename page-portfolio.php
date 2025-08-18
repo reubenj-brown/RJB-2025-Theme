@@ -86,18 +86,20 @@ add_action('wp_head', function() {
             .contact-content {
                 display: flex;
                 align-items: center;
-                gap: 4rem;
+                gap: 1rem;
                 width: 100%;
-                max-width: none;
+                max-width: 100vw;
                 margin: 0;
-                padding: 0 2rem;
+                padding: 0 2vw;
+                box-sizing: border-box;
             }
 
             .contact-image {
-                flex: 0 0 50vw;
+                flex: 0 0 calc(50% - 0.5rem);
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                box-sizing: border-box;
             }
 
             .contact-image img {
@@ -107,10 +109,11 @@ add_action('wp_head', function() {
             }
 
             .contact-links {
-                flex: 0 0 50vw;
+                flex: 0 0 calc(50% - 0.5rem);
                 display: flex;
                 flex-direction: column;
                 gap: 1.5rem;
+                box-sizing: border-box;
             }
 
             .contact-link {
@@ -358,18 +361,25 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: center;
-                    gap: 3rem;
+                    gap: 2rem;
+                    width: 100%;
                     padding: 0 3rem;
                 }
 
                 .contact-image {
                     flex: none;
                     margin: 0 auto;
+                    padding-left: 0;
                 }
 
                 .contact-image img {
                     width: 350px;
                     max-width: 90vw;
+                }
+
+                .contact-links {
+                    flex: none;
+                    padding-right: 0;
                 }
 
                 .contact-link {
@@ -403,7 +413,8 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: center;
-                    gap: 2rem;
+                    gap: 1.5rem;
+                    width: 100%;
                     padding: 0 4vw;
                 }
 
