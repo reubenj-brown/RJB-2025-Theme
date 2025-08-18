@@ -38,7 +38,7 @@ get_header('branded'); ?>
 
     /* Content wrapper for proper text centering within full-width container */
     .story-content-wrapper {
-        max-width: 900px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
