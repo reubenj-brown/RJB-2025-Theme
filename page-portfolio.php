@@ -53,7 +53,7 @@ add_action('wp_head', function() {
 
             /* Contact Section */
             .contact-section {
-                min-height: 80vh;
+                min-height: 75vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -100,7 +100,7 @@ add_action('wp_head', function() {
                 justify-content: flex-end;
                 align-items: center;
                 box-sizing: border-box;
-                padding: 15px; /* Space for shadow */
+                padding: 45px; /* Space for shadow - tripled from 15px */
             }
 
             .contact-image img {
@@ -402,7 +402,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-section {
-                    min-height: 80vh;
+                    min-height: 75vh;
                 }
 
                 /* Contact section gradient mobile - constrain to viewport */
