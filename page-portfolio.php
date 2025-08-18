@@ -87,24 +87,27 @@ add_action('wp_head', function() {
                 display: flex;
                 align-items: center;
                 gap: 4rem;
-                max-width: 1000px;
-                margin: 0 auto;
+                width: 100%;
+                max-width: none;
+                margin: 0;
                 padding: 0 2rem;
             }
 
             .contact-image {
-                flex: 0 0 300px;
+                flex: 0 0 50vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .contact-image img {
-                width: 100%;
+                width: 400px;
                 height: auto;
                 display: block;
-                border-radius: 8px;
             }
 
             .contact-links {
-                flex: 1;
+                flex: 0 0 50vw;
                 display: flex;
                 flex-direction: column;
                 gap: 1.5rem;
@@ -127,7 +130,6 @@ add_action('wp_head', function() {
 
             .contact-link:hover {
                 color: var(--highlight-color);
-                background-color: black;
             }
 
             /* Features Section */
@@ -362,8 +364,12 @@ add_action('wp_head', function() {
 
                 .contact-image {
                     flex: none;
-                    max-width: 300px;
                     margin: 0 auto;
+                }
+
+                .contact-image img {
+                    width: 350px;
+                    max-width: 90vw;
                 }
 
                 .contact-link {
@@ -401,9 +407,9 @@ add_action('wp_head', function() {
                     padding: 0 4vw;
                 }
 
-                .contact-image {
-                    flex: none;
-                    max-width: 250px;
+                .contact-image img {
+                    width: 300px;
+                    max-width: 85vw;
                 }
 
                 .contact-links {
