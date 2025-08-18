@@ -97,15 +97,17 @@ add_action('wp_head', function() {
             .contact-image {
                 flex: 0 0 calc(50% - 0.5rem);
                 display: flex;
-                justify-content: center;
+                justify-content: flex-end;
                 align-items: center;
                 box-sizing: border-box;
+                padding: 15px; /* Space for shadow */
             }
 
             .contact-image img {
                 width: 400px;
                 height: auto;
                 display: block;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
             }
 
             .contact-links {
