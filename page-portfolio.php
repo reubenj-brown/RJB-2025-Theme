@@ -82,27 +82,52 @@ add_action('wp_head', function() {
                 z-index: 1;
             }
 
+            /* Contact Section - Two Column Layout */
+            .contact-content {
+                display: flex;
+                align-items: center;
+                gap: 4rem;
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .contact-image {
+                flex: 0 0 300px;
+            }
+
+            .contact-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+            }
+
             .contact-links {
+                flex: 1;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 4rem;
+                gap: 1.5rem;
             }
 
             .contact-link {
-                font-family: var(--primary-font) !important;
-                font-size: 6rem;
-                line-height: 1.2;
-                font-weight: 600; /* Semi-bold */
+                font-family: var(--serif-font) !important; /* Same as About section first paragraph */
+                font-size: 3.8vw; /* Same as About section first paragraph */
+                line-height: 1.2 !important; /* Same as About section first paragraph */
+                font-weight: 400 !important;
                 text-decoration: none;
                 color: #000;
+                margin-bottom: 1.5rem;
                 transition: all 0.3s ease;
+            }
+
+            .contact-link:last-child {
+                margin-bottom: 0;
             }
 
             .contact-link:hover {
                 color: var(--highlight-color);
-                transform: translateY(-5px);
+                background-color: black;
             }
 
             /* Features Section */
@@ -326,6 +351,26 @@ add_action('wp_head', function() {
                 }
             }
 
+            /* Tablet Responsive */
+            @media (max-width: 1200px) {
+                .contact-content {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 3rem;
+                    padding: 0 3rem;
+                }
+
+                .contact-image {
+                    flex: none;
+                    max-width: 300px;
+                    margin: 0 auto;
+                }
+
+                .contact-link {
+                    font-size: 60px !important; /* Match About section tablet size */
+                }
+            }
+
             /* General Mobile Responsive */
             @media (max-width: 768px) {
                 .section-heading {
@@ -348,13 +393,33 @@ add_action('wp_head', function() {
                     bottom: calc(-2vw - 35px); /* Mobile footer height: 1vw top + logo + contact pill + 1vw bottom */
                 }
 
+                /* Contact section - stack columns on mobile */
+                .contact-content {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 2rem;
+                    padding: 0 4vw;
+                }
+
+                .contact-image {
+                    flex: none;
+                    max-width: 250px;
+                }
+
                 .contact-links {
-                    gap: 3rem;
+                    gap: 1.5rem;
                 }
 
                 .contact-link {
-                    font-size: 3rem;
-                    font-weight: 600;
+                    font-size: 55px !important; /* Match About section mobile size */
+                    font-weight: 400;
+                }
+            }
+
+            /* Small Mobile Responsive */
+            @media (max-width: 480px) {
+                .contact-link {
+                    font-size: 45px !important; /* Match About section small mobile size */
                 }
             }
         </style>
@@ -494,10 +559,15 @@ get_header('branded'); ?>
     <!-- Contact Section - Outside main wrapper for full width gradient -->
     <h1 class="section-heading" id="contact">Contact</h1>
     <section class="content-section contact-section">
-        <div class="contact-links">
-            <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
-            <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
-            <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
+        <div class="contact-content">
+            <div class="contact-image">
+                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2025/08/Reuben-J-Brown-Journalist-Multimedia-Photographer-Writer-Architecture-Profile-Picture-Image.avif')); ?>" alt="Reuben J. Brown" />
+            </div>
+            <div class="contact-links">
+                <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
+                <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
+                <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
+            </div>
         </div>
     </section>
 
