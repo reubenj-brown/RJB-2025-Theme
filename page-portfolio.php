@@ -477,7 +477,7 @@ get_header('branded'); ?>
         
         <h1 class="section-heading">Interviews</h1>
         <section class="content-section interviews-section" id="interviews">
-            <?php echo do_shortcode('[reuben_dynamic_stories category="interviews" layout="grid" limit="11" show_view_all="true"]'); ?>
+            <?php echo do_shortcode('[reuben_dynamic_stories category="interviews" layout="grid" limit="11" show_view_all="true" show_excerpt="false"]'); ?>
         </section>
         
         <h1 class="section-heading">Photographs</h1>
