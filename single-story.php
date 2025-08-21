@@ -38,7 +38,7 @@ get_header('branded'); ?>
 
     /* Content wrapper for proper text centering within full-width container */
     .story-content-wrapper {
-        max-width: 100%;
+        max-width: 900px;
         margin: 0 auto;
     }
 
@@ -68,19 +68,17 @@ get_header('branded'); ?>
     }
 
     .story-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .story-publication-info {
         color: #808080;
         font-size: 16px;
+        font-family: var(--primary-font);
     }
 
-    .story-publication-info em {
+    .story-meta::after {
+        content: " →";
+    }
+
+    .story-meta i {
         color: #000;
-        font-style: italic;
     }
 
     .story-external-link a {
@@ -96,14 +94,16 @@ get_header('branded'); ?>
 
     .story-featured-image {
         position: relative;
-        margin-bottom: 3rem;
-        width: 100%;
+        margin: 0 calc(-50vw + 50%) 3rem;
+        width: 100vw;
+        text-align: center;
     }
 
     .story-featured-image img {
         width: 100%;
         height: auto;
         display: block;
+        margin: 0 auto;
     }
 
     .story-image-credit {
@@ -125,6 +125,13 @@ get_header('branded'); ?>
         margin-bottom: 1.5rem;
     }
 
+    /* Full-width images in content */
+    .story-content-inner img {
+        width: 100vw;
+        margin: 2rem calc(-50vw + 50%);
+        display: block;
+    }
+
     .story-content-inner h2 {
         font-family: var(--serif-font);
         font-size: calc(32px * 1.23);
@@ -141,20 +148,6 @@ get_header('branded'); ?>
         color: #000;
     }
 
-    .back-to-portfolio {
-        margin-bottom: 2rem;
-    }
-
-    .back-to-portfolio a {
-        color: var(--highlight-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-
-    .back-to-portfolio a:hover {
-        color: #2dc776;
-    }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
@@ -186,11 +179,6 @@ get_header('branded'); ?>
         <div class="story-content-wrapper">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                 
-                <!-- Back to Portfolio Link -->
-                <div class="back-to-portfolio">
-                    <a href="<?php echo home_url('/'); ?>">← Back to Portfolio</a>
-                </div>
-                
                 <!-- Story Header -->
                 <header class="story-header">
                     <h1 class="story-title"><?php the_title(); ?></h1>
@@ -199,33 +187,31 @@ get_header('branded'); ?>
                         <h2 class="story-standfirst"><?php the_excerpt(); ?></h2>
                     <?php endif; ?>
                     
-                    <div class="story-meta">
-                        <?php
-                        $publication = get_field('publication');
-                        $publish_date = get_field('publish_date');
-                        $external_url = get_field('external_url');
-                        ?>
-                        
-                        <?php if ($publication || $publish_date) : ?>
-                            <p class="story-publication-info">
-                                <?php if ($publication) : ?>
-                                    For <em><?php echo esc_html($publication); ?></em>
-                                <?php endif; ?>
-                                <?php if ($publish_date) : ?>
-                                    <?php echo $publication ? ' in ' : ''; ?>
-                                    <?php echo esc_html($publish_date); ?>
-                                <?php endif; ?>
-                            </p>
-                        <?php endif; ?>
-                        
-                        <?php if ($external_url) : ?>
-                            <p class="story-external-link">
-                                <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener">
-                                    Read the full story →
-                                </a>
-                            </p>
-                        <?php endif; ?>
-                    </div>
+                    <?php
+                    $publication = get_field('publication');
+                    $publish_date = get_field('publish_date');
+                    $external_url = get_field('external_url');
+                    ?>
+                    
+                    <?php if ($publication || $publish_date) : ?>
+                        <p class="story-meta">
+                            <?php if ($publication) : ?>
+                                For <i><?php echo esc_html($publication); ?></i>
+                            <?php endif; ?>
+                            <?php if ($publish_date) : ?>
+                                <?php echo $publication ? ' in ' : ''; ?>
+                                <?php echo date('F Y', strtotime($publish_date)); ?>
+                            <?php endif; ?>
+                        </p>
+                    <?php endif; ?>
+                    
+                    <?php if ($external_url) : ?>
+                        <p class="story-external-link">
+                            <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener">
+                                Read the full story →
+                            </a>
+                        </p>
+                    <?php endif; ?>
                 </header>
                 
                 <!-- Featured Image -->
