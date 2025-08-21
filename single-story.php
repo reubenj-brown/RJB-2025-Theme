@@ -115,7 +115,7 @@ get_header('branded'); ?>
     }
 
     .story-content-inner {
-        font-family: var(--primary-font);
+        font-family: var(--serif-font);
         font-size: 20px;
         line-height: 1.6;
         color: #000;
