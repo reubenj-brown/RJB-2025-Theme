@@ -180,6 +180,13 @@ add_action('wp_head', function() {
                 text-decoration: none;
             }
 
+            /* Features section hover effects - highlight color with no transition */
+            .features-story-main h2 a:hover,
+            .features-story-small h2 a:hover {
+                color: var(--highlight-color) !important;
+                transition: none;
+            }
+
             /* Primary story spacing removed - now handled below with font styling */
 
             .features-story-main p:not(.story-meta) {
