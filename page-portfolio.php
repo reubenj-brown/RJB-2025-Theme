@@ -48,7 +48,7 @@ add_action('wp_head', function() {
                 color: #808080;
                 text-align: center;
                 margin: 0;
-                padding: 48px 0 24px 0;
+                padding: 64px 0 32px 0;
             }
 
             /* Contact Section */
@@ -422,6 +422,7 @@ add_action('wp_head', function() {
                 .section-heading {
                     font-size: 24px;
                     line-height: 28px;
+                    padding: 48px 0 24px 0;
                 }
 
                 .main-content {
