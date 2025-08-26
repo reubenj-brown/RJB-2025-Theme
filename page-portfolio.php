@@ -347,6 +347,12 @@ add_action('wp_head', function() {
                     width: 100%;
                 }
 
+                /* Hero section headline on mobile */
+                .featured-story-full-bleed h2,
+                .featured-story-full-bleed h2 i {
+                    font-size: 64px !important;
+                }
+
                 /* Features section headline sizes on mobile */
                 .features-story-main h2 {
                     font-size: 64px; /* Primary story headline - compressed font */
