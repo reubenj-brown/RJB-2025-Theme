@@ -115,7 +115,7 @@ get_header('branded'); ?>
         width: 100vw;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
-        padding: 3rem 2rem;
+        padding: 3rem 2rem 0 2rem;
     }
 
     /* Content wrapper for proper text centering within full-width container */
