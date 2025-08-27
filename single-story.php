@@ -20,6 +20,7 @@ get_header('branded'); ?>
     .story-hero-full-bleed {
         position: relative;
         width: 100vw;
+        max-width: 2048px;
         height: 100vh;
         overflow: hidden;
         margin-left: calc(-50vw + 50%);
