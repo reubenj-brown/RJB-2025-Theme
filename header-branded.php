@@ -433,7 +433,7 @@
 
 <script>
     // Smooth scroll navigation
-    document.querySelectorAll('.nav-link, .site-title-name').forEach(link => {
+    document.querySelectorAll('.nav-link, .site-title-name, .contact-pill').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = link.getAttribute('href');
