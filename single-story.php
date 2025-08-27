@@ -1,6 +1,6 @@
 <?php
 /**
- * Single Story Template - Fully Branded
+ * Single Story Template - Full Bleed Hero Design
  * Uses shared header and footer from portfolio page
  */
 
@@ -16,9 +16,91 @@ add_action('wp_enqueue_scripts', function() {
 get_header('branded'); ?>
 
 <style>
+    /* Full Bleed Hero Section for Stories */
+    .story-hero-full-bleed {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+    }
+
+    .story-hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .story-hero-background img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .story-hero-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: max(6vw, 80px);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0;
+    }
+
+    .story-hero-text {
+        max-width: 600px;
+        text-align: center;
+    }
+
+    .story-hero-text h1 {
+        font-family: var(--compressed-font) !important;
+        font-size: 96px !important;
+        font-weight: 400 !important;
+        font-style: normal !important;
+        text-transform: uppercase !important;
+        color: white;
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .story-hero-text h2 {
+        font-family: var(--serif-font);
+        color: white;
+        font-size: calc(20px * 1.23); /* 20px * 1.23 = 24.6px - scaled for serif font */
+        margin-bottom: 2rem;
+        line-height: 1.3;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .story-hero-text .story-meta {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        font-family: var(--primary-font);
+        font-size: 16px;
+    }
+
+    .story-hero-text .story-meta::after {
+        content: " →";
+    }
+
+    .story-hero-text .story-meta i {
+        color: white;
+    }
+
     /* Main Content */
     .main-content {
-        margin-top: calc(60px + 2vw);
+        margin-top: 0;
         min-height: calc(100vh - 200px);
         padding: 0 2vw;
         width: 100vw;
@@ -40,78 +122,6 @@ get_header('branded'); ?>
     .story-content-wrapper {
         max-width: 900px;
         margin: 0 auto;
-    }
-
-    .story-header {
-        text-align: left;
-        margin-bottom: 3rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    .story-title {
-        font-family: var(--serif-font);
-        font-size: calc(40px * 1.23);
-        font-weight: 400;
-        line-height: 1.2;
-        margin-bottom: 1.5rem;
-        color: #000;
-    }
-
-    .story-standfirst {
-        font-family: var(--primary-font);
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 1.4;
-        color: #333;
-        margin-bottom: 2rem;
-    }
-
-    .story-meta {
-        color: #808080;
-        font-size: 16px;
-        font-family: var(--primary-font);
-    }
-
-    .story-meta::after {
-        content: " →";
-    }
-
-    .story-meta i {
-        color: #000;
-    }
-
-    .story-external-link a {
-        color: var(--highlight-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-
-    .story-external-link a:hover {
-        color: #2dc776;
-    }
-
-    .story-featured-image {
-        position: relative;
-        margin: 0 calc(-50vw + 50%) 3rem;
-        width: 100vw;
-        text-align: center;
-    }
-
-    .story-featured-image img {
-        width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .story-image-credit {
-        font-size: 12px;
-        color: #808080;
-        text-align: right;
-        margin-top: 4px;
-        padding: 2px 0;
     }
 
     .story-content-inner {
@@ -148,9 +158,34 @@ get_header('branded'); ?>
         color: #000;
     }
 
+    .story-image-credit {
+        font-size: 12px;
+        color: #808080;
+        text-align: right;
+        margin-top: 4px;
+        padding: 2px 0;
+    }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
+        .story-hero-content {
+            padding: 2rem;
+            padding-bottom: 4vw;
+        }
+        
+        .story-hero-text {
+            max-width: 100%;
+        }
+        
+        .story-hero-text h1 {
+            font-size: 64px !important;
+            margin-bottom: 1rem;
+        }
+        
+        .story-hero-text h2 {
+            margin-bottom: 1.5rem;
+        }
+
         .main-content {
             padding: 0 4vw;
         }
@@ -159,84 +194,99 @@ get_header('branded'); ?>
             padding: 2rem 1rem;
         }
 
-        .story-title {
-            font-size: 24px;
-        }
-
-        .story-standfirst {
-            font-size: 20px;
-        }
-
         .story-content-inner {
             font-size: 18px;
         }
     }
+
+    @media (max-width: 480px) {
+        .story-hero-content {
+            padding: 1.5rem;
+            padding-bottom: 4vw;
+        }
+        
+        .story-hero-text h1 {
+            margin-bottom: 0.75rem;
+        }
+        
+        .story-hero-text h2 {
+            margin-bottom: 1rem;
+        }
+    }
 </style>
+
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+<!-- Story Hero Full Bleed -->
+<section class="story-hero-full-bleed">
+    <div class="story-hero-background">
+        <?php if (has_post_thumbnail()) : ?>
+            <?php the_post_thumbnail('full'); ?>
+        <?php else : ?>
+            <!-- Fallback background if no featured image -->
+            <div style="background: linear-gradient(135deg, #39e58f 0%, #2dc776 100%); width: 100%; height: 100%;"></div>
+        <?php endif; ?>
+    </div>
+    <div class="story-hero-content">
+        <div class="story-hero-text">
+            <h1><?php the_title(); ?></h1>
+            
+            <?php if (has_excerpt()) : ?>
+                <h2><?php the_excerpt(); ?></h2>
+            <?php endif; ?>
+            
+            <?php
+            $publication = get_field('publication');
+            $publish_date = get_field('publish_date');
+            ?>
+            
+            <?php if ($publication || $publish_date) : ?>
+                <p class="story-meta">
+                    <?php if ($publication) : ?>
+                        For <i><?php echo esc_html($publication); ?></i>
+                    <?php endif; ?>
+                    <?php if ($publish_date) : ?>
+                        <?php echo $publication ? ' in ' : ''; ?>
+                        <?php echo date('F Y', strtotime($publish_date)); ?>
+                    <?php endif; ?>
+                </p>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
 
 <!-- Main Content -->
 <main class="main-content">
     <div class="story-single-container">
         <div class="story-content-wrapper">
-            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <!-- Story Content -->
+            <article class="story-content">
+                <div class="story-content-inner">
+                    <?php the_content(); ?>
+                </div>
                 
-                <!-- Story Header -->
-                <header class="story-header">
-                    <h1 class="story-title"><?php the_title(); ?></h1>
-                    
-                    <?php if (has_excerpt()) : ?>
-                        <h2 class="story-standfirst"><?php the_excerpt(); ?></h2>
-                    <?php endif; ?>
-                    
-                    <?php
-                    $publication = get_field('publication');
-                    $publish_date = get_field('publish_date');
-                    $external_url = get_field('external_url');
-                    ?>
-                    
-                    <?php if ($publication || $publish_date) : ?>
-                        <p class="story-meta">
-                            <?php if ($publication) : ?>
-                                For <i><?php echo esc_html($publication); ?></i>
-                            <?php endif; ?>
-                            <?php if ($publish_date) : ?>
-                                <?php echo $publication ? ' in ' : ''; ?>
-                                <?php echo date('F Y', strtotime($publish_date)); ?>
-                            <?php endif; ?>
-                        </p>
-                    <?php endif; ?>
-                    
-                    <?php if ($external_url) : ?>
-                        <p class="story-external-link">
-                            <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener">
-                                Read the full story →
-                            </a>
-                        </p>
-                    <?php endif; ?>
-                </header>
-                
-                <!-- Featured Image -->
-                <?php if (has_post_thumbnail()) : ?>
-                    <div class="story-featured-image">
-                        <?php the_post_thumbnail('full'); ?>
-                        <?php 
-                        $photo_credit = get_field('photo_credit');
-                        if ($photo_credit) : 
-                        ?>
-                            <div class="story-image-credit"><?php echo esc_html($photo_credit); ?></div>
-                        <?php endif; ?>
-                    </div>
+                <?php 
+                $photo_credit = get_field('photo_credit');
+                if ($photo_credit && has_post_thumbnail()) : 
+                ?>
+                    <div class="story-image-credit"><?php echo esc_html($photo_credit); ?></div>
                 <?php endif; ?>
                 
-                <!-- Story Content -->
-                <article class="story-content">
-                    <div class="story-content-inner">
-                        <?php the_content(); ?>
-                    </div>
-                </article>
-                
-            <?php endwhile; endif; ?>
+                <?php 
+                $external_url = get_field('external_url');
+                if ($external_url) : 
+                ?>
+                    <p style="margin-top: 2rem; text-align: center;">
+                        <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener" style="color: var(--highlight-color); text-decoration: none; font-weight: 500;">
+                            Read the full story →
+                        </a>
+                    </p>
+                <?php endif; ?>
+            </article>
         </div>
     </div>
 </main>
+
+<?php endwhile; endif; ?>
 
 <?php get_footer('branded'); ?>
