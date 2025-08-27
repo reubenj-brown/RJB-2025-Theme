@@ -43,17 +43,17 @@ get_header('branded'); ?>
     }
 
     .story-hero-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: max(6vw, 80px);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         z-index: 2;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         padding: 0;
+        transition: opacity 0.3s ease;
     }
 
     .story-hero-text {
@@ -170,7 +170,6 @@ get_header('branded'); ?>
     @media (max-width: 768px) {
         .story-hero-content {
             padding: 2rem;
-            padding-bottom: 4vw;
         }
         
         .story-hero-text {
@@ -202,7 +201,6 @@ get_header('branded'); ?>
     @media (max-width: 480px) {
         .story-hero-content {
             padding: 1.5rem;
-            padding-bottom: 4vw;
         }
         
         .story-hero-text h1 {
@@ -214,6 +212,39 @@ get_header('branded'); ?>
         }
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const heroContent = document.querySelector('.story-hero-content');
+    const heroSection = document.querySelector('.story-hero-full-bleed');
+    
+    if (!heroContent || !heroSection) return;
+    
+    function updateHeroTextOpacity() {
+        const scrollY = window.scrollY;
+        const heroHeight = heroSection.offsetHeight;
+        
+        // Start fading when scrolled 20% of hero height, fully faded at 60%
+        const fadeStart = heroHeight * 0.2;
+        const fadeEnd = heroHeight * 0.6;
+        
+        if (scrollY <= fadeStart) {
+            heroContent.style.opacity = '1';
+        } else if (scrollY >= fadeEnd) {
+            heroContent.style.opacity = '0';
+        } else {
+            // Calculate opacity between fadeStart and fadeEnd
+            const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+            const opacity = 1 - fadeProgress;
+            heroContent.style.opacity = opacity.toString();
+        }
+    }
+    
+    // Initial call and scroll listener
+    updateHeroTextOpacity();
+    window.addEventListener('scroll', updateHeroTextOpacity);
+});
+</script>
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
