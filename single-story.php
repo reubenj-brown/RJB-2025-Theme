@@ -211,6 +211,71 @@ get_header('branded'); ?>
             margin-bottom: 1rem;
         }
     }
+
+    /* Story-specific header modifications */
+    .site-header .main-nav {
+        display: none !important;
+    }
+
+    .site-header::after {
+        content: "← Stories";
+        position: absolute;
+        right: 2vw;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-family: var(--primary-font);
+        font-size: 16px;
+        font-weight: 400;
+        text-decoration: none;
+        cursor: pointer;
+        z-index: 1002;
+        transition: all 0.3s ease;
+    }
+
+    .site-header:not(.over-full-bleed)::after {
+        color: #000 !important;
+    }
+
+    .site-header .contact-pill {
+        display: none !important;
+    }
+
+    .site-header::before {
+        content: "contact →";
+        position: absolute;
+        right: calc(2vw + 100px);
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: var(--primary-font);
+        font-size: 14px;
+        font-weight: 400;
+        text-decoration: none;
+        cursor: pointer;
+        z-index: 1002;
+        transition: all 0.3s ease;
+    }
+
+    .site-header:not(.over-full-bleed)::before {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .site-header::before:hover {
+        background: white !important;
+        color: #000 !important;
+    }
+
+    .site-header:not(.over-full-bleed)::before:hover {
+        background: #000 !important;
+        color: white !important;
+    }
 </style>
 
 <script>
@@ -247,6 +312,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial call and scroll listener
     updateHeroTextOpacity();
     window.addEventListener('scroll', updateHeroTextOpacity);
+});
+
+// Handle story header navigation clicks
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.site-header');
+    
+    // Navigate to stories section on "← Stories" click
+    header.addEventListener('click', function(e) {
+        if (e.target === header && e.target.matches('.site-header::after')) {
+            window.location.href = '/#stories';
+        }
+    });
+    
+    // Simulate click area for pseudo-elements
+    const storiesLink = document.createElement('a');
+    storiesLink.href = '/#stories';
+    storiesLink.style.cssText = 'position: absolute; right: 2vw; top: 50%; transform: translateY(-50%); width: 80px; height: 40px; z-index: 1003; opacity: 0;';
+    header.appendChild(storiesLink);
+    
+    const contactLink = document.createElement('a');
+    contactLink.href = '/#contact';
+    contactLink.style.cssText = 'position: absolute; right: calc(2vw + 100px); top: 50%; transform: translateY(-50%); width: 100px; height: 40px; z-index: 1003; opacity: 0;';
+    header.appendChild(contactLink);
 });
 </script>
 
