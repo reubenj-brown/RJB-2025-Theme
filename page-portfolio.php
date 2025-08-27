@@ -48,7 +48,7 @@ add_action('wp_head', function() {
                 color: #808080;
                 text-align: center;
                 margin: 0;
-                padding: 64px 0 32px 0;
+                padding: 96px 0 64px 0;
             }
 
             /* Contact Section */
