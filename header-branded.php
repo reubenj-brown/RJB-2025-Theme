@@ -583,4 +583,31 @@
     // And after a short delay to ensure shortcodes are rendered
     setTimeout(initializeFullBleedEffects, 1000);
     setTimeout(initializeFullBleedEffects, 3000); // Even longer delay
+    
+    // Contact button arrow flip functionality
+    function updateContactButtonArrow() {
+        const contactButton = document.querySelector('.contact-pill');
+        const contactSection = document.querySelector('#contact');
+        
+        if (!contactButton || !contactSection) return;
+        
+        const contactRect = contactSection.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Check if contact section is visible (at least 30% in viewport)
+        const isContactVisible = contactRect.top <= viewportHeight * 0.7 && contactRect.bottom >= viewportHeight * 0.3;
+        
+        if (isContactVisible) {
+            // Contact section is visible - show up arrow
+            contactButton.textContent = 'contact ↑';
+        } else {
+            // Contact section is not visible - show down arrow
+            contactButton.textContent = 'contact ↓';
+        }
+    }
+    
+    // Add scroll listener for contact button
+    window.addEventListener('scroll', updateContactButtonArrow);
+    window.addEventListener('resize', updateContactButtonArrow);
+    updateContactButtonArrow(); // Initial call
 </script>
