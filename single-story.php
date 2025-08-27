@@ -213,14 +213,9 @@ get_header('branded'); ?>
     }
 
     /* Story-specific header modifications */
-    .site-header .main-nav {
-        display: none !important;
-    }
-
-    .site-header::after {
-        content: "← Stories";
+    .story-header-nav {
         position: absolute;
-        right: 2vw;
+        left: 2vw;
         top: 50%;
         transform: translateY(-50%);
         color: white;
@@ -233,18 +228,13 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    .site-header:not(.over-full-bleed)::after {
+    .site-header:not(.over-full-bleed) .story-header-nav {
         color: #000 !important;
     }
 
-    .site-header .contact-pill {
-        display: none !important;
-    }
-
-    .site-header::before {
-        content: "contact →";
+    .story-header-contact {
         position: absolute;
-        right: calc(2vw + 100px);
+        right: 2vw;
         top: 50%;
         transform: translateY(-50%);
         background: rgba(255, 255, 255, 0.2);
@@ -261,18 +251,18 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    .site-header:not(.over-full-bleed)::before {
+    .site-header:not(.over-full-bleed) .story-header-contact {
         background: rgba(0, 0, 0, 0.05) !important;
         border-color: #000 !important;
         color: #000 !important;
     }
 
-    .site-header::before:hover {
+    .story-header-contact:hover {
         background: white !important;
         color: #000 !important;
     }
 
-    .site-header:not(.over-full-bleed)::before:hover {
+    .site-header:not(.over-full-bleed) .story-header-contact:hover {
         background: #000 !important;
         color: white !important;
     }
@@ -314,27 +304,29 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', updateHeroTextOpacity);
 });
 
-// Handle story header navigation clicks
+// Replace header navigation for story pages
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.site-header');
+    const mainNav = header.querySelector('.main-nav');
+    const contactPill = header.querySelector('.contact-pill');
     
-    // Navigate to stories section on "← Stories" click
-    header.addEventListener('click', function(e) {
-        if (e.target === header && e.target.matches('.site-header::after')) {
-            window.location.href = '/#stories';
-        }
-    });
+    // Remove existing navigation elements
+    if (mainNav) mainNav.remove();
+    if (contactPill) contactPill.remove();
     
-    // Simulate click area for pseudo-elements
-    const storiesLink = document.createElement('a');
-    storiesLink.href = '/#stories';
-    storiesLink.style.cssText = 'position: absolute; right: 2vw; top: 50%; transform: translateY(-50%); width: 80px; height: 40px; z-index: 1003; opacity: 0;';
-    header.appendChild(storiesLink);
+    // Create new story navigation
+    const storyNav = document.createElement('a');
+    storyNav.href = '/#stories';
+    storyNav.className = 'story-header-nav';
+    storyNav.textContent = '← Home';
+    header.appendChild(storyNav);
     
-    const contactLink = document.createElement('a');
-    contactLink.href = '/#contact';
-    contactLink.style.cssText = 'position: absolute; right: calc(2vw + 100px); top: 50%; transform: translateY(-50%); width: 100px; height: 40px; z-index: 1003; opacity: 0;';
-    header.appendChild(contactLink);
+    // Create new contact button
+    const contactButton = document.createElement('a');
+    contactButton.href = '/#contact';
+    contactButton.className = 'story-header-contact';
+    contactButton.textContent = 'contact →';
+    header.appendChild(contactButton);
 });
 </script>
 
