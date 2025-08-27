@@ -100,6 +100,7 @@
     .copyright {
         color: #808080;
         font-size: 16px;
+        font-family: var(--primary-font);
         transition: all 0.5s ease;
     }
 
