@@ -516,7 +516,7 @@
     function updateHeaderAndFooterForFullBleed() {
         const header = document.querySelector('.site-header');
         const footer = document.querySelector('.site-footer');
-        const fullBleedSection = document.querySelector('.featured-story-full-bleed');
+        const fullBleedSection = document.querySelector('.featured-story-full-bleed, .story-hero-full-bleed');
         
         if (!header || !footer || !fullBleedSection) {
             return;
@@ -560,7 +560,7 @@
     function initializeFullBleedEffects() {
         const header = document.querySelector('.site-header');
         const footer = document.querySelector('.site-footer');
-        const fullBleedSection = document.querySelector('.featured-story-full-bleed');
+        const fullBleedSection = document.querySelector('.featured-story-full-bleed, .story-hero-full-bleed');
         
         if (header && footer) {
             window.addEventListener('scroll', updateHeaderAndFooterForFullBleed);
