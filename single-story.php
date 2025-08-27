@@ -20,7 +20,6 @@ get_header('branded'); ?>
     .story-hero-full-bleed {
         position: relative;
         width: 100vw;
-        max-width: 2048px;
         height: 100vh;
         overflow: hidden;
         margin-left: calc(-50vw + 50%);
@@ -114,7 +113,6 @@ get_header('branded'); ?>
     /* Story Content Styles */
     .story-single-container {
         width: 100vw;
-        max-width: 2048px;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
         padding: 3rem 2rem 0 2rem;
@@ -154,10 +152,10 @@ get_header('branded'); ?>
         margin-bottom: 1.5rem;
     }
 
-    /* Full-width images with 2vw padding from screen edges, max 2048px */
+    /* Full-width images with 2vw padding from screen edges */
     .story-content-inner img {
         width: calc(100vw - 4vw); /* Full width minus 2vw padding on each side */
-        max-width: 2048px;
+        max-width: calc(100vw - 4vw);
         margin: 2rem auto;
         display: block;
     }
