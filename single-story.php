@@ -137,8 +137,8 @@ get_header('branded'); ?>
 
     /* Full-width images in content */
     .story-content-inner img {
-        width: 100vw;
-        margin: 2rem calc(-50vw + 50%);
+        width: calc(100vw - 4rem); /* Account for container padding */
+        margin: 2rem -2rem; /* Break out of content wrapper padding */
         display: block;
     }
 
