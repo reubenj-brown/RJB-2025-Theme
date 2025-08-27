@@ -587,7 +587,7 @@
     // Contact button arrow flip functionality
     function updateContactButtonArrow() {
         const contactButton = document.querySelector('.contact-pill');
-        const contactSection = document.querySelector('#contact');
+        const contactSection = document.querySelector('.contact-section');
         
         if (!contactButton || !contactSection) return;
         
