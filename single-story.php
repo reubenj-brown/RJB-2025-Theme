@@ -337,10 +337,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.site-header');
     const mainNav = header.querySelector('.main-nav');
     const contactPill = header.querySelector('.contact-pill');
+    const siteTitle = header.querySelector('.site-title-name');
     
     // Remove existing navigation elements
     if (mainNav) mainNav.remove();
     if (contactPill) contactPill.remove();
+    
+    // Update site title to link to homepage instead of #top
+    if (siteTitle) {
+        siteTitle.href = '/';
+    }
     
     // Create new story navigation
     const storyNav = document.createElement('a');
