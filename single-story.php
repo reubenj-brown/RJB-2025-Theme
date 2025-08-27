@@ -198,6 +198,12 @@ get_header('branded'); ?>
         }
     }
 
+    @media (max-width: 1200px) {
+        .story-header-nav {
+            font-size: 17px;
+        }
+    }
+
     @media (max-width: 480px) {
         .story-hero-content {
             padding: 1.5rem;
@@ -220,7 +226,7 @@ get_header('branded'); ?>
         transform: translateY(-50%);
         color: white;
         font-family: var(--primary-font);
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 400;
         text-decoration: none;
         cursor: pointer;
