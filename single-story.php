@@ -138,7 +138,9 @@ get_header('branded'); ?>
     /* Full-width images in content */
     .story-content-inner img {
         width: 100vw;
-        margin: 2rem calc(-50vw + 50%);
+        margin: 2rem 0;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
         display: block;
     }
 
