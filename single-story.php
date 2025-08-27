@@ -53,7 +53,7 @@ get_header('branded'); ?>
         justify-content: center;
         align-items: center;
         padding: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, filter 0.3s ease;
     }
 
     .story-hero-text {
@@ -70,7 +70,7 @@ get_header('branded'); ?>
         color: white;
         margin-bottom: 1.5rem;
         line-height: 1.1;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .story-hero-text h2 {
@@ -79,13 +79,13 @@ get_header('branded'); ?>
         font-size: calc(20px * 1.23); /* 20px * 1.23 = 24.6px - scaled for serif font */
         margin-bottom: 2rem;
         line-height: 1.3;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .story-hero-text .story-meta {
         color: rgba(255, 255, 255, 0.9);
         font-weight: 500;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         font-family: var(--primary-font);
         font-size: 16px;
     }
@@ -224,19 +224,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollY = window.scrollY;
         const heroHeight = heroSection.offsetHeight;
         
-        // Start fading when scrolled 20% of hero height, fully faded at 60%
-        const fadeStart = heroHeight * 0.2;
-        const fadeEnd = heroHeight * 0.6;
+        // Start fading when scrolled 5% of hero height, fully faded at 30%
+        const fadeStart = heroHeight * 0.05;
+        const fadeEnd = heroHeight * 0.3;
         
         if (scrollY <= fadeStart) {
             heroContent.style.opacity = '1';
+            heroContent.style.filter = 'blur(0px)';
         } else if (scrollY >= fadeEnd) {
             heroContent.style.opacity = '0';
+            heroContent.style.filter = 'blur(10px)';
         } else {
-            // Calculate opacity between fadeStart and fadeEnd
+            // Calculate opacity and blur between fadeStart and fadeEnd
             const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
             const opacity = 1 - fadeProgress;
+            const blurAmount = fadeProgress * 10; // 0px to 10px blur
             heroContent.style.opacity = opacity.toString();
+            heroContent.style.filter = `blur(${blurAmount}px)`;
         }
     }
     
