@@ -126,7 +126,7 @@ get_header('branded'); ?>
 
     .story-content-inner {
         font-family: var(--serif-font);
-        font-size: 20px;
+        font-size: calc(16px * 1.23);
         line-height: 1.6;
         color: #000;
     }
@@ -194,7 +194,7 @@ get_header('branded'); ?>
         }
 
         .story-content-inner {
-            font-size: 18px;
+            font-size: calc(16px * 1.23);
         }
     }
 
