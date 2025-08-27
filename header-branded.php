@@ -598,11 +598,13 @@
         const isContactVisible = contactRect.top <= viewportHeight * 0.7 && contactRect.bottom >= viewportHeight * 0.3;
         
         if (isContactVisible) {
-            // Contact section is visible - show up arrow
+            // Contact section is visible - show up arrow and link to top
             contactButton.textContent = 'contact ↑';
+            contactButton.href = '<?php echo home_url('/#top'); ?>';
         } else {
-            // Contact section is not visible - show down arrow
+            // Contact section is not visible - show down arrow and link to contact
             contactButton.textContent = 'contact ↓';
+            contactButton.href = '<?php echo home_url('/#contact'); ?>';
         }
     }
     
