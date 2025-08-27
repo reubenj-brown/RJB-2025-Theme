@@ -421,7 +421,7 @@
                 </ul>
             </nav>
             
-            <a href="<?php echo home_url('/'); ?>" class="site-title-name">
+            <a href="<?php echo home_url('/#top'); ?>" class="site-title-name">
                 Reuben J. Brown
             </a>
             
@@ -433,7 +433,7 @@
 
 <script>
     // Smooth scroll navigation
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .site-title-name').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = link.getAttribute('href');
