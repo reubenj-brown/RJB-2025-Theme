@@ -216,6 +216,10 @@ get_header('branded'); ?>
         .story-hero-text h2 {
             margin-bottom: 1rem;
         }
+
+        .story-header-contact {
+            font-size: 14px;
+        }
     }
 
     /* Story-specific header modifications */
@@ -249,7 +253,7 @@ get_header('branded'); ?>
         padding: 8px 16px;
         border-radius: 20px;
         font-family: var(--primary-font);
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 400;
         text-decoration: none;
         cursor: pointer;
