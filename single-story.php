@@ -120,8 +120,9 @@ get_header('branded'); ?>
 
     /* Content wrapper for proper text centering within full-width container */
     .story-content-wrapper {
-        max-width: 900px;
+        max-width: none;
         margin: 0 auto;
+        width: 100%;
     }
 
     .story-content-inner {
@@ -131,14 +132,31 @@ get_header('branded'); ?>
         color: #000;
     }
 
+    /* Text elements limited to 900px width */
+    .story-content-inner p,
+    .story-content-inner h1,
+    .story-content-inner h2,
+    .story-content-inner h3,
+    .story-content-inner h4,
+    .story-content-inner h5,
+    .story-content-inner h6,
+    .story-content-inner ul,
+    .story-content-inner ol,
+    .story-content-inner blockquote {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .story-content-inner p {
         margin-bottom: 1.5rem;
     }
 
-    /* Full-width images in content */
+    /* Full-width images with 2vw padding from screen edges */
     .story-content-inner img {
-        width: calc(100vw - 4rem); /* Account for container padding */
-        margin: 2rem -2rem; /* Break out of content wrapper padding */
+        width: calc(100vw - 4vw); /* Full width minus 2vw padding on each side */
+        max-width: calc(100vw - 4vw);
+        margin: 2rem auto;
         display: block;
     }
 
