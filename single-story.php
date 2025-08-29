@@ -192,6 +192,8 @@ get_header('branded'); ?>
         
         .story-hero-text {
             max-width: 100%;
+            width: 90%;
+            min-width: 90%;
         }
         
         .story-hero-text h1 {
