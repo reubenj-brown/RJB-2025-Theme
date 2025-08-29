@@ -474,6 +474,48 @@ add_action('wp_head', function() {
         <?php
 });
 
+// Add homepage hero fade effect
+add_action('wp_footer', function() {
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroContent = document.querySelector('.full-bleed-content');
+        const heroSection = document.querySelector('.featured-story-full-bleed');
+        
+        if (!heroContent || !heroSection) return;
+        
+        function updateHeroTextOpacity() {
+            const scrollY = window.scrollY;
+            const heroHeight = heroSection.offsetHeight;
+            
+            // Start fading when scrolled 5% of hero height, fully faded at 30%
+            const fadeStart = heroHeight * 0.05;
+            const fadeEnd = heroHeight * 0.3;
+            
+            if (scrollY <= fadeStart) {
+                heroContent.style.opacity = '1';
+                heroContent.style.filter = 'blur(0px)';
+            } else if (scrollY >= fadeEnd) {
+                heroContent.style.opacity = '0';
+                heroContent.style.filter = 'blur(10px)';
+            } else {
+                // Calculate opacity and blur between fadeStart and fadeEnd
+                const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+                const opacity = 1 - fadeProgress;
+                const blurAmount = fadeProgress * 10; // 0px to 10px blur
+                heroContent.style.opacity = opacity.toString();
+                heroContent.style.filter = `blur(${blurAmount}px)`;
+            }
+        }
+        
+        // Initial call and scroll listener
+        updateHeroTextOpacity();
+        window.addEventListener('scroll', updateHeroTextOpacity);
+    });
+    </script>
+    <?php
+});
+
 get_header('branded'); ?>
 
     <!-- Full Bleed Hero Section -->
