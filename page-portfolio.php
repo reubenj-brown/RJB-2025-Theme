@@ -640,7 +640,7 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
         
-        <h1 class="section-heading" id="cv">CV</h1>
+        <h1 class="section-heading" id="cv"><a href="/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">CV</a></h1>
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
