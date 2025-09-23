@@ -315,9 +315,6 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
         
-        <div class="strategy-intro">
-                <h3 class="serif-font-scaled">My first gig – at two months old – was a starring role in the <a href="https://youtu.be/K1BNOzDnOLI?t=202"> music video</a> for “You Were Right” by Badly Drawn Boy.</h3>
-            </div> 
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
@@ -325,6 +322,9 @@ get_header('branded'); ?>
 
     <!-- Contact Section - Outside main wrapper for full width gradient -->
     <h1 class="section-heading" id="contact">Contact</h1>
+        <div class="strategy-intro">
+                <h3 class="serif-font-scaled">My first gig – at two months old – was a starring role in the <a href="https://youtu.be/K1BNOzDnOLI?t=202"> music video</a> for “You Were Right” by Badly Drawn Boy.</h3>
+            </div> 
     <section class="content-section contact-section">
         <div class="contact-content">
             <div class="contact-image">
