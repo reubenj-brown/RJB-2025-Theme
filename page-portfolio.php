@@ -302,7 +302,6 @@ get_header('branded'); ?>
         
         <?php echo do_shortcode('[reuben_features]'); ?>
         
-        <h1 class="section-heading">Reviews</h1>
         <section class="content-section reviews-section" id="reviews">
             <?php echo do_shortcode('[reuben_reviews]'); ?>
         </section>
