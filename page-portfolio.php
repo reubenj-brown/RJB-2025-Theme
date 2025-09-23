@@ -315,7 +315,9 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
         
-        <h1 class="section-heading" id="cv"><a href="/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">CV</a></h1>
+        <div class="strategy-intro">
+                <h3 class="serif-font-scaled">My first gig – at two months old – was a starring role in the <a href="https://youtu.be/K1BNOzDnOLI?t=202"> music video</a> for “You Were Right” by Badly Drawn Boy.</h3>
+            </div> 
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
