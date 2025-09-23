@@ -526,8 +526,7 @@ get_header('branded'); ?>
         <section class="content-section about-section" id="about">
             <?php echo do_shortcode('[reuben_about]'); ?>
         </section>
-        
-        <h1 class="section-heading" id="stories">Features</h1>
+
         <section class="content-section features-section" id="features">
             <?php
             // Get features stories
@@ -625,7 +624,6 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_reviews]'); ?>
         </section>
         
-        <h1 class="section-heading">Architecture</h1>
         <section class="content-section profiles-section" id="profiles">
             <?php echo do_shortcode('[reuben_profiles]'); ?>
         </section>
