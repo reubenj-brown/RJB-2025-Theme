@@ -316,7 +316,7 @@ get_header('branded'); ?>
         </section>
 
             <div class="strategy-intro">
-                <h3 class="serif-font-scaled">You can download my full PDF resume <a href="https://reubenjbrown.com/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">here</a></h3>
+                <h3 class="serif-font-scaled" id="cv">You can download my full PDF resume <a href="https://reubenjbrown.com/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">here</a></h3>
             </div> 
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
