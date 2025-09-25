@@ -31,6 +31,15 @@
 
     @font-face {
     font-family: 'Innovator Grotesk';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-Regular.woff2') format('woff2'),
+        url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-Regular.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Innovator Grotesk';
     src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-SemiBold.woff2') format('woff2'),
         url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/InnovatorGrotesk-SemiBold.woff') format('woff');
     font-weight: 600;
@@ -270,7 +279,7 @@
         text-decoration: none;
         font-family: var(--primary-font) !important;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         color: #000;
         transition: all 0.3s ease;
     }

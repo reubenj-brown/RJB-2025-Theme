@@ -87,7 +87,7 @@
         text-decoration: none;
         font-family: var(--primary-font) !important;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         color: #000;
         transition: all 0.3s ease;
     }
