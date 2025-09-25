@@ -73,6 +73,7 @@
     --compressed-italic-font: 'PP Right Serif', serif;
     --compressed-semibold-font: 'PP Right Serif', serif;
     --header-text-color: white;
+    --text-color: #000;
     /* Note: Tablet breakpoint is 1200px across all files */
     }
 
@@ -80,6 +81,7 @@
     @media (prefers-color-scheme: dark) {
         :root {
             --header-text-color: white; /* Keep header text white in both modes */
+            --text-color: white; /* Main text color white in dark mode */
         }
     }
 
@@ -364,13 +366,13 @@
         color: #000 !important;
     }
 
-    /* Header NOT over full-bleed (normal sections) - black text */
+    /* Header NOT over full-bleed (normal sections) - uses text color variable */
     .site-header:not(.over-full-bleed) .site-title-name {
-        color: #000 !important;
+        color: var(--text-color) !important;
     }
 
     .site-header:not(.over-full-bleed) .main-nav a {
-        color: #000 !important;
+        color: var(--text-color) !important;
     }
 
     /* Tablet Responsive - Header Stacking */
