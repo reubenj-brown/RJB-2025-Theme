@@ -46,7 +46,7 @@ add_action('wp_head', function() {
             @media (prefers-color-scheme: dark) {
                 :root {
                     --section-heading-color: #808080; /* Keep headings same gray */
-                    --main-content-bg: black;
+                    --main-content-bg: #050505;
                 }
             }
 
