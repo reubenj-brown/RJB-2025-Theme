@@ -29,14 +29,30 @@ add_action('wp_head', function() {
                 padding: 0 2vw;
                 width: 100vw;
                 max-width: 100vw;
-                background: white;
+                background: var(--main-content-bg);
                 margin-top: 0;
                 position: relative;
                 z-index: 10;
             }
             
-            .content-section {
-                background: white;
+            /* Content sections background handled by base-sections.css */
+
+            /* CSS Variables for Dark Mode */
+            :root {
+                --section-heading-color: #808080;
+                --main-content-bg: white;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --section-heading-color: #808080; /* Keep headings same gray */
+                    --main-content-bg: black;
+                }
+            }
+
+            /* Main Content Wrapper Dark Mode */
+            .main-content {
+                background: var(--main-content-bg);
             }
 
             /* Section Headings */
@@ -45,7 +61,7 @@ add_action('wp_head', function() {
                 font-size: 32px;
                 line-height: 32px;
                 font-weight: 600;
-                color: #808080;
+                color: var(--section-heading-color);
                 text-align: center;
                 margin: 0;
                 padding: 96px 0 64px 0;
