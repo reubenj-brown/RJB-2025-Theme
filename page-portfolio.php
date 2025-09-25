@@ -87,7 +87,7 @@ add_action('wp_head', function() {
                 left: 0; /* Full viewport width since section is outside main wrapper */
                 right: 0; /* Full viewport width since section is outside main wrapper */
                 bottom: calc(-2vw - 40px); /* Extend by footer height: 1vw top + 40px logo + 1vw bottom */
-                background: linear-gradient(to bottom, white 0%, white 40%, #39e58f 100%);
+                background: linear-gradient(to bottom, var(--main-content-bg) 0%, var(--main-content-bg) 40%, #39e58f 100%);
                 z-index: -1;
             }
 
