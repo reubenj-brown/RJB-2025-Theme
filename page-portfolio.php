@@ -141,7 +141,7 @@ add_action('wp_head', function() {
                 line-height: 1.2 !important; /* Same as About section first paragraph */
                 font-weight: 400 !important;
                 text-decoration: none;
-                color: #000;
+                color: var(--text-color);
                 margin-bottom: 1.5rem;
                 transition: all 0.3s ease;
             }
