@@ -115,6 +115,13 @@
         object-fit: contain;
     }
 
+    /* Dark mode: invert black logo to white */
+    @media (prefers-color-scheme: dark) {
+        .footer-logo img {
+            filter: invert(1);
+        }
+    }
+
     /* Footer overlay styles for full-bleed section */
     .site-footer.over-full-bleed::before,
     .site-footer.over-full-bleed::after,

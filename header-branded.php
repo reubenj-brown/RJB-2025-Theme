@@ -63,7 +63,15 @@
     --compressed-font: 'PP Right Serif', serif;
     --compressed-italic-font: 'PP Right Serif', serif;
     --compressed-semibold-font: 'PP Right Serif', serif;
+    --header-text-color: white;
     /* Note: Tablet breakpoint is 1200px across all files */
+    }
+
+    /* Dark Mode Variables */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --header-text-color: white; /* Keep header text white in both modes */
+        }
     }
 
     /* PP Right Serif Font Utility Classes */
@@ -231,7 +239,7 @@
         font-weight: 400;
         text-decoration: none;
         transition: all 0.5s ease;
-        color: white; /* Start white for hero section */
+        color: var(--header-text-color); /* Use CSS variable */
         text-shadow: none;
         position: absolute;
         left: 50%;
@@ -295,7 +303,7 @@
         transition: all 0.5s ease;
         padding: 0.5rem 0;
         position: relative;
-        color: white; /* Start white for hero section */
+        color: var(--header-text-color); /* Use CSS variable */
         text-shadow: none;
     }
 
