@@ -336,6 +336,44 @@ add_action('wp_footer', function() {
             updateAboutTextOpacity();
             window.addEventListener('scroll', updateAboutTextOpacity);
         }
+
+        // Strategy intro text fade effect
+        const strategyIntroTexts = document.querySelectorAll('.strategy-intro h3');
+
+        if (strategyIntroTexts.length > 0) {
+            function updateStrategyTextOpacity() {
+                const scrollY = window.scrollY;
+                const viewportHeight = window.innerHeight;
+
+                strategyIntroTexts.forEach(strategyText => {
+                    const strategyTextRect = strategyText.getBoundingClientRect();
+                    const strategyTextTop = scrollY + strategyTextRect.top;
+
+                    // Start fading when text reaches 25% from top of viewport, fully faded when it would leave viewport
+                    const fadeStart = strategyTextTop - (viewportHeight * 0.25);
+                    const fadeEnd = strategyTextTop - (viewportHeight * 0.1);
+
+                    if (scrollY <= fadeStart) {
+                        strategyText.style.opacity = '1';
+                        strategyText.style.filter = 'blur(0px)';
+                    } else if (scrollY >= fadeEnd) {
+                        strategyText.style.opacity = '0';
+                        strategyText.style.filter = 'blur(10px)';
+                    } else {
+                        // Calculate opacity and blur between fadeStart and fadeEnd
+                        const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+                        const opacity = 1 - fadeProgress;
+                        const blurAmount = fadeProgress * 10; // 0px to 10px blur
+                        strategyText.style.opacity = opacity.toString();
+                        strategyText.style.filter = `blur(${blurAmount}px)`;
+                    }
+                });
+            }
+
+            // Initial call and scroll listener for strategy text
+            updateStrategyTextOpacity();
+            window.addEventListener('scroll', updateStrategyTextOpacity);
+        }
     });
     </script>
     <?php
