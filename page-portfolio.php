@@ -300,6 +300,41 @@ add_action('wp_footer', function() {
         // Initial call and scroll listener
         updateHeroTextOpacity();
         window.addEventListener('scroll', updateHeroTextOpacity);
+
+        // About section large intro text fade effect
+        const aboutText = document.querySelector('.large-intro-text');
+        const aboutSection = document.querySelector('.about-section');
+
+        if (aboutText && aboutSection) {
+            function updateAboutTextOpacity() {
+                const scrollY = window.scrollY;
+                const aboutTop = aboutSection.offsetTop;
+                const aboutHeight = aboutSection.offsetHeight;
+
+                // Start fading when scrolled into about section, fully faded at 30% through
+                const fadeStart = aboutTop + (aboutHeight * 0.05);
+                const fadeEnd = aboutTop + (aboutHeight * 0.3);
+
+                if (scrollY <= fadeStart) {
+                    aboutText.style.opacity = '1';
+                    aboutText.style.filter = 'blur(0px)';
+                } else if (scrollY >= fadeEnd) {
+                    aboutText.style.opacity = '0';
+                    aboutText.style.filter = 'blur(10px)';
+                } else {
+                    // Calculate opacity and blur between fadeStart and fadeEnd
+                    const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+                    const opacity = 1 - fadeProgress;
+                    const blurAmount = fadeProgress * 10; // 0px to 10px blur
+                    aboutText.style.opacity = opacity.toString();
+                    aboutText.style.filter = `blur(${blurAmount}px)`;
+                }
+            }
+
+            // Initial call and scroll listener for about text
+            updateAboutTextOpacity();
+            window.addEventListener('scroll', updateAboutTextOpacity);
+        }
     });
     </script>
     <?php
