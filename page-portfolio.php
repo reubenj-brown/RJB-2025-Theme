@@ -303,17 +303,18 @@ add_action('wp_footer', function() {
 
         // About section large intro text fade effect
         const aboutText = document.querySelector('.large-intro-text');
-        const aboutSection = document.querySelector('.about-section');
 
-        if (aboutText && aboutSection) {
+        if (aboutText) {
             function updateAboutTextOpacity() {
                 const scrollY = window.scrollY;
-                const aboutTop = aboutSection.offsetTop;
-                const aboutHeight = aboutSection.offsetHeight;
+                const aboutTextRect = aboutText.getBoundingClientRect();
+                const aboutTextTop = scrollY + aboutTextRect.top;
+                const aboutTextHeight = aboutTextRect.height;
+                const viewportHeight = window.innerHeight;
 
-                // Start fading when scrolled into about section, fully faded at 30% through
-                const fadeStart = aboutTop + (aboutHeight * 0.05);
-                const fadeEnd = aboutTop + (aboutHeight * 0.3);
+                // Start fading when text reaches middle of viewport, fully faded when it would leave viewport
+                const fadeStart = aboutTextTop - (viewportHeight * 0.5);
+                const fadeEnd = aboutTextTop - (viewportHeight * 0.1);
 
                 if (scrollY <= fadeStart) {
                     aboutText.style.opacity = '1';
