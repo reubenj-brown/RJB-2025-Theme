@@ -319,9 +319,7 @@ get_header('branded'); ?>
         <?php echo do_shortcode('[reuben_features]'); ?>
 
         <h1 class="section-heading">Cronkite</h1>
-        <section class="content-section cronkite-section" id="cronkite">
-            <?php echo do_shortcode('[reuben_dynamic_stories category="cronkite" layout="grid" limit="11" show_view_all="true" show_excerpt="false"]'); ?>
-        </section>
+        <?php echo do_shortcode('[reuben_cronkite]'); ?>
 
         <section class="content-section reviews-section" id="reviews">
             <?php echo do_shortcode('[reuben_reviews]'); ?>
