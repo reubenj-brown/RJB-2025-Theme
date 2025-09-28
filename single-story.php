@@ -445,12 +445,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <?php the_content(); ?>
                 </div>
                 
-                <?php 
-                $photo_credit = get_field('photo_credit');
-                if ($photo_credit && has_post_thumbnail()) : 
-                ?>
-                    <div class="story-image-credit"><?php echo esc_html($photo_credit); ?></div>
-                <?php endif; ?>
                 
                 <?php 
                 $external_url = get_field('external_url');
