@@ -56,6 +56,28 @@ Version: 1.0.1
   --primary-font: 'Innovator Grotesk';
   --serif-font: 'Legitima';
   --compressed-font: 'PP Right Serif';
+
+  /* Global Dark Mode Variables */
+  --content-bg: white;
+  --text-color: #000;
+  --text-color-muted: #808080;
+  --link-color: #808080;
+  --link-hover-color: #39e58f;
+  --caption-bg: rgba(255, 255, 255, 0.9);
+  --h3-link-color: rgba(128, 128, 128, 0.5);
+}
+
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --content-bg: #050505;
+    --text-color: white;
+    --text-color-muted: #a8a8a8;
+    --link-color: white;
+    --link-hover-color: #39e58f;
+    --caption-bg: rgba(5, 5, 5, 0.9);
+    --h3-link-color: var(--text-color-muted);
+  }
 }
 
 /* Ensure only custom fonts are used - no browser defaults */
@@ -69,12 +91,11 @@ h1, h2, h3, h4, h5, h6, p, div, span, a, li, td, th, label, input, textarea, but
 }
 
 a {
-  color: #808080;
+  color: var(--link-color);
 }
 
 a:hover {
-  color:  var(--highlight-color);
-  text-decoration
+  color: var(--link-hover-color);
 }
 
 p a {
@@ -98,7 +119,7 @@ p a:hover::after {
 }
 
 p a:hover {
-  color: #000;
+  color: var(--text-color);
 }
 
 
