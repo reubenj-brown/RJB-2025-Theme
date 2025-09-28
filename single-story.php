@@ -541,7 +541,22 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Found data-caption:', captionText);
         }
 
-        // Do not use alt text - only use actual WordPress captions
+        // Debug: show what we found
+        console.log('Caption search results for image:', img.src);
+        console.log('- figcaption text:', captionText);
+
+        // If no caption found from proper sources, let's see what data is available
+        if (!captionText) {
+            console.log('- No proper caption found');
+            console.log('- Alt text available:', img.getAttribute('alt'));
+            console.log('- Title available:', img.getAttribute('title'));
+
+            // Temporarily use alt text to ensure something shows up
+            if (img.getAttribute('alt')) {
+                captionText = img.getAttribute('alt').trim();
+                console.log('- Using alt text as temporary caption:', captionText);
+            }
+        }
 
         // Try to extract credit from caption text using common patterns
         if (captionText && (captionText.includes('Photo:') || captionText.includes('Credit:') || captionText.includes('Source:'))) {
@@ -651,8 +666,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Only proceed if we have caption or credit
-        if (captionText || credit) {
+        // Ensure we have something to show for debugging
+        if (!captionText && !credit) {
+            captionText = 'DEBUG: Caption not found';
+        }
+
+        // Always show caption area for debugging (change this later)
+        if (captionText || credit || true) {
             // Create caption div
             const captionDiv = document.createElement('div');
             captionDiv.className = 'story-image-caption';
