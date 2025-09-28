@@ -104,6 +104,28 @@
         transition: all 0.5s ease;
     }
 
+    /* Dark mode footer styles */
+    @media (prefers-color-scheme: dark) {
+        .site-footer {
+            background: #050505;
+        }
+
+        .footer-contact-pill {
+            background: #050505;
+            color: white;
+            border-color: var(--highlight-color);
+        }
+
+        .footer-contact-pill:hover {
+            background: var(--highlight-color);
+            color: white;
+        }
+
+        .copyright {
+            color: #a8a8a8;
+        }
+    }
+
     .footer-logo {
         width: 40px;
         height: 40px;
