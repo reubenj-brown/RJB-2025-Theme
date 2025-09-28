@@ -556,11 +556,62 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Get image source from filename if no credit found
-        if (!credit && img.src) {
-            const filename = img.src.split('/').pop().split('.')[0];
-            // Clean up the filename (remove hyphens, underscores, make readable)
-            credit = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        // Get WordPress media library source field
+        // We need to make an AJAX call to get the media source since it's not in the DOM
+        if (!credit) {
+            // Try to get attachment ID from various WordPress attributes
+            let attachmentId = null;
+
+            // Check for wp-image-XXXX class (WordPress standard)
+            const imageClasses = img.className.split(' ');
+            for (let className of imageClasses) {
+                if (className.startsWith('wp-image-')) {
+                    attachmentId = className.replace('wp-image-', '');
+                    break;
+                }
+            }
+
+            // If we have an attachment ID, fetch the source
+            if (attachmentId) {
+                // For now, use a placeholder - we'll need to implement AJAX call
+                credit = 'Loading source...';
+                console.log('Found attachment ID:', attachmentId);
+
+                // Make AJAX call to get media source
+                fetch('/wp-json/wp/v2/media/' + attachmentId)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if source field exists in media metadata
+                        const source = data.meta && data.meta._media_source ? data.meta._media_source : '';
+                        if (source) {
+                            // Update the credit text if we found a source
+                            const existingCaption = img.nextSibling;
+                            if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
+                                const creditElement = existingCaption.querySelector('.credit-text');
+                                if (creditElement) {
+                                    creditElement.textContent = source;
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Could not fetch media source:', error);
+                        // Fallback to filename
+                        const filename = img.src.split('/').pop().split('.')[0];
+                        const fallbackCredit = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        const existingCaption = img.nextSibling;
+                        if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
+                            const creditElement = existingCaption.querySelector('.credit-text');
+                            if (creditElement) {
+                                creditElement.textContent = fallbackCredit;
+                            }
+                        }
+                    });
+            } else {
+                // Fallback to filename if no attachment ID found
+                const filename = img.src.split('/').pop().split('.')[0];
+                credit = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            }
         }
 
         // Only proceed if we have caption or credit
