@@ -408,13 +408,13 @@ get_header('branded'); ?>
         </section>
 
             <div class="strategy-intro">
-                <h3 class="serif-font-scaled" id="contact">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">PDF version</a>.</h3>
+                <h3 class="serif-font-scaled" id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">PDF version</a>.</h3>
             </div> 
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
         <div class="strategy-intro">
-                <h3 class="serif-font-scaled">My first gig – at two months old – was a starring role in the for “You Were Right” by Badly Drawn Boy. Watch that <a href="https://youtu.be/K1BNOzDnOLI?t=202">here</a>, or contact me for actually serious things below:</h3>
+                <h3 class="serif-font-scaled" id="contact">My first gig – at two months old – was a starring role in the for “You Were Right” by Badly Drawn Boy. Watch that <a href="https://youtu.be/K1BNOzDnOLI?t=202">here</a>, or contact me for actually serious things below:</h3>
         </div> 
     </main>
 
