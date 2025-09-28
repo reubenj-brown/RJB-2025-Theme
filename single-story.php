@@ -185,45 +185,29 @@ get_header('branded'); ?>
         display: block;
     }
 
-    /* Image wrapper for captions */
-    .story-image-wrapper {
-        position: relative;
-        width: calc(100vw - 4vw);
-        margin: 2rem auto;
-        display: block;
-    }
-
-    .story-image-wrapper img {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        display: block;
-    }
-
-    /* Image caption and credit styling - matches home page */
+    /* Simple image caption below image - matches home page style */
     .story-image-caption {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        background: var(--caption-bg);
-        backdrop-filter: blur(10px);
-        padding: 8px 12px;
         font-family: var(--primary-font);
         font-size: 12px;
         line-height: 1.4;
-        color: var(--text-color);
-        max-width: 70%;
-        word-wrap: break-word;
+        text-align: right;
+        margin-top: 8px;
+        margin-bottom: 0;
+        width: calc(100vw - 4vw);
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .story-image-caption .caption-text {
         font-weight: 600; /* Semi-bold for caption */
-        margin-bottom: 2px;
+        color: var(--text-color);
+        display: block;
     }
 
     .story-image-caption .credit-text {
         font-weight: 400; /* Regular for credit */
         color: var(--text-color-muted);
+        display: block;
     }
 
     .story-content-inner h2 {
@@ -514,39 +498,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const storyImages = document.querySelectorAll('.story-content-inner img');
 
     storyImages.forEach(function(img) {
-        // Get WordPress caption and alt text
-        const caption = img.getAttribute('data-caption') || img.closest('figure')?.querySelector('figcaption')?.textContent || '';
-        const altText = img.getAttribute('alt') || '';
-        const title = img.getAttribute('title') || '';
-
-        // Try to extract credit from various sources
+        // Get WordPress caption from figure element or wp-caption
+        let captionText = '';
         let credit = '';
-        let captionText = caption;
 
-        // Check if caption contains credit info (common patterns)
-        if (caption.includes('Photo:') || caption.includes('Credit:') || caption.includes('Source:')) {
-            const parts = caption.split(/(?:Photo:|Credit:|Source:)/i);
+        // Check if image is inside a WordPress figure with figcaption
+        const figure = img.closest('figure');
+        if (figure) {
+            const figcaption = figure.querySelector('figcaption');
+            if (figcaption) {
+                captionText = figcaption.textContent.trim();
+            }
+        }
+
+        // Check for wp-caption-text (WordPress standard)
+        const wpCaption = img.parentNode.querySelector('.wp-caption-text');
+        if (wpCaption && !captionText) {
+            captionText = wpCaption.textContent.trim();
+        }
+
+        // Try to extract credit from caption text using common patterns
+        if (captionText && (captionText.includes('Photo:') || captionText.includes('Credit:') || captionText.includes('Source:'))) {
+            const parts = captionText.split(/(?:Photo:|Credit:|Source:)/i);
             if (parts.length > 1) {
                 captionText = parts[0].trim();
                 credit = parts[1].trim();
             }
-        } else if (title) {
-            // Use title as credit if available
-            credit = title;
         }
 
         // Only proceed if we have caption or credit
         if (captionText || credit) {
-            // Create wrapper div
-            const wrapper = document.createElement('div');
-            wrapper.className = 'story-image-wrapper';
-
-            // Insert wrapper before the image
-            img.parentNode.insertBefore(wrapper, img);
-
-            // Move image into wrapper
-            wrapper.appendChild(img);
-
             // Create caption div
             const captionDiv = document.createElement('div');
             captionDiv.className = 'story-image-caption';
@@ -567,8 +548,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 captionDiv.appendChild(creditSpan);
             }
 
-            // Add caption to wrapper
-            wrapper.appendChild(captionDiv);
+            // Insert caption after the image
+            img.parentNode.insertBefore(captionDiv, img.nextSibling);
         }
     });
 });
