@@ -535,11 +535,93 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Method 4: Check for data-caption attribute
+        // Method 4: Check for WordPress blocks caption
+        const wpBlockCaption = img.parentNode.querySelector('.wp-element-caption');
+        if (wpBlockCaption && !captionText) {
+            captionText = wpBlockCaption.textContent.trim();
+            console.log('Found wp-element-caption:', captionText);
+        }
+
+        // Method 4b: Check for wp-block-image caption
+        const wpBlockImage = img.closest('.wp-block-image');
+        if (wpBlockImage && !captionText) {
+            const blockCaption = wpBlockImage.querySelector('figcaption');
+            if (blockCaption) {
+                captionText = blockCaption.textContent.trim();
+                console.log('Found wp-block-image figcaption:', captionText);
+            }
+        }
+
+        // Method 5: Check for caption in surrounding paragraph
+        const nextElement = img.parentNode.nextElementSibling;
+        if (nextElement && nextElement.tagName === 'P' && nextElement.classList.contains('caption') && !captionText) {
+            captionText = nextElement.textContent.trim();
+            console.log('Found caption paragraph:', captionText);
+        }
+
+        // Method 6: Check for data-caption attribute
         if (!captionText && img.getAttribute('data-caption')) {
             captionText = img.getAttribute('data-caption').trim();
             console.log('Found data-caption:', captionText);
         }
+
+        // Method 6b: Check for WordPress attachment attributes
+        if (!captionText) {
+            // Check for data-attachment_id attribute
+            const attachmentId = img.getAttribute('data-attachment-id') || img.getAttribute('data-id');
+            if (attachmentId) {
+                console.log('Found data-attachment-id:', attachmentId);
+            }
+
+            // Check for WordPress-specific attributes that might contain caption
+            const wpCaption = img.getAttribute('data-caption');
+            const wpTitle = img.getAttribute('data-title');
+            const wpDescription = img.getAttribute('data-description');
+
+            if (wpCaption) {
+                captionText = wpCaption.trim();
+                console.log('Found WordPress data-caption attribute:', captionText);
+            } else if (wpDescription) {
+                captionText = wpDescription.trim();
+                console.log('Found WordPress data-description attribute:', captionText);
+            }
+        }
+
+        // Method 7: Comprehensive debugging - analyze complete image structure
+        console.log('=== COMPREHENSIVE IMAGE DEBUGGING ===');
+        console.log('Image src:', img.src);
+        console.log('Image classes:', img.className);
+        console.log('Image attributes:', img.attributes);
+
+        // Check all possible image containers and siblings
+        console.log('--- Parent Structure ---');
+        console.log('Direct parent:', img.parentNode.tagName, img.parentNode.className);
+        console.log('Grandparent:', img.parentNode.parentNode ? img.parentNode.parentNode.tagName + ' ' + img.parentNode.parentNode.className : 'none');
+        console.log('Great-grandparent:', img.parentNode.parentNode && img.parentNode.parentNode.parentNode ? img.parentNode.parentNode.parentNode.tagName + ' ' + img.parentNode.parentNode.parentNode.className : 'none');
+
+        // Check siblings at different levels
+        console.log('--- Sibling Structure ---');
+        console.log('Next sibling:', img.nextElementSibling ? img.nextElementSibling.tagName + ' ' + img.nextElementSibling.className + ' content: "' + img.nextElementSibling.textContent.trim().substring(0, 50) + '"' : 'none');
+        console.log('Previous sibling:', img.previousElementSibling ? img.previousElementSibling.tagName + ' ' + img.previousElementSibling.className : 'none');
+        console.log('Parent next sibling:', img.parentNode.nextElementSibling ? img.parentNode.nextElementSibling.tagName + ' ' + img.parentNode.nextElementSibling.className + ' content: "' + img.parentNode.nextElementSibling.textContent.trim().substring(0, 50) + '"' : 'none');
+        console.log('Parent previous sibling:', img.parentNode.previousElementSibling ? img.parentNode.previousElementSibling.tagName + ' ' + img.parentNode.previousElementSibling.className : 'none');
+
+        // Look for any caption-related elements in vicinity
+        console.log('--- Caption Element Search ---');
+        const possibleCaptionElements = img.parentNode.parentNode ? img.parentNode.parentNode.querySelectorAll('figcaption, .wp-caption-text, .wp-element-caption, .caption, p[class*="caption"], div[class*="caption"]') : [];
+        console.log('Found caption-related elements:', possibleCaptionElements.length);
+        possibleCaptionElements.forEach((el, index) => {
+            console.log(`Caption element ${index}:`, el.tagName, el.className, 'content:', el.textContent.trim().substring(0, 100));
+        });
+
+        // Check for any text in immediate vicinity that might be captions
+        console.log('--- Nearby Text Content ---');
+        const nearbyElements = [img.nextElementSibling, img.parentNode.nextElementSibling, img.parentNode.parentNode ? img.parentNode.parentNode.nextElementSibling : null];
+        nearbyElements.forEach((el, index) => {
+            if (el && el.textContent && el.textContent.trim()) {
+                console.log(`Nearby text ${index}:`, el.tagName, el.className, 'content:', el.textContent.trim().substring(0, 100));
+            }
+        });
 
         // Debug: show what we found
         console.log('Caption search results for image:', img.src);
@@ -547,15 +629,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // If no caption found from proper sources, let's see what data is available
         if (!captionText) {
-            console.log('- No proper caption found');
+            console.log('- No proper caption found from WordPress caption field');
             console.log('- Alt text available:', img.getAttribute('alt'));
             console.log('- Title available:', img.getAttribute('title'));
 
-            // Temporarily use alt text to ensure something shows up
-            if (img.getAttribute('alt')) {
-                captionText = img.getAttribute('alt').trim();
-                console.log('- Using alt text as temporary caption:', captionText);
+            console.log('=== ALL IMAGE ATTRIBUTES ===');
+            for (let i = 0; i < img.attributes.length; i++) {
+                const attr = img.attributes[i];
+                console.log(`${attr.name}: ${attr.value}`);
             }
+
+            // DO NOT use alt text fallback - we need to find the actual WordPress caption
+            // The user explicitly said not to use alt text, only actual WordPress captions
+            console.log('- No caption will be displayed (WordPress caption field not found)');
         }
 
         // Try to extract credit from caption text using common patterns
