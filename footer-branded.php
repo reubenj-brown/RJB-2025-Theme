@@ -104,36 +104,6 @@
         transition: all 0.5s ease;
     }
 
-    /* Dark mode footer styles */
-    @media (prefers-color-scheme: dark) {
-        .site-footer::before {
-            background: rgba(5, 5, 5, 0.6); /* Add dark background layer while keeping blur */
-        }
-
-        .site-footer::after {
-            background: rgba(5, 5, 5, 0.4); /* Add dark background layer while keeping blur */
-        }
-
-        .site-footer .footer-content::before {
-            background: rgba(5, 5, 5, 0.3); /* Add dark background layer while keeping blur */
-        }
-
-        .footer-contact-pill {
-            background: rgba(5, 5, 5, 0.8);
-            color: white;
-            border-color: var(--highlight-color);
-        }
-
-        .footer-contact-pill:hover {
-            background: var(--highlight-color);
-            color: white;
-        }
-
-        .copyright {
-            color: #a8a8a8;
-        }
-    }
-
     .footer-logo {
         width: 40px;
         height: 40px;
