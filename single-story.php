@@ -16,6 +16,25 @@ add_action('wp_enqueue_scripts', function() {
 get_header('branded'); ?>
 
 <style>
+    /* CSS Variables for Story Template */
+    :root {
+        --content-bg: white;
+        --text-color: #000;
+        --text-color-muted: #808080;
+        --link-color: #808080;
+        --link-hover-color: #39e58f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --content-bg: #050505;
+            --text-color: white;
+            --text-color-muted: #a8a8a8;
+            --link-color: white;
+            --link-hover-color: #39e58f;
+        }
+    }
+
     /* Full Bleed Hero Section for Stories */
     .story-hero-full-bleed {
         position: relative;
