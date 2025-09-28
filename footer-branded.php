@@ -106,12 +106,20 @@
 
     /* Dark mode footer styles */
     @media (prefers-color-scheme: dark) {
-        .site-footer {
-            background: #050505;
+        .site-footer::before {
+            background: rgba(5, 5, 5, 0.6); /* Add dark background layer while keeping blur */
+        }
+
+        .site-footer::after {
+            background: rgba(5, 5, 5, 0.4); /* Add dark background layer while keeping blur */
+        }
+
+        .site-footer .footer-content::before {
+            background: rgba(5, 5, 5, 0.3); /* Add dark background layer while keeping blur */
         }
 
         .footer-contact-pill {
-            background: #050505;
+            background: rgba(5, 5, 5, 0.8);
             color: white;
             border-color: var(--highlight-color);
         }
