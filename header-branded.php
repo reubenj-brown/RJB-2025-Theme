@@ -8,6 +8,9 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css">
 
+<!-- Preload PP Right Serif font for early loading -->
+<link rel="preload" href="<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.otf" as="font" type="font/otf" crossorigin>
+
 <?php wp_head(); ?>
 
 <style>
