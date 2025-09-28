@@ -185,6 +185,47 @@ get_header('branded'); ?>
         display: block;
     }
 
+    /* Image wrapper for captions */
+    .story-image-wrapper {
+        position: relative;
+        width: calc(100vw - 4vw);
+        margin: 2rem auto;
+        display: block;
+    }
+
+    .story-image-wrapper img {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        display: block;
+    }
+
+    /* Image caption and credit styling - matches home page */
+    .story-image-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: var(--caption-bg);
+        backdrop-filter: blur(10px);
+        padding: 8px 12px;
+        font-family: var(--primary-font);
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--text-color);
+        max-width: 70%;
+        word-wrap: break-word;
+    }
+
+    .story-image-caption .caption-text {
+        font-weight: 600; /* Semi-bold for caption */
+        margin-bottom: 2px;
+    }
+
+    .story-image-caption .credit-text {
+        font-weight: 400; /* Regular for credit */
+        color: var(--text-color-muted);
+    }
+
     .story-content-inner h2 {
         font-family: var(--serif-font);
         font-size: calc(32px * 1.23);
@@ -466,6 +507,72 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Process all images in story content for automatic captions
+    const storyImages = document.querySelectorAll('.story-content-inner img');
+
+    storyImages.forEach(function(img) {
+        // Get WordPress caption and alt text
+        const caption = img.getAttribute('data-caption') || img.closest('figure')?.querySelector('figcaption')?.textContent || '';
+        const altText = img.getAttribute('alt') || '';
+        const title = img.getAttribute('title') || '';
+
+        // Try to extract credit from various sources
+        let credit = '';
+        let captionText = caption;
+
+        // Check if caption contains credit info (common patterns)
+        if (caption.includes('Photo:') || caption.includes('Credit:') || caption.includes('Source:')) {
+            const parts = caption.split(/(?:Photo:|Credit:|Source:)/i);
+            if (parts.length > 1) {
+                captionText = parts[0].trim();
+                credit = parts[1].trim();
+            }
+        } else if (title) {
+            // Use title as credit if available
+            credit = title;
+        }
+
+        // Only proceed if we have caption or credit
+        if (captionText || credit) {
+            // Create wrapper div
+            const wrapper = document.createElement('div');
+            wrapper.className = 'story-image-wrapper';
+
+            // Insert wrapper before the image
+            img.parentNode.insertBefore(wrapper, img);
+
+            // Move image into wrapper
+            wrapper.appendChild(img);
+
+            // Create caption div
+            const captionDiv = document.createElement('div');
+            captionDiv.className = 'story-image-caption';
+
+            // Add caption text if available
+            if (captionText) {
+                const captionSpan = document.createElement('div');
+                captionSpan.className = 'caption-text';
+                captionSpan.textContent = captionText;
+                captionDiv.appendChild(captionSpan);
+            }
+
+            // Add credit if available
+            if (credit) {
+                const creditSpan = document.createElement('div');
+                creditSpan.className = 'credit-text';
+                creditSpan.textContent = credit;
+                captionDiv.appendChild(creditSpan);
+            }
+
+            // Add caption to wrapper
+            wrapper.appendChild(captionDiv);
+        }
+    });
+});
+</script>
 
 <?php endwhile; endif; ?>
 
