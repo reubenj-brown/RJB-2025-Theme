@@ -181,18 +181,18 @@ get_header('branded'); ?>
     .story-content-inner img {
         width: calc(100vw - 4vw); /* Full width minus 2vw padding on each side */
         max-width: calc(100vw - 4vw);
-        margin: 2rem auto;
+        margin: 2rem auto 0 auto; /* Remove bottom margin */
         display: block;
     }
 
-    /* Simple image caption below image - matches home page style */
+    /* Simple image caption below image */
     .story-image-caption {
         font-family: var(--primary-font);
         font-size: 12px;
         line-height: 1.4;
-        text-align: right;
+        text-align: left; /* Bottom-left alignment */
         margin-top: 8px;
-        margin-bottom: 0;
+        margin-bottom: 32px; /* Add 32px bottom padding */
         width: calc(100vw - 4vw);
         margin-left: auto;
         margin-right: auto;
@@ -200,14 +200,18 @@ get_header('branded'); ?>
 
     .story-image-caption .caption-text {
         font-weight: 600; /* Semi-bold for caption */
-        color: var(--text-color);
-        display: block;
+        color: var(--text-color-muted); /* Use grey color variable */
+        display: inline; /* Same line */
     }
 
     .story-image-caption .credit-text {
         font-weight: 400; /* Regular for credit */
         color: var(--text-color-muted);
-        display: block;
+        display: inline; /* Same line */
+    }
+
+    .story-image-caption .credit-text::before {
+        content: " "; /* Space before credit */
     }
 
     .story-content-inner h2 {
@@ -552,10 +556,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Always show something for testing - remove this later
-        if (!captionText && !credit) {
-            captionText = 'Test caption for image';
-            console.log('No caption found, using test caption');
+        // Get image source from filename if no credit found
+        if (!credit && img.src) {
+            const filename = img.src.split('/').pop().split('.')[0];
+            // Clean up the filename (remove hyphens, underscores, make readable)
+            credit = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         }
 
         // Only proceed if we have caption or credit
