@@ -353,7 +353,6 @@ get_header('branded'); ?>
         
         <?php echo do_shortcode('[reuben_features]'); ?>
 
-        <h1 class="section-heading">Cronkite</h1>
         <?php echo do_shortcode('[reuben_cronkite]'); ?>
 
         <section class="content-section reviews-section" id="reviews">
