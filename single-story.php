@@ -204,7 +204,7 @@ get_header('branded'); ?>
     /* Story content links */
     .story-content-inner a {
         color: var(--text-color-muted);
-        text-decoration: underline;
+        text-decoration: none;
     }
 
     .story-content-inner a:hover {
