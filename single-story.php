@@ -498,23 +498,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const storyImages = document.querySelectorAll('.story-content-inner img');
 
     storyImages.forEach(function(img) {
-        // Get WordPress caption from figure element or wp-caption
+        console.log('Processing image:', img.src);
+
+        // Get WordPress caption from multiple possible sources
         let captionText = '';
         let credit = '';
 
-        // Check if image is inside a WordPress figure with figcaption
+        // Method 1: Check if image is inside a WordPress figure with figcaption
         const figure = img.closest('figure');
         if (figure) {
             const figcaption = figure.querySelector('figcaption');
             if (figcaption) {
                 captionText = figcaption.textContent.trim();
+                console.log('Found figcaption:', captionText);
             }
         }
 
-        // Check for wp-caption-text (WordPress standard)
+        // Method 2: Check for wp-caption-text (WordPress standard)
         const wpCaption = img.parentNode.querySelector('.wp-caption-text');
         if (wpCaption && !captionText) {
             captionText = wpCaption.textContent.trim();
+            console.log('Found wp-caption-text:', captionText);
+        }
+
+        // Method 3: Check parent for wp-caption div
+        const wpCaptionDiv = img.closest('.wp-caption');
+        if (wpCaptionDiv && !captionText) {
+            const captionElement = wpCaptionDiv.querySelector('.wp-caption-text');
+            if (captionElement) {
+                captionText = captionElement.textContent.trim();
+                console.log('Found wp-caption div:', captionText);
+            }
+        }
+
+        // Method 4: Check for data-caption attribute
+        if (!captionText && img.getAttribute('data-caption')) {
+            captionText = img.getAttribute('data-caption').trim();
+            console.log('Found data-caption:', captionText);
+        }
+
+        // Method 5: Use alt text as fallback for testing
+        if (!captionText && img.getAttribute('alt')) {
+            captionText = img.getAttribute('alt').trim();
+            console.log('Using alt text as caption:', captionText);
         }
 
         // Try to extract credit from caption text using common patterns
@@ -524,6 +550,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 captionText = parts[0].trim();
                 credit = parts[1].trim();
             }
+        }
+
+        // Always show something for testing - remove this later
+        if (!captionText && !credit) {
+            captionText = 'Test caption for image';
+            console.log('No caption found, using test caption');
         }
 
         // Only proceed if we have caption or credit
@@ -550,6 +582,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Insert caption after the image
             img.parentNode.insertBefore(captionDiv, img.nextSibling);
+            console.log('Caption added for image');
         }
     });
 });
