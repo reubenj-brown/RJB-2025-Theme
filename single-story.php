@@ -541,11 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Found data-caption:', captionText);
         }
 
-        // Method 5: Use alt text as fallback for testing
-        if (!captionText && img.getAttribute('alt')) {
-            captionText = img.getAttribute('alt').trim();
-            console.log('Using alt text as caption:', captionText);
-        }
+        // Do not use alt text - only use actual WordPress captions
 
         // Try to extract credit from caption text using common patterns
         if (captionText && (captionText.includes('Photo:') || captionText.includes('Credit:') || captionText.includes('Source:'))) {
@@ -581,8 +577,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetch('/wp-json/wp/v2/media/' + attachmentId)
                     .then(response => response.json())
                     .then(data => {
-                        // Check if source field exists in media metadata
-                        const source = data.meta && data.meta._media_source ? data.meta._media_source : '';
+                        console.log('Full media data:', data);
+
+                        // Check multiple possible locations for source field
+                        let source = '';
+
+                        // Method 1: Check meta field
+                        if (data.meta && data.meta._media_source) {
+                            source = data.meta._media_source;
+                            console.log('Found source in meta._media_source:', source);
+                        }
+
+                        // Method 2: Check meta field without underscore
+                        if (!source && data.meta && data.meta.media_source) {
+                            source = data.meta.media_source;
+                            console.log('Found source in meta.media_source:', source);
+                        }
+
+                        // Method 3: Check meta field as 'source'
+                        if (!source && data.meta && data.meta.source) {
+                            source = data.meta.source;
+                            console.log('Found source in meta.source:', source);
+                        }
+
+                        // Method 4: Check acf fields if using ACF
+                        if (!source && data.acf && data.acf.source) {
+                            source = data.acf.source;
+                            console.log('Found source in acf.source:', source);
+                        }
+
+                        // Method 5: Check top level source field
+                        if (!source && data.source) {
+                            source = data.source;
+                            console.log('Found source in data.source:', source);
+                        }
+
+                        console.log('Final source value:', source);
+
                         if (source) {
                             // Update the credit text if we found a source
                             const existingCaption = img.nextSibling;
@@ -590,6 +621,15 @@ document.addEventListener('DOMContentLoaded', function() {
                                 const creditElement = existingCaption.querySelector('.credit-text');
                                 if (creditElement) {
                                     creditElement.textContent = source;
+                                }
+                            }
+                        } else {
+                            // Remove credit element if no source found
+                            const existingCaption = img.nextSibling;
+                            if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
+                                const creditElement = existingCaption.querySelector('.credit-text');
+                                if (creditElement) {
+                                    creditElement.remove();
                                 }
                             }
                         }
