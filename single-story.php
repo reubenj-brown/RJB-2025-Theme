@@ -35,6 +35,12 @@ get_header('branded'); ?>
         }
     }
 
+    /* Global background for story pages */
+    html, body {
+        background: var(--content-bg);
+        min-height: 100vh;
+    }
+
     /* Full Bleed Hero Section for Stories */
     .story-hero-full-bleed {
         position: relative;
