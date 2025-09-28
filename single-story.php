@@ -596,21 +596,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .catch(error => {
                         console.log('Could not fetch media source:', error);
-                        // Fallback to filename
-                        const filename = img.src.split('/').pop().split('.')[0];
-                        const fallbackCredit = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        // Remove loading text if API fails
                         const existingCaption = img.nextSibling;
                         if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
                             const creditElement = existingCaption.querySelector('.credit-text');
                             if (creditElement) {
-                                creditElement.textContent = fallbackCredit;
+                                creditElement.remove();
                             }
                         }
                     });
             } else {
-                // Fallback to filename if no attachment ID found
-                const filename = img.src.split('/').pop().split('.')[0];
-                credit = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                // No attachment ID found, no credit to show
+                credit = '';
             }
         }
 
