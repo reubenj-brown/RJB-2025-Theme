@@ -398,17 +398,12 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_reviews]'); ?>
         </section>
 
-        <h1 class="section-heading">Interviews</h1>
-        <section class="content-section interviews-section" id="interviews">
-            <?php echo do_shortcode('[reuben_dynamic_stories category="interviews" layout="grid" limit="11" show_view_all="true" show_excerpt="false"]'); ?>
-        </section>
-
         <section class="content-section photographs-section" id="photographs">
             <?php echo do_shortcode('[reuben_photographs]'); ?>
         </section>
 
             <div class="strategy-intro">
-                <h3 class="serif-font-scaled" id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">PDF version</a>.</h3>
+                <h3 class="serif-font-scaled" id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/08/Reuben-J-Brown_Investigative-Journalist_CV_September-2025.pdf">PDF version</a></h3>
             </div> 
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
