@@ -610,41 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Method 7: Comprehensive debugging - analyze complete image structure
-        console.log('=== COMPREHENSIVE IMAGE DEBUGGING ===');
-        console.log('Image src:', img.src);
-        console.log('Image classes:', img.className);
-        console.log('Image attributes:', img.attributes);
-
-        // Check all possible image containers and siblings
-        console.log('--- Parent Structure ---');
-        console.log('Direct parent:', img.parentNode.tagName, img.parentNode.className);
-        console.log('Grandparent:', img.parentNode.parentNode ? img.parentNode.parentNode.tagName + ' ' + img.parentNode.parentNode.className : 'none');
-        console.log('Great-grandparent:', img.parentNode.parentNode && img.parentNode.parentNode.parentNode ? img.parentNode.parentNode.parentNode.tagName + ' ' + img.parentNode.parentNode.parentNode.className : 'none');
-
-        // Check siblings at different levels
-        console.log('--- Sibling Structure ---');
-        console.log('Next sibling:', img.nextElementSibling ? img.nextElementSibling.tagName + ' ' + img.nextElementSibling.className + ' content: "' + img.nextElementSibling.textContent.trim().substring(0, 50) + '"' : 'none');
-        console.log('Previous sibling:', img.previousElementSibling ? img.previousElementSibling.tagName + ' ' + img.previousElementSibling.className : 'none');
-        console.log('Parent next sibling:', img.parentNode.nextElementSibling ? img.parentNode.nextElementSibling.tagName + ' ' + img.parentNode.nextElementSibling.className + ' content: "' + img.parentNode.nextElementSibling.textContent.trim().substring(0, 50) + '"' : 'none');
-        console.log('Parent previous sibling:', img.parentNode.previousElementSibling ? img.parentNode.previousElementSibling.tagName + ' ' + img.parentNode.previousElementSibling.className : 'none');
-
-        // Look for any caption-related elements in vicinity
-        console.log('--- Caption Element Search ---');
-        const possibleCaptionElements = img.parentNode.parentNode ? img.parentNode.parentNode.querySelectorAll('figcaption, .wp-caption-text, .wp-element-caption, .caption, p[class*="caption"], div[class*="caption"]') : [];
-        console.log('Found caption-related elements:', possibleCaptionElements.length);
-        possibleCaptionElements.forEach((el, index) => {
-            console.log(`Caption element ${index}:`, el.tagName, el.className, 'content:', el.textContent.trim().substring(0, 100));
-        });
-
-        // Check for any text in immediate vicinity that might be captions
-        console.log('--- Nearby Text Content ---');
-        const nearbyElements = [img.nextElementSibling, img.parentNode.nextElementSibling, img.parentNode.parentNode ? img.parentNode.parentNode.nextElementSibling : null];
-        nearbyElements.forEach((el, index) => {
-            if (el && el.textContent && el.textContent.trim()) {
-                console.log(`Nearby text ${index}:`, el.tagName, el.className, 'content:', el.textContent.trim().substring(0, 100));
-            }
-        });
+        // Comprehensive debugging disabled - caption detection working
 
         // Debug: show what we found
         console.log('Caption search results for image:', img.src);
@@ -676,8 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         // Check for source in meta fields with comprehensive debugging
                         let foundSource = '';
-                        console.log('- Checking for source in meta fields...');
-                        console.log('- Media meta data:', mediaData.meta);
+                        // Check for source in meta fields
 
                         if (mediaData.meta) {
                             // Check all possible source field variations
@@ -691,14 +656,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (foundSource) {
                                 console.log('- Found WordPress media source:', foundSource);
                             } else {
-                                const metaKeys = Object.keys(mediaData.meta);
-                                console.log('- No source found in meta. Available meta keys:', metaKeys);
-                                // Log each meta key and its value to find the source field
-                                metaKeys.forEach(key => {
-                                    if (key.toLowerCase().includes('source') || key.toLowerCase().includes('credit')) {
-                                        console.log(`  -> ${key}: ${mediaData.meta[key]}`);
-                                    }
-                                });
+                                console.log('- No source found in meta fields');
+                                console.log('- Full media data structure:', mediaData);
+                                // The custom source field might be stored elsewhere in the REST API response
+                                // Let's check if it exists in other locations
+                                if (mediaData.media_details && mediaData.media_details.source) {
+                                    foundSource = mediaData.media_details.source;
+                                    console.log('- Found source in media_details:', foundSource);
+                                }
                             }
                         } else {
                             console.log('- No meta data available');
