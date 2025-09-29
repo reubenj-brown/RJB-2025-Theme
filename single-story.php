@@ -807,13 +807,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Ensure we have something to show for debugging
-        if (!captionText && !credit) {
-            captionText = 'DEBUG: Caption not found';
-        }
-
-        // Always show caption area for debugging (change this later)
-        if (captionText || credit || true) {
+        // Only show caption if we have actual content
+        if (captionText || credit) {
             // Create caption div
             const captionDiv = document.createElement('div');
             captionDiv.className = 'story-image-caption';
