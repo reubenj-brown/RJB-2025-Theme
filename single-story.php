@@ -214,6 +214,11 @@ get_header('branded'); ?>
         content: " "; /* Space before credit */
     }
 
+    .story-image-caption .pipe-separator {
+        font-weight: 400; /* Regular weight */
+        color: var(--text-color-muted); /* Same grey as text */
+    }
+
     .story-content-inner h2 {
         font-family: var(--serif-font);
         font-size: calc(32px * 1.23);
@@ -820,7 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             if (credit) {
                 if (captionText) {
-                    captionHTML += ` | `;
+                    captionHTML += `<span class="pipe-separator"> | </span>`;
                 }
                 captionHTML += `<span class="credit-text">${credit}</span>`;
             }
@@ -855,7 +860,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             if (creditText) {
                 if (captionText) {
-                    captionHTML += ` | `;
+                    captionHTML += `<span class="pipe-separator"> | </span>`;
                 }
                 captionHTML += `<span class="credit-text">${creditText}</span>`;
             }
