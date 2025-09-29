@@ -813,21 +813,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const captionDiv = document.createElement('div');
             captionDiv.className = 'story-image-caption';
 
-            // Add caption text if available
+            // Add caption and credit with pipe separator
+            let captionHTML = '';
             if (captionText) {
-                const captionSpan = document.createElement('div');
-                captionSpan.className = 'caption-text';
-                captionSpan.textContent = captionText;
-                captionDiv.appendChild(captionSpan);
+                captionHTML += `<span class="caption-text">${captionText}</span>`;
             }
-
-            // Add credit if available
             if (credit) {
-                const creditSpan = document.createElement('div');
-                creditSpan.className = 'credit-text';
-                creditSpan.textContent = credit;
-                captionDiv.appendChild(creditSpan);
+                if (captionText) {
+                    captionHTML += ` | `;
+                }
+                captionHTML += `<span class="credit-text">${credit}</span>`;
             }
+            captionDiv.innerHTML = captionHTML;
 
             // Insert caption after the image
             img.parentNode.insertBefore(captionDiv, img.nextSibling);
@@ -857,6 +854,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 captionHTML += `<span class="caption-text">${captionText}</span>`;
             }
             if (creditText) {
+                if (captionText) {
+                    captionHTML += ` | `;
+                }
                 captionHTML += `<span class="credit-text">${creditText}</span>`;
             }
 
