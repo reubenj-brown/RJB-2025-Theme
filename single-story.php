@@ -674,13 +674,39 @@ document.addEventListener('DOMContentLoaded', function() {
                             console.log('- Found WordPress media library caption:', foundCaption);
                         }
 
-                        // Check for source in meta fields
+                        // Check for source in meta fields with comprehensive debugging
                         let foundSource = '';
+                        console.log('- Checking for source in meta fields...');
+                        console.log('- Media meta data:', mediaData.meta);
+
                         if (mediaData.meta) {
-                            foundSource = mediaData.meta._media_source || mediaData.meta.media_source || mediaData.meta.source || '';
+                            // Check all possible source field variations
+                            foundSource = mediaData.meta._media_source ||
+                                         mediaData.meta.media_source ||
+                                         mediaData.meta.source ||
+                                         mediaData.meta['_media_source'] ||
+                                         mediaData.meta['media_source'] ||
+                                         '';
+
                             if (foundSource) {
                                 console.log('- Found WordPress media source:', foundSource);
+                            } else {
+                                console.log('- No source found in meta. Available meta keys:', Object.keys(mediaData.meta));
                             }
+                        } else {
+                            console.log('- No meta data available');
+                        }
+
+                        // Also check if source is in other locations
+                        if (!foundSource && mediaData.source) {
+                            foundSource = mediaData.source;
+                            console.log('- Found source in root data:', foundSource);
+                        }
+
+                        // Check custom fields if available
+                        if (!foundSource && mediaData.acf && mediaData.acf.source) {
+                            foundSource = mediaData.acf.source;
+                            console.log('- Found source in ACF fields:', foundSource);
                         }
 
                         // Update caption display if we found caption data
@@ -843,7 +869,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Insert caption after the image
             img.parentNode.insertBefore(captionDiv, img.nextSibling);
-            console.log('Caption added for image');
+            // Caption added for image (debug message removed)
         }
     });
 
