@@ -555,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Method 4c: Check for UAGB image caption
         const uagbBlock = img.closest('.wp-block-uagb-image');
         if (uagbBlock && !captionText) {
-            console.log('Found UAGB block, searching for caption...');
+            // Found UAGB block, searching for caption...
 
             // Check for figcaption within UAGB block
             const uagbCaption = uagbBlock.querySelector('figcaption');
@@ -691,7 +691,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (foundSource) {
                                 console.log('- Found WordPress media source:', foundSource);
                             } else {
-                                console.log('- No source found in meta. Available meta keys:', Object.keys(mediaData.meta));
+                                const metaKeys = Object.keys(mediaData.meta);
+                                console.log('- No source found in meta. Available meta keys:', metaKeys);
+                                // Log each meta key and its value to find the source field
+                                metaKeys.forEach(key => {
+                                    if (key.toLowerCase().includes('source') || key.toLowerCase().includes('credit')) {
+                                        console.log(`  -> ${key}: ${mediaData.meta[key]}`);
+                                    }
+                                });
                             }
                         } else {
                             console.log('- No meta data available');
