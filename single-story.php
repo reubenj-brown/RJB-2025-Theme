@@ -849,10 +849,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Helper function to update caption display
     function updateCaptionDisplay(img, captionText, creditText) {
-        // Remove any existing caption
-        const existingCaption = img.parentNode.nextElementSibling;
-        if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
-            existingCaption.remove();
+        // For UAGB images, we need to insert after the UAGB block container, not just the figure
+        const uagbBlock = img.closest('.wp-block-uagb-image');
+        const insertionPoint = uagbBlock || img.parentNode;
+
+        // Remove any existing caption after this insertion point
+        let nextSibling = insertionPoint.nextElementSibling;
+        if (nextSibling && nextSibling.classList.contains('story-image-caption')) {
+            nextSibling.remove();
         }
 
         // Only create caption if we have caption text or credit
@@ -869,8 +873,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             captionDiv.innerHTML = captionHTML;
-            img.parentNode.insertAdjacentElement('afterend', captionDiv);
+            insertionPoint.insertAdjacentElement('afterend', captionDiv);
             console.log('Updated caption display with:', captionText, creditText);
+            console.log('Inserted caption after:', insertionPoint.className);
         }
     }
 });
