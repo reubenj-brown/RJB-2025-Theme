@@ -552,6 +552,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // Method 4c: Check for UAGB image caption
+        const uagbBlock = img.closest('.wp-block-uagb-image');
+        if (uagbBlock && !captionText) {
+            console.log('Found UAGB block, searching for caption...');
+
+            // Check for figcaption within UAGB block
+            const uagbCaption = uagbBlock.querySelector('figcaption');
+            if (uagbCaption) {
+                captionText = uagbCaption.textContent.trim();
+                console.log('Found UAGB figcaption:', captionText);
+            }
+
+            // Check for UAGB-specific caption classes
+            const uagbCaptionText = uagbBlock.querySelector('.uagb-image-caption, .wp-block-uagb-image__caption');
+            if (uagbCaptionText && !captionText) {
+                captionText = uagbCaptionText.textContent.trim();
+                console.log('Found UAGB caption text:', captionText);
+            }
+
+            // Debug: Log all elements within UAGB block
+            console.log('UAGB block contents:', uagbBlock.innerHTML.substring(0, 200));
+        }
+
         // Method 5: Check for caption in surrounding paragraph
         const nextElement = img.parentNode.nextElementSibling;
         if (nextElement && nextElement.tagName === 'P' && nextElement.classList.contains('caption') && !captionText) {
@@ -627,21 +650,60 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Caption search results for image:', img.src);
         console.log('- figcaption text:', captionText);
 
-        // If no caption found from proper sources, let's see what data is available
+        // If no caption found from DOM, try WordPress REST API
         if (!captionText) {
-            console.log('- No proper caption found from WordPress caption field');
-            console.log('- Alt text available:', img.getAttribute('alt'));
-            console.log('- Title available:', img.getAttribute('title'));
+            console.log('- No caption found in DOM, searching WordPress media library...');
 
-            console.log('=== ALL IMAGE ATTRIBUTES ===');
-            for (let i = 0; i < img.attributes.length; i++) {
-                const attr = img.attributes[i];
-                console.log(`${attr.name}: ${attr.value}`);
-            }
+            // Extract filename to search for attachment
+            const filename = img.src.split('/').pop().split('?')[0]; // Remove query params
+            const filenameWithoutExt = filename.replace(/\.[^.]+$/, ''); // Remove extension
+            console.log('- Searching for media with filename:', filenameWithoutExt);
 
-            // DO NOT use alt text fallback - we need to find the actual WordPress caption
-            // The user explicitly said not to use alt text, only actual WordPress captions
-            console.log('- No caption will be displayed (WordPress caption field not found)');
+            // Search for attachment by filename
+            fetch('/wp-json/wp/v2/media?search=' + encodeURIComponent(filenameWithoutExt) + '&per_page=1')
+                .then(response => response.json())
+                .then(mediaArray => {
+                    if (mediaArray && mediaArray.length > 0) {
+                        const mediaData = mediaArray[0];
+                        console.log('- Found WordPress media data:', mediaData);
+
+                        // Check for caption in WordPress media data
+                        let foundCaption = '';
+                        if (mediaData.caption && mediaData.caption.rendered) {
+                            foundCaption = mediaData.caption.rendered.replace(/<[^>]*>/g, '').trim(); // Strip HTML
+                            console.log('- Found WordPress media library caption:', foundCaption);
+                        }
+
+                        // Check for source in meta fields
+                        let foundSource = '';
+                        if (mediaData.meta) {
+                            foundSource = mediaData.meta._media_source || mediaData.meta.media_source || mediaData.meta.source || '';
+                            if (foundSource) {
+                                console.log('- Found WordPress media source:', foundSource);
+                            }
+                        }
+
+                        // Update caption display if we found caption data
+                        if (foundCaption || foundSource) {
+                            updateCaptionDisplay(img, foundCaption, foundSource);
+                        } else {
+                            console.log('- No caption or source found in WordPress media library');
+                        }
+                    } else {
+                        console.log('- No WordPress media found for filename:', filenameWithoutExt);
+                        console.log('- Alt text available:', img.getAttribute('alt'));
+                        console.log('- Title available:', img.getAttribute('title'));
+
+                        console.log('=== ALL IMAGE ATTRIBUTES ===');
+                        for (let i = 0; i < img.attributes.length; i++) {
+                            const attr = img.attributes[i];
+                            console.log(`${attr.name}: ${attr.value}`);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log('- Error searching WordPress media:', error);
+                });
         }
 
         // Try to extract credit from caption text using common patterns
@@ -784,6 +846,33 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Caption added for image');
         }
     });
+
+    // Helper function to update caption display
+    function updateCaptionDisplay(img, captionText, creditText) {
+        // Remove any existing caption
+        const existingCaption = img.parentNode.nextElementSibling;
+        if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
+            existingCaption.remove();
+        }
+
+        // Only create caption if we have caption text or credit
+        if (captionText || creditText) {
+            const captionDiv = document.createElement('div');
+            captionDiv.className = 'story-image-caption';
+
+            let captionHTML = '';
+            if (captionText) {
+                captionHTML += `<span class="caption-text">${captionText}</span>`;
+            }
+            if (creditText) {
+                captionHTML += `<span class="credit-text">${creditText}</span>`;
+            }
+
+            captionDiv.innerHTML = captionHTML;
+            img.parentNode.insertAdjacentElement('afterend', captionDiv);
+            console.log('Updated caption display with:', captionText, creditText);
+        }
+    }
 });
 </script>
 
