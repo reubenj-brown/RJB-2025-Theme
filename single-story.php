@@ -644,26 +644,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         let foundSource = '';
                         // Check for source in meta fields
 
-                        if (mediaData.meta) {
-                            // Check all possible source field variations
+                        // Check for source in the new REST API field we registered
+                        if (mediaData.media_source) {
+                            foundSource = mediaData.media_source;
+                            console.log('- Found WordPress media source via REST API:', foundSource);
+                        } else if (mediaData.meta) {
+                            // Fallback: check meta fields
                             foundSource = mediaData.meta._media_source ||
                                          mediaData.meta.media_source ||
                                          mediaData.meta.source ||
-                                         mediaData.meta['_media_source'] ||
-                                         mediaData.meta['media_source'] ||
                                          '';
 
                             if (foundSource) {
-                                console.log('- Found WordPress media source:', foundSource);
+                                console.log('- Found WordPress media source in meta:', foundSource);
                             } else {
-                                console.log('- No source found in meta fields');
-                                console.log('- Full media data structure:', mediaData);
-                                // The custom source field might be stored elsewhere in the REST API response
-                                // Let's check if it exists in other locations
-                                if (mediaData.media_details && mediaData.media_details.source) {
-                                    foundSource = mediaData.media_details.source;
-                                    console.log('- Found source in media_details:', foundSource);
-                                }
+                                console.log('- No source found in REST API or meta fields');
                             }
                         } else {
                             console.log('- No meta data available');
