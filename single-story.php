@@ -288,9 +288,9 @@ get_header('branded'); ?>
         }
         
         .story-hero-text {
-            width: 90%;
-            max-width: 90%;
-            min-width: 90%;
+            width: 96vw;
+            max-width: 96vw;
+            min-width: 96vw;
         }
         
         .story-hero-text h1 {
