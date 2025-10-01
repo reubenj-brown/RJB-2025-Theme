@@ -284,7 +284,7 @@ get_header('branded'); ?>
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .story-hero-content {
-            padding: 2rem;
+            width: 96vw;
         }
         
         .story-hero-text {
