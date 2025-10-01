@@ -294,7 +294,7 @@ get_header('branded'); ?>
         }
         
         .story-hero-text h1 {
-            font-size: 64px !important;
+            font-size: 80px !important;
             margin-bottom: 1rem;
         }
         
