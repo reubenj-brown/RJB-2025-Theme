@@ -535,7 +535,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const storyImages = document.querySelectorAll('.story-content-inner img');
 
     storyImages.forEach(function(img) {
-        console.log('Processing image:', img.src);
 
         // Get WordPress caption from multiple possible sources
         let captionText = '';
@@ -547,7 +546,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const figcaption = figure.querySelector('figcaption');
             if (figcaption) {
                 captionText = figcaption.textContent.trim();
-                console.log('Found figcaption:', captionText);
             }
         }
 
@@ -555,7 +553,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const wpCaption = img.parentNode.querySelector('.wp-caption-text');
         if (wpCaption && !captionText) {
             captionText = wpCaption.textContent.trim();
-            console.log('Found wp-caption-text:', captionText);
         }
 
         // Method 3: Check parent for wp-caption div
@@ -564,7 +561,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const captionElement = wpCaptionDiv.querySelector('.wp-caption-text');
             if (captionElement) {
                 captionText = captionElement.textContent.trim();
-                console.log('Found wp-caption div:', captionText);
             }
         }
 
@@ -572,7 +568,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const wpBlockCaption = img.parentNode.querySelector('.wp-element-caption');
         if (wpBlockCaption && !captionText) {
             captionText = wpBlockCaption.textContent.trim();
-            console.log('Found wp-element-caption:', captionText);
         }
 
         // Method 4b: Check for wp-block-image caption
@@ -581,7 +576,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const blockCaption = wpBlockImage.querySelector('figcaption');
             if (blockCaption) {
                 captionText = blockCaption.textContent.trim();
-                console.log('Found wp-block-image figcaption:', captionText);
             }
         }
 
@@ -594,31 +588,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const uagbCaption = uagbBlock.querySelector('figcaption');
             if (uagbCaption) {
                 captionText = uagbCaption.textContent.trim();
-                console.log('Found UAGB figcaption:', captionText);
             }
 
             // Check for UAGB-specific caption classes
             const uagbCaptionText = uagbBlock.querySelector('.uagb-image-caption, .wp-block-uagb-image__caption');
             if (uagbCaptionText && !captionText) {
                 captionText = uagbCaptionText.textContent.trim();
-                console.log('Found UAGB caption text:', captionText);
             }
 
             // Debug: Log all elements within UAGB block
-            console.log('UAGB block contents:', uagbBlock.innerHTML.substring(0, 200));
         }
 
         // Method 5: Check for caption in surrounding paragraph
         const nextElement = img.parentNode.nextElementSibling;
         if (nextElement && nextElement.tagName === 'P' && nextElement.classList.contains('caption') && !captionText) {
             captionText = nextElement.textContent.trim();
-            console.log('Found caption paragraph:', captionText);
         }
 
         // Method 6: Check for data-caption attribute
         if (!captionText && img.getAttribute('data-caption')) {
             captionText = img.getAttribute('data-caption').trim();
-            console.log('Found data-caption:', captionText);
         }
 
         // Method 6b: Check for WordPress attachment attributes
@@ -626,7 +615,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check for data-attachment_id attribute
             const attachmentId = img.getAttribute('data-attachment-id') || img.getAttribute('data-id');
             if (attachmentId) {
-                console.log('Found data-attachment-id:', attachmentId);
             }
 
             // Check for WordPress-specific attributes that might contain caption
@@ -636,27 +624,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (wpCaption) {
                 captionText = wpCaption.trim();
-                console.log('Found WordPress data-caption attribute:', captionText);
             } else if (wpDescription) {
                 captionText = wpDescription.trim();
-                console.log('Found WordPress data-description attribute:', captionText);
             }
         }
 
         // Comprehensive debugging disabled - caption detection working
 
         // Debug: show what we found
-        console.log('Caption search results for image:', img.src);
-        console.log('- figcaption text:', captionText);
 
         // If no caption found from DOM, try WordPress REST API
         if (!captionText) {
-            console.log('- No caption found in DOM, searching WordPress media library...');
 
             // Extract filename to search for attachment
             const filename = img.src.split('/').pop().split('?')[0]; // Remove query params
             const filenameWithoutExt = filename.replace(/\.[^.]+$/, ''); // Remove extension
-            console.log('- Searching for media with filename:', filenameWithoutExt);
 
             // Search for attachment by filename
             fetch('/wp-json/wp/v2/media?search=' + encodeURIComponent(filenameWithoutExt) + '&per_page=1')
@@ -664,13 +646,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(mediaArray => {
                     if (mediaArray && mediaArray.length > 0) {
                         const mediaData = mediaArray[0];
-                        console.log('- Found WordPress media data:', mediaData);
 
                         // Check for caption in WordPress media data
                         let foundCaption = '';
                         if (mediaData.caption && mediaData.caption.rendered) {
                             foundCaption = mediaData.caption.rendered.replace(/<[^>]*>/g, '').trim(); // Strip HTML
-                            console.log('- Found WordPress media library caption:', foundCaption);
                         }
 
                         // Check for source in meta fields with comprehensive debugging
@@ -680,7 +660,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Check for source in the new REST API field we registered
                         if (mediaData.media_source) {
                             foundSource = mediaData.media_source;
-                            console.log('- Found WordPress media source via REST API:', foundSource);
                         } else if (mediaData.meta) {
                             // Fallback: check meta fields
                             foundSource = mediaData.meta._media_source ||
@@ -689,46 +668,34 @@ document.addEventListener('DOMContentLoaded', function() {
                                          '';
 
                             if (foundSource) {
-                                console.log('- Found WordPress media source in meta:', foundSource);
                             } else {
-                                console.log('- No source found in REST API or meta fields');
                             }
                         } else {
-                            console.log('- No meta data available');
                         }
 
                         // Also check if source is in other locations
                         if (!foundSource && mediaData.source) {
                             foundSource = mediaData.source;
-                            console.log('- Found source in root data:', foundSource);
                         }
 
                         // Check custom fields if available
                         if (!foundSource && mediaData.acf && mediaData.acf.source) {
                             foundSource = mediaData.acf.source;
-                            console.log('- Found source in ACF fields:', foundSource);
                         }
 
                         // Update caption display if we found caption data
                         if (foundCaption || foundSource) {
                             updateCaptionDisplay(img, foundCaption, foundSource);
                         } else {
-                            console.log('- No caption or source found in WordPress media library');
                         }
                     } else {
-                        console.log('- No WordPress media found for filename:', filenameWithoutExt);
-                        console.log('- Alt text available:', img.getAttribute('alt'));
-                        console.log('- Title available:', img.getAttribute('title'));
 
-                        console.log('=== ALL IMAGE ATTRIBUTES ===');
                         for (let i = 0; i < img.attributes.length; i++) {
                             const attr = img.attributes[i];
-                            console.log(`${attr.name}: ${attr.value}`);
                         }
                     }
                 })
                 .catch(error => {
-                    console.log('- Error searching WordPress media:', error);
                 });
         }
 
@@ -760,13 +727,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (attachmentId) {
                 // For now, use a placeholder - we'll need to implement AJAX call
                 credit = 'Loading source...';
-                console.log('Found attachment ID:', attachmentId);
 
                 // Make AJAX call to get media source
                 fetch('/wp-json/wp/v2/media/' + attachmentId)
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Full media data:', data);
 
                         // Check multiple possible locations for source field
                         let source = '';
@@ -774,34 +739,28 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Method 1: Check meta field
                         if (data.meta && data.meta._media_source) {
                             source = data.meta._media_source;
-                            console.log('Found source in meta._media_source:', source);
                         }
 
                         // Method 2: Check meta field without underscore
                         if (!source && data.meta && data.meta.media_source) {
                             source = data.meta.media_source;
-                            console.log('Found source in meta.media_source:', source);
                         }
 
                         // Method 3: Check meta field as 'source'
                         if (!source && data.meta && data.meta.source) {
                             source = data.meta.source;
-                            console.log('Found source in meta.source:', source);
                         }
 
                         // Method 4: Check acf fields if using ACF
                         if (!source && data.acf && data.acf.source) {
                             source = data.acf.source;
-                            console.log('Found source in acf.source:', source);
                         }
 
                         // Method 5: Check top level source field
                         if (!source && data.source) {
                             source = data.source;
-                            console.log('Found source in data.source:', source);
                         }
 
-                        console.log('Final source value:', source);
 
                         if (source) {
                             // Update the credit text if we found a source
@@ -824,7 +783,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     })
                     .catch(error => {
-                        console.log('Could not fetch media source:', error);
                         // Remove loading text if API fails
                         const existingCaption = img.nextSibling;
                         if (existingCaption && existingCaption.classList.contains('story-image-caption')) {
@@ -895,8 +853,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             captionDiv.innerHTML = captionHTML;
             insertionPoint.insertAdjacentElement('afterend', captionDiv);
-            console.log('Updated caption display with:', captionText, creditText);
-            console.log('Inserted caption after:', insertionPoint.className);
         }
     }
 });
