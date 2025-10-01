@@ -173,9 +173,13 @@ get_header('branded'); ?>
         margin-right: auto;
     }
 
-    /* H3 specific styling - left aligned within container */
+    /* H3 specific styling - left aligned within container, properly centered */
     .story-content-inner h3 {
         text-align: left;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 900px;
     }
 
     .story-content-inner p {
