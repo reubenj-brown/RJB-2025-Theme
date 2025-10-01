@@ -173,6 +173,11 @@ get_header('branded'); ?>
         margin-right: auto;
     }
 
+    /* H3 specific styling - left aligned within container */
+    .story-content-inner h3 {
+        text-align: left;
+    }
+
     .story-content-inner p {
         margin-bottom: 1.5rem;
     }
