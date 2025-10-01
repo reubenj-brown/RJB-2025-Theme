@@ -307,11 +307,26 @@ get_header('branded'); ?>
         }
 
         .story-single-container {
-            padding: 2rem 2vw;
+            padding: 2rem 4vw;
         }
 
         .story-content-inner {
             font-size: calc(16px * 1.23);
+        }
+
+        /* Mobile image width adjustment for 4vw padding */
+        .story-content-inner img {
+            width: calc(100vw - 8vw); /* 92vw for 4vw padding on each side */
+            max-width: calc(100vw - 8vw);
+        }
+
+        .story-content-inner .wp-block-uagb-image {
+            width: calc(100vw - 8vw);
+            max-width: calc(100vw - 8vw);
+        }
+
+        .story-image-caption {
+            width: calc(100vw - 8vw);
         }
     }
 
