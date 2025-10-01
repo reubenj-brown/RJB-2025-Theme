@@ -140,7 +140,7 @@ get_header('branded'); ?>
         width: 100vw;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
-        padding: 3rem 2rem 0 2rem;
+        padding: 3rem 2vw 0 2vw;
     }
 
     /* Content wrapper for proper text centering within full-width container */
@@ -307,7 +307,7 @@ get_header('branded'); ?>
         }
 
         .story-single-container {
-            padding: 2rem 1rem;
+            padding: 2rem 2vw;
         }
 
         .story-content-inner {
