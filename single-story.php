@@ -189,18 +189,18 @@ get_header('branded'); ?>
         margin-bottom: 1.5rem;
     }
 
-    /* Full-width images with 2vw padding from screen edges */
+    /* Full-width images within container */
     .story-content-inner img {
-        width: calc(100vw - 4vw); /* Full width minus 2vw padding on each side */
-        max-width: calc(100vw - 4vw);
+        width: 100%; /* Full width of container */
+        max-width: 100%;
         margin: 2rem auto 0 auto; /* Remove bottom margin */
         display: block;
     }
 
     /* UAGB image blocks - ensure proper centering */
     .story-content-inner .wp-block-uagb-image {
-        width: calc(100vw - 4vw);
-        max-width: calc(100vw - 4vw);
+        width: 100%;
+        max-width: 100%;
         margin: 2rem auto 0 auto;
         display: block;
         text-align: center;
@@ -221,7 +221,7 @@ get_header('branded'); ?>
         text-align: left; /* Bottom-left alignment */
         margin-top: 8px;
         margin-bottom: 32px; /* Add 32px bottom padding */
-        width: calc(100vw - 4vw);
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -314,19 +314,19 @@ get_header('branded'); ?>
             font-size: calc(16px * 1.23);
         }
 
-        /* Mobile image width adjustment for 4vw padding */
+        /* Mobile images use full container width */
         .story-content-inner img {
-            width: calc(100vw - 8vw); /* 92vw for 4vw padding on each side */
-            max-width: calc(100vw - 8vw);
+            width: 100%;
+            max-width: 100%;
         }
 
         .story-content-inner .wp-block-uagb-image {
-            width: calc(100vw - 8vw);
-            max-width: calc(100vw - 8vw);
+            width: 100%;
+            max-width: 100%;
         }
 
         .story-image-caption {
-            width: calc(100vw - 8vw);
+            width: 100%;
         }
     }
 
