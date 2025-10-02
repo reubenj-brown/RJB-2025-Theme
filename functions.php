@@ -131,7 +131,8 @@ function get_story_metadata($post_id) {
         'photo_credit' => get_field('photo_credit', $post_id),
         'original_image_url' => get_field('original_image_url', $post_id),
         'short_headline' => get_field('short_headline', $post_id),
-        'photo_gallery' => get_field('photo_gallery', $post_id)
+        'photo_gallery' => get_field('photo_gallery', $post_id),
+        'homepage_thumbnail' => get_post_meta($post_id, 'homepage_thumbnail', true)
     ];
 }
 
