@@ -4,10 +4,12 @@
             <div class="footer-logo">
                 <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
             </div>
-            <!-- Contact button for responsive display -->
+            <!-- Contact button for responsive display - hidden on story pages -->
+            <?php if (!is_singular('story')) : ?>
             <div class="footer-contact-button">
                 <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact ↓</a>
             </div>
+            <?php endif; ?>
             <div class="copyright caption">© Reuben J. Brown 2025</div>
         </div>
     </footer>
