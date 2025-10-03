@@ -445,9 +445,6 @@ get_header('branded'); ?>
         font-family: var(--primary-font);
         font-size: 12px;
         color: white;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 4px 8px;
-        border-radius: 4px;
         z-index: 10;
     }
 </style>
