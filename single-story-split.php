@@ -401,6 +401,10 @@ get_header('branded'); ?>
         color: #000 !important;
     }
 
+    .site-header.over-split-hero .site-title-name {
+        color: #000 !important;
+    }
+
     .site-header.over-split-hero .story-header-contact {
         background: rgba(0, 0, 0, 0.1) !important;
         border-color: #000 !important;
