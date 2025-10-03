@@ -174,10 +174,19 @@ get_header('branded'); ?>
         margin-right: auto;
     }
 
+    /* H1 specific styling - center aligned */
+    .story-content-inner h1,
+    .story-content-inner h1.wp-block-heading {
+        text-align: center !important;
+    }
+
     /* H3 specific styling - left aligned within container, properly centered */
     .story-content-inner h3,
-    .story-content-inner .wp-block-heading,
-    .wp-block-heading {
+    .story-content-inner h2.wp-block-heading,
+    .story-content-inner h3.wp-block-heading,
+    .story-content-inner h4.wp-block-heading,
+    .story-content-inner h5.wp-block-heading,
+    .story-content-inner h6.wp-block-heading {
         text-align: left !important;
         max-width: 900px !important;
         margin-left: auto !important;
