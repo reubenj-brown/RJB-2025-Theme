@@ -148,7 +148,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         width: 100vw;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
-        margin-top: 3rem;
+        margin-top: calc(2vw + 60px);
         padding: 3rem 2vw 0 2vw;
     }
 
