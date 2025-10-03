@@ -464,6 +464,16 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     /* Dark mode story header styling */
     @media (prefers-color-scheme: dark) {
+        /* Site title always white in dark mode when transparent */
+        .site-header:not(.over-split-hero) .site-title-name {
+            color: white !important;
+        }
+
+        /* But black when over split hero */
+        .site-header.over-split-hero .site-title-name {
+            color: #000 !important;
+        }
+
         .site-header:not(.over-full-bleed) .story-header-nav {
             color: white !important;
         }
@@ -485,15 +495,17 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 // Handle header transparency on scroll for split layout
 function handleSplitHeaderScroll() {
     const header = document.querySelector('.site-header');
-    const heroSection = document.querySelector('.story-hero-full-bleed');
 
-    if (!header || !heroSection) return;
+    if (!header) return;
 
-    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Make header transparent when scrolled past hero section
-    if (scrollTop > heroBottom - 50) { // 50px buffer for transition
+    // Calculate header height: 2vw + 60px
+    const vwValue = window.innerWidth * 0.02; // 2vw
+    const headerHeight = vwValue + 60;
+
+    // Make header transparent when scrolled past header height
+    if (scrollTop > headerHeight) {
         header.classList.remove('over-split-hero');
         header.classList.add('over-full-bleed');
     } else {
