@@ -485,6 +485,20 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
             color: #000 !important;
         }
     }
+
+    /* Caption styling for photo credits */
+    .caption {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-family: var(--primary-font);
+        font-size: 12px;
+        color: white;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 4px 8px;
+        border-radius: 4px;
+        z-index: 10;
+    }
 </style>
 
 <script>
@@ -564,6 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <?php
             $publication = get_field('publication');
             $publish_date = get_field('publish_date');
+            $photo_credit = get_field('photo_credit');
             ?>
 
             <?php if ($publication || $publish_date) : ?>
@@ -584,6 +599,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="story-hero-background">
         <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('full'); ?>
+            <?php if ($photo_credit) : ?>
+                <div class="caption">photograph: <?php echo esc_html($photo_credit); ?></div>
+            <?php endif; ?>
         <?php else : ?>
             <!-- Fallback background if no featured image -->
             <div style="background: linear-gradient(135deg, #39e58f 0%, #2dc776 100%); width: 100%; height: 100%;"></div>
