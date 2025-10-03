@@ -391,7 +391,12 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    .site-header:not(.over-full-bleed) .story-header-nav {
+    /* Header background styling for split template */
+    .site-header.over-split-hero {
+        background: #39e58f !important;
+    }
+
+    .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-nav {
         color: #000 !important;
     }
 
@@ -414,7 +419,7 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    .site-header:not(.over-full-bleed) .story-header-contact {
+    .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact {
         background: rgba(0, 0, 0, 0.05) !important;
         border-color: #000 !important;
         color: #000 !important;
@@ -425,13 +430,37 @@ get_header('branded'); ?>
         color: #000 !important;
     }
 
-    .site-header:not(.over-full-bleed) .story-header-contact:hover {
+    .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact:hover {
         background: #000 !important;
         color: white !important;
     }
 </style>
 
 <script>
+// Handle header background on scroll for split layout
+function handleSplitHeaderScroll() {
+    const header = document.querySelector('.site-header');
+    const heroSection = document.querySelector('.story-hero-full-bleed');
+
+    if (!header || !heroSection) return;
+
+    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Add green background when over hero section
+    if (scrollTop < heroBottom - 100) { // 100px buffer for transition
+        header.classList.add('over-split-hero');
+        header.classList.remove('over-full-bleed');
+    } else {
+        header.classList.remove('over-split-hero');
+        header.classList.add('over-full-bleed');
+    }
+}
+
+// Listen for scroll events
+window.addEventListener('scroll', handleSplitHeaderScroll);
+window.addEventListener('load', handleSplitHeaderScroll);
+
 // No scroll-based opacity transitions for split layout since text is fixed in position
 
 // Replace header navigation for story pages
