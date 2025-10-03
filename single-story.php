@@ -447,6 +447,26 @@ get_header('branded'); ?>
         color: white;
         z-index: 10;
     }
+
+    /* Hero image credit positioned below hero section */
+    .hero-image-credit {
+        position: absolute;
+        left: 52vw;
+        top: calc(100vh + 8px);
+        font-family: var(--primary-font);
+        font-size: 12px;
+        color: var(--text-color-muted);
+        z-index: 10;
+    }
+
+    /* Mobile responsive for hero image credit */
+    @media (max-width: 768px) {
+        .hero-image-credit {
+            left: 2vw;
+            top: calc(100vh + 16px);
+            text-align: left;
+        }
+    }
 </style>
 
 <script>
@@ -540,6 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <?php
             $publication = get_field('publication');
             $publish_date = get_field('publish_date');
+            $photo_credit = get_field('photo_credit');
             ?>
             
             <?php if ($publication || $publish_date) : ?>
@@ -556,6 +577,11 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </section>
+
+<!-- Image credit positioned below hero section -->
+<?php if ($photo_credit && has_post_thumbnail()) : ?>
+    <div class="hero-image-credit">photograph: <?php echo esc_html($photo_credit); ?></div>
+<?php endif; ?>
 
 <!-- Main Content -->
 <main class="main-content">

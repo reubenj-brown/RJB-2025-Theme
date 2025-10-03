@@ -496,6 +496,26 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         color: white;
         z-index: 10;
     }
+
+    /* Hero image credit positioned below hero section */
+    .hero-image-credit {
+        position: absolute;
+        left: 52vw;
+        top: calc(100vh + 8px);
+        font-family: var(--primary-font);
+        font-size: 12px;
+        color: var(--text-color-muted);
+        z-index: 10;
+    }
+
+    /* Mobile responsive for hero image credit */
+    @media (max-width: 768px) {
+        .hero-image-credit {
+            left: 2vw;
+            top: calc(100vh + 16px);
+            text-align: left;
+        }
+    }
 </style>
 
 <script>
@@ -602,6 +622,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <?php endif; ?>
     </div>
 </section>
+
+<!-- Image credit positioned below hero section -->
+<?php if ($photo_credit && has_post_thumbnail()) : ?>
+    <div class="hero-image-credit">photograph: <?php echo esc_html($photo_credit); ?></div>
+<?php endif; ?>
 
 <!-- Main Content -->
 <main class="main-content">
