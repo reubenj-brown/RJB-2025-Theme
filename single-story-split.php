@@ -45,7 +45,7 @@ get_header('branded'); ?>
     .story-hero-full-bleed {
         position: relative;
         width: 100vw;
-        height: 100vh;
+        height: calc(100vh - 60px - 2vw);
         overflow: hidden;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
@@ -391,32 +391,8 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    /* Header background styling for split template */
-    .site-header.over-split-hero {
-        background: #39e58f !important;
-    }
-
-    /* Force black text over green hero area in both light and dark mode */
-    .site-header.over-split-hero .story-header-nav {
-        color: #000 !important;
-    }
-
-    .site-header.over-split-hero .site-title-name {
-        color: #000 !important;
-    }
-
-    .site-header.over-split-hero .story-header-contact {
-        background: rgba(0, 0, 0, 0.1) !important;
-        border-color: #000 !important;
-        color: #000 !important;
-    }
-
-    .site-header.over-split-hero .story-header-contact:hover {
-        background: #000 !important;
-        color: white !important;
-    }
-
-    .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-nav {
+    /* Header styling for split template - no overlay, independent element */
+    .site-header:not(.over-full-bleed) .story-header-nav {
         color: #000 !important;
     }
 
@@ -439,7 +415,7 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact {
+    .site-header:not(.over-full-bleed) .story-header-contact {
         background: rgba(0, 0, 0, 0.05) !important;
         border-color: #000 !important;
         color: #000 !important;
@@ -450,24 +426,24 @@ get_header('branded'); ?>
         color: #000 !important;
     }
 
-    .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact:hover {
+    .site-header:not(.over-full-bleed) .story-header-contact:hover {
         background: #000 !important;
         color: white !important;
     }
 
     /* Dark mode story header styling */
     @media (prefers-color-scheme: dark) {
-        .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-nav {
+        .site-header:not(.over-full-bleed) .story-header-nav {
             color: white !important;
         }
 
-        .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact {
+        .site-header:not(.over-full-bleed) .story-header-contact {
             background: rgba(255, 255, 255, 0.1) !important;
             border-color: white !important;
             color: white !important;
         }
 
-        .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact:hover {
+        .site-header:not(.over-full-bleed) .story-header-contact:hover {
             background: white !important;
             color: #000 !important;
         }
@@ -475,29 +451,7 @@ get_header('branded'); ?>
 </style>
 
 <script>
-// Handle header background on scroll for split layout
-function handleSplitHeaderScroll() {
-    const header = document.querySelector('.site-header');
-    const heroSection = document.querySelector('.story-hero-full-bleed');
-
-    if (!header || !heroSection) return;
-
-    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Add green background when over hero section
-    if (scrollTop < heroBottom - 100) { // 100px buffer for transition
-        header.classList.add('over-split-hero');
-        header.classList.remove('over-full-bleed');
-    } else {
-        header.classList.remove('over-split-hero');
-        header.classList.add('over-full-bleed');
-    }
-}
-
-// Listen for scroll events
-window.addEventListener('scroll', handleSplitHeaderScroll);
-window.addEventListener('load', handleSplitHeaderScroll);
+// Split layout uses independent header - no overlay scroll handling needed
 
 // No scroll-based opacity transitions for split layout since text is fixed in position
 
