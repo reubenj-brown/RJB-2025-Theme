@@ -500,7 +500,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     /* Hero image credit positioned below hero section */
     .hero-image-credit {
         position: absolute;
-        left: 52vw;
+        left: calc(50vw + 12px);
         top: calc(100vh + 4px);
         font-family: var(--primary-font);
         font-size: 12px;
