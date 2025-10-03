@@ -517,6 +517,22 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
             color: white !important;
         }
 
+        /* Split template buttons always white in dark mode */
+        .site-header.over-split-hero .story-header-nav {
+            color: white !important;
+        }
+
+        .site-header.over-split-hero .story-header-contact {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: white !important;
+            color: white !important;
+        }
+
+        .site-header.over-split-hero .story-header-contact:hover {
+            background: white !important;
+            color: #000 !important;
+        }
+
         .site-header:not(.over-full-bleed) .story-header-nav {
             color: white !important;
         }
