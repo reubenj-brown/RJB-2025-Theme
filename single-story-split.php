@@ -408,7 +408,8 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         color: #000 !important;
     }
 
-    .site-header.over-split-hero .site-title-name {
+    /* Site title always black in light mode */
+    .site-header .site-title-name {
         color: #000 !important;
     }
 
@@ -464,14 +465,9 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     /* Dark mode story header styling */
     @media (prefers-color-scheme: dark) {
-        /* Site title always white in dark mode when transparent */
-        .site-header:not(.over-split-hero) .site-title-name {
+        /* Site title ALWAYS white in dark mode */
+        .site-header .site-title-name {
             color: white !important;
-        }
-
-        /* But black when over split hero */
-        .site-header.over-split-hero .site-title-name {
-            color: #000 !important;
         }
 
         .site-header:not(.over-full-bleed) .story-header-nav {
