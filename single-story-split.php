@@ -143,6 +143,22 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         z-index: 10;
     }
 
+    /* Tablet responsive adjustments for header height changes */
+    @media (max-width: 1200px) {
+        .story-hero-full-bleed {
+            top: calc(2vw + 61px);
+            height: calc(100vh - 61px - 2vw);
+        }
+    }
+
+    /* Mobile responsive adjustments for header height changes */
+    @media (max-width: 768px) {
+        .story-hero-full-bleed {
+            top: calc(2vw + 56px);
+            height: calc(100vh - 56px - 2vw);
+        }
+    }
+
     /* Story Content Styles */
     .story-single-container {
         width: 100vw;
@@ -150,6 +166,20 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         margin-right: calc(-50vw + 50%);
         margin-top: calc(2vw + 60px);
         padding: 3rem 2vw 0 2vw;
+    }
+
+    /* Tablet responsive adjustments for content margin */
+    @media (max-width: 1200px) {
+        .story-single-container {
+            margin-top: calc(2vw + 61px);
+        }
+    }
+
+    /* Mobile responsive adjustments for content margin */
+    @media (max-width: 768px) {
+        .story-single-container {
+            margin-top: calc(2vw + 56px);
+        }
     }
 
     /* Content wrapper for proper text centering within full-width container */
@@ -508,11 +538,18 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         z-index: 1000;
     }
 
+    /* Tablet responsive for hero image credit */
+    @media (max-width: 1200px) {
+        .hero-image-credit {
+            top: calc(100vh + 1px);
+        }
+    }
+
     /* Mobile responsive for hero image credit */
     @media (max-width: 768px) {
         .hero-image-credit {
             left: 2vw;
-            top: calc(100vh + 12px);
+            top: calc(100vh - 4px);
             text-align: left;
         }
     }
@@ -527,9 +564,17 @@ function handleSplitHeaderScroll() {
 
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Calculate header height: 2vw + 60px
+    // Calculate header height based on breakpoint: 2vw + variable height
     const vwValue = window.innerWidth * 0.02; // 2vw
-    const headerHeight = vwValue + 60;
+    let baseHeight = 60; // Default desktop height
+
+    if (window.innerWidth <= 768) {
+        baseHeight = 56; // Mobile height
+    } else if (window.innerWidth <= 1200) {
+        baseHeight = 61; // Tablet height
+    }
+
+    const headerHeight = vwValue + baseHeight;
 
     // Make header transparent when scrolled past header height
     if (scrollTop > headerHeight) {
