@@ -391,7 +391,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     @media (max-width: 1200px) {
         .story-header-nav {
-            font-size: 17px;
+            font-size: 16px;
         }
     }
 
@@ -399,13 +399,17 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         .story-hero-content {
             padding: 1.5rem;
         }
-        
+
         .story-hero-text h1 {
             margin-bottom: 0.75rem;
         }
-        
+
         .story-hero-text h2 {
             margin-bottom: 1rem;
+        }
+
+        .story-header-nav {
+            font-size: 16px;
         }
 
         .story-header-contact {

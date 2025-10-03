@@ -342,7 +342,7 @@ get_header('branded'); ?>
 
     @media (max-width: 1200px) {
         .story-header-nav {
-            font-size: 17px;
+            font-size: 16px;
         }
     }
 
@@ -350,13 +350,17 @@ get_header('branded'); ?>
         .story-hero-content {
             padding: 1.5rem;
         }
-        
+
         .story-hero-text h1 {
             margin-bottom: 0.75rem;
         }
-        
+
         .story-hero-text h2 {
             margin-bottom: 1rem;
+        }
+
+        .story-header-nav {
+            font-size: 16px;
         }
 
         .story-header-contact {
