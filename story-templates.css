@@ -101,7 +101,7 @@
     font-weight: 400;
     margin: 2rem 0 1rem 0;
     color: #000;
-    text-align: center;
+    text-align: center !important;
 }
 
 .story-content-inner h2 {
@@ -132,26 +132,30 @@
 button,
 .button,
 input[type="submit"],
-input[type="button"] {
+input[type="button"],
+.wp-block-button a,
+.wp-block-button__link {
     font-family: var(--primary-font) !important;
-    background-color: #39e58f;
-    color: #000;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 500;
+    background-color: #39e58f !important;
+    color: #000 !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    border-radius: 4px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
+    text-decoration: none !important;
+    display: inline-block !important;
 }
 
 button:hover,
 .button:hover,
 input[type="submit"]:hover,
-input[type="button"]:hover {
-    background-color: #2dc776;
+input[type="button"]:hover,
+.wp-block-button a:hover,
+.wp-block-button__link:hover {
+    background-color: #2dc776 !important;
 }
 
 /* Dark mode button styling */
@@ -159,8 +163,10 @@ input[type="button"]:hover {
     button,
     .button,
     input[type="submit"],
-    input[type="button"] {
-        color: #fff;
+    input[type="button"],
+    .wp-block-button a,
+    .wp-block-button__link {
+        color: #fff !important;
     }
 }
 
