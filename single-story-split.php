@@ -501,18 +501,18 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     .hero-image-credit {
         position: absolute;
         left: 52vw;
-        top: calc(100vh + 8px);
+        top: calc(100vh + 4px);
         font-family: var(--primary-font);
         font-size: 12px;
         color: var(--text-color-muted);
-        z-index: 10;
+        z-index: 1000;
     }
 
     /* Mobile responsive for hero image credit */
     @media (max-width: 768px) {
         .hero-image-credit {
             left: 2vw;
-            top: calc(100vh + 16px);
+            top: calc(100vh + 12px);
             text-align: left;
         }
     }
