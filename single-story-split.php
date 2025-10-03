@@ -13,7 +13,12 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
-get_header('branded'); ?>
+get_header('branded');
+
+// Get custom hero color from post meta
+$custom_hero_color = get_post_meta(get_the_ID(), 'story_hero_color', true);
+$hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
+?>
 
 <style>
     /* CSS Variables for Story Template */
@@ -23,6 +28,7 @@ get_header('branded'); ?>
         --text-color-muted: #808080;
         --link-color: #808080;
         --link-hover-color: #39e58f;
+        --story-hero-color: <?php echo esc_attr($hero_color); ?>;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -53,12 +59,12 @@ get_header('branded'); ?>
         display: flex;
     }
 
-    /* Left column - Text content with green background */
+    /* Left column - Text content with custom color background */
     .story-hero-content {
         position: relative;
         width: 50%;
         height: 100%;
-        background: #39e58f;
+        background: var(--story-hero-color);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -142,6 +148,7 @@ get_header('branded'); ?>
         width: 100vw;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
+        margin-top: calc(100vh - 2vw);
         padding: 3rem 2vw 0 2vw;
     }
 
