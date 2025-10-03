@@ -434,6 +434,24 @@ get_header('branded'); ?>
         background: #000 !important;
         color: white !important;
     }
+
+    /* Dark mode story header styling */
+    @media (prefers-color-scheme: dark) {
+        .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-nav {
+            color: white !important;
+        }
+
+        .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: white !important;
+            color: white !important;
+        }
+
+        .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-contact:hover {
+            background: white !important;
+            color: #000 !important;
+        }
+    }
 </style>
 
 <script>
