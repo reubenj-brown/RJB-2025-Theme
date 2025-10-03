@@ -558,9 +558,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mainNav) mainNav.remove();
     if (contactPill) contactPill.remove();
     
-    // Update site title to link to homepage instead of #top
+    // Update site title to scroll to top of page
     if (siteTitle) {
-        siteTitle.href = '/';
+        siteTitle.href = '#';
+        siteTitle.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
     
     // Create new story navigation
