@@ -146,16 +146,16 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     /* Tablet responsive adjustments for header height changes */
     @media (max-width: 1200px) {
         .story-hero-full-bleed {
-            top: calc(2vw + 61px);
-            height: calc(100vh - 61px - 2vw);
+            top: 61px;
+            height: calc(100vh - 61px);
         }
     }
 
     /* Mobile responsive adjustments for header height changes */
     @media (max-width: 768px) {
         .story-hero-full-bleed {
-            top: calc(2vw + 56px);
-            height: calc(100vh - 56px - 2vw);
+            top: 56px;
+            height: calc(100vh - 56px);
         }
     }
 
@@ -171,14 +171,14 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     /* Tablet responsive adjustments for content margin */
     @media (max-width: 1200px) {
         .story-single-container {
-            margin-top: calc(2vw + 61px);
+            margin-top: 61px;
         }
     }
 
     /* Mobile responsive adjustments for content margin */
     @media (max-width: 768px) {
         .story-single-container {
-            margin-top: calc(2vw + 56px);
+            margin-top: 56px;
         }
     }
 
@@ -564,17 +564,18 @@ function handleSplitHeaderScroll() {
 
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Calculate header height based on breakpoint: 2vw + variable height
-    const vwValue = window.innerWidth * 0.02; // 2vw
-    let baseHeight = 60; // Default desktop height
+    // Calculate header height based on breakpoint - fixed pixel values
+    let headerHeight;
 
     if (window.innerWidth <= 768) {
-        baseHeight = 56; // Mobile height
+        headerHeight = 56; // Mobile height
     } else if (window.innerWidth <= 1200) {
-        baseHeight = 61; // Tablet height
+        headerHeight = 61; // Tablet height
+    } else {
+        // Desktop: 2vw + 60px
+        const vwValue = window.innerWidth * 0.02;
+        headerHeight = vwValue + 60;
     }
-
-    const headerHeight = vwValue + baseHeight;
 
     // Make header transparent when scrolled past header height
     if (scrollTop > headerHeight) {
