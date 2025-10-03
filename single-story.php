@@ -187,7 +187,7 @@ get_header('branded'); ?>
     .story-content-inner h4.wp-block-heading,
     .story-content-inner h5.wp-block-heading,
     .story-content-inner h6.wp-block-heading {
-        text-align: left !important;
+        text-align: left;
         max-width: 900px !important;
         margin-left: auto !important;
         margin-right: auto !important;

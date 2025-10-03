@@ -195,7 +195,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     .story-content-inner h4.wp-block-heading,
     .story-content-inner h5.wp-block-heading,
     .story-content-inner h6.wp-block-heading {
-        text-align: left !important;
+        text-align: left;
         max-width: 900px !important;
         margin-left: auto !important;
         margin-right: auto !important;
