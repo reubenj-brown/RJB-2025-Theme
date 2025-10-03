@@ -123,8 +123,8 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         font-size: 16px;
     }
 
-    .story-hero-text .story-meta::after {
-        content: " →";
+    .story-hero-text .story-meta {
+        font-weight: 600;
     }
 
     .story-hero-text .story-meta i {
@@ -596,9 +596,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="story-hero-background">
         <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('full'); ?>
-            <?php if ($photo_credit) : ?>
-                <div class="caption">photograph: <?php echo esc_html($photo_credit); ?></div>
-            <?php endif; ?>
         <?php else : ?>
             <!-- Fallback background if no featured image -->
             <div style="background: linear-gradient(135deg, #39e58f 0%, #2dc776 100%); width: 100%; height: 100%;"></div>
