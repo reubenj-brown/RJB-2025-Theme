@@ -44,6 +44,7 @@ get_header('branded'); ?>
     /* Split Hero Section for Stories - Two Column Layout */
     .story-hero-full-bleed {
         position: relative;
+        top: calc(2vw + 60px);
         width: 100vw;
         height: calc(100vh - 60px - 2vw);
         overflow: hidden;
@@ -391,7 +392,11 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    /* Header styling for split template - no overlay, independent element */
+    /* Header styling for split template - solid background */
+    .site-header {
+        background: var(--content-bg) !important;
+    }
+
     .site-header:not(.over-full-bleed) .story-header-nav {
         color: #000 !important;
     }
