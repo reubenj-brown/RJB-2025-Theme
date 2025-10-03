@@ -91,6 +91,10 @@
     margin-bottom: 1.5rem;
 }
 
+.story-content-inner li {
+    margin-bottom: 32px;
+}
+
 .story-content-inner h2 {
     font-family: var(--serif-font);
     font-size: calc(32px * 1.23);
@@ -111,7 +115,7 @@
     font-family: var(--primary-font);
     font-size: 20px;
     font-weight: 600;
-    margin: 1.5rem 0 1rem 0;
+    margin: 1.5rem 0 16px 0;
     color: #000;
 }
 
