@@ -102,6 +102,7 @@ get_header('branded'); ?>
         font-family: var(--serif-font);
         color: white;
         font-size: calc(20px * 1.23); /* 20px * 1.23 = 24.6px - scaled for serif font */
+        font-weight: 400; /* Override browser default bold */
         margin-bottom: 2rem;
         line-height: 1.3;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
