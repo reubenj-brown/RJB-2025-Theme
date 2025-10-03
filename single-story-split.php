@@ -396,6 +396,22 @@ get_header('branded'); ?>
         background: #39e58f !important;
     }
 
+    /* Force black text over green hero area in both light and dark mode */
+    .site-header.over-split-hero .story-header-nav {
+        color: #000 !important;
+    }
+
+    .site-header.over-split-hero .story-header-contact {
+        background: rgba(0, 0, 0, 0.1) !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .site-header.over-split-hero .story-header-contact:hover {
+        background: #000 !important;
+        color: white !important;
+    }
+
     .site-header:not(.over-full-bleed):not(.over-split-hero) .story-header-nav {
         color: #000 !important;
     }
