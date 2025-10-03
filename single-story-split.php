@@ -399,9 +399,17 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         transition: all 0.3s ease;
     }
 
-    /* Header styling for split template - solid background */
-    .site-header {
+    /* Header styling for split template */
+    .site-header.over-split-hero {
         background: var(--content-bg) !important;
+    }
+
+    .site-header.over-split-hero .story-header-nav {
+        color: #000 !important;
+    }
+
+    .site-header.over-split-hero .site-title-name {
+        color: #000 !important;
     }
 
     .site-header:not(.over-full-bleed) .story-header-nav {
@@ -425,6 +433,17 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         cursor: pointer;
         z-index: 1002;
         transition: all 0.3s ease;
+    }
+
+    .site-header.over-split-hero .story-header-contact {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .site-header.over-split-hero .story-header-contact:hover {
+        background: #000 !important;
+        color: white !important;
     }
 
     .site-header:not(.over-full-bleed) .story-header-contact {
@@ -463,7 +482,29 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 </style>
 
 <script>
-// Split layout uses independent header - no overlay scroll handling needed
+// Handle header transparency on scroll for split layout
+function handleSplitHeaderScroll() {
+    const header = document.querySelector('.site-header');
+    const heroSection = document.querySelector('.story-hero-full-bleed');
+
+    if (!header || !heroSection) return;
+
+    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Make header transparent when scrolled past hero section
+    if (scrollTop > heroBottom - 50) { // 50px buffer for transition
+        header.classList.remove('over-split-hero');
+        header.classList.add('over-full-bleed');
+    } else {
+        header.classList.add('over-split-hero');
+        header.classList.remove('over-full-bleed');
+    }
+}
+
+// Listen for scroll events
+window.addEventListener('scroll', handleSplitHeaderScroll);
+window.addEventListener('load', handleSplitHeaderScroll);
 
 // No scroll-based opacity transitions for split layout since text is fixed in position
 
