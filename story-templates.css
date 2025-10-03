@@ -115,6 +115,42 @@
     color: #000;
 }
 
+/* Button styling */
+.story-content-inner button,
+.story-content-inner .button,
+.story-content-inner input[type="submit"],
+.story-content-inner input[type="button"] {
+    font-family: var(--primary-font) !important;
+    background-color: #39e58f;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.story-content-inner button:hover,
+.story-content-inner .button:hover,
+.story-content-inner input[type="submit"]:hover,
+.story-content-inner input[type="button"]:hover {
+    background-color: #2dc776;
+}
+
+/* Dark mode button styling */
+@media (prefers-color-scheme: dark) {
+    .story-content-inner button,
+    .story-content-inner .button,
+    .story-content-inner input[type="submit"],
+    .story-content-inner input[type="button"] {
+        color: #fff;
+    }
+}
+
 .story-categories {
     margin: 3rem 0;
     padding: 1.5rem 0;
