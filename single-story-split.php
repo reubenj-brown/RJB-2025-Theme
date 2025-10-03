@@ -438,9 +438,22 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         color: #000 !important;
     }
 
-    /* Site title always black in light mode */
-    .site-header .site-title-name {
+    .site-header.over-split-hero .site-title-name {
         color: #000 !important;
+    }
+
+    /* Site title always black in light mode - high specificity */
+    .site-header .site-title-name,
+    .site-header.over-split-hero .site-title-name {
+        color: #000 !important;
+    }
+
+    /* Ensure light mode takes precedence over dark mode styles */
+    @media (prefers-color-scheme: light) {
+        .site-header .site-title-name,
+        .site-header.over-split-hero .site-title-name {
+            color: #000 !important;
+        }
     }
 
     .site-header:not(.over-full-bleed) .story-header-nav {
