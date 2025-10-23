@@ -438,30 +438,26 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         background: var(--content-bg) !important;
     }
 
-    .site-header.over-split-hero .story-header-nav {
-        color: #000 !important;
-    }
-
-    .site-header.over-split-hero .site-title-name {
-        color: #000 !important;
-    }
-
-    /* Site title always black in light mode - high specificity */
-    .site-header .site-title-name,
-    .site-header.over-split-hero .site-title-name {
-        color: #000 !important;
-    }
-
-    /* Ensure light mode takes precedence over dark mode styles */
+    /* Light mode: black text when over split hero */
     @media (prefers-color-scheme: light) {
-        .site-header .site-title-name,
         .site-header.over-split-hero .site-title-name {
             color: #000 !important;
         }
-    }
 
-    .site-header:not(.over-full-bleed) .story-header-nav {
-        color: #000 !important;
+        .site-header.over-split-hero .story-header-nav {
+            color: #000 !important;
+        }
+
+        .site-header.over-split-hero .story-header-contact {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-color: #000 !important;
+            color: #000 !important;
+        }
+
+        .site-header.over-split-hero .story-header-contact:hover {
+            background: #000 !important;
+            color: white !important;
+        }
     }
 
     .story-header-contact {
@@ -483,41 +479,38 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         transition: all 0.3s ease;
     }
 
-    .site-header.over-split-hero .story-header-contact {
-        background: rgba(0, 0, 0, 0.05) !important;
-        border-color: #000 !important;
-        color: #000 !important;
+    /* Light mode: black text when over content area */
+    @media (prefers-color-scheme: light) {
+        .site-header.over-full-bleed .site-title-name,
+        .site-header:not(.over-split-hero) .site-title-name {
+            color: #000 !important;
+        }
+
+        .site-header.over-full-bleed .story-header-nav,
+        .site-header:not(.over-split-hero) .story-header-nav {
+            color: #000 !important;
+        }
+
+        .site-header.over-full-bleed .story-header-contact,
+        .site-header:not(.over-split-hero) .story-header-contact {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-color: #000 !important;
+            color: #000 !important;
+        }
+
+        .site-header.over-full-bleed .story-header-contact:hover,
+        .site-header:not(.over-split-hero) .story-header-contact:hover {
+            background: #000 !important;
+            color: white !important;
+        }
     }
 
-    .site-header.over-split-hero .story-header-contact:hover {
-        background: #000 !important;
-        color: white !important;
-    }
-
-    .site-header:not(.over-full-bleed) .story-header-contact {
-        background: rgba(0, 0, 0, 0.05) !important;
-        border-color: #000 !important;
-        color: #000 !important;
-    }
-
-    .story-header-contact:hover {
-        background: white !important;
-        color: #000 !important;
-    }
-
-    .site-header:not(.over-full-bleed) .story-header-contact:hover {
-        background: #000 !important;
-        color: white !important;
-    }
-
-    /* Dark mode story header styling */
+    /* Dark mode: white text when over split hero */
     @media (prefers-color-scheme: dark) {
-        /* Site title ALWAYS white in dark mode */
-        .site-header .site-title-name {
+        .site-header.over-split-hero .site-title-name {
             color: white !important;
         }
 
-        /* Split template buttons always white in dark mode */
         .site-header.over-split-hero .story-header-nav {
             color: white !important;
         }
@@ -533,11 +526,19 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
             color: #000 !important;
         }
 
-        .site-header:not(.over-full-bleed) .story-header-nav {
+        /* Dark mode: white text when over content area */
+        .site-header.over-full-bleed .site-title-name,
+        .site-header:not(.over-split-hero) .site-title-name {
             color: white !important;
         }
 
-        .site-header:not(.over-full-bleed) .story-header-contact {
+        .site-header.over-full-bleed .story-header-nav,
+        .site-header:not(.over-split-hero) .story-header-nav {
+            color: white !important;
+        }
+
+        .site-header.over-full-bleed .story-header-contact,
+        .site-header:not(.over-split-hero) .story-header-contact {
             background: rgba(255, 255, 255, 0.1) !important;
             border-color: white !important;
             color: white !important;
@@ -648,7 +649,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Create new story navigation
     const storyNav = document.createElement('a');
-    storyNav.href = '/#stories';
+    storyNav.href = '/';
     storyNav.className = 'story-header-nav';
     storyNav.textContent = '← Home';
     header.appendChild(storyNav);
@@ -726,8 +727,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 $external_url = get_field('external_url');
                 if ($external_url) : 
                 ?>
-                    <p style="margin-top: 2rem; text-align: center;">
-                        <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener" style="color: var(--highlight-color); text-decoration: none; font-weight: 500;">
+                    <p style="margin-top: 2rem; text-align: left; max-width: 900px; width: 900px; margin-left: auto; margin-right: auto;">
+                        <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener" style="color: var(--highlight-color); text-decoration: none; font-family: var(--primary-font); font-style: italic; font-weight: 400;">
                             Read the full story →
                         </a>
                     </p>

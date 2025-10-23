@@ -455,7 +455,7 @@ get_header('branded'); ?>
     /* Hero image credit positioned below hero section */
     .hero-image-credit {
         position: absolute;
-        left: calc(50vw + 12px);
+        left: 2vw;
         top: calc(100vh + 4px);
         font-family: var(--primary-font);
         font-size: 12px;
@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Create new story navigation
     const storyNav = document.createElement('a');
-    storyNav.href = '/#stories';
+    storyNav.href = '/';
     storyNav.className = 'story-header-nav';
     storyNav.textContent = '← Home';
     header.appendChild(storyNav);
@@ -606,8 +606,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 $external_url = get_field('external_url');
                 if ($external_url) : 
                 ?>
-                    <p style="margin-top: 2rem; text-align: center;">
-                        <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener" style="color: var(--highlight-color); text-decoration: none; font-weight: 500;">
+                    <p style="margin-top: 2rem; text-align: left; max-width: 900px; width: 900px; margin-left: auto; margin-right: auto;">
+                        <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener" style="color: var(--highlight-color); text-decoration: none; font-family: var(--primary-font); font-style: italic; font-weight: 400;">
                             Read the full story →
                         </a>
                     </p>
