@@ -216,6 +216,10 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     .story-content-inner h1,
     .story-content-inner h1.wp-block-heading {
         text-align: center !important;
+        max-width: 900px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
     }
 
     /* H3 specific styling - left aligned within container, properly centered */
