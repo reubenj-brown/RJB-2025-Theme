@@ -108,6 +108,17 @@ get_header('branded'); ?>
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
+    /* Style paragraph inside h2 (WordPress excerpt wraps content in p tags) */
+    .story-hero-text h2 p {
+        font-family: var(--serif-font) !important;
+        color: white !important;
+        font-size: calc(20px * 1.23) !important;
+        font-weight: 400 !important;
+        margin: 0 !important;
+        line-height: 1.3 !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    }
+
     .story-hero-text .story-meta {
         color: rgba(255, 255, 255, 0.9);
         font-weight: 500;
