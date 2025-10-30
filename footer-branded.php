@@ -133,6 +133,11 @@
         mask: none !important;
     }
 
+    /* Logo should be white when over full-bleed hero */
+    .site-footer.over-full-bleed .footer-logo img {
+        filter: invert(1);
+    }
+
     .site-footer.over-full-bleed .copyright {
         color: white !important;
     }
