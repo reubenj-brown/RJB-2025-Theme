@@ -84,6 +84,7 @@ get_header('branded'); ?>
     .story-hero-text {
         max-width: 600px;
         text-align: center;
+        margin-bottom: 1rem;
     }
 
     .story-hero-text h1 {
