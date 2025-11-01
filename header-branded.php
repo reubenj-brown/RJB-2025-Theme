@@ -321,9 +321,7 @@
         text-shadow: none;
     }
 
-    .main-nav a:hover,
-    .main-nav a.active {
-        color: #39e58f;
+    .main-nav a:hover {
         font-weight: 600;
     }
 
@@ -353,9 +351,8 @@
         transition: all 0.3s ease !important;
     }
 
-    .site-header.over-full-bleed .main-nav a:hover,
-    .site-header.over-full-bleed .main-nav a.active {
-        color: #39e58f !important;
+    .site-header.over-full-bleed .main-nav a:hover {
+        font-weight: 600;
     }
 
     .site-header.over-full-bleed .contact-pill {
@@ -478,61 +475,6 @@
             }
         });
     });
-
-    // Update active navigation - highlight when section fills majority of screen
-    function updateActiveNav() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const viewportHeight = window.innerHeight;
-        const scrollTop = window.scrollY;
-        
-        let bestMatch = '';
-        let bestMatchScore = 0;
-        
-        // Remove all active classes first
-        navLinks.forEach(link => link.classList.remove('active'));
-        
-        // Direct mapping: check the primary sections for each nav item
-        const sectionsToCheck = [
-            { nav: 'about', element: document.querySelector('#about') },
-            { nav: 'stories', element: document.querySelector('#features') }, // Stories nav points to features section
-            { nav: 'cv', element: document.querySelector('#cv') }
-        ];
-        
-        sectionsToCheck.forEach(({ nav, element }) => {
-            if (!element) return;
-            
-            const rect = element.getBoundingClientRect();
-            const elementTop = scrollTop + rect.top;
-            const elementBottom = elementTop + rect.height;
-            const viewportTop = scrollTop;
-            const viewportBottom = scrollTop + viewportHeight;
-            
-            // Calculate visible portion of this element
-            const visibleTop = Math.max(elementTop, viewportTop);
-            const visibleBottom = Math.min(elementBottom, viewportBottom);
-            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-            
-            // Calculate what percentage of viewport this section occupies
-            const sectionScore = visibleHeight / viewportHeight;
-            
-            // If this section takes up more than 50% of viewport and is the best match
-            if (sectionScore > 0.5 && sectionScore > bestMatchScore) {
-                bestMatchScore = sectionScore;
-                bestMatch = nav;
-            }
-        });
-        
-        // Highlight the best matching navigation link
-        if (bestMatch) {
-            const activeLink = document.querySelector(`.nav-link[href*="#${bestMatch}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-        }
-    }
-
-    window.addEventListener('scroll', updateActiveNav);
-    updateActiveNav(); // Run on page load
 
     // Header transparency and footer visibility for full-bleed sections (portfolio page only)
     function updateHeaderAndFooterForFullBleed() {
