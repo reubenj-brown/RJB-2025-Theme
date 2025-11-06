@@ -201,6 +201,10 @@ get_header('branded'); ?>
         margin-bottom: 1.5rem;
     }
 
+    .story-content-inner p.story-meta {
+        margin-top: 16px;
+    }
+
     /* Full-width images within container */
     .story-content-inner img {
         width: 100%; /* Full width of container */
