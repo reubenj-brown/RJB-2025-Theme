@@ -154,5 +154,62 @@ function add_theme_color_meta() {
 add_action('wp_head', 'add_theme_color_meta');
 
 /**
+ * Add meta box for story hero color picker
+ */
+function add_story_hero_color_meta_box() {
+    add_meta_box(
+        'story_hero_color',
+        'Hero Background Color',
+        'render_story_hero_color_meta_box',
+        'story',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'add_story_hero_color_meta_box');
+
+/**
+ * Render the hero color meta box
+ */
+function render_story_hero_color_meta_box($post) {
+    wp_nonce_field('story_hero_color_nonce', 'story_hero_color_nonce');
+    $value = get_post_meta($post->ID, 'story_hero_color', true);
+    $value = !empty($value) ? $value : '#39e58f';
+    ?>
+    <p>
+        <label for="story_hero_color">Choose a background color for the split hero template:</label>
+        <input type="color" id="story_hero_color" name="story_hero_color" value="<?php echo esc_attr($value); ?>" style="width: 100%; height: 40px;">
+    </p>
+    <p class="description">This color will be used as the background for the left side of the split hero layout. Default: #39e58f (green)</p>
+    <?php
+}
+
+/**
+ * Save the hero color meta box value
+ */
+function save_story_hero_color_meta_box($post_id) {
+    // Check nonce
+    if (!isset($_POST['story_hero_color_nonce']) || !wp_verify_nonce($_POST['story_hero_color_nonce'], 'story_hero_color_nonce')) {
+        return;
+    }
+
+    // Check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check permissions
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save the color
+    if (isset($_POST['story_hero_color'])) {
+        update_post_meta($post_id, 'story_hero_color', sanitize_hex_color($_POST['story_hero_color']));
+    }
+}
+add_action('save_post_story', 'save_story_hero_color_meta_box');
+
+/**
  * Custom functions for portfolio site will be added here
  */
