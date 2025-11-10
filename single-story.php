@@ -106,9 +106,7 @@ get_header('branded'); ?>
     }
 
     /* Override base-sections.css h2 styling for more_stories shortcode */
-    .content-section .architecture-scroll-item h2,
-    .architecture-scroll-item .story-content h2,
-    .architecture-scroll-item h2.serif-font-scaled {
+    .architecture-scroll-item h2 {
         font-size: 24px !important;
     }
 

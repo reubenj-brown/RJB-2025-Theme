@@ -591,6 +591,21 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
             text-align: left;
         }
     }
+
+    /* Override base-sections.css h2 styling for more_stories shortcode */
+    .architecture-scroll-item h2 {
+        font-size: 24px !important;
+    }
+
+    /* Caption styling for more_stories shortcode - match homepage architecture scroller */
+    .architecture-scroll-item .caption {
+        font-size: 12px;
+        color: var(--text-color-muted);
+        text-align: left;
+        padding: 4px 0 8px 0;
+        margin: 0;
+        background: transparent;
+    }
 </style>
 
 <script>
