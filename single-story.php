@@ -232,8 +232,8 @@ get_header('branded'); ?>
     }
 
     .story-content-inner p {
-        font-family: var(--serif-font);
-        font-size: 24px;
+        font-family: var(--serif-font) !important;
+        font-size: 24px !important;
         margin-bottom: 1.5rem;
     }
 
@@ -367,7 +367,7 @@ get_header('branded'); ?>
         }
 
         .story-content-inner p {
-            font-size: 18px;
+            font-size: 18px !important;
         }
 
         /* Mobile images use full container width */
