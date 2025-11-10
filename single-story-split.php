@@ -403,6 +403,14 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     }
 
     @media (max-width: 1200px) {
+        .story-content-inner .wp-block-uagb-image {
+            margin-top: 0.5rem;
+        }
+
+        .story-content-inner .wp-block-uagb-image img {
+            margin-top: 0 !important;
+        }
+
         .story-header-nav {
             font-size: 16px;
         }
