@@ -698,7 +698,11 @@ document.addEventListener('DOMContentLoaded', function() {
     <!-- Left column: Text content with green background -->
     <div class="story-hero-content">
         <div class="story-hero-text">
-            <h1><?php the_title(); ?></h1>
+            <?php
+            $short_headline = get_field('short_headline');
+            $hero_title = !empty($short_headline) ? $short_headline : get_the_title();
+            ?>
+            <h1><?php echo esc_html($hero_title); ?></h1>
 
             <?php if (has_excerpt()) : ?>
                 <h2><?php the_excerpt(); ?></h2>
