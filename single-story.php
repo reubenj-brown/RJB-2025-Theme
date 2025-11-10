@@ -84,7 +84,6 @@ get_header('branded'); ?>
     .story-hero-text {
         max-width: 600px;
         text-align: center;
-        margin-bottom: 1rem;
     }
 
     .story-hero-text h1 {
@@ -97,6 +96,10 @@ get_header('branded'); ?>
         margin-bottom: 1rem;
         line-height: 1.1;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .story-hero-text h3 {
+        margin-bottom: 16px;
     }
 
     /* Style paragraph inside h2 (WordPress excerpt wraps content in p tags) */
