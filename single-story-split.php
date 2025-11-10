@@ -256,7 +256,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     .story-content-inner .wp-block-uagb-image {
         width: 100%;
         max-width: 100%;
-        margin: 2rem auto 0 auto;
+        margin: 1.5rem auto 0 auto;
         display: block;
         text-align: center;
     }
