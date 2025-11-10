@@ -945,22 +945,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             captionDiv.innerHTML = captionHTML;
 
-            // Insert caption after the image
-            img.parentNode.insertBefore(captionDiv, img.nextSibling);
-            // Caption added for image (debug message removed)
+            // Insert caption inside UAGB block (if exists) or after image
+            const uagbBlock = img.closest('.wp-block-uagb-image');
+            if (uagbBlock) {
+                // For UAGB blocks, append inside the block (not as a sibling)
+                uagbBlock.appendChild(captionDiv);
+            } else {
+                // For regular images, insert after the image
+                img.parentNode.insertBefore(captionDiv, img.nextSibling);
+            }
         }
     });
 
     // Helper function to update caption display
     function updateCaptionDisplay(img, captionText, creditText) {
-        // For UAGB images, we need to insert after the UAGB block container, not just the figure
         const uagbBlock = img.closest('.wp-block-uagb-image');
-        const insertionPoint = uagbBlock || img.parentNode;
 
-        // Remove any existing caption after this insertion point
-        let nextSibling = insertionPoint.nextElementSibling;
-        if (nextSibling && nextSibling.classList.contains('story-image-caption')) {
-            nextSibling.remove();
+        // Remove any existing caption
+        if (uagbBlock) {
+            // For UAGB blocks, check inside the block
+            const existingCaption = uagbBlock.querySelector('.story-image-caption');
+            if (existingCaption) {
+                existingCaption.remove();
+            }
+        } else {
+            // For regular images, check next sibling
+            let nextSibling = img.parentNode.nextElementSibling;
+            if (nextSibling && nextSibling.classList.contains('story-image-caption')) {
+                nextSibling.remove();
+            }
         }
 
         // Only create caption if we have caption text or credit
@@ -980,7 +993,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             captionDiv.innerHTML = captionHTML;
-            insertionPoint.insertAdjacentElement('afterend', captionDiv);
+
+            // Insert caption inside UAGB block or after regular image
+            if (uagbBlock) {
+                uagbBlock.appendChild(captionDiv);
+            } else {
+                img.parentNode.insertBefore(captionDiv, img.nextSibling);
+            }
         }
     }
 });
