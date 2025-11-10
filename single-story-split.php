@@ -102,7 +102,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         font-weight: 400 !important;
         font-style: normal !important;
         text-transform: uppercase !important;
-        color: #000;
+        color: #000 !important;
         margin-bottom: 1.5rem;
         line-height: 1.1;
         text-shadow: none;
@@ -110,7 +110,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     .story-hero-text h2 {
         font-family: var(--serif-font);
-        color: #000;
+        color: #000 !important;
         font-size: calc(20px * 1.23); /* 20px * 1.23 = 24.6px - scaled for serif font */
         font-weight: 400; /* Override browser default bold */
         margin-bottom: 2rem;
@@ -119,7 +119,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     }
 
     .story-hero-text .story-meta {
-        color: rgba(0, 0, 0, 0.8);
+        color: rgba(0, 0, 0, 0.8) !important;
         font-weight: 500;
         text-shadow: none;
         font-family: var(--primary-font);
@@ -131,7 +131,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     }
 
     .story-hero-text .story-meta i {
-        color: #000;
+        color: #000 !important;
     }
 
     /* Main Content */
