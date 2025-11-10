@@ -232,6 +232,8 @@ get_header('branded'); ?>
     }
 
     .story-content-inner p {
+        font-family: var(--serif-font);
+        font-size: 24px;
         margin-bottom: 1.5rem;
     }
 
@@ -362,6 +364,10 @@ get_header('branded'); ?>
 
         .story-content-inner {
             font-size: calc(16px * 1.23);
+        }
+
+        .story-content-inner p {
+            font-size: 18px;
         }
 
         /* Mobile images use full container width */
