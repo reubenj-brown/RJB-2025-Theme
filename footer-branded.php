@@ -122,6 +122,11 @@
         .footer-logo img {
             filter: invert(1);
         }
+
+        /* Don't invert if already showing white logo over full-bleed */
+        .site-footer.over-full-bleed .footer-logo img {
+            filter: none;
+        }
     }
 
     /* Footer overlay styles for full-bleed section */
@@ -131,11 +136,6 @@
         backdrop-filter: none !important;
         -webkit-mask: none !important;
         mask: none !important;
-    }
-
-    /* Logo should be white when over full-bleed hero */
-    .site-footer.over-full-bleed .footer-logo img {
-        filter: invert(1);
     }
 
     .site-footer.over-full-bleed .copyright {
