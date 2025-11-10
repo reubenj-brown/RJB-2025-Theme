@@ -389,6 +389,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         .story-content-inner .wp-block-uagb-image {
             width: 100%;
             max-width: 100%;
+            margin-top: 0.5rem;
         }
 
         .story-image-caption {
