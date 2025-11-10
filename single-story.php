@@ -98,6 +98,18 @@ get_header('branded'); ?>
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
+    /* Override base-sections.css to ensure story hero h1 stays at 96px */
+    .story-hero-full-bleed h1,
+    .story-hero-text h1 {
+        font-size: 96px !important;
+        font-weight: 400 !important;
+    }
+
+    /* Override base-sections.css h2 styling for more_stories shortcode */
+    .content-section .architecture-scroll-item h2 {
+        font-size: 24px !important;
+    }
+
     .story-hero-text h3 {
         margin-bottom: 16px;
     }
