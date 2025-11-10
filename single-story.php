@@ -118,6 +118,13 @@ get_header('branded'); ?>
         padding: 4px 0 8px 0;
         margin: 0;
         background: transparent;
+        order: 0; /* Ensure proper flex order */
+    }
+
+    /* Ensure story-link elements don't interfere with caption positioning */
+    .architecture-scroll-item .story-link {
+        flex-grow: 0;
+        flex-shrink: 0;
     }
 
     .story-hero-text h3 {

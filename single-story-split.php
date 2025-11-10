@@ -605,6 +605,13 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         padding: 4px 0 8px 0;
         margin: 0;
         background: transparent;
+        order: 0; /* Ensure proper flex order */
+    }
+
+    /* Ensure story-link elements don't interfere with caption positioning */
+    .architecture-scroll-item .story-link {
+        flex-grow: 0;
+        flex-shrink: 0;
     }
 </style>
 
