@@ -108,7 +108,7 @@ get_header('branded'); ?>
         color: white !important;
         font-size: calc(20px * 1.23) !important;
         font-weight: 400 !important;
-        margin-bottom: 1 rem;
+        margin-bottom: 1rem !important;
         line-height: 1.3 !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
     }
