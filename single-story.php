@@ -1,5 +1,8 @@
 <?php
 /**
+ * Template Name: Full Bleed Hero Story
+ * Template Post Type: story
+ *
  * Single Story Template - Full Bleed Hero Design
  * Uses shared header and footer from portfolio page
  */
