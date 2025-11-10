@@ -365,6 +365,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         }
 
         .story-hero-text h2 {
+            font-size: 20px !important;
             margin-bottom: 1.5rem;
         }
 

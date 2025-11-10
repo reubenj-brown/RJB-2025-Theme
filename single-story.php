@@ -349,8 +349,10 @@ get_header('branded'); ?>
             font-size: 80px !important;
             margin-bottom: 1rem;
         }
-        
-        .story-hero-text h2 {
+
+        .story-hero-text h2,
+        .story-hero-text h2 p {
+            font-size: 20px !important;
             margin-bottom: 1.5rem;
         }
 
