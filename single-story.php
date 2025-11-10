@@ -106,8 +106,20 @@ get_header('branded'); ?>
     }
 
     /* Override base-sections.css h2 styling for more_stories shortcode */
-    .content-section .architecture-scroll-item h2 {
+    .content-section .architecture-scroll-item h2,
+    .architecture-scroll-item .story-content h2,
+    .architecture-scroll-item h2.serif-font-scaled {
         font-size: 24px !important;
+    }
+
+    /* Caption styling for more_stories shortcode - match homepage architecture scroller */
+    .architecture-scroll-item .caption {
+        font-size: 12px;
+        color: var(--text-color-muted);
+        text-align: left;
+        padding: 4px 0 8px 0;
+        margin: 0;
+        background: transparent;
     }
 
     .story-hero-text h3 {
