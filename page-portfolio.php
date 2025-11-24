@@ -163,6 +163,7 @@ add_action('wp_head', function() {
                 font-weight: 400 !important;
                 font-style: normal !important;
                 text-transform: uppercase !important;
+                margin-bottom: .5rem !important;
             }
 
 
