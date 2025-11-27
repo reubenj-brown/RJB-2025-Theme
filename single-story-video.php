@@ -706,11 +706,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="story-hero-content">
         <div class="story-hero-text">
-            <?php
-            $short_headline = get_field('short_headline');
-            $hero_title = !empty($short_headline) ? $short_headline : get_the_title();
-            ?>
-            <h1><?php echo esc_html($hero_title); ?></h1>
+            <h1><?php echo esc_html(get_the_title()); ?></h1>
 
             <?php if (has_excerpt()) : ?>
                 <h2><?php the_excerpt(); ?></h2>
