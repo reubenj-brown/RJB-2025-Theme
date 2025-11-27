@@ -118,6 +118,11 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         text-shadow: none;
     }
 
+    /* Ensure standfirst paragraph stays black in both light and dark mode */
+    .story-hero-text h2 p {
+        color: #000 !important;
+    }
+
     .story-hero-text .story-meta {
         color: rgba(0, 0, 0, 0.8) !important;
         font-weight: 500;
