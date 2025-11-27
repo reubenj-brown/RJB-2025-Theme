@@ -395,12 +395,12 @@ get_header('branded'); ?>
 
         <?php echo do_shortcode('[reuben_cronkite]'); ?>
 
-        <section class="content-section reviews-section" id="reviews">
-            <?php echo do_shortcode('[reuben_reviews]'); ?>
-        </section>
-
         <section class="content-section photographs-section" id="photographs">
             <?php echo do_shortcode('[reuben_photographs]'); ?>
+        </section>
+        
+        <section class="content-section reviews-section" id="reviews">
+            <?php echo do_shortcode('[reuben_reviews]'); ?>
         </section>
 
             <div class="strategy-intro">
