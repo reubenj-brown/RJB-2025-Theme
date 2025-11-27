@@ -117,7 +117,7 @@ get_header('branded'); ?>
         font-family: var(--serif-font) !important;
         font-size: 36px !important;
         font-weight: 400 !important;
-        font-style: normal !important;
+        font-style: italic !important;
         text-transform: none !important;
         color: white;
         margin-bottom: 1rem;
