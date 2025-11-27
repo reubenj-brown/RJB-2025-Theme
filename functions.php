@@ -135,6 +135,7 @@ function get_story_featured_image($post_id, $size = 'medium') {
 function get_story_metadata($post_id) {
     return [
         'publication' => get_field('publication', $post_id),
+        'medium' => get_field('medium', $post_id),
         'publish_date' => get_field('publish_date', $post_id),
         'external_url' => get_field('external_url', $post_id),
         'photo_credit' => get_field('photo_credit', $post_id),
