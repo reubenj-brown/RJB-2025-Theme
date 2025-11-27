@@ -325,6 +325,34 @@ get_header('branded'); ?>
         color: var(--link-hover-color);
     }
 
+    /* Audio block styling - matches contact button */
+    .story-content-inner .wp-block-audio {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 20px;
+        background: var(--content-bg);
+        border: 1px solid var(--highlight-color);
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .story-content-inner .wp-block-audio:hover {
+        background: rgba(57, 229, 143, 0.05);
+    }
+
+    .story-content-inner .wp-block-audio audio {
+        width: 100%;
+        outline: none;
+    }
+
+    .story-content-inner .wp-block-audio figcaption {
+        font-family: var(--primary-font);
+        font-size: 14px;
+        color: var(--text-color-muted);
+        margin-top: 12px;
+        text-align: center;
+    }
+
     .story-image-credit {
         font-size: 12px;
         color: var(--text-color-muted);
