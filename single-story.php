@@ -326,9 +326,10 @@ get_header('branded'); ?>
     }
 
     /* Audio block styling - matches contact button */
-    .story-content-inner .wp-block-audio {
+    .story-content-inner .wp-block-audio,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio {
         max-width: 900px;
-        margin: 0 auto;
+        margin: 0 auto !important;
         padding: 20px;
         background: var(--content-bg);
         border: 1px solid var(--highlight-color);
@@ -336,33 +337,41 @@ get_header('branded'); ?>
         transition: all 0.3s ease;
     }
 
-    .story-content-inner .wp-block-audio:hover {
+    .story-content-inner .wp-block-audio:hover,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio:hover {
         background: rgba(57, 229, 143, 0.05);
     }
 
-    .story-content-inner .wp-block-audio audio {
-        width: 100%;
+    .story-content-inner .wp-block-audio audio,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio {
+        width: 100% !important;
         outline: none;
         height: 54px;
         border-radius: 25px;
     }
 
     /* Style the audio controls */
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-panel {
+    .story-content-inner .wp-block-audio audio::-webkit-media-controls-panel,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-panel {
         background: transparent;
     }
 
     .story-content-inner .wp-block-audio audio::-webkit-media-controls-play-button,
     .story-content-inner .wp-block-audio audio::-webkit-media-controls-current-time-display,
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-time-remaining-display {
+    .story-content-inner .wp-block-audio audio::-webkit-media-controls-time-remaining-display,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-play-button,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-current-time-display,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-time-remaining-display {
         color: var(--text-color);
     }
 
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-timeline {
+    .story-content-inner .wp-block-audio audio::-webkit-media-controls-timeline,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-timeline {
         color: var(--highlight-color);
     }
 
-    .story-content-inner .wp-block-audio figcaption {
+    .story-content-inner .wp-block-audio figcaption,
+    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio figcaption {
         font-family: var(--primary-font);
         font-size: 14px;
         color: var(--text-color-muted);
