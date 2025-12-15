@@ -155,6 +155,12 @@ add_action('wp_head', function() {
             }
 
 
+            /* Strategy intro section */
+            .strategy-intro {
+                padding-top: 240px;
+                padding-bottom: 200px;
+            }
+
             /* Hero section headline - PP Right Serif at 96px, block caps, not italic */
             .featured-story-full-bleed h2,
             .featured-story-full-bleed h2 i {
