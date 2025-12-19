@@ -395,8 +395,8 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         padding: 2px 0;
     }
 
-    /* Mobile Responsive - Stack columns vertically */
-    @media (max-width: 768px) {
+    /* Tablet Responsive - Stack columns vertically with image on top */
+    @media (max-width: 1200px) {
         .story-hero-full-bleed {
             flex-direction: column;
         }
@@ -405,11 +405,13 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
             width: 100%;
             height: 50%;
             padding: 6vw;
+            order: 2; /* Move colored area below image */
         }
 
         .story-hero-background {
             width: 100%;
             height: 50%;
+            order: 1; /* Move image above colored area */
         }
 
         .story-hero-text {
@@ -440,7 +442,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
             font-size: calc(16px * 1.23);
         }
 
-        /* Mobile images use full container width */
+        /* Tablet images use full container width */
         .story-content-inner img {
             width: 100%;
             max-width: 100%;
@@ -652,18 +654,11 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         z-index: 1000;
     }
 
-    /* Tablet responsive for hero image credit */
+    /* Tablet responsive for hero image credit - image now on top */
     @media (max-width: 1200px) {
         .hero-image-credit {
-            top: calc(100vh + 1px);
-        }
-    }
-
-    /* Mobile responsive for hero image credit */
-    @media (max-width: 768px) {
-        .hero-image-credit {
             left: 2vw;
-            top: calc(100vh - 4px);
+            top: calc(100vh + 8px);
             text-align: left;
         }
     }
