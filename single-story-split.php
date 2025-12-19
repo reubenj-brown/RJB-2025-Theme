@@ -173,7 +173,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
         margin-top: calc(2vw + 60px);
-        padding: 3rem 2vw 0 2vw;
+        padding: 4rem 2vw 0 2vw;
     }
 
     /* Tablet responsive adjustments for content margin */
