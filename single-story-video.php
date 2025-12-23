@@ -16,6 +16,12 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
+// Add story templates CSS to wp_head
+add_action('wp_head', function() {
+           21 -      echo '<link rel="stylesheet" href="' .                                                                                         
+          -  get_stylesheet_directory_uri() . '/story-templates.css?v=' . wp_get_theme()->get('Version') . '">' . "\n";
+}, 999);
+
 get_header('branded'); ?>
 
 <style>
