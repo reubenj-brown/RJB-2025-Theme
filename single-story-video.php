@@ -463,6 +463,14 @@ get_header('branded'); ?>
         .story-image-caption {
             width: 100%;
         }
+
+        .story-header-nav {
+            font-size: 14px;
+        }
+
+        .story-header-contact {
+            font-size: 14px;
+        }
     }
 
     @media (max-width: 1200px) {

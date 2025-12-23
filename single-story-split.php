@@ -188,6 +188,14 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         .story-single-container {
             margin-top: 56px;
         }
+
+        .story-header-nav {
+            font-size: 14px;
+        }
+
+        .story-header-contact {
+            font-size: 14px;
+        }
     }
 
     /* Content wrapper for proper text centering within full-width container */
