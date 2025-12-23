@@ -19,32 +19,10 @@ add_action('wp_enqueue_scripts', function() {
 get_header('branded'); ?>
 
 <style>
-    /* CSS Variables for Story Template */
-    :root {
-        --content-bg: white;
-        --text-color: #000;
-        --text-color-muted: #808080;
-        --link-color: #808080;
-        --link-hover-color: #39e58f;
-    }
+    /* Template-Specific CSS for Full Bleed Hero Story Template */
+    /* Common styles are now in story-templates.css */
 
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --content-bg: #050505;
-            --text-color: white;
-            --text-color-muted: #a8a8a8;
-            --link-color: white;
-            --link-hover-color: #39e58f;
-        }
-    }
-
-    /* Global background for story pages */
-    html, body {
-        background: var(--content-bg);
-        min-height: 100vh;
-    }
-
-    /* Full Bleed Hero Section for Stories */
+    /* Full Bleed Hero Section - Template Specific */
     .story-hero-full-bleed {
         position: relative;
         width: 100vw;
@@ -108,27 +86,6 @@ get_header('branded'); ?>
         font-weight: 400 !important;
     }
 
-    /* Override base-sections.css h2 styling for more_stories shortcode */
-    .architecture-scroll-item h2 {
-        font-size: 24px !important;
-    }
-
-    /* Caption styling for more_stories shortcode - match homepage architecture scroller */
-    .architecture-scroll-item .caption {
-        font-size: 12px;
-        color: var(--text-color-muted);
-        text-align: left;
-        padding: 4px 0 8px 0;
-        margin: 0;
-        background: transparent;
-    }
-
-    /* Ensure story-link elements in more_stories don't interfere with caption positioning */
-    .architecture-scroll .architecture-scroll-item .story-link {
-        flex-grow: 0;
-        flex-shrink: 0;
-    }
-
     .story-hero-text h3 {
         margin-bottom: 16px;
     }
@@ -146,248 +103,28 @@ get_header('branded'); ?>
 
     .story-hero-text .story-meta {
         color: rgba(255, 255, 255, 0.9);
-        font-weight: 500;
+        font-weight: 600;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         font-family: var(--primary-font);
         font-size: 16px;
-    }
-
-    .story-hero-text .story-meta {
-        font-weight: 600;
     }
 
     .story-hero-text .story-meta i {
         color: white;
     }
 
-    /* Main Content */
-    .main-content {
-        margin-top: 0;
-        min-height: calc(100vh - 200px);
-        padding: 0 2vw;
-        width: 100vw;
-        max-width: 100vw;
-        background: var(--content-bg);
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Story Content Styles */
-    .story-single-container {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-        padding: 3rem 2vw 0 2vw;
-    }
-
-    /* Content wrapper for proper text centering within full-width container */
-    .story-content-wrapper {
-        max-width: none;
-        margin: 0 auto;
-        width: 100%;
-    }
-
-    .story-content-inner {
-        font-family: var(--serif-font);
-        font-size: calc(16px * 1.23);
-        line-height: 1.6;
-        color: var(--text-color);
-    }
-
-    /* Text elements limited to 900px width */
-    .story-content-inner p,
-    .story-content-inner h1,
-    .story-content-inner h2,
-    .story-content-inner h3,
-    .story-content-inner h4,
-    .story-content-inner h5,
-    .story-content-inner h6,
-    .story-content-inner ul,
-    .story-content-inner ol,
-    .story-content-inner blockquote {
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* H1 specific styling - center aligned */
-    .story-content-inner h1,
-    .story-content-inner h1.wp-block-heading {
-        text-align: center !important;
-    }
-
-    /* H3 specific styling - left aligned within container, properly centered */
-    .story-content-inner h3,
-    .story-content-inner h2.wp-block-heading,
-    .story-content-inner h3.wp-block-heading,
-    .story-content-inner h4.wp-block-heading,
-    .story-content-inner h5.wp-block-heading,
-    .story-content-inner h6.wp-block-heading {
-        text-align: left;
-        max-width: 900px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 100% !important;
-        display: block !important;
-    }
-
-    .story-content-inner p {
-        font-family: var(--serif-font) !important;
-        font-size: 24px !important;
-        margin-bottom: 1.5rem;
-    }
-
-    .story-content-inner p.story-meta {
-        margin-top: 16px;
-    }
-
-    /* Full-width images within container */
-    .story-content-inner img {
-        width: 100%; /* Full width of container */
-        max-width: 100%;
-        margin: 2rem auto 0 auto; /* Remove bottom margin */
-        display: block;
-    }
-
-    /* UAGB image blocks - ensure proper centering */
-    .story-content-inner .wp-block-uagb-image {
-        width: 100%;
-        max-width: 100%;
-        margin: 1.5rem auto 0 auto;
-        display: block;
-        text-align: center;
-    }
-
-    .story-content-inner .wp-block-uagb-image figure,
-    .story-content-inner .wp-block-uagb-image .wp-block-uagb-image__figure {
-        margin: 0;
-        text-align: center;
-        width: 100%;
-    }
-
-    /* Simple image caption below image */
-    .story-image-caption {
+    /* Hero image credit positioned below hero section */
+    .hero-image-credit {
+        position: absolute;
+        left: 2vw;
+        top: calc(100vh + 4px);
         font-family: var(--primary-font);
         font-size: 12px;
-        line-height: 1.4;
-        text-align: left; /* Bottom-left alignment */
-        margin-top: 8px;
-        margin-bottom: 32px; /* Add 32px bottom padding */
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .story-image-caption .caption-text {
-        font-weight: 600; /* Semi-bold for caption */
-        color: var(--text-color-muted); /* Use grey color variable */
-        display: inline; /* Same line */
-    }
-
-    .story-image-caption .credit-text {
-        font-weight: 400; /* Regular for credit */
         color: var(--text-color-muted);
-        display: inline; /* Same line */
+        z-index: 1000;
     }
 
-    .story-image-caption .credit-text::before {
-        content: " "; /* Space before credit */
-    }
-
-    .story-image-caption .pipe-separator {
-        font-weight: 400; /* Regular weight */
-        color: var(--text-color-muted); /* Same grey as text */
-    }
-
-    .story-content-inner h2 {
-        font-family: var(--serif-font);
-        font-size: calc(32px * 1.23);
-        font-weight: 400;
-        margin: 2rem 0 1rem 0;
-        color: var(--text-color);
-    }
-
-    .story-content-inner h3 {
-        font-family: var(--serif-font);
-        font-size: calc(24px * 1.23);
-        font-weight: 400;
-        margin: 1.5rem 0 1rem 0;
-        color: var(--text-color);
-    }
-
-    /* Story content links */
-    .story-content-inner a {
-        color: var(--text-color-muted);
-        text-decoration: none;
-    }
-
-    .story-content-inner a:hover {
-        color: var(--link-hover-color);
-    }
-
-    /* Audio block styling - matches contact button */
-    .story-content-inner .wp-block-audio,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio {
-        max-width: 900px;
-        margin: 0 auto !important;
-        padding: 20px;
-        background: var(--content-bg);
-        border: 1px solid var(--highlight-color);
-        border-radius: 25px;
-        transition: all 0.3s ease;
-    }
-
-    .story-content-inner .wp-block-audio:hover,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio:hover {
-        background: rgba(57, 229, 143, 0.05);
-    }
-
-    .story-content-inner .wp-block-audio audio,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio {
-        width: 100% !important;
-        outline: none;
-        height: 54px;
-        border-radius: 25px;
-    }
-
-    /* Style the audio controls */
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-panel,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-panel {
-        background: transparent;
-    }
-
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-play-button,
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-current-time-display,
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-time-remaining-display,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-play-button,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-current-time-display,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-time-remaining-display {
-        color: var(--text-color);
-    }
-
-    .story-content-inner .wp-block-audio audio::-webkit-media-controls-timeline,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio audio::-webkit-media-controls-timeline {
-        color: var(--highlight-color);
-    }
-
-    .story-content-inner .wp-block-audio figcaption,
-    .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio figcaption {
-        font-family: var(--primary-font);
-        font-size: 14px;
-        color: var(--text-color-muted);
-        margin-top: 12px;
-        text-align: center;
-    }
-
-    .story-image-credit {
-        font-size: 12px;
-        color: var(--text-color-muted);
-        text-align: right;
-        margin-top: 4px;
-        padding: 2px 0;
-    }
-
-    /* Mobile Responsive */
+    /* Mobile Responsive - Hero Specific */
     @media (max-width: 768px) {
         .story-hero-content {
             width: 96vw;
@@ -410,62 +147,10 @@ get_header('branded'); ?>
             margin-bottom: 1.5rem;
         }
 
-        .main-content {
-            padding: 0 4vw;
-        }
-
-        .story-single-container {
-            padding: 2rem 4vw;
-        }
-
-        .story-content-inner {
-            font-size: calc(16px * 1.23);
-        }
-
-        .story-content-inner p {
-            font-size: 18px !important;
-        }
-
-        /* Mobile images use full container width */
-        .story-content-inner img {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .story-content-inner .wp-block-uagb-image {
-            width: 100%;
-            max-width: 100%;
-            margin-top: 0.5rem;
-        }
-
-        .story-content-inner .wp-block-uagb-image img {
-            margin-top: 0 !important;
-        }
-
-        .story-image-caption {
-            width: 100%;
-        }
-
-        .story-header-nav {
-            font-size: 14px;
-        }
-
-        .story-header-contact {
-            font-size: 14px;
-        }
-    }
-
-    @media (max-width: 1200px) {
-        .story-content-inner .wp-block-uagb-image {
-            margin-top: 0.5rem;
-        }
-
-        .story-content-inner .wp-block-uagb-image img {
-            margin-top: 0 !important;
-        }
-
-        .story-header-nav {
-            font-size: 16px;
+        .hero-image-credit {
+            left: 2vw;
+            top: calc(100vh + 12px);
+            text-align: left;
         }
     }
 
@@ -480,118 +165,6 @@ get_header('branded'); ?>
 
         .story-hero-text h2 {
             margin-bottom: 1rem;
-        }
-
-        .story-header-nav {
-            font-size: 16px;
-        }
-
-        .story-header-contact {
-            font-size: 14px;
-        }
-    }
-
-    /* Story-specific header modifications */
-    .story-header-nav {
-        position: absolute;
-        left: 2vw;
-        top: 50%;
-        transform: translateY(-50%);
-        color: white;
-        font-family: var(--primary-font);
-        font-size: 20px;
-        font-weight: 400;
-        text-decoration: none;
-        cursor: pointer;
-        z-index: 1002;
-        transition: all 0.3s ease;
-    }
-
-    .site-header:not(.over-full-bleed) .story-header-nav {
-        color: #000 !important;
-    }
-
-    .story-header-contact {
-        position: absolute;
-        right: 2vw;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid white;
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-family: var(--primary-font);
-        font-size: 16px;
-        font-weight: 400;
-        text-decoration: none;
-        cursor: pointer;
-        z-index: 1002;
-        transition: all 0.3s ease;
-    }
-
-    .site-header:not(.over-full-bleed) .story-header-contact {
-        background: rgba(0, 0, 0, 0.05) !important;
-        border-color: #000 !important;
-        color: #000 !important;
-    }
-
-    .story-header-contact:hover {
-        background: white !important;
-        color: #000 !important;
-    }
-
-    .site-header:not(.over-full-bleed) .story-header-contact:hover {
-        background: #000 !important;
-        color: white !important;
-    }
-
-    /* Dark mode story header styling */
-    @media (prefers-color-scheme: dark) {
-        .site-header:not(.over-full-bleed) .story-header-nav {
-            color: white !important;
-        }
-
-        .site-header:not(.over-full-bleed) .story-header-contact {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-color: white !important;
-            color: white !important;
-        }
-
-        .site-header:not(.over-full-bleed) .story-header-contact:hover {
-            background: white !important;
-            color: #000 !important;
-        }
-    }
-
-    /* Caption styling for photo credits */
-    .caption {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        font-family: var(--primary-font);
-        font-size: 12px;
-        color: white;
-        z-index: 10;
-    }
-
-    /* Hero image credit positioned below hero section */
-    .hero-image-credit {
-        position: absolute;
-        left: 2vw;
-        top: calc(100vh + 4px);
-        font-family: var(--primary-font);
-        font-size: 12px;
-        color: var(--text-color-muted);
-        z-index: 1000;
-    }
-
-    /* Mobile responsive for hero image credit */
-    @media (max-width: 768px) {
-        .hero-image-credit {
-            left: 2vw;
-            top: calc(100vh + 12px);
-            text-align: left;
         }
     }
 </style>
