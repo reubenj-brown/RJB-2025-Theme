@@ -423,3 +423,129 @@ html, body {
         font-size: 14px;
     }
 }
+
+/* Architecture Scroller - Comprehensive Styling for Story Pages */
+.architecture-scroll {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    padding-bottom: 16px; /* Space for scrollbar */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    margin-top: 64px; /* Space between sections */
+    border-top: 2px solid #808080;
+    padding-top: 12px; /* Space below dividing line */
+}
+
+/* Custom scrollbar styling for architecture scroll */
+.architecture-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.architecture-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.architecture-scroll::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.architecture-scroll::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Dark mode scrollbar */
+@media (prefers-color-scheme: dark) {
+    .architecture-scroll::-webkit-scrollbar-track {
+        background: #2a2a2a;
+    }
+
+    .architecture-scroll::-webkit-scrollbar-thumb {
+        background: #555;
+    }
+
+    .architecture-scroll::-webkit-scrollbar-thumb:hover {
+        background: #666;
+    }
+}
+
+/* Scroll Items - Match Photography section dimensions */
+.architecture-scroll-item {
+    flex: 0 0 450px; /* Fixed width for horizontal scroll */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Architecture section image styling - match story grid 4:3 aspect ratio */
+.architecture-scroll-item .story-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+}
+
+.architecture-scroll-item .story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Architecture scroll area text spacing and styling */
+.architecture-scroll-item .story-content h2 {
+    margin-bottom: 16px;
+    font-size: 24px !important; /* 24px headline on desktop */
+    font-family: var(--serif-font) !important;
+}
+
+.architecture-scroll-item .story-link:hover h2 {
+    color: var(--highlight-color);
+}
+
+.architecture-scroll-item .story-content p:not(.story-meta) {
+    margin-bottom: 16px;
+    color: var(--text-color-muted); /* Grey standfirst text */
+    font-family: var(--serif-font) !important;
+}
+
+.architecture-scroll-item .story-content .story-meta {
+    margin-bottom: 0;
+    font-family: var(--primary-font) !important; /* Innovator Grotesk font */
+    font-size: 14px;
+    color: var(--text-color-muted);
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .architecture-scroll {
+        gap: 2rem;
+    }
+
+    .architecture-scroll-item {
+        flex: 0 0 350px; /* Mobile width */
+    }
+
+    .architecture-scroll-item .story-content h2 {
+        font-size: 20px !important; /* Smaller on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .architecture-scroll {
+        gap: 2rem;
+    }
+
+    .architecture-scroll-item {
+        flex: 0 0 300px; /* Small mobile width */
+    }
+
+    .architecture-scroll-item .story-content h2 {
+        font-size: 18px !important; /* Smaller on small mobile */
+    }
+}
