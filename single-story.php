@@ -173,6 +173,30 @@ get_header('branded'); ?>
             margin-bottom: 1rem;
         }
     }
+
+    /* Body paragraph styling - Legitima serif font */
+    .story-content-inner p {
+        font-family: var(--serif-font) !important;
+        font-size: 24px !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .story-content-inner p.story-meta {
+        margin-top: 16px;
+    }
+
+    /* Mobile responsive paragraph sizing */
+    @media (max-width: 768px) {
+        .story-content-inner p {
+            font-size: 20px !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .story-content-inner p {
+            font-size: 18px !important;
+        }
+    }
 </style>
 
 <script>
