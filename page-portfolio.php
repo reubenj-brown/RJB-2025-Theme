@@ -417,7 +417,7 @@ get_header('branded'); ?>
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
         <div class="strategy-intro">
-                <h3 class="serif-font-scaled" id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. Book my next job — or contact me for anything else — below:</h3>
+                <h3 class="serif-font-scaled" id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
         </div> 
     </main>
 
