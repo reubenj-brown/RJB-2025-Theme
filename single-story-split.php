@@ -182,9 +182,24 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         }
     }
 
-    /* Split-specific padding adjustment */
+    /* Split-specific padding and margin adjustment */
     .story-single-container {
+        margin-top: calc(2vw + 60px);
         padding: 4rem 2vw 0 2vw;
+    }
+
+    /* Tablet responsive adjustments for content margin */
+    @media (max-width: 1200px) {
+        .story-single-container {
+            margin-top: 61px;
+        }
+    }
+
+    /* Mobile responsive adjustments for content margin */
+    @media (max-width: 768px) {
+        .story-single-container {
+            margin-top: 56px;
+        }
     }
 
     /* Header styling for split template */

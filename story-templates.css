@@ -43,22 +43,7 @@ html, body {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
-    margin-top: calc(2vw + 60px);
     padding: 3rem 2vw 0 2vw;
-}
-
-/* Tablet responsive adjustments for content margin */
-@media (max-width: 1200px) {
-    .story-single-container {
-        margin-top: 61px;
-    }
-}
-
-/* Mobile responsive adjustments for content margin */
-@media (max-width: 768px) {
-    .story-single-container {
-        margin-top: 56px;
-    }
 }
 
 /* Content wrapper for proper text centering within full-width container */
