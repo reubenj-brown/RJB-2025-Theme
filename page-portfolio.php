@@ -402,6 +402,9 @@ get_header('branded'); ?>
         <section class="content-section reviews-section" id="reviews">
             <?php echo do_shortcode('[reuben_reviews]'); ?>
         </section>
+                <section class="content-section architecture-section" id="architecture">
+            <?php echo do_shortcode('[reuben_architecture]'); ?>
+        </section>
 
             <div class="strategy-intro">
                 <h3 class="serif-font-scaled" id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/11/Reuben_J_Brown_Investigative_Journalist_CV_November-2025.pdf">PDF version</a></h3>
