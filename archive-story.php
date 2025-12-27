@@ -118,6 +118,59 @@ get_header('branded'); ?>
             ?>
         </div>
     </div>
+
+    <!-- Stories Grid -->
+    <div class="stories-content">
+        <div class="stories-grid">
+            <?php if (have_posts()) : ?>
+                <?php while (have_posts()) : the_post(); ?>
+                    <article class="story-item">
+                        <a href="<?php the_permalink(); ?>" class="story-link">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <div class="story-image">
+                                    <?php the_post_thumbnail('large'); ?>
+                                </div>
+                                <?php
+                                $photo_credit = get_post_meta(get_the_ID(), 'photo_credit', true);
+                                if ($photo_credit) :
+                                ?>
+                                    <div class="caption"><?php echo esc_html($photo_credit); ?></div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <div class="story-content">
+                                <h2><?php the_title(); ?></h2>
+
+                                <?php if (has_excerpt()) : ?>
+                                    <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                                <?php endif; ?>
+
+                                <?php
+                                $metadata = function_exists('get_story_metadata') ? get_story_metadata(get_the_ID()) : [];
+                                if (!empty($metadata['medium']) || !empty($metadata['publication']) || !empty($metadata['publish_date'])) :
+                                ?>
+                                    <p class="story-meta">
+                                        <?php if (!empty($metadata['medium'])) : ?>
+                                            <?php echo esc_html($metadata['medium']); ?>
+                                        <?php endif; ?>
+                                        <?php if (!empty($metadata['publication'])) : ?>
+                                            <?php echo !empty($metadata['medium']) ? ' for ' : 'For '; ?><i><?php echo esc_html($metadata['publication']); ?></i>
+                                        <?php endif; ?>
+                                        <?php if (!empty($metadata['publish_date'])) : ?>
+                                            <?php echo !empty($metadata['publication']) ? ' in ' : ''; ?>
+                                            <?php echo date('F Y', strtotime($metadata['publish_date'])); ?>
+                                        <?php endif; ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+                        </a>
+                    </article>
+                <?php endwhile; ?>
+            <?php else : ?>
+                <p class="no-stories-message">No stories found.</p>
+            <?php endif; ?>
+        </div>
+    </div>
 </main>
 
 <?php get_footer('branded'); ?>
