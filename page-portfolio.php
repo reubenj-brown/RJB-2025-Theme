@@ -249,7 +249,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-link {
-                    font-size: 55px !important; /* Match About section mobile size */
+                    font-size: 48px !important;
                     font-weight: 400;
                 }
             }
@@ -257,7 +257,7 @@ add_action('wp_head', function() {
             /* Small Mobile Responsive - See breakpoint reference in plugin base-sections.css */
             @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
                 .contact-link {
-                    font-size: 45px !important; /* Match About section small mobile size */
+                    font-size: 48px !important;
                 }
             }
         </style>
