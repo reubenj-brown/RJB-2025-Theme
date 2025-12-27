@@ -13,11 +13,6 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
-// Enqueue stories section CSS
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_style('stories-section', plugins_url('reuben-portfolio-sections/assets/stories-section.css'), array(), '1.0.0');
-}, 10);
-
 get_header('branded'); ?>
 
 <style>
@@ -37,21 +32,6 @@ get_header('branded'); ?>
     .stories-archive-container {
         width: 100%;
         padding: 3rem 2vw;
-    }
-
-    .back-to-portfolio {
-        margin-bottom: 2rem;
-    }
-
-    .back-to-portfolio a {
-        color: var(--highlight-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-
-    .back-to-portfolio a:hover {
-        color: #2dc776;
     }
 
     .archive-header {
@@ -86,19 +66,24 @@ get_header('branded'); ?>
     }
 
     .story-category-filter a {
-        color: #808080;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.5rem 1rem;
-        border: 1px solid #e0e0e0;
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid #000;
+        color: #000;
         border-radius: 20px;
+        font-family: var(--primary-font);
+        font-size: 16px;
+        font-weight: 400;
+        text-decoration: none;
+        cursor: pointer;
         transition: all 0.3s ease;
     }
 
     .story-category-filter a:hover,
     .story-category-filter a.active {
-        color: var(--highlight-color);
-        border-color: var(--highlight-color);
+        background: #000;
+        color: white;
     }
 
     .stories-archive-grid {
@@ -177,11 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Main Content -->
 <main class="main-content">
     <div class="stories-archive-container">
-        <!-- Back to Portfolio Link -->
-        <div class="back-to-portfolio">
-            <a href="<?php echo home_url('/'); ?>">← Back to Portfolio</a>
-        </div>
-
         <header class="archive-header">
             <!-- Category Filter -->
             <?php
