@@ -30,9 +30,11 @@ get_header('branded'); ?>
 <style>
     /* Main Content */
     .main-content {
-        margin-top: calc(60px + 2vw);
+        margin-top: calc(60px + 2vw + env(safe-area-inset-top));
         min-height: calc(100vh - 200px);
         padding: 0 2vw;
+        padding-left: calc(2vw + env(safe-area-inset-left));
+        padding-right: calc(2vw + env(safe-area-inset-right));
         width: 100vw;
         max-width: 100vw;
         background: white;

@@ -31,6 +31,8 @@ html, body {
     margin-top: 0;
     min-height: calc(100vh - 200px);
     padding: 0 2vw;
+    padding-left: calc(2vw + env(safe-area-inset-left));
+    padding-right: calc(2vw + env(safe-area-inset-right));
     width: 100vw;
     max-width: 100vw;
     background: var(--content-bg);
