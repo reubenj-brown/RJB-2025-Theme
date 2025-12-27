@@ -37,7 +37,29 @@ get_header('branded'); ?>
         display: flex;
         justify-content: center;
         gap: 1rem;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+    }
+
+    /* Optional: Hide scrollbar for cleaner look */
+    .category-filter-buttons::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .category-filter-buttons::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .category-filter-buttons::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+
+    .category-filter-buttons::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
     }
 
     /* Active state for filter buttons */
