@@ -13,6 +13,11 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
+// Enqueue stories section CSS
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_style('stories-section', plugins_url('reuben-portfolio-sections/assets/stories-section.css'), array(), '1.0.0');
+}, 10);
+
 get_header('branded'); ?>
 
 <style>
@@ -30,9 +35,8 @@ get_header('branded'); ?>
 
     /* Archive Styles */
     .stories-archive-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 3rem 2rem;
+        width: 100%;
+        padding: 3rem 2vw;
     }
 
     .back-to-portfolio {
@@ -104,71 +108,6 @@ get_header('branded'); ?>
         margin-bottom: 3rem;
     }
 
-    .story-archive-item {
-        position: relative;
-    }
-
-    .story-archive-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        transition: transform 0.3s ease;
-    }
-
-    .story-archive-link:hover {
-        transform: translateY(-5px);
-    }
-
-    .story-archive-image {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 4/3;
-        overflow: hidden;
-        margin-bottom: 8px;
-    }
-
-    .story-archive-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        display: block;
-    }
-
-    .story-archive-credit {
-        font-size: 12px;
-        color: #808080;
-        text-align: right;
-        margin-top: 4px;
-        margin-bottom: 1rem;
-    }
-
-    .story-archive-title {
-        font-family: var(--serif-font);
-        font-size: calc(24px * 1.23);
-        font-weight: 400;
-        line-height: 1.3;
-        margin-bottom: 0.5rem;
-        color: #000;
-    }
-
-    .story-archive-excerpt {
-        font-size: 16px;
-        line-height: 1.5;
-        color: #666;
-        margin-bottom: 1rem;
-    }
-
-    .story-archive-publication {
-        font-size: 14px;
-        color: #808080;
-    }
-
-    .story-archive-publication em {
-        color: #000;
-        font-style: italic;
-    }
-
     .no-stories {
         text-align: center;
         font-size: 18px;
@@ -202,6 +141,39 @@ get_header('branded'); ?>
     }
 </style>
 
+<script>
+// Replace header navigation for story archive page
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.site-header');
+    const mainNav = header.querySelector('.main-nav');
+    const contactPill = header.querySelector('.contact-pill');
+    const siteTitle = header.querySelector('.site-title-name');
+
+    // Remove existing navigation elements
+    if (mainNav) mainNav.remove();
+    if (contactPill) contactPill.remove();
+
+    // Update site title to link to home
+    if (siteTitle) {
+        siteTitle.href = '/';
+    }
+
+    // Create new story navigation
+    const storyNav = document.createElement('a');
+    storyNav.href = '/';
+    storyNav.className = 'story-header-nav';
+    storyNav.textContent = '← Home';
+    header.appendChild(storyNav);
+
+    // Create new contact button
+    const contactButton = document.createElement('a');
+    contactButton.href = '/#contact';
+    contactButton.className = 'story-header-contact';
+    contactButton.textContent = 'contact →';
+    header.appendChild(contactButton);
+});
+</script>
+
 <!-- Main Content -->
 <main class="main-content">
     <div class="stories-archive-container">
@@ -211,9 +183,6 @@ get_header('branded'); ?>
         </div>
 
         <header class="archive-header">
-            <h1 class="archive-title">All Stories</h1>
-            <p class="archive-description">A collection of journalism, essays, and multimedia stories by Reuben J. Brown</p>
-            
             <!-- Category Filter -->
             <?php
             $categories = get_terms([
@@ -241,44 +210,42 @@ get_header('branded'); ?>
         <div class="stories-archive-grid">
             <?php if (have_posts()) : ?>
                 <?php while (have_posts()) : the_post(); ?>
-                    <article class="story-archive-item">
-                        <a href="<?php the_permalink(); ?>" class="story-archive-link">
+                    <article class="story-item">
+                        <a href="<?php the_permalink(); ?>" class="story-link">
                             <?php if (has_post_thumbnail()) : ?>
-                                <div class="story-archive-image">
+                                <div class="story-image">
                                     <?php the_post_thumbnail('medium'); ?>
                                 </div>
                                 <?php
                                 $photo_credit = get_field('photo_credit');
                                 if ($photo_credit) :
                                 ?>
-                                    <div class="story-archive-credit"><?php echo esc_html($photo_credit); ?></div>
+                                    <div class="caption"><?php echo esc_html($photo_credit); ?></div>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            
-                            <div class="story-archive-content">
-                                <h2 class="story-archive-title"><?php the_title(); ?></h2>
-                                
+
+                            <div class="story-content">
+                                <h2><?php the_title(); ?></h2>
+
                                 <?php if (has_excerpt()) : ?>
-                                    <p class="story-archive-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                                    <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
                                 <?php endif; ?>
-                                
-                                <div class="story-archive-meta">
-                                    <?php
-                                    $publication = get_field('publication');
-                                    $publish_date = get_field('publish_date');
-                                    ?>
-                                    <?php if ($publication || $publish_date) : ?>
-                                        <span class="story-archive-publication">
-                                            <?php if ($publication) : ?>
-                                                For <em><?php echo esc_html($publication); ?></em>
-                                            <?php endif; ?>
-                                            <?php if ($publish_date) : ?>
-                                                <?php echo $publication ? ' in ' : ''; ?>
-                                                <?php echo esc_html($publish_date); ?>
-                                            <?php endif; ?>
-                                        </span>
-                                    <?php endif; ?>
-                                </div>
+
+                                <?php
+                                $publication = get_field('publication');
+                                $publish_date = get_field('publish_date');
+                                ?>
+                                <?php if ($publication || $publish_date) : ?>
+                                    <p class="story-meta">
+                                        <?php if ($publication) : ?>
+                                            For <i><?php echo esc_html($publication); ?></i>
+                                        <?php endif; ?>
+                                        <?php if ($publish_date) : ?>
+                                            <?php echo $publication ? ' in ' : ''; ?>
+                                            <?php echo esc_html($publish_date); ?>
+                                        <?php endif; ?>
+                                    </p>
+                                <?php endif; ?>
                             </div>
                         </a>
                     </article>
