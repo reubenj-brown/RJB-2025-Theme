@@ -41,6 +41,8 @@ get_header('branded'); ?>
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+        padding-bottom: 10px; /* Space for scrollbar */
+        margin-bottom: -10px; /* Compensate for padding */
     }
 
     /* Optional: Hide scrollbar for cleaner look */
