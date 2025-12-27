@@ -419,7 +419,7 @@
     }
 
     /* Mobile Responsive - Further size reduction */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .site-header {
             max-width: 100vw;
         }

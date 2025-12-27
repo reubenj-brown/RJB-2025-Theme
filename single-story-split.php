@@ -162,14 +162,14 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     }
 
     /* Mobile responsive adjustments for header height changes */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .story-hero-full-bleed {
             top: 56px;
             height: calc(100vh - 56px);
         }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 480px), (max-height: 480px) {
         .story-hero-content {
             padding: 1.5rem;
         }
@@ -197,7 +197,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     }
 
     /* Mobile responsive adjustments for content margin */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .story-single-container {
             margin-top: 56px;
         }

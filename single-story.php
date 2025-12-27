@@ -131,7 +131,7 @@ get_header('branded'); ?>
     }
 
     /* Mobile Responsive - Hero Specific */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .story-hero-content {
             width: 96vw;
         }
@@ -160,7 +160,7 @@ get_header('branded'); ?>
         }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 480px), (max-height: 480px) {
         .story-hero-content {
             padding: 1.5rem;
         }
@@ -186,13 +186,13 @@ get_header('branded'); ?>
     }
 
     /* Mobile responsive paragraph sizing */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .story-content-inner p:not(.story-meta) {
             font-size: 20px !important;
         }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 480px), (max-height: 480px) {
         .story-content-inner p:not(.story-meta) {
             font-size: 18px !important;
         }

@@ -115,7 +115,7 @@ get_header('branded'); ?>
     }
 
     /* Mobile Responsive */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .main-content {
             padding: 0 4vw;
         }

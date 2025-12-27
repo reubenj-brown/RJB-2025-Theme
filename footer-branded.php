@@ -164,7 +164,7 @@
     }
 
     /* Mobile Responsive */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) {
         .site-footer {
             padding: 3vw 4vw 2vw 4vw;
         }

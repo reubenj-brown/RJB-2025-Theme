@@ -168,7 +168,7 @@ add_action('wp_head', function() {
 
 
             /* Mobile responsive */
-            @media (max-width: 768px) {
+            @media (max-width: 768px), (max-height: 768px) {
                 /* Hero section headline on mobile */
                 .featured-story-full-bleed h2,
                 .featured-story-full-bleed h2 i {
@@ -208,7 +208,7 @@ add_action('wp_head', function() {
             }
 
             /* General Mobile Responsive */
-            @media (max-width: 768px) {
+            @media (max-width: 768px), (max-height: 768px) {
                 .section-heading {
                     font-size: 24px;
                     line-height: 28px;
@@ -255,7 +255,7 @@ add_action('wp_head', function() {
             }
 
             /* Small Mobile Responsive */
-            @media (max-width: 480px) {
+            @media (max-width: 480px), (max-height: 480px) {
                 .contact-link {
                     font-size: 45px !important; /* Match About section small mobile size */
                 }
