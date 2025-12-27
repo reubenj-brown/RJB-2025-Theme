@@ -21,6 +21,9 @@
         bottom: 0;
         background: transparent;
         padding: 1vw 2vw;
+        padding-bottom: calc(1vw + env(safe-area-inset-bottom));
+        padding-left: calc(2vw + env(safe-area-inset-left));
+        padding-right: calc(2vw + env(safe-area-inset-right));
         z-index: 1001; /* Ensure footer sits above contact section gradient */
     }
 

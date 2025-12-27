@@ -2,7 +2,7 @@
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo('charset'); ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#39e58f">
 <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
 
@@ -192,7 +192,10 @@
         background: transparent;
         transition: all 0.5s ease;
         padding: 0;
-        height: calc(60px + 2vw);
+        padding-top: env(safe-area-inset-top);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        height: calc(60px + 2vw + env(safe-area-inset-top));
     }
 
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
