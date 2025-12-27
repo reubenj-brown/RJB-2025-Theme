@@ -20,6 +20,11 @@ add_action('pre_get_posts', function($query) {
     }
 });
 
+// Add story templates CSS for header styling
+add_action('wp_head', function() {
+    echo '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/story-templates/story-templates.css?v=' . wp_get_theme()->get('Version') . '">' . "\n";
+}, 999);
+
 get_header('branded'); ?>
 
 <style>
