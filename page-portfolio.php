@@ -408,13 +408,13 @@ get_header('branded'); ?>
         </section>
 
             <div class="strategy-intro">
-                <h3 class="serif-font-scaled" id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/11/Reuben_J_Brown_Investigative_Journalist_CV_November-2025.pdf">PDF version</a></h3>
+                <h3 id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/11/Reuben_J_Brown_Investigative_Journalist_CV_November-2025.pdf">PDF version</a></h3>
             </div> 
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
         <div class="strategy-intro">
-                <h3 class="serif-font-scaled" id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
+                <h3 id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
         </div> 
     </main>
 
