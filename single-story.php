@@ -175,7 +175,7 @@ get_header('branded'); ?>
     }
 
     /* Body paragraph styling - Legitima serif font */
-    .story-content-inner p {
+    .story-content-inner p:not(.story-meta) {
         font-family: var(--serif-font) !important;
         font-size: 24px !important;
         margin-bottom: 1.5rem;
@@ -187,13 +187,13 @@ get_header('branded'); ?>
 
     /* Mobile responsive paragraph sizing */
     @media (max-width: 768px) {
-        .story-content-inner p {
+        .story-content-inner p:not(.story-meta) {
             font-size: 20px !important;
         }
     }
 
     @media (max-width: 480px) {
-        .story-content-inner p {
+        .story-content-inner p:not(.story-meta) {
             font-size: 18px !important;
         }
     }

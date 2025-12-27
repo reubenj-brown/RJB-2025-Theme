@@ -179,7 +179,7 @@ get_header('branded'); ?>
             margin-bottom: 1.5rem;
         }
 
-        .story-content-inner p {
+        .story-content-inner p:not(.story-meta) {
             font-size: 18px !important;
         }
 
@@ -208,7 +208,7 @@ get_header('branded'); ?>
     }
 
     /* Video-specific content paragraph sizing */
-    .story-content-inner p {
+    .story-content-inner p:not(.story-meta) {
         font-family: var(--serif-font) !important;
         font-size: 24px !important;
         margin-bottom: 1.5rem;
