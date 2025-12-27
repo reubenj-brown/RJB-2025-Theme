@@ -163,8 +163,8 @@
         }
     }
 
-    /* Mobile Responsive */
-    @media (max-width: 768px), (max-height: 768px) {
+    /* Mobile Responsive - See breakpoint reference in plugin base-sections.css */
+    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .site-footer {
             padding: 3vw 4vw 2vw 4vw;
         }

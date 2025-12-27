@@ -418,8 +418,8 @@
         }
     }
 
-    /* Mobile Responsive - Further size reduction */
-    @media (max-width: 768px), (max-height: 768px) {
+    /* Mobile Responsive - Further size reduction - See breakpoint reference in plugin base-sections.css */
+    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .site-header {
             max-width: 100vw;
         }

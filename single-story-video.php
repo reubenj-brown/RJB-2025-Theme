@@ -155,8 +155,8 @@ get_header('branded'); ?>
         z-index: 1000;
     }
 
-    /* Mobile Responsive - Video Hero Specific */
-    @media (max-width: 768px), (max-height: 768px) {
+    /* Mobile Responsive - Video Hero Specific - See breakpoint reference in plugin base-sections.css */
+    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .story-hero-content {
             width: 96vw;
             bottom: 5vh;
@@ -190,7 +190,7 @@ get_header('branded'); ?>
         }
     }
 
-    @media (max-width: 480px), (max-height: 480px) {
+    @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
         .story-hero-content {
             padding: 1.5rem;
             bottom: 3vh;
