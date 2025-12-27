@@ -10,7 +10,7 @@
                 <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact ↓</a>
             </div>
             <?php endif; ?>
-            <div class="copyright caption">© Reuben J. Brown 2025</div>
+            <div class="copyright">© Reuben J. Brown 2025</div>
         </div>
     </footer>
 
@@ -104,9 +104,12 @@
 
     .copyright {
         color: #808080;
+        background: transparent;
         font-size: 16px;
         font-family: var(--primary-font);
-        transition: all 0.5s ease;
+        transition: all 0.5s ease;    font-family: var(--primary-font);
+        color: var(--text-color-muted);
+        text-align: right;
     }
 
     .footer-logo {
