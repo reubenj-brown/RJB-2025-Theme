@@ -29,7 +29,7 @@ get_header('branded'); ?>
 
     /* Category Filter Buttons */
     .category-filter {
-        padding: 96px 0 64px 0;
+        padding: 3rem 0;
         text-align: center;
     }
 
@@ -41,7 +41,6 @@ get_header('branded'); ?>
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 8px;
     }
 
     /* Optional: Hide scrollbar for cleaner look */
@@ -83,7 +82,7 @@ get_header('branded'); ?>
         }
 
         .category-filter {
-            padding: 48px 0 24px 0;
+            padding: 2rem 0;
         }
     }
 </style>
