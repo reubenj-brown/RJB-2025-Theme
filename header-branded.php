@@ -563,7 +563,7 @@
         
         if (isContactVisible) {
             // Contact section is visible - show up arrow and link to top
-            contactButton.textContent = 'contact ↑';
+            contactButton.textContent = 'top ↑';
             contactButton.href = '<?php echo home_url('/#top'); ?>';
         } else {
             // Contact section is not visible - show down arrow and link to contact
