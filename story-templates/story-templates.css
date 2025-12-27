@@ -103,8 +103,15 @@ html, body {
     display: block !important;
 }
 
-.story-content-inner p {
+/* Body paragraph styling - Legitima serif font for story pages */
+.story-content-inner p:not(.story-meta) {
+    font-family: var(--serif-font) !important;
+    font-size: 24px !important;
     margin-bottom: 1.5rem;
+}
+
+.story-content-inner p.story-meta {
+    margin-top: 16px;
 }
 
 /* Full-width images within container */
@@ -391,6 +398,11 @@ html, body {
         font-size: calc(16px * 1.23);
     }
 
+    /* Mobile responsive paragraph sizing */
+    .story-content-inner p:not(.story-meta) {
+        font-size: 20px !important;
+    }
+
     /* Mobile images use full container width */
     .story-content-inner img {
         width: 100%;
@@ -419,6 +431,11 @@ html, body {
 @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
     .story-header-nav {
         font-size: 16px;
+    }
+
+    /* Small mobile responsive paragraph sizing */
+    .story-content-inner p:not(.story-meta) {
+        font-size: 18px !important;
     }
 }
 
