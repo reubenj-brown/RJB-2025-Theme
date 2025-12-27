@@ -560,15 +560,18 @@
         
         // Check if contact section is visible (at least 30% in viewport)
         const isContactVisible = contactRect.top <= viewportHeight * 0.7 && contactRect.bottom >= viewportHeight * 0.3;
-        
-        if (isContactVisible) {
-            // Contact section is visible - show up arrow and link to top
-            contactButton.textContent = 'top ↑';
-            contactButton.href = '<?php echo home_url('/#top'); ?>';
-        } else {
-            // Contact section is not visible - show down arrow and link to contact
-            contactButton.textContent = 'contact ↓';
-            contactButton.href = '<?php echo home_url('/#contact'); ?>';
+
+        const newText = isContactVisible ? 'top ↑' : 'contact ↓';
+        const newHref = isContactVisible ? '<?php echo home_url('/#top'); ?>' : '<?php echo home_url('/#contact'); ?>';
+
+        // Only animate if text is actually changing
+        if (contactButton.textContent !== newText) {
+            contactButton.style.opacity = '0';
+            setTimeout(() => {
+                contactButton.textContent = newText;
+                contactButton.href = newHref;
+                contactButton.style.opacity = '1';
+            }, 150); // Half of 300ms transition
         }
     }
     
