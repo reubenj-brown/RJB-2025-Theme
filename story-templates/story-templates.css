@@ -369,6 +369,10 @@ html, body {
     .story-header-nav {
         font-size: 16px;
     }
+
+    .story-header-contact {
+        font-size: 14px;
+    }
 }
 
 /* Mobile Responsive */
@@ -408,19 +412,11 @@ html, body {
     .story-header-nav {
         font-size: 14px;
     }
-
-    .story-header-contact {
-        font-size: 14px;
-    }
 }
 
 @media (max-width: 480px) {
     .story-header-nav {
         font-size: 16px;
-    }
-
-    .story-header-contact {
-        font-size: 14px;
     }
 }
 
