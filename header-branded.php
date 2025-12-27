@@ -286,7 +286,7 @@
         font-size: 16px;
         font-weight: 400;
         color: #000;
-        transition: all 0.3s ease;
+        transition: all 0.12s ease;
     }
 
     .contact-pill:hover {
@@ -571,7 +571,7 @@
                 contactButton.textContent = newText;
                 contactButton.href = newHref;
                 contactButton.style.opacity = '1';
-            }, 150); // Half of 300ms transition
+            }, 60); // Half of 120ms transition
         }
     }
     
