@@ -13,6 +13,13 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
+// Show all stories on archive page (no pagination)
+add_action('pre_get_posts', function($query) {
+    if (!is_admin() && $query->is_main_query() && (is_post_type_archive('story') || is_tax('story_category'))) {
+        $query->set('posts_per_page', -1);
+    }
+});
+
 get_header('branded'); ?>
 
 <style>
