@@ -179,9 +179,7 @@ get_header('branded'); ?>
             margin-bottom: 1.5rem;
         }
 
-        .story-content-inner p:not(.story-meta) {
-            font-size: 18px !important;
-        }
+        /* Body paragraph sizing now in story-templates.css */
 
         .hero-image-credit {
             left: 2vw;
@@ -207,16 +205,7 @@ get_header('branded'); ?>
         }
     }
 
-    /* Video-specific content paragraph sizing */
-    .story-content-inner p:not(.story-meta) {
-        font-family: var(--serif-font) !important;
-        font-size: 24px !important;
-        margin-bottom: 1.5rem;
-    }
-
-    .story-content-inner p.story-meta {
-        margin-top: 16px;
-    }
+    /* Body paragraph styling now in story-templates.css */
 </style>
 
 <script>
