@@ -28,6 +28,7 @@
     }
 
     /* Smoother gradient blur effect for footer - 3 points with softer transitions */
+    /* Extended into safe area for iOS/Liquid Glass UI */
     .site-footer::before {
         content: '';
         position: absolute;
@@ -35,6 +36,8 @@
         left: 0;
         right: 0;
         bottom: 0;
+        margin-bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+        padding-bottom: env(safe-area-inset-bottom, 0px);
         backdrop-filter: blur(8px);
         mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
         -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
@@ -48,6 +51,8 @@
         left: 0;
         right: 0;
         bottom: 0;
+        margin-bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+        padding-bottom: env(safe-area-inset-bottom, 0px);
         backdrop-filter: blur(3px);
         mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
         -webkit-mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
@@ -62,6 +67,8 @@
         left: 0;
         right: 0;
         bottom: 0;
+        margin-bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+        padding-bottom: env(safe-area-inset-bottom, 0px);
         backdrop-filter: blur(5px);
         mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
         -webkit-mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
