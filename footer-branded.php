@@ -200,8 +200,8 @@
     background: transparent !important; 
     
     /* 2. Safari-specific prefix is MANDATORY for backdrop-filter */
-    -webkit-backdrop-filter: blur(8px) saturate(180%); 
-    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px); 
+    backdrop-filter: blur(8px);
 
     /* 3. The "Secret Sauce": Force Hardware Acceleration */
     -webkit-transform: translateZ(0);
