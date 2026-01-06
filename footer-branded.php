@@ -1,5 +1,6 @@
     <!-- Footer -->
     <footer class="site-footer" id="site-footer">
+    <div class="footer-blur-background"></div>
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
@@ -166,39 +167,41 @@
     /* Mobile Responsive - See breakpoint reference in plugin base-sections.css; Optimized for Safari Liquid Glass */
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
     .site-footer {
-        /* 1. Use 'dvh' to ensure the footer stays at the true dynamic bottom */
         position: sticky;
         bottom: 0;
-        
-        /* 2. Remove 'overflow: hidden' if it exists anywhere in the parent chain. 
-           We need the pseudo-elements to be allowed to bleed out. */
-        overflow: visible !important;
-
-        /* 3. Increase the physical height to include the safe area */
-        padding: 3vw 4vw calc(2vw + env(safe-area-inset-bottom, 0px)) 4vw;
+        background: transparent !important;
+        overflow: visible;
+        /* Keep the padding to protect text from the pill */
+        padding-bottom: calc(2vw + env(safe-area-inset-bottom, 0px));
     }
 
-    /* 4. Force the pseudo-elements to be taller than the footer itself */
-    .site-footer::before,
-    .site-footer::after,
-    .site-footer .footer-content::before {
+    /* Target the new background div */
+    .footer-blur-background {
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        /* Pull the bottom down past the footer's boundary */
-        bottom: calc(-1 * env(safe-area-inset-bottom, 20px)) !important;
-        
-        /* Ensure the blur doesn't fade out too early */
+        /* Extend the height to cover the footer PLUS the safe area */
+        bottom: calc(-1 * env(safe-area-inset-bottom, 20px));
         height: calc(100% + env(safe-area-inset-bottom, 20px));
         
-        /* This is crucial: stop the mask from hiding the 'bleed' area */
-        -webkit-mask-size: 100% calc(100% + env(safe-area-inset-bottom, 20px));
-        mask-size: 100% calc(100% + env(safe-area-inset-bottom, 20px));
+        z-index: -1;
+        pointer-events: none; /* Let clicks pass through to links */
+
+        /* Apply your blur and gradients here */
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        
+        /* Apply your masks to this detached element */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
     }
 
-    .site-footer::before {
-        background: red !important;
+    /* Remove the old pseudo-elements so they don't double up */
+    .site-footer::before, .site-footer::after {
+        display: none !important;
     }
+}
     
     .footer-content {
         flex-direction: row;
