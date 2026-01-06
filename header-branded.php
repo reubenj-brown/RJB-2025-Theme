@@ -199,7 +199,7 @@
     }
 
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
-    /* Extended into safe area for iOS/Liquid Glass UI */
+    /* Extended by 100px for iOS/Liquid Glass UI - content visible beyond viewport bounds */
     .site-header::before {
         content: '';
         position: absolute;
@@ -207,8 +207,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        margin-top: calc(-1 * env(safe-area-inset-top, 0px));
-        padding-top: env(safe-area-inset-top, 0px);
+        margin-top: -100px;
+        padding-top: 100px;
         backdrop-filter: blur(8px);
         mask: linear-gradient(to bottom, black 0%, black 40%, rgba(0,0,0,0.7) 70%, transparent 100%);
         -webkit-mask: linear-gradient(to bottom, black 0%, black 40%, rgba(0,0,0,0.7) 70%, transparent 100%);
@@ -222,8 +222,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        margin-top: calc(-1 * env(safe-area-inset-top, 0px));
-        padding-top: env(safe-area-inset-top, 0px);
+        margin-top: -100px;
+        padding-top: 100px;
         backdrop-filter: blur(3px);
         mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.8) 80%, rgba(0,0,0,0.4) 100%);
         -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.8) 80%, rgba(0,0,0,0.4) 100%);
@@ -238,8 +238,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        margin-top: calc(-1 * env(safe-area-inset-top, 0px));
-        padding-top: env(safe-area-inset-top, 0px);
+        margin-top: -100px;
+        padding-top: 100px;
         backdrop-filter: blur(5px);
         mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
         -webkit-mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
