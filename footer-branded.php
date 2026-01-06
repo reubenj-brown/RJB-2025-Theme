@@ -25,19 +25,17 @@
         padding-left: calc(2vw + env(safe-area-inset-left));
         padding-right: calc(2vw + env(safe-area-inset-right));
         z-index: 1001; /* Ensure footer sits above contact section gradient */
+        overflow: visible;
     }
 
     /* Smoother gradient blur effect for footer - 3 points with softer transitions */
-    /* Extended by 100px for iOS/Liquid Glass UI - content visible beyond viewport bounds */
     .site-footer::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
-        margin-bottom: -100px;
-        padding-bottom: 100px;
+        bottom: -100px;
         backdrop-filter: blur(8px);
         mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
         -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
@@ -50,9 +48,7 @@
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
-        margin-bottom: -100px;
-        padding-bottom: 100px;
+        bottom: -100px;
         backdrop-filter: blur(3px);
         mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
         -webkit-mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
@@ -66,9 +62,7 @@
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
-        margin-bottom: -100px;
-        padding-bottom: 100px;
+        bottom: -100px;
         backdrop-filter: blur(5px);
         mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
         -webkit-mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
