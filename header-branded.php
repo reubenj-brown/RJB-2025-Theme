@@ -198,6 +198,23 @@
         height: calc(60px + 2vw + env(safe-area-inset-top));
     }
 
+    /* TEMPORARY DEBUG - Remove after testing */
+    body::before {
+        content: 'Safe Area - Top: ' env(safe-area-inset-top) ' Bottom: ' env(safe-area-inset-bottom);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        z-index: 999999;
+        font-size: 16px;
+        font-family: monospace;
+        border: 3px solid yellow;
+        pointer-events: none;
+    }
+
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
     /* Extended into safe area for iOS/Liquid Glass UI */
     .site-header::before {
