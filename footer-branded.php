@@ -21,11 +21,7 @@
         bottom: 0;
         background: transparent;
         padding: 1vw 2vw;
-        padding-bottom: calc(1vw + env(safe-area-inset-bottom));
-        padding-left: calc(2vw + env(safe-area-inset-left));
-        padding-right: calc(2vw + env(safe-area-inset-right));
         z-index: 1001; /* Ensure footer sits above contact section gradient */
-        overflow: visible;
     }
 
     /* Smoother gradient blur effect for footer - 3 points with softer transitions */
@@ -35,7 +31,7 @@
         top: 0;
         left: 0;
         right: 0;
-        bottom: -100px;
+        bottom: 0;
         backdrop-filter: blur(8px);
         mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
         -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, black 60%, black 100%);
@@ -48,7 +44,7 @@
         top: 0;
         left: 0;
         right: 0;
-        bottom: -100px;
+        bottom: 0;
         backdrop-filter: blur(3px);
         mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
         -webkit-mask: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.3) 70%, transparent 100%);
@@ -62,7 +58,7 @@
         top: 0;
         left: 0;
         right: 0;
-        bottom: -100px;
+        bottom: 0;
         backdrop-filter: blur(5px);
         mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
         -webkit-mask: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.6) 60%, transparent 80%);
@@ -171,6 +167,25 @@
     @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .site-footer {
             padding: 3vw 4vw 2vw 4vw;
+            padding-bottom: calc(2vw + env(safe-area-inset-bottom));
+            padding-left: calc(4vw + env(safe-area-inset-left));
+            padding-right: calc(4vw + env(safe-area-inset-right));
+        }
+
+        /* Extend blur pseudo-elements into safe-area on mobile */
+        .site-footer::before {
+            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        .site-footer::after {
+            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        .site-footer .footer-content::before {
+            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+            padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         .footer-content {
@@ -194,7 +209,7 @@
         .copyright {
             display: none; /* Always hidden on mobile */
         }
-        
+
         .footer-contact-pill {
             font-size: 14px; /* Smaller font size on mobile */
         }

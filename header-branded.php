@@ -192,18 +192,14 @@
         background: transparent;
         transition: all 0.5s ease;
         padding: 0;
-        padding-top: env(safe-area-inset-top);
-        padding-left: env(safe-area-inset-left);
-        padding-right: env(safe-area-inset-right);
-        height: calc(60px + 2vw + env(safe-area-inset-top));
-        overflow: visible;
+        height: calc(60px + 2vw);
     }
 
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
     .site-header::before {
         content: '';
         position: absolute;
-        top: -100px;
+        top: 0;
         left: 0;
         right: 0;
         bottom: 0;
@@ -216,7 +212,7 @@
     .site-header::after {
         content: '';
         position: absolute;
-        top: -100px;
+        top: 0;
         left: 0;
         right: 0;
         bottom: 0;
@@ -230,7 +226,7 @@
     .site-header .header-content::before {
         content: '';
         position: absolute;
-        top: -100px;
+        top: 0;
         left: 0;
         right: 0;
         bottom: 0;
@@ -423,8 +419,28 @@
     @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .site-header {
             max-width: 100vw;
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            height: calc(60px + 2vw + env(safe-area-inset-top));
         }
-        
+
+        /* Extend blur pseudo-elements into safe-area on mobile */
+        .site-header::before {
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        .site-header::after {
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        .site-header .header-content::before {
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
         .site-title-name {
             font-size: 24px;
             line-height: 24px;
