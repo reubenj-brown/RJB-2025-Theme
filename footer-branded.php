@@ -201,7 +201,6 @@
     .site-footer::before, .site-footer::after {
         display: none !important;
     }
-}
     
     .footer-content {
         flex-direction: row;
