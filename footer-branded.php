@@ -196,6 +196,10 @@
         mask-size: 100% calc(100% + env(safe-area-inset-bottom, 20px));
     }
 
+    .site-footer::before {
+        background: red !important;
+    }
+    
     .footer-content {
         flex-direction: row;
         justify-content: space-between;
