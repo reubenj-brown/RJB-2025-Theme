@@ -163,57 +163,57 @@
         }
     }
 
-    /* Mobile Responsive - See breakpoint reference in plugin base-sections.css */
-    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-        .site-footer {
-            padding: 3vw 4vw 2vw 4vw;
-            padding-bottom: calc(2vw + env(safe-area-inset-bottom));
-            padding-left: calc(4vw + env(safe-area-inset-left));
-            padding-right: calc(4vw + env(safe-area-inset-right));
-        }
-
-        /* Extend blur pseudo-elements into safe-area on mobile */
-        .site-footer::before {
-            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-        }
-
-        .site-footer::after {
-            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-        }
-
-        .site-footer .footer-content::before {
-            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-        }
-
-        .footer-content {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Move contact button to right on mobile */
-        .footer-contact-button {
-            position: static;
-            transform: none;
-            left: auto;
-        }
-
-        .footer-logo {
-            width: 28px;
-            height: 28px;
-        }
-
-        .copyright {
-            display: none; /* Always hidden on mobile */
-        }
-
-        .footer-contact-pill {
-            font-size: 14px; /* Smaller font size on mobile */
-        }
+    /* Mobile Responsive - See breakpoint reference in plugin base-sections.css; Optimized for Safari Liquid Glass */
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    .site-footer {
+        /* Standard padding + Safe Area to keep text/logo above the pill */
+        padding: 3vw 4vw calc(2vw + env(safe-area-inset-bottom, 0px)) 4vw;
+        
+        /* Ensure the footer container itself spans the full height of the safe area */
+        min-height: calc(40px + env(safe-area-inset-bottom, 0px)); 
     }
+
+    /* We pull the pseudo-elements down using a negative bottom value 
+       so the blur/gradient continues behind the Safari chrome.
+    */
+    .site-footer::before,
+    .site-footer::after,
+    .site-footer .footer-content::before {
+        bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
+        /* We use padding-bottom to ensure the mask doesn't cut off early */
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        /* This keeps the internal content relative to the footer's safe padding */
+        position: relative; 
+        z-index: 1;
+    }
+
+    /* Move contact button to right on mobile */
+    .footer-contact-button {
+        display: block;
+        position: static;
+        transform: none;
+        left: auto;
+    }
+
+    .footer-logo {
+        width: 28px;
+        height: 28px;
+    }
+
+    .copyright {
+        display: none; 
+    }
+
+    .footer-contact-pill {
+        font-size: 14px;
+    }
+}
     </style>
 
     <script>
