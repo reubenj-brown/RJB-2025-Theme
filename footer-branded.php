@@ -195,6 +195,20 @@
         /* Apply your masks to this detached element */
         -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
         mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+
+        /* 1. Force the element to be "cut out" from the background */
+    background: transparent !important; 
+    
+    /* 2. Safari-specific prefix is MANDATORY for backdrop-filter */
+    -webkit-backdrop-filter: blur(8px) saturate(180%); 
+    backdrop-filter: blur(8px) saturate(180%);
+
+    /* 3. The "Secret Sauce": Force Hardware Acceleration */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    
+    /* 4. Prevent Safari from "optimizing" the blur away */
+    isolation: isolate;
     }
 
     /* Remove the old pseudo-elements so they don't double up */
