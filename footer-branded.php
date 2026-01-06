@@ -166,22 +166,34 @@
     /* Mobile Responsive - See breakpoint reference in plugin base-sections.css; Optimized for Safari Liquid Glass */
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
     .site-footer {
-        /* Standard padding + Safe Area to keep text/logo above the pill */
-        padding: 3vw 4vw calc(2vw + env(safe-area-inset-bottom, 0px)) 4vw;
+        /* 1. Use 'dvh' to ensure the footer stays at the true dynamic bottom */
+        position: sticky;
+        bottom: 0;
         
-        /* Ensure the footer container itself spans the full height of the safe area */
-        min-height: calc(40px + env(safe-area-inset-bottom, 0px)); 
+        /* 2. Remove 'overflow: hidden' if it exists anywhere in the parent chain. 
+           We need the pseudo-elements to be allowed to bleed out. */
+        overflow: visible !important;
+
+        /* 3. Increase the physical height to include the safe area */
+        padding: 3vw 4vw calc(2vw + env(safe-area-inset-bottom, 0px)) 4vw;
     }
 
-    /* We pull the pseudo-elements down using a negative bottom value 
-       so the blur/gradient continues behind the Safari chrome.
-    */
+    /* 4. Force the pseudo-elements to be taller than the footer itself */
     .site-footer::before,
     .site-footer::after,
     .site-footer .footer-content::before {
-        bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
-        /* We use padding-bottom to ensure the mask doesn't cut off early */
-        padding-bottom: env(safe-area-inset-bottom, 0px);
+        top: 0;
+        left: 0;
+        right: 0;
+        /* Pull the bottom down past the footer's boundary */
+        bottom: calc(-1 * env(safe-area-inset-bottom, 20px)) !important;
+        
+        /* Ensure the blur doesn't fade out too early */
+        height: calc(100% + env(safe-area-inset-bottom, 20px));
+        
+        /* This is crucial: stop the mask from hiding the 'bleed' area */
+        -webkit-mask-size: 100% calc(100% + env(safe-area-inset-bottom, 20px));
+        mask-size: 100% calc(100% + env(safe-area-inset-bottom, 20px));
     }
 
     .footer-content {
