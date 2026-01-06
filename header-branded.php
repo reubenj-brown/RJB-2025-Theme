@@ -199,8 +199,7 @@
     }
 
     /* TEMPORARY DEBUG - Remove after testing */
-    body::before {
-        content: 'Safe Area - Top: ' env(safe-area-inset-top) ' Bottom: ' env(safe-area-inset-bottom);
+    #safe-area-debug {
         position: fixed;
         top: 50%;
         left: 50%;
@@ -213,6 +212,7 @@
         font-family: monospace;
         border: 3px solid yellow;
         pointer-events: none;
+        white-space: pre-line;
     }
 
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
@@ -606,4 +606,36 @@
     window.addEventListener('scroll', updateContactButtonArrow);
     window.addEventListener('resize', updateContactButtonArrow);
     updateContactButtonArrow(); // Initial call
+
+    // TEMPORARY DEBUG - Remove after testing
+    // Display safe-area-inset values
+    const debugDiv = document.createElement('div');
+    debugDiv.id = 'safe-area-debug';
+    document.body.appendChild(debugDiv);
+
+    function updateDebugInfo() {
+        // Create test element to measure safe-area-inset values
+        const testDiv = document.createElement('div');
+        testDiv.style.position = 'fixed';
+        testDiv.style.paddingTop = 'env(safe-area-inset-top, 0px)';
+        testDiv.style.paddingBottom = 'env(safe-area-inset-bottom, 0px)';
+        testDiv.style.paddingLeft = 'env(safe-area-inset-left, 0px)';
+        testDiv.style.paddingRight = 'env(safe-area-inset-right, 0px)';
+        testDiv.style.visibility = 'hidden';
+        document.body.appendChild(testDiv);
+
+        const computed = getComputedStyle(testDiv);
+        const top = computed.paddingTop;
+        const bottom = computed.paddingBottom;
+        const left = computed.paddingLeft;
+        const right = computed.paddingRight;
+
+        document.body.removeChild(testDiv);
+
+        debugDiv.innerHTML = `SAFE AREA DEBUG\n\nTop: ${top}\nBottom: ${bottom}\nLeft: ${left}\nRight: ${right}\n\nViewport: ${window.innerWidth}x${window.innerHeight}\nScreen: ${screen.width}x${screen.height}`;
+    }
+
+    updateDebugInfo();
+    window.addEventListener('resize', updateDebugInfo);
+    window.addEventListener('orientationchange', updateDebugInfo);
 </script>
