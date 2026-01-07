@@ -419,7 +419,7 @@
     @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .site-header {
             max-width: 100vw;
-            padding-top: env(safe-area-inset-top);
+            padding-top: calc(16px + env(safe-area-inset-top, 0px));
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
             height: calc(60px + 2vw + env(safe-area-inset-top));
