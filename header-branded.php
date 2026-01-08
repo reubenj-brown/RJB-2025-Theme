@@ -180,6 +180,7 @@
 
     html {
         margin-top: 0 !important;
+        background: var(--main-content-bg) !important;
     }
 
     /* Header Styles */
