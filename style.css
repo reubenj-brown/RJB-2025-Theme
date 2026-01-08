@@ -57,31 +57,7 @@ Version: 1.0.1
   --serif-font: 'Legitima';
   --compressed-font: 'PP Right Serif';
 
-  /* Global Dark Mode Variables */
-  --content-bg: white;
-  --main-content-bg: white;
-  --text-color: #000;
-  --text-color-muted: #808080;
-  --link-color: #808080;
-  --link-hover-color: #39e58f;
-  --caption-bg: rgba(255, 255, 255, 0.9);
-  --h3-link-color: rgba(128, 128, 128, 0.5);
-  --section-heading-color: #808080;
-}
-
-/* Dark Mode Variables */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --content-bg: #050505;
-    --main-content-bg: #050505;
-    --text-color: white;
-    --text-color-muted: #a8a8a8;
-    --link-color: white;
-    --link-hover-color: #39e58f;
-    --caption-bg: rgba(5, 5, 5, 0.9);
-    --h3-link-color: var(--text-color-muted);
-    --section-heading-color: #808080;
-  }
+  /* Global Dark Mode Variables - loaded from plugin base-sections.css */
 }
 
 /* Ensure only custom fonts are used - no browser defaults */
