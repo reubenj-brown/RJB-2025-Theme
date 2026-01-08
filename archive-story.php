@@ -13,6 +13,13 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
+// Set posts per page to 30
+add_action('pre_get_posts', function($query) {
+    if (!is_admin() && $query->is_main_query() && (is_post_type_archive('story') || is_tax('story_category'))) {
+        $query->set('posts_per_page', 30);
+    }
+});
+
 get_header('branded'); ?>
 
 <style>
@@ -124,7 +131,7 @@ get_header('branded'); ?>
 
     <!-- Stories Grid -->
     <div class="stories-content">
-        <div class="stories-grid">
+        <div class="stories-grid" id="stories-grid">
             <?php if (have_posts()) : ?>
                 <?php while (have_posts()) : the_post(); ?>
                     <article class="story-item">
@@ -173,7 +180,85 @@ get_header('branded'); ?>
                 <p class="no-stories-message">No stories found.</p>
             <?php endif; ?>
         </div>
+
+        <?php if (have_posts()) : ?>
+            <div id="load-more-trigger" style="height: 1px; margin: 100px 0;"></div>
+            <div id="loading-indicator" style="display: none; text-align: center; padding: 2rem; color: var(--text-color-muted); font-family: var(--primary-font);">
+                Loading more stories...
+            </div>
+        <?php endif; ?>
     </div>
 </main>
+
+<script>
+(function() {
+    let currentPage = 1;
+    let isLoading = false;
+    let hasMorePosts = <?php echo $GLOBALS['wp_query']->max_num_pages > 1 ? 'true' : 'false'; ?>;
+
+    const grid = document.getElementById('stories-grid');
+    const trigger = document.getElementById('load-more-trigger');
+    const loadingIndicator = document.getElementById('loading-indicator');
+
+    if (!grid || !trigger || !hasMorePosts) return;
+
+    // Intersection Observer for lazy loading
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !isLoading && hasMorePosts) {
+                loadMorePosts();
+            }
+        });
+    }, {
+        rootMargin: '200px' // Start loading 200px before trigger is visible
+    });
+
+    observer.observe(trigger);
+
+    function loadMorePosts() {
+        isLoading = true;
+        loadingIndicator.style.display = 'block';
+        currentPage++;
+
+        const currentTax = '<?php echo is_tax('story_category') ? get_queried_object()->slug : ''; ?>';
+
+        fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                action: 'load_more_stories',
+                page: currentPage,
+                category: currentTax
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.data.html) {
+                grid.insertAdjacentHTML('beforeend', data.data.html);
+
+                if (!data.data.has_more) {
+                    hasMorePosts = false;
+                    observer.disconnect();
+                    trigger.style.display = 'none';
+                }
+            } else {
+                hasMorePosts = false;
+                observer.disconnect();
+                trigger.style.display = 'none';
+            }
+
+            loadingIndicator.style.display = 'none';
+            isLoading = false;
+        })
+        .catch(error => {
+            console.error('Error loading more posts:', error);
+            loadingIndicator.style.display = 'none';
+            isLoading = false;
+        });
+    }
+})();
+</script>
 
 <?php get_footer('branded'); ?>

@@ -212,5 +212,95 @@ function save_story_hero_color_meta_box($post_id) {
 add_action('save_post_story', 'save_story_hero_color_meta_box');
 
 /**
+ * AJAX handler for lazy loading more stories
+ */
+function ajax_load_more_stories() {
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+
+    $args = array(
+        'post_type' => 'story',
+        'posts_per_page' => 30,
+        'paged' => $page,
+        'post_status' => 'publish',
+        'orderby' => 'date',
+        'order' => 'DESC'
+    );
+
+    if (!empty($category)) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'story_category',
+                'field' => 'slug',
+                'terms' => $category
+            )
+        );
+    }
+
+    $query = new WP_Query($args);
+    $html = '';
+
+    if ($query->have_posts()) {
+        ob_start();
+        while ($query->have_posts()) {
+            $query->the_post();
+            ?>
+            <article class="story-item">
+                <a href="<?php the_permalink(); ?>" class="story-link">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <div class="story-image">
+                            <?php the_post_thumbnail('large'); ?>
+                        </div>
+                        <?php
+                        $photo_credit = get_post_meta(get_the_ID(), 'photo_credit', true);
+                        if ($photo_credit) :
+                        ?>
+                            <div class="caption"><?php echo esc_html($photo_credit); ?></div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                    <div class="story-content">
+                        <h2><?php the_title(); ?></h2>
+
+                        <?php if (has_excerpt()) : ?>
+                            <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                        <?php endif; ?>
+
+                        <?php
+                        $metadata = function_exists('get_story_metadata') ? get_story_metadata(get_the_ID()) : [];
+                        if (!empty($metadata['medium']) || !empty($metadata['publication']) || !empty($metadata['publish_date'])) :
+                        ?>
+                            <p class="story-meta">
+                                <?php if (!empty($metadata['medium'])) : ?>
+                                    <?php echo esc_html($metadata['medium']); ?>
+                                <?php endif; ?>
+                                <?php if (!empty($metadata['publication'])) : ?>
+                                    <?php echo !empty($metadata['medium']) ? ' for ' : 'For '; ?><i><?php echo esc_html($metadata['publication']); ?></i>
+                                <?php endif; ?>
+                                <?php if (!empty($metadata['publish_date'])) : ?>
+                                    <?php echo !empty($metadata['publication']) ? ' in ' : ''; ?>
+                                    <?php echo date('F Y', strtotime($metadata['publish_date'])); ?>
+                                <?php endif; ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+                </a>
+            </article>
+            <?php
+        }
+        $html = ob_get_clean();
+    }
+
+    wp_reset_postdata();
+
+    wp_send_json_success(array(
+        'html' => $html,
+        'has_more' => $page < $query->max_num_pages
+    ));
+}
+add_action('wp_ajax_load_more_stories', 'ajax_load_more_stories');
+add_action('wp_ajax_nopriv_load_more_stories', 'ajax_load_more_stories');
+
+/**
  * Custom functions for portfolio site will be added here
  */
