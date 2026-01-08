@@ -168,7 +168,7 @@
     body.post-type-archive-story {
         margin: 0 !important;
         padding: 0 !important;
-        background: white !important;
+        background: var(--main-content-bg) !important;
         overflow-x: hidden !important;
         font-family: var(--primary-font) !important;
     }
