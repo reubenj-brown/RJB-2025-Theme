@@ -36,21 +36,9 @@ add_action('wp_head', function() {
             }
             
             /* Content sections background handled by base-sections.css */
+            /* CSS Variables loaded from style.css */
 
-            /* CSS Variables for Dark Mode */
-            :root {
-                --section-heading-color: #808080;
-                --main-content-bg: white;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                :root {
-                    --section-heading-color: #808080; /* Keep headings same gray */
-                    --main-content-bg: #050505;
-                }
-            }
-
-            /* Main Content Wrapper Dark Mode */
+            /* Main Content Wrapper */
             .main-content {
                 background: var(--main-content-bg);
             }
