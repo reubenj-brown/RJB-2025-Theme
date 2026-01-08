@@ -213,15 +213,20 @@ add_action('save_post_story', 'save_story_hero_color_meta_box');
 
 /**
  * AJAX handler for lazy loading more stories
+ * Initial page load: 24 stories
+ * Lazy load: 12 stories per batch
  */
 function ajax_load_more_stories() {
-    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 2;
     $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+
+    // Calculate offset: 24 initial + (page-2) * 12 for subsequent loads
+    $offset = 24 + (($page - 2) * 12);
 
     $args = array(
         'post_type' => 'story',
-        'posts_per_page' => 30,
-        'paged' => $page,
+        'posts_per_page' => 12,
+        'offset' => $offset,
         'post_status' => 'publish',
         'orderby' => 'date',
         'order' => 'DESC'
@@ -293,9 +298,13 @@ function ajax_load_more_stories() {
 
     wp_reset_postdata();
 
+    // Calculate if there are more posts
+    // Total found - current offset - 12 just loaded > 0
+    $has_more = $query->found_posts > ($offset + 12);
+
     wp_send_json_success(array(
         'html' => $html,
-        'has_more' => $page < $query->max_num_pages
+        'has_more' => $has_more
     ));
 }
 add_action('wp_ajax_load_more_stories', 'ajax_load_more_stories');

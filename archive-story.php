@@ -13,10 +13,10 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
-// Set posts per page to 30
+// Set posts per page to 24 initially
 add_action('pre_get_posts', function($query) {
     if (!is_admin() && $query->is_main_query() && (is_post_type_archive('story') || is_tax('story_category'))) {
-        $query->set('posts_per_page', 30);
+        $query->set('posts_per_page', 24);
     }
 });
 
@@ -194,7 +194,8 @@ get_header('branded'); ?>
 (function() {
     let currentPage = 1;
     let isLoading = false;
-    let hasMorePosts = <?php echo $GLOBALS['wp_query']->max_num_pages > 1 ? 'true' : 'false'; ?>;
+    // Check if we have more than 24 posts total (initial load is 24)
+    let hasMorePosts = <?php echo $GLOBALS['wp_query']->found_posts > 24 ? 'true' : 'false'; ?>;
 
     const grid = document.getElementById('stories-grid');
     const trigger = document.getElementById('load-more-trigger');
