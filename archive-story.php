@@ -16,18 +16,7 @@ add_action('wp_enqueue_scripts', function() {
 get_header('branded'); ?>
 
 <style>
-    /* CSS Variables for Dark Mode - Match Portfolio Page */
-    :root {
-        --section-heading-color: #808080;
-        --main-content-bg: white;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --section-heading-color: #808080; /* Keep headings same gray */
-            --main-content-bg: #050505;
-        }
-    }
+    /* Typography and base styles loaded from plugin base-sections.css */
 
     /* Main Content Wrapper - Positioned below header */
     .main-content {
@@ -38,18 +27,6 @@ get_header('branded'); ?>
         margin-top: calc(60px + 2vw + env(safe-area-inset-top));
         position: relative;
         z-index: 10;
-    }
-
-    /* Section Headings - Match Portfolio Page */
-    .section-heading {
-        font-family: var(--primary-font) !important;
-        font-size: 32px;
-        line-height: 32px;
-        font-weight: 600;
-        color: var(--section-heading-color);
-        text-align: center;
-        margin: 0;
-        padding: 96px 0 64px 0;
     }
 
     /* Category Filter Buttons */
