@@ -301,9 +301,9 @@ add_action('wp_footer', function() {
                 const aboutTextHeight = aboutTextRect.height;
                 const viewportHeight = window.innerHeight;
 
-                // Start fading when text reaches 25% from top of viewport, fully faded when it would leave viewport
-                const fadeStart = aboutTextTop - (viewportHeight * 0.25);
-                const fadeEnd = aboutTextTop - (viewportHeight * 0.1);
+                // Start fading when text reaches 18% from top of viewport, fully faded at 0% from top
+                const fadeStart = aboutTextTop - (viewportHeight * 0.18);
+                const fadeEnd = aboutTextTop;
 
                 if (scrollY <= fadeStart) {
                     aboutText.style.opacity = '1';
