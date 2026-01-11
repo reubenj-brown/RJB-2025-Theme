@@ -168,7 +168,7 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: center;
-                    gap: 2rem;
+                    gap: 1rem;
                     width: 100%;
                     padding: 0 3rem;
                 }
@@ -221,7 +221,6 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: center;
-                    gap: 1.5rem;
                     width: 100%;
                     padding: 0 4vw;
                 }
