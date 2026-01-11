@@ -475,9 +475,16 @@
     // Smooth scroll navigation
     document.querySelectorAll('.nav-link, .site-title-name, .contact-pill').forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
             const targetId = link.getAttribute('href');
-            
+
+            // Only handle hash links for smooth scrolling
+            if (!targetId.includes('#')) {
+                // Let the browser handle non-hash links normally
+                return;
+            }
+
+            e.preventDefault();
+
             // Handle both full URLs and hash-only hrefs
             let hash;
             if (targetId.includes('#')) {
@@ -485,9 +492,9 @@
             } else {
                 hash = targetId;
             }
-            
+
             const targetElement = document.querySelector('#' + hash);
-            
+
             if (targetElement) {
                 targetElement.scrollIntoView({
                     behavior: 'smooth',
