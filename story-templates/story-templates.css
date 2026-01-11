@@ -546,7 +546,7 @@ html, body {
     }
 
     .architecture-scroll-item {
-        flex: 0 0 350px; /* Mobile width */
+        flex: 0 0 220px; /* Mobile width */
     }
 
     .architecture-scroll-item .story-content h2 {
@@ -560,7 +560,7 @@ html, body {
     }
 
     .architecture-scroll-item {
-        flex: 0 0 300px; /* Small mobile width */
+        flex: 0 0 220px; /* Small mobile width */
     }
 
     .architecture-scroll-item .story-content h2 {
