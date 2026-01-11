@@ -236,17 +236,11 @@ add_action('wp_head', function() {
                 }
 
                 .contact-link {
-                    font-size: 20vw !important;
+                    font-size: min(20vw, 96px); !important;
                     font-weight: 400;
                 }
             }
-
-            /* Small Mobile Responsive - See breakpoint reference in plugin base-sections.css */
-            @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
-                .contact-link {
-                    font-size: 20vw !important;
-                }
-            }
+            
         </style>
         <?php
 });
