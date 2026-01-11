@@ -6,6 +6,22 @@
 <meta name="theme-color" content="#39e58f">
 <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
 
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="<?php echo esc_url(home_url('/')); ?>">
+<meta property="og:title" content="Reuben J. Brown | Multimedia Journalist">
+<meta property="og:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
+<meta property="og:image" content="<?php echo esc_url(home_url('/wp-content/uploads/2025/11/reuben-j-brown-almeria-greenhouses-el-ejido-agriculture.avif')); ?>">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="<?php echo esc_url(home_url('/')); ?>">
+<meta name="twitter:title" content="Reuben J. Brown | Multimedia Journalist">
+<meta name="twitter:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
+<meta name="twitter:image" content="<?php echo esc_url(home_url('/wp-content/uploads/2025/11/reuben-j-brown-almeria-greenhouses-el-ejido-agriculture.avif')); ?>">
+
 <link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css">
 
 <!-- Preload PP Right Serif font for early loading -->
