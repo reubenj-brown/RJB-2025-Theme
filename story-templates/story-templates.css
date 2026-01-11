@@ -57,7 +57,7 @@ html, body {
 
 .story-content-inner {
     font-family: var(--serif-font);
-    font-size: calc(16px * 1.23);
+    font-size: 1.25rem;
     line-height: 1.6;
     color: var(--text-color);
 }
@@ -106,7 +106,7 @@ html, body {
 /* Body paragraph styling - Legitima serif font for story pages */
 .story-content-inner p:not(.story-meta) {
     font-family: var(--serif-font) !important;
-    font-size: 24px !important;
+    font-size: 1.5rem !important;
     margin-bottom: 1.5rem;
 }
 
@@ -141,7 +141,7 @@ html, body {
 /* Simple image caption below image */
 .story-image-caption {
     font-family: var(--primary-font);
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 1.4;
     text-align: left; /* Bottom-left alignment */
     margin-top: 8px;
@@ -174,7 +174,7 @@ html, body {
 
 .story-content-inner h2 {
     font-family: var(--serif-font);
-    font-size: calc(32px * 1.23);
+    font-size: 2.5rem;
     font-weight: 400;
     margin: 2rem 0 1rem 0;
     color: var(--text-color);
@@ -182,7 +182,7 @@ html, body {
 
 .story-content-inner h3 {
     font-family: var(--serif-font);
-    font-size: calc(24px * 1.23);
+    font-size: 1.875rem;
     font-weight: 400;
     margin: 1.5rem 0 1rem 0;
     color: var(--text-color);
@@ -246,14 +246,14 @@ html, body {
 .story-content-inner .wp-block-audio figcaption,
 .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio figcaption {
     font-family: var(--primary-font);
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-color-muted);
     margin-top: 12px;
     text-align: center;
 }
 
 .story-image-credit {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-color-muted);
     text-align: right;
     margin-top: 4px;
@@ -262,12 +262,12 @@ html, body {
 
 /* Override base-sections.css h2 styling for more_stories shortcode */
 .architecture-scroll-item h2 {
-    font-size: 24px !important;
+    font-size: 1.5rem !important;
 }
 
 /* Caption styling for more_stories shortcode - match homepage architecture scroller */
 .architecture-scroll-item .caption {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-color-muted);
     text-align: left;
     padding: 4px 0 8px 0;
@@ -289,7 +289,7 @@ html, body {
     transform: translateY(-50%);
     color: white;
     font-family: var(--primary-font);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 400;
     text-decoration: none;
     cursor: pointer;
@@ -312,7 +312,7 @@ html, body {
     padding: 8px 16px;
     border-radius: 20px;
     font-family: var(--primary-font);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     text-decoration: none;
     cursor: pointer;
@@ -360,7 +360,7 @@ html, body {
     bottom: 10px;
     right: 10px;
     font-family: var(--primary-font);
-    font-size: 12px;
+    font-size: 0.75rem;
     color: white;
     z-index: 10;
 }
@@ -376,11 +376,11 @@ html, body {
     }
 
     .story-header-nav {
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     .story-header-contact {
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 
     .architecture-scroll {
@@ -399,12 +399,12 @@ html, body {
     }
 
     .story-content-inner {
-        font-size: calc(16px * 1.23);
+        font-size: 1.25rem;
     }
 
     /* Mobile responsive paragraph sizing */
     .story-content-inner p:not(.story-meta) {
-        font-size: 20px !important;
+        font-size: 1.25rem !important;
     }
 
     /* Mobile images use full container width */
@@ -428,18 +428,18 @@ html, body {
     }
 
     .story-header-nav {
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 }
 
 @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
     .story-header-nav {
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     /* Small mobile responsive paragraph sizing */
     .story-content-inner p:not(.story-meta) {
-        font-size: 18px !important;
+        font-size: 1.125rem !important;
     }
 }
 
@@ -518,7 +518,7 @@ html, body {
 .architecture-scroll-item .story-content h2 {
     margin-top: 16px;
     margin-bottom: 16px;
-    font-size: 24px !important; /* 24px headline on desktop */
+    font-size: 1.5rem !important; /* 24px headline on desktop */
     font-family: var(--serif-font) !important;
 }
 
@@ -535,7 +535,7 @@ html, body {
 .architecture-scroll-item .story-content .story-meta {
     margin-bottom: 0;
     font-family: var(--primary-font) !important; /* Innovator Grotesk font */
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-color-muted);
 }
 
@@ -552,7 +552,7 @@ html, body {
     .architecture-scroll-item .story-content h2 {
         margin-top: 8px;
         margin-bottom: 12px;
-        font-size: 20px !important; /* Smaller on mobile */
+        font-size: 1.25rem !important; /* Smaller on mobile */
     }
 
     .architecture-scroll-item .story-content p:not(.story-meta) {
@@ -570,6 +570,6 @@ html, body {
     }
 
     .architecture-scroll-item .story-content h2 {
-        font-size: 18px !important; /* Smaller on small mobile */
+        font-size: 1.125rem !important; /* Smaller on small mobile */
     }
 }

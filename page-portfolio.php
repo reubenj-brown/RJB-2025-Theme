@@ -46,7 +46,7 @@ add_action('wp_head', function() {
             /* Section Headings */
             .section-heading {
                 font-family: var(--primary-font) !important;
-                font-size: 32px;
+                font-size: 2rem;
                 line-height: 32px;
                 font-weight: 600;
                 color: var(--section-heading-color);
@@ -146,7 +146,7 @@ add_action('wp_head', function() {
             .featured-story-full-bleed h2,
             .featured-story-full-bleed h2 i {
                 font-family: var(--compressed-font) !important;
-                font-size: 96px !important;
+                font-size: 6rem !important;
                 font-weight: 400 !important;
                 font-style: normal !important;
                 text-transform: uppercase !important;
@@ -159,7 +159,7 @@ add_action('wp_head', function() {
                 /* Hero section headline on mobile */
                 .featured-story-full-bleed h2,
                 .featured-story-full-bleed h2 i {
-                    font-size: 64px !important;
+                    font-size: 4rem !important;
                 }
             }
 
@@ -197,7 +197,7 @@ add_action('wp_head', function() {
             /* General Mobile Responsive - See breakpoint reference in plugin base-sections.css */
             @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)), (max-width: 480px) {
                 .section-heading {
-                    font-size: 24px;
+                    font-size: 1.5rem;
                     line-height: 28px;
                     padding: 48px 0 24px 0;
                 }
