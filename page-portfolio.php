@@ -104,7 +104,7 @@ add_action('wp_head', function() {
                 justify-content: flex-end;
                 align-items: center;
                 box-sizing: border-box;
-                padding: 45px; /* Space for shadow - tripled from 15px */
+                padding: 45px;
             }
 
             .contact-image img {
@@ -227,8 +227,9 @@ add_action('wp_head', function() {
                 }
 
                 .contact-image img {
-                    width: 300px;
+                    width: 60vw;
                     max-width: 85vw;
+                    left: 15vw;
                 }
 
                 .contact-links {
