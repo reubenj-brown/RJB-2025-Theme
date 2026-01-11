@@ -507,6 +507,7 @@ html, body {
     object-fit: cover;
     object-position: center;
     display: block;
+    margin-top: 0 !important;
 }
 
 /* Architecture scroll area text spacing and styling */
