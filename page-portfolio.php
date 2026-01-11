@@ -207,7 +207,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-section {
-                    min-height: 75vh;
+                    min-height: calc(100vh - 94px - 4vw - env(safe-area-inset-top));
                 }
 
                 /* Contact section gradient mobile - constrain to viewport */
