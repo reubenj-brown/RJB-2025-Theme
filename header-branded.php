@@ -61,7 +61,7 @@
 
     @font-face {
     font-family: 'PP Right Serif';
-    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.otf') format('opentype');
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
