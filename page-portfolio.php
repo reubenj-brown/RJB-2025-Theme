@@ -57,7 +57,7 @@ add_action('wp_head', function() {
 
             /* Contact Section */
             .contact-section {
-                min-height: 75vh;
+                min-height: calc(100vh - 100px - 4vw);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -400,7 +400,7 @@ get_header('branded'); ?>
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
-        <div class="strategy-intro">
+        <div class="strategy-intro" style="padding-bottom: 0 !important;">
                 <h3 id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
         </div> 
     </main>
