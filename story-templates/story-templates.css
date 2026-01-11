@@ -382,6 +382,10 @@ html, body {
     .story-header-contact {
         font-size: 14px;
     }
+
+    .architecture-scroll {
+        gap: 24px;
+    }
 }
 
 /* Mobile Responsive - See breakpoint reference in plugin base-sections.css */
@@ -538,7 +542,7 @@ html, body {
 /* Responsive - Mobile - See breakpoint reference in plugin base-sections.css */
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
     .architecture-scroll {
-        gap: 2rem;
+        gap: 16px;
     }
 
     .architecture-scroll-item {
@@ -552,7 +556,7 @@ html, body {
 
 @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
     .architecture-scroll {
-        gap: 2rem;
+        gap: 16px;
     }
 
     .architecture-scroll-item {
