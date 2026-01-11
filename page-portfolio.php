@@ -90,7 +90,7 @@ add_action('wp_head', function() {
             .contact-content {
                 display: flex;
                 align-items: center;
-                gap: 2rem;
+                gap: 4rem;
                 width: 100%;
                 max-width: 100vw;
                 margin: 0;
@@ -130,7 +130,6 @@ add_action('wp_head', function() {
                 font-weight: 400 !important;
                 text-decoration: none;
                 color: var(--text-color);
-                margin-bottom: 1.5rem;
                 transition: all 0.3s ease;
             }
 
@@ -233,7 +232,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-links {
-                    gap: 1.5rem;
+                    gap: 0.5rem;
                 }
 
                 .contact-link {
