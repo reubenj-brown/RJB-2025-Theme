@@ -410,7 +410,7 @@ get_header('branded'); ?>
     <section class="content-section contact-section">
         <div class="contact-content">
             <div class="contact-image">
-                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2025/08/Reuben-J.-Brown-Multimedia-Journalist-Headshot.jpg')); ?>" alt="Headshot ofReuben J. Brown against blue background, hard flash, polaroid" />
+                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/01/reuben-j-brown-journalist-writer-photographer-editor-2026-headshot-1.avif')); ?>" alt="Headshot ofReuben J. Brown against blue background, hard flash, polaroid" />
             </div>
             <div class="contact-links">
                 <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
