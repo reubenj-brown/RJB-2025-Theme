@@ -124,9 +124,9 @@ add_action('wp_head', function() {
             }
 
             .contact-link {
-                font-family: var(--serif-font) !important; /* Same as About section first paragraph */
-                font-size: 3.8vw; /* Same as About section first paragraph */
-                line-height: 1.2 !important; /* Same as About section first paragraph */
+                font-family: var(--compressed-font) !important;
+                font-size: 8vw;
+                line-height: 1.2 !important;
                 font-weight: 400 !important;
                 text-decoration: none;
                 color: var(--text-color);
@@ -191,7 +191,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-link {
-                    font-size: 60px !important; /* Match About section tablet size */
+                    font-size: 12vw !important;
                 }
             }
 
@@ -237,7 +237,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-link {
-                    font-size: 48px !important;
+                    font-size: 20vw !important;
                     font-weight: 400;
                 }
             }
@@ -245,7 +245,7 @@ add_action('wp_head', function() {
             /* Small Mobile Responsive - See breakpoint reference in plugin base-sections.css */
             @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
                 .contact-link {
-                    font-size: 48px !important;
+                    font-size: 20vw !important;
                 }
             }
         </style>
