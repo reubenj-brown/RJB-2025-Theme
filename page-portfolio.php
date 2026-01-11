@@ -195,7 +195,7 @@ add_action('wp_head', function() {
             }
 
             /* General Mobile Responsive - See breakpoint reference in plugin base-sections.css */
-            @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+            @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)), (max-width: 480px) {
                 .section-heading {
                     font-size: 24px;
                     line-height: 28px;
