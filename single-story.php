@@ -323,6 +323,10 @@ document.addEventListener('DOMContentLoaded', function() {
             </article>
         </div>
     </div>
+
+    <!-- More Stories Section -->
+    <?php echo do_shortcode('[more_stories limit="6"]'); ?>
+
 </main>
 
 <?php endwhile; endif; ?>
