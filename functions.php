@@ -249,9 +249,12 @@ function ajax_load_more_stories() {
         ob_start();
         while ($query->have_posts()) {
             $query->the_post();
+            $metadata = function_exists('get_story_metadata') ? get_story_metadata(get_the_ID()) : [];
+            $story_url = !empty($metadata['external_url']) ? esc_url($metadata['external_url']) : get_permalink();
+            $is_external = !empty($metadata['external_url']);
             ?>
             <article class="story-item">
-                <a href="<?php the_permalink(); ?>" class="story-link">
+                <a href="<?php echo $story_url; ?>" class="story-link"<?php echo $is_external ? ' target="_blank" rel="noopener"' : ''; ?>>
                     <?php if (has_post_thumbnail()) : ?>
                         <div class="story-image">
                             <?php the_post_thumbnail('large'); ?>
@@ -271,10 +274,7 @@ function ajax_load_more_stories() {
                             <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
                         <?php endif; ?>
 
-                        <?php
-                        $metadata = function_exists('get_story_metadata') ? get_story_metadata(get_the_ID()) : [];
-                        if (!empty($metadata['medium']) || !empty($metadata['publication']) || !empty($metadata['publish_date'])) :
-                        ?>
+                        <?php if (!empty($metadata['medium']) || !empty($metadata['publication']) || !empty($metadata['publish_date'])) : ?>
                             <p class="story-meta">
                                 <?php if (!empty($metadata['medium'])) : ?>
                                     <?php echo esc_html($metadata['medium']); ?>
