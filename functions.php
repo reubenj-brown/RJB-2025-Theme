@@ -220,12 +220,19 @@ function ajax_load_more_stories() {
     $page = isset($_POST['page']) ? intval($_POST['page']) : 2;
     $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
 
-    // Calculate offset: 24 initial + (page-2) * 12 for subsequent loads
-    $offset = 24 + (($page - 2) * 12);
+    // Page 1 = initial load (24 stories), Page 2+ = lazy load (12 stories each)
+    if ($page === 1) {
+        $offset = 0;
+        $posts_per_page = 24;
+    } else {
+        // Calculate offset: 24 initial + (page-2) * 12 for subsequent loads
+        $offset = 24 + (($page - 2) * 12);
+        $posts_per_page = 12;
+    }
 
     $args = array(
         'post_type' => 'story',
-        'posts_per_page' => 12,
+        'posts_per_page' => $posts_per_page,
         'offset' => $offset,
         'post_status' => 'publish',
         'orderby' => 'date',
@@ -299,8 +306,7 @@ function ajax_load_more_stories() {
     wp_reset_postdata();
 
     // Calculate if there are more posts
-    // Total found - current offset - 12 just loaded > 0
-    $has_more = $query->found_posts > ($offset + 12);
+    $has_more = $query->found_posts > ($offset + $posts_per_page);
 
     wp_send_json_success(array(
         'html' => $html,

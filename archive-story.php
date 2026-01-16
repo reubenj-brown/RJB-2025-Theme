@@ -72,6 +72,14 @@ get_header('branded'); ?>
         background: rgba(0, 0, 0, 0.3);
     }
 
+    /* Button reset for filter pills */
+    .category-filter-buttons button.footer-contact-pill {
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+    }
+
     /* Active state for filter buttons */
     .footer-contact-pill.active {
         background: var(--highlight-color);
@@ -101,11 +109,10 @@ get_header('branded'); ?>
 <main class="main-content">
     <div class="category-filter">
         <div class="category-filter-buttons">
-            <!-- "All" button - active on main archive -->
-            <a href="<?php echo get_post_type_archive_link('story'); ?>"
-               class="footer-contact-pill <?php echo is_post_type_archive('story') && !is_tax() ? 'active' : ''; ?>">
+            <!-- "All" button - active by default -->
+            <button type="button" class="footer-contact-pill active" data-category="">
                 all
-            </a>
+            </button>
 
             <?php
             // Get all story categories
@@ -116,12 +123,10 @@ get_header('branded'); ?>
 
             if (!empty($categories) && !is_wp_error($categories)) :
                 foreach ($categories as $category) :
-                    $is_active = is_tax('story_category', $category->slug);
             ?>
-                    <a href="<?php echo get_term_link($category); ?>"
-                       class="footer-contact-pill <?php echo $is_active ? 'active' : ''; ?>">
+                    <button type="button" class="footer-contact-pill" data-category="<?php echo esc_attr($category->slug); ?>">
                         <?php echo esc_html(strtolower($category->name)); ?>
-                    </a>
+                    </button>
             <?php
                 endforeach;
             endif;
@@ -195,35 +200,105 @@ get_header('branded'); ?>
 <script>
 (function() {
     let currentPage = 1;
+    let currentCategory = '';
     let isLoading = false;
-    // Check if we have more than 24 posts total (initial load is 24)
     let hasMorePosts = <?php echo $GLOBALS['wp_query']->found_posts > 24 ? 'true' : 'false'; ?>;
 
     const grid = document.getElementById('stories-grid');
     const trigger = document.getElementById('load-more-trigger');
     const loadingIndicator = document.getElementById('loading-indicator');
+    const filterButtons = document.querySelectorAll('.category-filter-buttons button');
 
-    if (!grid || !trigger || !hasMorePosts) return;
+    if (!grid || !trigger) return;
 
     // Intersection Observer for lazy loading
-    const observer = new IntersectionObserver((entries) => {
+    let observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !isLoading && hasMorePosts) {
                 loadMorePosts();
             }
         });
     }, {
-        rootMargin: '200px' // Start loading 200px before trigger is visible
+        rootMargin: '200px'
     });
 
-    observer.observe(trigger);
+    if (hasMorePosts) {
+        observer.observe(trigger);
+    }
+
+    // Filter button click handlers
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.dataset.category;
+
+            // Don't reload if same category
+            if (category === currentCategory) return;
+
+            // Update active state
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Load stories for this category
+            filterStories(category);
+        });
+    });
+
+    function filterStories(category) {
+        currentCategory = category;
+        currentPage = 1;
+        isLoading = true;
+        hasMorePosts = true;
+
+        // Show loading, clear grid
+        loadingIndicator.style.display = 'block';
+        grid.innerHTML = '';
+        trigger.style.display = 'block';
+
+        // Disconnect and reconnect observer
+        observer.disconnect();
+
+        fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                action: 'load_more_stories',
+                page: 1,
+                category: category
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.data.html) {
+                grid.innerHTML = data.data.html;
+                hasMorePosts = data.data.has_more;
+
+                if (hasMorePosts) {
+                    observer.observe(trigger);
+                } else {
+                    trigger.style.display = 'none';
+                }
+            } else {
+                grid.innerHTML = '<p class="no-stories-message">No stories found.</p>';
+                hasMorePosts = false;
+                trigger.style.display = 'none';
+            }
+
+            loadingIndicator.style.display = 'none';
+            isLoading = false;
+        })
+        .catch(error => {
+            console.error('Error filtering stories:', error);
+            loadingIndicator.style.display = 'none';
+            isLoading = false;
+        });
+    }
 
     function loadMorePosts() {
         isLoading = true;
         loadingIndicator.style.display = 'block';
         currentPage++;
-
-        const currentTax = '<?php echo is_tax('story_category') ? get_queried_object()->slug : ''; ?>';
 
         fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
             method: 'POST',
@@ -233,7 +308,7 @@ get_header('branded'); ?>
             body: new URLSearchParams({
                 action: 'load_more_stories',
                 page: currentPage,
-                category: currentTax
+                category: currentCategory
             })
         })
         .then(response => response.json())
