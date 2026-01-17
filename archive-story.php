@@ -36,7 +36,7 @@ get_header('branded'); ?>
 
     /* Category Filter Buttons */
     .category-filter {
-        padding: 3rem 0;
+        padding: 28px 0 3rem 0;
         text-align: center;
     }
 
