@@ -219,6 +219,19 @@ get_header('branded'); ?>
         observer.observe(trigger);
     }
 
+    // Check URL for category parameter on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialCategory = urlParams.get('category');
+    if (initialCategory) {
+        // Find and click the matching filter button
+        const matchingButton = document.querySelector(`.category-filter-buttons button[data-category="${initialCategory}"]`);
+        if (matchingButton) {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            matchingButton.classList.add('active');
+            filterStories(initialCategory);
+        }
+    }
+
     // Filter button click handlers
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -236,11 +249,24 @@ get_header('branded'); ?>
         });
     });
 
+    function updateURL(category) {
+        const url = new URL(window.location);
+        if (category) {
+            url.searchParams.set('category', category);
+        } else {
+            url.searchParams.delete('category');
+        }
+        history.replaceState({}, '', url);
+    }
+
     function filterStories(category) {
         currentCategory = category;
         currentPage = 1;
         isLoading = true;
         hasMorePosts = true;
+
+        // Update URL for sharing
+        updateURL(category);
 
         // Show loading, clear grid
         loadingIndicator.style.display = 'block';
