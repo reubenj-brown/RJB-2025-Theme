@@ -107,6 +107,13 @@ get_header('branded'); ?>
             padding: 0 0 2rem 0;
         }
 
+        .category-filter-buttons {
+            gap: 12px;
+            justify-content: flex-start;
+            padding-left: 4vw;
+            padding-right: 4vw;
+        }
+
         .category-filter-buttons button.footer-contact-pill {
             font-size: .875rem;
         }
