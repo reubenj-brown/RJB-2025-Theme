@@ -74,7 +74,7 @@ get_header('branded'); ?>
 
     /* Button reset for filter pills */
     .category-filter-buttons button.footer-contact-pill {
-        border: none;
+        border: 1px solid var(--highlight-color);
         cursor: pointer;
         font-family: inherit;
         font-size: inherit;
