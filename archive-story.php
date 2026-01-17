@@ -90,6 +90,10 @@ get_header('branded'); ?>
         .main-content {
             margin-top: calc(80px + env(safe-area-inset-top));
         }
+
+        .category-filter {
+            padding-top: 0;
+        }
     }
 
     /* Mobile Responsive - See breakpoint reference in plugin base-sections.css */
@@ -100,7 +104,7 @@ get_header('branded'); ?>
         }
 
         .category-filter {
-            padding: 2rem 0;
+            padding: 0 0 2rem 0;
         }
 
         .category-filter-buttons button.footer-contact-pill {
