@@ -76,6 +76,7 @@ get_header('branded'); ?>
         cursor: pointer;
         font-family: inherit;
         font-size: inherit;
+        white-space: nowrap;
     }
 
     /* Active state for filter buttons */
@@ -100,6 +101,10 @@ get_header('branded'); ?>
 
         .category-filter {
             padding: 2rem 0;
+        }
+
+        .category-filter-buttons button.footer-contact-pill {
+            font-size: .875rem;
         }
     }
 </style>
