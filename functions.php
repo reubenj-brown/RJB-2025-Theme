@@ -43,6 +43,15 @@ function astra_child_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'astra_child_enqueue_styles' );
 
 /**
+ * Set posts per page for story archives
+ */
+add_action('pre_get_posts', function($query) {
+    if (!is_admin() && $query->is_main_query() && (is_post_type_archive('story') || is_tax('story_category'))) {
+        $query->set('posts_per_page', 24);
+    }
+});
+
+/**
  * Helper function to get stories for homepage sections
  * 
  * @param string $category - Story category slug
