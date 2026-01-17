@@ -5,8 +5,8 @@
             <div class="footer-logo">
                 <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
             </div>
-            <!-- Contact button for responsive display - hidden on story pages -->
-            <?php if (!is_singular('story')) : ?>
+            <!-- Contact button for responsive display - hidden on story pages and story archive -->
+            <?php if (!is_singular('story') && !is_post_type_archive('story')) : ?>
             <div class="footer-contact-button">
                 <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact ↓</a>
             </div>
