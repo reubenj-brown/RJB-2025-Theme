@@ -13,6 +13,11 @@ add_action('wp_enqueue_scripts', function() {
     wp_deregister_style('astra-theme-css');
 }, 100);
 
+// Add story templates CSS for header styling
+add_action('wp_head', function() {
+    echo '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/story-templates/story-templates.css?v=' . wp_get_theme()->get('Version') . '">' . "\n";
+}, 999);
+
 get_header('branded'); ?>
 
 <style>
@@ -189,6 +194,43 @@ get_header('branded'); ?>
         <?php endif; ?>
     </div>
 </main>
+
+<script>
+// Replace header navigation for archive page (same as story pages)
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.site-header');
+    const mainNav = header.querySelector('.main-nav');
+    const contactPill = header.querySelector('.contact-pill');
+    const siteTitle = header.querySelector('.site-title-name');
+
+    // Remove existing navigation elements
+    if (mainNav) mainNav.remove();
+    if (contactPill) contactPill.remove();
+
+    // Update site title to scroll to top of page
+    if (siteTitle) {
+        siteTitle.href = '#';
+        siteTitle.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Create new story navigation
+    const storyNav = document.createElement('a');
+    storyNav.href = '/';
+    storyNav.className = 'story-header-nav';
+    storyNav.textContent = '← Home';
+    header.appendChild(storyNav);
+
+    // Create new contact button
+    const contactButton = document.createElement('a');
+    contactButton.href = '/#contact';
+    contactButton.className = 'story-header-contact';
+    contactButton.textContent = 'contact →';
+    header.appendChild(contactButton);
+});
+</script>
 
 <script>
 (function() {
