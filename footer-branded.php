@@ -11,7 +11,7 @@
                 <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact ↓</a>
             </div>
             <?php endif; ?>
-            <div class="copyright">© Reuben J. Brown 2025</div>
+            <div class="copyright">© Reuben J. Brown 2026</div>
         </div>
     </footer>
 
