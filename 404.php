@@ -7,14 +7,17 @@
 
 // Disable WordPress admin bar
 show_admin_bar(false);
-
-// Remove Astra's CSS
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_style('astra-theme-css');
-    wp_deregister_style('astra-theme-css');
-}, 100);
-
-get_header('branded'); ?>
+?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | <?php bloginfo('name'); ?></title>
+    <?php wp_head(); ?>
+    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>">
+</head>
+<body <?php body_class('error-404-page'); ?>>
 
 <style>
     /* Prevent page scroll */
@@ -76,15 +79,6 @@ get_header('branded'); ?>
         margin-bottom: 1rem;
     }
 
-    .error-404-message {
-        font-family: var(--serif-font) !important;
-        font-size: clamp(16px, 2vw, 20px);
-        color: var(--404-text-muted);
-        max-width: 500px;
-        margin-bottom: 2rem;
-        line-height: 1.5;
-    }
-
     .error-404-link {
         display: inline-block;
         font-family: var(--primary-font) !important;
@@ -113,8 +107,9 @@ get_header('branded'); ?>
 <div class="error-404-container">
     <div class="error-404-code">404</div>
     <h1 class="error-404-title">Page Not Found</h1>
-    <p class="error-404-message">The page you're looking for doesn't exist or has been moved.</p>
     <a href="<?php echo esc_url(home_url('/')); ?>" class="error-404-link">Back to Home</a>
 </div>
 
-<?php get_footer('branded'); ?>
+<?php wp_footer(); ?>
+</body>
+</html>
