@@ -119,6 +119,10 @@ get_header('branded'); ?>
         color: white;
     }
 
+    .story-hero-text .story-meta::after {
+        content: none;
+    }
+
     /* Hero image credit positioned below hero section */
     .hero-image-credit {
         position: absolute;

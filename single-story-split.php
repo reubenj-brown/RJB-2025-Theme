@@ -123,6 +123,10 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         color: #000 !important;
     }
 
+    .story-hero-text .story-meta::after {
+        content: none;
+    }
+
     /* Tablet Responsive - Stack columns vertically with image on top */
     @media (max-width: 1200px) {
         .story-hero-full-bleed {
