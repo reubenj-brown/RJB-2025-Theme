@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <section class="story-hero-full-bleed">
     <div class="story-hero-background">
         <?php if (has_post_thumbnail()) : ?>
-            <?php the_post_thumbnail('full'); ?>
+            <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" fetchpriority="high" decoding="sync">
         <?php else : ?>
             <!-- Fallback background if no featured image -->
             <div style="background: linear-gradient(135deg, #39e58f 0%, #2dc776 100%); width: 100%; height: 100%;"></div>
