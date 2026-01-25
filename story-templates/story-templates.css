@@ -425,6 +425,7 @@ html, body {
 
     .story-image-caption {
         width: 100%;
+        margin-bottom: 1rem;
     }
 
     .story-header-nav {
