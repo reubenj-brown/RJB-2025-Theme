@@ -17,6 +17,14 @@ add_action('wp_enqueue_scripts', function() {
 get_header('branded'); ?>
 
 <style>
+    /* Prevent page scroll */
+    html, body {
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
     /* Light mode defaults */
     .error-404-container {
         --404-bg: white;
@@ -36,14 +44,19 @@ get_header('branded'); ?>
     }
 
     .error-404-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
         padding: 2rem;
         text-align: center;
         background-color: var(--404-bg);
+        box-sizing: border-box;
     }
 
     .error-404-code {
