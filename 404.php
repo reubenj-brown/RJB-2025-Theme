@@ -17,6 +17,24 @@ add_action('wp_enqueue_scripts', function() {
 get_header('branded'); ?>
 
 <style>
+    /* Light mode defaults */
+    .error-404-container {
+        --404-bg: white;
+        --404-text: #000;
+        --404-text-muted: #808080;
+        --404-button-hover-text: white;
+    }
+
+    /* Dark mode overrides */
+    @media (prefers-color-scheme: dark) {
+        .error-404-container {
+            --404-bg: #050505;
+            --404-text: white;
+            --404-text-muted: #a8a8a8;
+            --404-button-hover-text: #050505;
+        }
+    }
+
     .error-404-container {
         display: flex;
         flex-direction: column;
@@ -25,7 +43,7 @@ get_header('branded'); ?>
         min-height: 100vh;
         padding: 2rem;
         text-align: center;
-        background-color: var(--content-bg, #0a0a0a);
+        background-color: var(--404-bg);
     }
 
     .error-404-code {
@@ -41,14 +59,14 @@ get_header('branded'); ?>
         font-family: var(--primary-font) !important;
         font-size: clamp(24px, 4vw, 36px);
         font-weight: 600;
-        color: var(--text-color, #ffffff);
+        color: var(--404-text);
         margin-bottom: 1rem;
     }
 
     .error-404-message {
         font-family: var(--serif-font) !important;
         font-size: clamp(16px, 2vw, 20px);
-        color: var(--text-color-muted, rgba(255, 255, 255, 0.7));
+        color: var(--404-text-muted);
         max-width: 500px;
         margin-bottom: 2rem;
         line-height: 1.5;
@@ -69,7 +87,7 @@ get_header('branded'); ?>
 
     .error-404-link:hover {
         background-color: var(--highlight-color);
-        color: #0a0a0a;
+        color: var(--404-button-hover-text);
     }
 
     @media (max-width: 768px) {
