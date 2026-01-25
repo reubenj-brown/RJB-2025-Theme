@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Image credit positioned below hero section -->
 <?php if ($photo_credit && has_post_thumbnail()) : ?>
-    <div class="hero-image-credit">credit: <?php echo esc_html($photo_credit); ?></div>
+    <div class="hero-image-credit"><?php echo esc_html($photo_credit); ?></div>
 <?php endif; ?>
 
 <!-- Main Content -->
