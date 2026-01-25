@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Video credit positioned below hero section -->
 <?php if ($photo_credit) : ?>
-    <div class="hero-image-credit">video: <?php echo esc_html($photo_credit); ?></div>
+    <div class="hero-image-credit">credit: <?php echo esc_html($photo_credit); ?></div>
 <?php endif; ?>
 
 <!-- Main Content -->
