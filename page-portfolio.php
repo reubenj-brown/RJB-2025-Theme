@@ -409,6 +409,7 @@ get_header('branded'); ?>
                 <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
                 <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
                 <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
+                <a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" class="contact-link" target="_blank" rel="noopener">signal</a>
             </div>
         </div>
     </section>
