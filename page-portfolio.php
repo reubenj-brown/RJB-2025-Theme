@@ -86,11 +86,11 @@ add_action('wp_head', function() {
                 z-index: 1;
             }
 
-            /* Contact Section - Two Column Layout */
+            /* Contact Section - Three Column Layout */
             .contact-content {
                 display: flex;
                 align-items: center;
-                gap: 4rem;
+                gap: 2rem;
                 width: 100%;
                 max-width: 100vw;
                 margin: 0;
@@ -99,7 +99,7 @@ add_action('wp_head', function() {
             }
 
             .contact-image {
-                flex: 0 0 calc(50% - 1rem);
+                flex: 0 0 auto;
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
@@ -115,11 +115,17 @@ add_action('wp_head', function() {
                 transform: rotate(-10deg);
             }
 
+            .contact-links-wrapper {
+                flex: 1;
+                display: flex;
+                gap: 2rem;
+            }
+
             .contact-links {
-                flex: 0 0 calc(50% - 1rem);
+                flex: 1;
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
                 box-sizing: border-box;
             }
 
@@ -176,7 +182,7 @@ add_action('wp_head', function() {
                 .contact-image {
                     flex: none;
                     margin: 0 auto;
-                    padding-left: 0;
+                    padding: 0;
                 }
 
                 .contact-image img {
@@ -184,9 +190,15 @@ add_action('wp_head', function() {
                     max-width: 90vw;
                 }
 
+                .contact-links-wrapper {
+                    flex: none;
+                    width: 100%;
+                    justify-content: center;
+                    gap: 3rem;
+                }
+
                 .contact-links {
                     flex: none;
-                    padding-right: 0;
                 }
 
                 .contact-link {
@@ -228,15 +240,18 @@ add_action('wp_head', function() {
                 .contact-image img {
                     width: 60vw;
                     max-width: 85vw;
-                    left: 15vw;
+                }
+
+                .contact-links-wrapper {
+                    gap: 2rem;
                 }
 
                 .contact-links {
-                    gap: 0.5rem;
+                    gap: 0.25rem;
                 }
 
                 .contact-link {
-                    font-size: min(20vw, 96px); !important;
+                    font-size: min(16vw, 72px) !important;
                     font-weight: 400;
                 }
             }
@@ -405,11 +420,15 @@ get_header('branded'); ?>
             <div class="contact-image">
                 <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/01/reuben-j-brown-journalist-writer-photographer-editor-2026-headshot-1.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
             </div>
-            <div class="contact-links">
-                <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
-                <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
-                <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
-                <a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" class="contact-link" target="_blank" rel="noopener">signal</a>
+            <div class="contact-links-wrapper">
+                <div class="contact-links">
+                    <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
+                    <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
+                </div>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
+                    <a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" class="contact-link" target="_blank" rel="noopener">signal</a>
+                </div>
             </div>
         </div>
     </section>
