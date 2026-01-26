@@ -90,7 +90,7 @@ add_action('wp_head', function() {
             .contact-content {
                 display: flex;
                 align-items: center;
-                gap: 2rem;
+                justify-content: center;
                 width: 100%;
                 max-width: 100vw;
                 margin: 0;
@@ -99,12 +99,11 @@ add_action('wp_head', function() {
             }
 
             .contact-image {
-                flex: 0 0 auto;
+                flex: 1;
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
                 align-items: center;
                 box-sizing: border-box;
-                padding: 45px;
             }
 
             .contact-image img {
@@ -116,9 +115,8 @@ add_action('wp_head', function() {
             }
 
             .contact-links-wrapper {
-                flex: 1;
+                flex: 2;
                 display: flex;
-                gap: 2rem;
             }
 
             .contact-links {
@@ -173,8 +171,8 @@ add_action('wp_head', function() {
             @media (max-width: 1200px) {
                 .contact-content {
                     flex-direction: column;
-                    text-align: center;
-                    gap: 1rem;
+                    text-align: left;
+                    gap: 3rem;
                     width: 100%;
                     padding: 0 3rem;
                 }
@@ -193,8 +191,8 @@ add_action('wp_head', function() {
                 .contact-links-wrapper {
                     flex: none;
                     width: 100%;
-                    justify-content: center;
-                    gap: 3rem;
+                    justify-content: flex-start;
+                    gap: 4rem;
                 }
 
                 .contact-links {
@@ -232,9 +230,14 @@ add_action('wp_head', function() {
                 /* Contact section - stack columns on mobile */
                 .contact-content {
                     flex-direction: column;
-                    text-align: center;
+                    text-align: left;
+                    gap: 2rem;
                     width: 100%;
                     padding: 0 4vw;
+                }
+
+                .contact-image {
+                    margin: 0;
                 }
 
                 .contact-image img {
@@ -243,7 +246,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-links-wrapper {
-                    gap: 2rem;
+                    gap: 3rem;
                 }
 
                 .contact-links {
