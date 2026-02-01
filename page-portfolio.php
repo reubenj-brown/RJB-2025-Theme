@@ -128,12 +128,8 @@ add_action('wp_head', function() {
             }
 
             .contact-link {
-                font-family: var(--compressed-font) !important;
-                font-size: 8vw;
-                line-height: 1.2 !important;
-                font-weight: 400 !important;
+                /* Font properties from .display-headline in base-sections.css */
                 text-decoration: none;
-                color: var(--text-color);
                 transition: all 0.3s ease;
             }
 
@@ -199,9 +195,6 @@ add_action('wp_head', function() {
                     flex: none;
                 }
 
-                .contact-link {
-                    font-size: 12vw !important;
-                }
             }
 
             /* General Mobile Responsive - See breakpoint reference in plugin base-sections.css */
@@ -254,7 +247,6 @@ add_action('wp_head', function() {
                 }
 
                 .contact-link {
-                    font-size: min(16vw, 72px) !important;
                     font-weight: 400;
                 }
             }
@@ -338,39 +330,39 @@ add_action('wp_footer', function() {
         }
 
         // Strategy intro text fade effect
-        const strategyIntroTexts = document.querySelectorAll('.strategy-intro h3');
+        const strategyIntros = document.querySelectorAll('.strategy-intro');
 
-        if (strategyIntroTexts.length > 0) {
+        if (strategyIntros.length > 0) {
             function updateStrategyTextOpacity() {
                 const scrollY = window.scrollY;
                 const viewportHeight = window.innerHeight;
 
-                strategyIntroTexts.forEach(strategyText => {
-                    const strategyTextRect = strategyText.getBoundingClientRect();
-                    const strategyTextTop = scrollY + strategyTextRect.top;
+                strategyIntros.forEach(strategyIntro => {
+                    const strategyIntroRect = strategyIntro.getBoundingClientRect();
+                    const strategyIntroTop = scrollY + strategyIntroRect.top;
 
-                    // Start fading when text reaches 25% from top of viewport, fully faded when it would leave viewport
-                    const fadeStart = strategyTextTop - (viewportHeight * 0.25);
-                    const fadeEnd = strategyTextTop - (viewportHeight * 0.1);
+                    // Start fading when section reaches 25% from top of viewport, fully faded when it would leave viewport
+                    const fadeStart = strategyIntroTop - (viewportHeight * 0.25);
+                    const fadeEnd = strategyIntroTop - (viewportHeight * 0.1);
 
                     if (scrollY <= fadeStart) {
-                        strategyText.style.opacity = '1';
-                        strategyText.style.filter = 'blur(0px)';
+                        strategyIntro.style.opacity = '1';
+                        strategyIntro.style.filter = 'blur(0px)';
                     } else if (scrollY >= fadeEnd) {
-                        strategyText.style.opacity = '0';
-                        strategyText.style.filter = 'blur(10px)';
+                        strategyIntro.style.opacity = '0';
+                        strategyIntro.style.filter = 'blur(10px)';
                     } else {
                         // Calculate opacity and blur between fadeStart and fadeEnd
                         const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
                         const opacity = 1 - fadeProgress;
                         const blurAmount = fadeProgress * 10; // 0px to 10px blur
-                        strategyText.style.opacity = opacity.toString();
-                        strategyText.style.filter = `blur(${blurAmount}px)`;
+                        strategyIntro.style.opacity = opacity.toString();
+                        strategyIntro.style.filter = `blur(${blurAmount}px)`;
                     }
                 });
             }
 
-            // Initial call and scroll listener for strategy text
+            // Initial call and scroll listener for strategy intro sections
             updateStrategyTextOpacity();
             window.addEventListener('scroll', updateStrategyTextOpacity);
         }
@@ -407,14 +399,24 @@ get_header('branded'); ?>
         </section>
 
             <div class="strategy-intro">
-                <h3 id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/11/Reuben_J_Brown_Investigative_Journalist_CV_November-2025.pdf">PDF version</a></h3>
-            </div> 
+                <div class="strategy-intro-headline">
+                    <span class="display-headline">CV</span>
+                </div>
+                <div class="strategy-intro-body">
+                    <h3 id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/11/Reuben_J_Brown_Investigative_Journalist_CV_November-2025.pdf">PDF version</a></h3>
+                </div>
+            </div>
         <section class="content-section cv-section">
             <?php echo do_shortcode('[reuben_cv]'); ?>
         </section>
         <div class="strategy-intro" style="padding-bottom: 0 !important;">
+            <div class="strategy-intro-headline">
+                <span class="display-headline">Contact</span>
+            </div>
+            <div class="strategy-intro-body">
                 <h3 id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
-        </div> 
+            </div>
+        </div>
     </main>
 
     <!-- Contact Section - Outside main wrapper for full width gradient -->
@@ -425,12 +427,12 @@ get_header('branded'); ?>
             </div>
             <div class="contact-links-wrapper">
                 <div class="contact-links">
-                    <a href="mailto:reubenjbrown@protonmail.com" class="contact-link">email</a>
-                    <a href="https://www.instagram.com/reubenj.brown/" class="contact-link" target="_blank" rel="noopener">instagram</a>
+                    <a href="mailto:reubenjbrown@protonmail.com" class="contact-link display-headline">email</a>
+                    <a href="https://www.instagram.com/reubenj.brown/" class="contact-link display-headline" target="_blank" rel="noopener">instagram</a>
                 </div>
                 <div class="contact-links">
-                    <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link" target="_blank" rel="noopener">linkedin</a>
-                    <a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" class="contact-link" target="_blank" rel="noopener">signal</a>
+                    <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link display-headline" target="_blank" rel="noopener">linkedin</a>
+                    <a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" class="contact-link display-headline" target="_blank" rel="noopener">signal</a>
                 </div>
             </div>
         </div>
