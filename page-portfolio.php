@@ -341,8 +341,8 @@ add_action('wp_footer', function() {
                     const strategyIntroRect = strategyIntro.getBoundingClientRect();
                     const strategyIntroTop = scrollY + strategyIntroRect.top;
 
-                        // Start fading when text reaches 18% from top of viewport, fully faded at 0% from top
-                    const fadeStart = aboutTextTop - (viewportHeight * 0.18);
+                        // Start fading when text reaches 15% from top of viewport, fully faded at 0% from top
+                    const fadeStart = aboutTextTop - (viewportHeight * 0.15);
                     const fadeEnd = aboutTextTop;
     
                     if (scrollY <= fadeStart) {
