@@ -168,9 +168,8 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: left;
-                    gap: 3rem;
                     width: 100%;
-                    padding: 0 3rem;
+                    padding: 2rem 3rem;
                 }
 
                 .contact-image {
@@ -187,8 +186,8 @@ add_action('wp_head', function() {
                 .contact-links-wrapper {
                     flex: none;
                     width: 100%;
-                    justify-content: flex-start;
-                    gap: 4rem;
+                    justify-content: space-around;
+                    gap: 3rem;
                 }
 
                 .contact-links {
