@@ -341,23 +341,23 @@ add_action('wp_footer', function() {
                     const strategyIntroRect = strategyIntro.getBoundingClientRect();
                     const strategyIntroTop = scrollY + strategyIntroRect.top;
 
-                        // Start fading when text reaches 15% from top of viewport, fully faded at 0% from top
-                    const fadeStart = aboutTextTop - (viewportHeight * 0.15);
-                    const fadeEnd = aboutTextTop;
-    
+                    // Start fading when section reaches 15% from top of viewport, fully faded when it would leave viewport
+                    const fadeStart = strategyIntroTop - (viewportHeight * 0.15);
+                    const fadeEnd = strategyIntroTop;
+
                     if (scrollY <= fadeStart) {
-                        aboutText.style.opacity = '1';
-                        aboutText.style.filter = 'blur(0px)';
+                        strategyIntro.style.opacity = '1';
+                        strategyIntro.style.filter = 'blur(0px)';
                     } else if (scrollY >= fadeEnd) {
-                        aboutText.style.opacity = '0';
-                        aboutText.style.filter = 'blur(10px)';
+                        strategyIntro.style.opacity = '0';
+                        strategyIntro.style.filter = 'blur(10px)';
                     } else {
                         // Calculate opacity and blur between fadeStart and fadeEnd
                         const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
                         const opacity = 1 - fadeProgress;
                         const blurAmount = fadeProgress * 10; // 0px to 10px blur
-                        aboutText.style.opacity = opacity.toString();
-                        aboutText.style.filter = `blur(${blurAmount}px)`;
+                        strategyIntro.style.opacity = opacity.toString();
+                        strategyIntro.style.filter = `blur(${blurAmount}px)`;
                     }
                 });
             }
