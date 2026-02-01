@@ -341,23 +341,23 @@ add_action('wp_footer', function() {
                     const strategyIntroRect = strategyIntro.getBoundingClientRect();
                     const strategyIntroTop = scrollY + strategyIntroRect.top;
 
-                    // Start fading when section reaches 25% from top of viewport, fully faded when it would leave viewport
-                    const fadeStart = strategyIntroTop - (viewportHeight * 0.25);
-                    const fadeEnd = strategyIntroTop - (viewportHeight * 0.1);
-
+                        // Start fading when text reaches 18% from top of viewport, fully faded at 0% from top
+                    const fadeStart = aboutTextTop - (viewportHeight * 0.18);
+                    const fadeEnd = aboutTextTop;
+    
                     if (scrollY <= fadeStart) {
-                        strategyIntro.style.opacity = '1';
-                        strategyIntro.style.filter = 'blur(0px)';
+                        aboutText.style.opacity = '1';
+                        aboutText.style.filter = 'blur(0px)';
                     } else if (scrollY >= fadeEnd) {
-                        strategyIntro.style.opacity = '0';
-                        strategyIntro.style.filter = 'blur(10px)';
+                        aboutText.style.opacity = '0';
+                        aboutText.style.filter = 'blur(10px)';
                     } else {
                         // Calculate opacity and blur between fadeStart and fadeEnd
                         const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
                         const opacity = 1 - fadeProgress;
                         const blurAmount = fadeProgress * 10; // 0px to 10px blur
-                        strategyIntro.style.opacity = opacity.toString();
-                        strategyIntro.style.filter = `blur(${blurAmount}px)`;
+                        aboutText.style.opacity = opacity.toString();
+                        aboutText.style.filter = `blur(${blurAmount}px)`;
                     }
                 });
             }
