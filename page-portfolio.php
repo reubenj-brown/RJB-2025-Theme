@@ -341,7 +341,7 @@ add_action('wp_footer', function() {
                     const strategyIntroTop = scrollY + strategyIntroRect.top;
 
                     // Start fading when section reaches 15% from top of viewport, fully faded when it would leave viewport
-                    const fadeStart = strategyIntroTop - (viewportHeight * 0.15);
+                    const fadeStart = strategyIntroTop - (viewportHeight * 0.07);
                     const fadeEnd = strategyIntroTop;
 
                     if (scrollY <= fadeStart) {
