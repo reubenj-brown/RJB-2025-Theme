@@ -340,8 +340,8 @@ add_action('wp_footer', function() {
                     const elRect = el.getBoundingClientRect();
                     const elTop = scrollY + elRect.top;
 
-                    // Start fading when element reaches 15% from top of viewport, fully faded when it would leave viewport
-                    const fadeStart = elTop - (viewportHeight * 0.07);
+                    // Start fading when element reaches 20% from top of viewport, fully faded when it would leave viewport
+                    const fadeStart = elTop - (viewportHeight * 0.20);
                     const fadeEnd = elTop;
 
                     if (scrollY <= fadeStart) {
