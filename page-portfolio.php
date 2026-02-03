@@ -329,34 +329,34 @@ add_action('wp_footer', function() {
         }
 
         // Strategy intro text fade effect
-        const strategyIntros = document.querySelectorAll('.strategy-intro');
+        const strategyChildren = document.querySelectorAll('.strategy-intro-headline, .strategy-intro-body');
 
-        if (strategyIntros.length > 0) {
+        if (strategyChildren.length > 0) {
             function updateStrategyTextOpacity() {
                 const scrollY = window.scrollY;
                 const viewportHeight = window.innerHeight;
 
-                strategyIntros.forEach(strategyIntro => {
-                    const strategyIntroRect = strategyIntro.getBoundingClientRect();
-                    const strategyIntroTop = scrollY + strategyIntroRect.top;
+                strategyChildren.forEach(el => {
+                    const elRect = el.getBoundingClientRect();
+                    const elTop = scrollY + elRect.top;
 
-                    // Start fading when section reaches 15% from top of viewport, fully faded when it would leave viewport
-                    const fadeStart = strategyIntroTop - (viewportHeight * 0.07);
-                    const fadeEnd = strategyIntroTop;
+                    // Start fading when element reaches 15% from top of viewport, fully faded when it would leave viewport
+                    const fadeStart = elTop - (viewportHeight * 0.07);
+                    const fadeEnd = elTop;
 
                     if (scrollY <= fadeStart) {
-                        strategyIntro.style.opacity = '1';
-                        strategyIntro.style.filter = 'blur(0px)';
+                        el.style.opacity = '1';
+                        el.style.filter = 'blur(0px)';
                     } else if (scrollY >= fadeEnd) {
-                        strategyIntro.style.opacity = '0';
-                        strategyIntro.style.filter = 'blur(10px)';
+                        el.style.opacity = '0';
+                        el.style.filter = 'blur(10px)';
                     } else {
                         // Calculate opacity and blur between fadeStart and fadeEnd
                         const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
                         const opacity = 1 - fadeProgress;
                         const blurAmount = fadeProgress * 10; // 0px to 10px blur
-                        strategyIntro.style.opacity = opacity.toString();
-                        strategyIntro.style.filter = `blur(${blurAmount}px)`;
+                        el.style.opacity = opacity.toString();
+                        el.style.filter = `blur(${blurAmount}px)`;
                     }
                 });
             }
