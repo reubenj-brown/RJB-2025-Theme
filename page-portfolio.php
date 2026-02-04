@@ -224,7 +224,7 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: left;
-                    column-gap: 92px;
+                    gap: 92px;
                     width: 100%;
                     padding: 0 4vw;
                 }
