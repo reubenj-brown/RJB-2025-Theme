@@ -131,6 +131,7 @@ add_action('wp_head', function() {
                 /* Font properties from .display-headline in base-sections.css */
                 text-decoration: none;
                 transition: all 0.3s ease;
+                color: #000 !important;
             }
 
             .contact-link:last-child {
@@ -223,7 +224,7 @@ add_action('wp_head', function() {
                 .contact-content {
                     flex-direction: column;
                     text-align: left;
-                    gap: 2rem;
+                    column-gap: 92px;
                     width: 100%;
                     padding: 0 4vw;
                 }
