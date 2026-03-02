@@ -407,7 +407,7 @@ get_header('branded'); ?>
                     <span class="display-headline">CV</span>
                 </div>
                 <div class="strategy-intro-body">
-                    <h3 id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2025/11/Reuben_J_Brown_Investigative_Journalist_CV_November-2025.pdf">PDF version</a></h3>
+                    <h3 id="cv">Here are some resume highlights. Or download a full <a href="https://reubenjbrown.com/wp-content/uploads/2026/03/Reuben-J-Brown-CV_March26.pdf">PDF version</a></h3>
                 </div>
             </div>
         <section class="content-section cv-section">
