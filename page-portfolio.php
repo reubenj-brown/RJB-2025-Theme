@@ -131,7 +131,7 @@ add_action('wp_head', function() {
                 /* Font properties from .display-headline in base-sections.css */
                 text-decoration: none;
                 transition: all 0.3s ease;
-                color: #000 !important;
+                color: var(--text-color) !important;
             }
 
             .contact-link:last-child {
@@ -141,7 +141,6 @@ add_action('wp_head', function() {
             .contact-link:hover {
                 color: var(--highlight-color);
             }
-
 
             /* Hero section headline - PP Right Serif at 96px, block caps, not italic */
             .featured-story-full-bleed h2,
