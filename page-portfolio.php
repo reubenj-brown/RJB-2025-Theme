@@ -231,12 +231,13 @@ add_action('wp_head', function() {
 
                 .contact-image {
                     margin: 0;
+                    max-height: 40vh;
                 }
 
                 .contact-image img {
                     width: 60vw;
                     max-width: 85vw;
-                    max-height: 40vh;
+                    max-height: 100%;
                     object-fit: contain;
                 }
 
