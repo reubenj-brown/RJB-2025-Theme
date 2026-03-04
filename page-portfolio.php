@@ -140,7 +140,7 @@ add_action('wp_head', function() {
             }
 
             .contact-link:hover {
-                color: var(--highlight-color);
+                color: var(--highlight-color) !important;
             }
 
             /* Hero section headline - PP Right Serif at 96px, block caps, not italic */
