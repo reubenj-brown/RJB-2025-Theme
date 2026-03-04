@@ -86,11 +86,11 @@ add_action('wp_head', function() {
                 z-index: 1;
             }
 
-            /* Contact Section - Three Column Layout */
+            /* Contact Section - Two Column Layout */
             .contact-content {
-                display: flex;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 align-items: center;
-                justify-content: center;
                 gap: 64px;
                 width: 100%;
                 max-width: 100vw;
@@ -100,7 +100,8 @@ add_action('wp_head', function() {
             }
 
             .contact-image {
-                flex: 1 1 0;
+                max-width: 33vw;
+                justify-self: center;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -116,7 +117,6 @@ add_action('wp_head', function() {
             }
 
             .contact-links-wrapper {
-                flex: 2 1 0;
                 display: flex;
             }
 
