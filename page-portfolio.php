@@ -86,10 +86,10 @@ add_action('wp_head', function() {
                 z-index: 1;
             }
 
-            /* Contact Section - Two Column Layout */
+            /* Contact Section - Three Column Layout (matches cv-content) */
             .contact-content {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
                 align-items: center;
                 gap: 64px;
                 width: 100%;
@@ -100,10 +100,9 @@ add_action('wp_head', function() {
             }
 
             .contact-image {
-                max-width: 33vw;
-                justify-self: center;
+                justify-self: start;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 box-sizing: border-box;
             }
@@ -113,19 +112,25 @@ add_action('wp_head', function() {
                 height: auto;
                 display: block;
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
-                transform: rotate(-10deg);
             }
 
             .contact-links-wrapper {
-                display: flex;
+                display: contents;
             }
 
             .contact-links {
-                flex: 1 1 0;
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
                 box-sizing: border-box;
+            }
+
+            .contact-links:first-child {
+                text-align: center;
+            }
+
+            .contact-links:last-child {
+                text-align: right;
             }
 
             .contact-link {
