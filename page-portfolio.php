@@ -240,11 +240,11 @@ add_action('wp_head', function() {
 
                 .contact-links-wrapper {
                     flex-direction: column;
-                    gap: 64px;
+                    gap: 0;
                 }
 
                 .contact-links {
-                    gap: 0.25rem;
+                    gap: 0;
                 }
 
                 .contact-link {
