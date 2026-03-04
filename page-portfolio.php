@@ -93,8 +93,8 @@ add_action('wp_head', function() {
                 align-items: center;
                 gap: 64px;
                 width: 100%;
-                max-width: 100vw;
-                margin: 0;
+                max-width: 1200px;
+                margin: 0 auto;
                 padding: 0 2vw;
                 box-sizing: border-box;
             }
@@ -225,18 +225,19 @@ add_action('wp_head', function() {
                     bottom: calc(-2vw - 35px); /* Mobile footer height: 1vw top + logo + contact pill + 1vw bottom */
                 }
 
-                /* Contact section - stack all three as rows on mobile */
+                /* Contact section - stack as rows on mobile */
                 .contact-content {
-                    flex-direction: column;
+                    grid-template-columns: 1fr;
                     text-align: center;
                     gap: 64px;
-                    width: 100%;
+                    max-width: 100%;
                     padding: 0 4vw;
                 }
 
                 .contact-image {
                     margin: 0;
                     max-height: 40vh;
+                    justify-self: center;
                 }
 
                 .contact-image img {
@@ -247,12 +248,14 @@ add_action('wp_head', function() {
                 }
 
                 .contact-links-wrapper {
+                    display: flex;
                     flex-direction: column;
                     gap: 0;
                 }
 
                 .contact-links {
                     gap: 0;
+                    text-align: center;
                 }
 
                 .contact-link {
