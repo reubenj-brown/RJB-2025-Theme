@@ -253,7 +253,9 @@ add_action('wp_head', function() {
                     gap: 0;
                 }
 
-                .contact-links {
+                .contact-links,
+                .contact-links:first-child,
+                .contact-links:last-child {
                     gap: 0;
                     text-align: center;
                 }
