@@ -99,7 +99,7 @@ add_action('wp_head', function() {
             }
 
             .contact-image {
-                flex: 1;
+                flex: 1 1 0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -107,7 +107,7 @@ add_action('wp_head', function() {
             }
 
             .contact-image img {
-                width: 400px;
+                max-width: 100%;
                 height: auto;
                 display: block;
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
@@ -115,12 +115,12 @@ add_action('wp_head', function() {
             }
 
             .contact-links-wrapper {
-                flex: 2;
+                flex: 2 1 0;
                 display: flex;
             }
 
             .contact-links {
-                flex: 1;
+                flex: 1 1 0;
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
