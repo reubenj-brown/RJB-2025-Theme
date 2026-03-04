@@ -220,11 +220,11 @@ add_action('wp_head', function() {
                     bottom: calc(-2vw - 35px); /* Mobile footer height: 1vw top + logo + contact pill + 1vw bottom */
                 }
 
-                /* Contact section - stack columns on mobile */
+                /* Contact section - stack all three as rows on mobile */
                 .contact-content {
                     flex-direction: column;
-                    text-align: left;
-                    gap: 92px;
+                    text-align: center;
+                    gap: 64px;
                     width: 100%;
                     padding: 0 4vw;
                 }
@@ -239,7 +239,8 @@ add_action('wp_head', function() {
                 }
 
                 .contact-links-wrapper {
-                    gap: 3rem;
+                    flex-direction: column;
+                    gap: 64px;
                 }
 
                 .contact-links {
