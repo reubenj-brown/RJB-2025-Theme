@@ -238,6 +238,7 @@ add_action('wp_head', function() {
                     margin: 0;
                     max-height: 40vh;
                     justify-self: center;
+                    justify-content: center;
                 }
 
                 .contact-image img {
