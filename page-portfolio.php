@@ -91,6 +91,7 @@ add_action('wp_head', function() {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                gap: 64px;
                 width: 100%;
                 max-width: 100vw;
                 margin: 0;
