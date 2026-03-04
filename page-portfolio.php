@@ -236,6 +236,8 @@ add_action('wp_head', function() {
                 .contact-image img {
                     width: 60vw;
                     max-width: 85vw;
+                    max-height: 40vh;
+                    object-fit: contain;
                 }
 
                 .contact-links-wrapper {
