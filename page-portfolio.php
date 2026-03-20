@@ -442,7 +442,7 @@ get_header('branded'); ?>
     <section class="content-section contact-section">
         <div class="contact-content">
             <div class="contact-image">
-                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/01/reuben-j-brown-journalist-writer-photographer-editor-2026-headshot-1.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
+                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/03/Reuben_J_Brown_Multimedia-Journalist-photographer-writer-editor-HEADSHOT.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
             </div>
             <div class="contact-links-wrapper">
                 <div class="contact-links">
