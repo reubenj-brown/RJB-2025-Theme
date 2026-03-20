@@ -11,17 +11,28 @@
 // Dynamic social sharing image - use featured image if available, otherwise default
 $default_share_image = 'https://reubenjbrown.com/wp-content/uploads/2026/03/Social_Sharing_Reuben_J_Brown.jpg';
 $share_image = $default_share_image;
+$share_title = 'Reuben J. Brown | Multimedia Journalist';
 
-if (is_singular() && has_post_thumbnail()) {
-    $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
-    if ($featured_image) {
-        $share_image = $featured_image;
+if (is_singular()) {
+    // For story post type, use get_story_featured_image() which checks multiple sources
+    if (get_post_type() === 'story' && function_exists('get_story_featured_image')) {
+        $story_image = get_story_featured_image(get_the_ID(), 'large');
+        if (!empty($story_image)) {
+            $share_image = $story_image;
+        }
+    } elseif (has_post_thumbnail()) {
+        // For other post types, use standard featured image
+        $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+        if ($featured_image) {
+            $share_image = $featured_image;
+        }
     }
+    $share_title = get_the_title() . ' | Reuben J. Brown';
 }
 ?>
 <meta property="og:type" content="website">
 <meta property="og:url" content="<?php echo esc_url(is_singular() ? get_permalink() : home_url('/')); ?>">
-<meta property="og:title" content="<?php echo esc_attr(is_singular() ? get_the_title() . ' | Reuben J. Brown' : 'Reuben J. Brown | Multimedia Journalist'); ?>">
+<meta property="og:title" content="<?php echo esc_attr($share_title); ?>">
 <meta property="og:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
 <meta property="og:image" content="<?php echo esc_url($share_image); ?>">
 <meta property="og:image:width" content="1200">
@@ -30,7 +41,7 @@ if (is_singular() && has_post_thumbnail()) {
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="<?php echo esc_url(is_singular() ? get_permalink() : home_url('/')); ?>">
-<meta name="twitter:title" content="<?php echo esc_attr(is_singular() ? get_the_title() . ' | Reuben J. Brown' : 'Reuben J. Brown | Multimedia Journalist'); ?>">
+<meta name="twitter:title" content="<?php echo esc_attr($share_title); ?>">
 <meta name="twitter:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
 <meta name="twitter:image" content="<?php echo esc_url($share_image); ?>">
 
