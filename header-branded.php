@@ -7,20 +7,32 @@
 <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
 
 <!-- Open Graph / Facebook -->
+<?php
+// Dynamic social sharing image - use featured image if available, otherwise default
+$default_share_image = 'https://reubenjbrown.com/wp-content/uploads/2026/03/Social_Sharing_Reuben_J_Brown.jpg';
+$share_image = $default_share_image;
+
+if (is_singular() && has_post_thumbnail()) {
+    $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+    if ($featured_image) {
+        $share_image = $featured_image;
+    }
+}
+?>
 <meta property="og:type" content="website">
-<meta property="og:url" content="<?php echo esc_url(home_url('/')); ?>">
-<meta property="og:title" content="Reuben J. Brown | Multimedia Journalist">
+<meta property="og:url" content="<?php echo esc_url(is_singular() ? get_permalink() : home_url('/')); ?>">
+<meta property="og:title" content="<?php echo esc_attr(is_singular() ? get_the_title() . ' | Reuben J. Brown' : 'Reuben J. Brown | Multimedia Journalist'); ?>">
 <meta property="og:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
-<meta property="og:image" content="<?php echo esc_url(home_url('/wp-content/uploads/2025/11/reuben-j-brown-almeria-greenhouses-el-ejido-agriculture.avif')); ?>">
+<meta property="og:image" content="<?php echo esc_url($share_image); ?>">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="<?php echo esc_url(home_url('/')); ?>">
-<meta name="twitter:title" content="Reuben J. Brown | Multimedia Journalist">
+<meta name="twitter:url" content="<?php echo esc_url(is_singular() ? get_permalink() : home_url('/')); ?>">
+<meta name="twitter:title" content="<?php echo esc_attr(is_singular() ? get_the_title() . ' | Reuben J. Brown' : 'Reuben J. Brown | Multimedia Journalist'); ?>">
 <meta name="twitter:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
-<meta name="twitter:image" content="<?php echo esc_url(home_url('/wp-content/uploads/2025/11/reuben-j-brown-almeria-greenhouses-el-ejido-agriculture.avif')); ?>">
+<meta name="twitter:image" content="<?php echo esc_url($share_image); ?>">
 
 <link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css">
 
