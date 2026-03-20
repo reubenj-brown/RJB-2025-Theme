@@ -84,24 +84,24 @@ get_header('branded'); ?>
         opacity: 0;
     }
 
-    /* Video Hero Content - positioned at top */
+    /* Video Hero Content - positioned at top-left */
     .story-hero-content {
         position: fixed;
-        top: 20vh;
-        left: 50%;
-        transform: translateX(-50%);
+        top: 12vh;
+        left: 4vw;
         z-index: 2;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: flex-start;
         padding: 0;
         transition: opacity 0.3s ease, filter 0.3s ease;
     }
 
     .story-hero-text {
         max-width: 800px;
-        text-align: center;
+        text-align: left;
+        text-wrap-style: balance;
     }
 
     /* Headline - Legitima font at 36px */
@@ -162,8 +162,9 @@ get_header('branded'); ?>
     /* Mobile Responsive - Video Hero Specific - See breakpoint reference in plugin base-sections.css */
     @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
         .story-hero-content {
-            width: 96vw;
-            top: 15vh;
+            width: 92vw;
+            top: 12vh;
+            left: 4vw;
         }
 
         .story-hero-text {
@@ -194,8 +195,9 @@ get_header('branded'); ?>
 
     @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
         .story-hero-content {
-            padding: 1.5rem;
-            top: 12vh;
+            top: 10vh;
+            left: 4vw;
+            width: 92vw;
         }
 
         .story-hero-text h1 {
