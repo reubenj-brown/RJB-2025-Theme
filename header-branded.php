@@ -494,16 +494,9 @@ if (is_singular()) {
         <div class="header-content">
             <nav class="main-nav">
                 <ul>
-                    <?php if (is_front_page()) : ?>
-                        <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
-                        <li><a href="<?php echo home_url('/stories/'); ?>" class="nav-link">Stories</a></li>
-                        <li><a href="<?php echo home_url('/#photographs'); ?>" class="nav-link">Pictures</a></li>
-                        <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
-                    <?php else : ?>
-                        <li><a href="<?php echo home_url('/#about'); ?>" class="nav-link">About</a></li>
-                        <li><a href="<?php echo get_post_type_archive_link('story'); ?>" class="nav-link">Stories</a></li>
-                        <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
-                    <?php endif; ?>
+                    <li><a href="<?php echo home_url('/stories/'); ?>" class="nav-link">Stories</a></li>
+                    <li><a href="<?php echo home_url('/#photographs'); ?>" class="nav-link">Pictures</a></li>
+                    <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
                 </ul>
             </nav>
             
