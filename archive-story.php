@@ -21,6 +21,12 @@ add_action('wp_head', function() {
 get_header('branded'); ?>
 
 <style>
+    /* Stories page highlight color override */
+    :root {
+        --highlight-color: #ff8119;
+        --link-hover-color: #ff8119;
+    }
+
     /* Typography and base styles loaded from plugin base-sections.css */
 
     /* Main Content Wrapper - Positioned below header */

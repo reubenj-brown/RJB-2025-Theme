@@ -21,6 +21,12 @@ add_action('wp_head', function() {
 get_header('branded'); ?>
 
 <style>
+    /* Photography page highlight color override */
+    :root {
+        --highlight-color: #003CFF;
+        --link-hover-color: #003CFF;
+    }
+
     /* Main Content Wrapper - Positioned below header */
     .main-content {
         padding: 0;
