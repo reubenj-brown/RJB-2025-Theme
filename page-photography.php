@@ -56,9 +56,11 @@ get_header('branded'); ?>
 </style>
 
 <main class="main-content">
-    <!-- Intro Section -->
-    <div class="photo-page-intro">
-        <h3>As a photographer, I've freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I'm a member of the <a href="https://lapressphoto.com" target="_blank" rel="noopener">LA Press Photographers Association</a>.</h3>
+    <!-- Intro Section with Gradient -->
+    <div class="photo-intro-gradient">
+        <div class="photo-page-intro">
+            <h3>As a photographer, I've freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I'm a member of the <a href="https://lapressphoto.com" target="_blank" rel="noopener">LA Press Photographers Association</a>.</h3>
+        </div>
     </div>
 
     <!-- Photography Sections -->
