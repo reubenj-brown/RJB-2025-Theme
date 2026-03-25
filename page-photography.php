@@ -27,31 +27,15 @@ get_header('branded'); ?>
         --link-hover-color: #003CFF;
     }
 
-    /* Main Content Wrapper - Positioned below header */
+    /* Main Content Wrapper - No margin, gradient starts at top */
     .main-content {
         padding: 0;
         width: 100vw;
         max-width: 100vw;
         background: var(--main-content-bg);
-        margin-top: calc(60px + 2vw + env(safe-area-inset-top));
+        margin-top: 0;
         position: relative;
         z-index: 10;
-    }
-
-    /* Tablet Responsive */
-    @media (max-width: 1200px) {
-        .main-content {
-            margin-top: calc(80px + env(safe-area-inset-top));
-        }
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-        .main-content {
-            padding-left: 0;
-            padding-right: 0;
-            margin-top: calc(70px + env(safe-area-inset-top));
-        }
     }
 </style>
 
