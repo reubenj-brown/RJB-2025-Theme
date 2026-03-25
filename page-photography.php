@@ -57,7 +57,41 @@ get_header('branded'); ?>
 
 </main>
 
+<!-- Photo Lightbox -->
+<div class="photo-lightbox" id="photoLightbox">
+    <button class="photo-lightbox-close" aria-label="Close image">&times;</button>
+    <img class="photo-lightbox-image" src="" alt="">
+</div>
+
 <script>
+// Photo Lightbox functionality
+(function() {
+    var lightbox = document.getElementById('photoLightbox');
+    var lightboxImg = lightbox.querySelector('.photo-lightbox-image');
+    var closeBtn = lightbox.querySelector('.photo-lightbox-close');
+
+    document.querySelectorAll('.photo-picture img').forEach(function(img) {
+        img.addEventListener('click', function() {
+            lightboxImg.src = this.src;
+            lightboxImg.alt = this.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        lightboxImg.src = '';
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+})();
+
 // Replace header navigation for photography page (same as story pages)
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.site-header');
