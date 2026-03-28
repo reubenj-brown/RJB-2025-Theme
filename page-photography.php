@@ -123,10 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Create new story navigation
-    const storyNav = document.createElement('a');
-    storyNav.href = '/';
+    const storyNav = document.createElement('span');
     storyNav.className = 'story-header-nav';
-    storyNav.textContent = '← Home';
+    storyNav.innerHTML = '← <a href="/">Home</a> / <strong>Photography</strong>';
     header.appendChild(storyNav);
 
     // Create new contact button

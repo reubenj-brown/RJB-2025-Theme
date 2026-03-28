@@ -292,9 +292,21 @@ html, body {
     font-size: 1.25rem;
     font-weight: 400;
     text-decoration: none;
-    cursor: pointer;
     z-index: 1002;
     transition: all 0.3s ease;
+}
+
+.story-header-nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.story-header-nav a:hover {
+    color: var(--link-hover-color);
+}
+
+.story-header-nav strong {
+    font-weight: 600;
 }
 
 .site-header:not(.over-full-bleed) .story-header-nav {
