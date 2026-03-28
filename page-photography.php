@@ -64,6 +64,16 @@ get_header('branded'); ?>
 </div>
 
 <script>
+// Disable browser scroll restoration and reset horizontal scrollers
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.addEventListener('load', function() {
+    document.querySelectorAll('.photo-scroll').forEach(function(scroller) {
+        scroller.scrollLeft = 0;
+    });
+});
+
 // Photo Lightbox functionality
 (function() {
     var lightbox = document.getElementById('photoLightbox');
