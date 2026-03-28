@@ -490,8 +490,8 @@ if (is_singular()) {
         }
 
         .site-title-name {
-            font-size: 20px;
-            line-height: 20px;
+            font-size: 1.75rem;
+            line-height: 1.75rem;
             position: static;
             transform: none;
             order: 1;
@@ -523,8 +523,8 @@ if (is_singular()) {
         }
 
         .site-title-name {
-            font-size: 18px;
-            line-height: 18px;
+            font-size: 1.4rem;
+            line-height: 1.4rem;
         }
     }
 </style>

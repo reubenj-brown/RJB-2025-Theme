@@ -122,13 +122,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Create new story navigation
-    const storyNav = document.createElement('span');
-    storyNav.className = 'story-header-nav';
-    storyNav.innerHTML = '<a href="/">← Home</a> / <strong>Photography</strong>';
-    header.appendChild(storyNav);
+    // Create desktop navigation (left side)
+    const storyNavDesktop = document.createElement('span');
+    storyNavDesktop.className = 'story-header-nav story-header-nav-desktop';
+    storyNavDesktop.innerHTML = '<a href="/">← Home</a> / <strong>Photography</strong>';
+    header.appendChild(storyNavDesktop);
 
-    // Create new contact button
+    // Create mobile navigation (right side)
+    const storyNavMobile = document.createElement('span');
+    storyNavMobile.className = 'story-header-nav story-header-nav-mobile';
+    storyNavMobile.innerHTML = '<strong>Photography</strong> / <a href="/">Home →</a>';
+    header.appendChild(storyNavMobile);
+
+    // Create new contact button (desktop only)
     const contactButton = document.createElement('a');
     contactButton.href = '/#contact';
     contactButton.className = 'story-header-contact';
