@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Create new story navigation
     const storyNav = document.createElement('span');
     storyNav.className = 'story-header-nav';
-    storyNav.innerHTML = '← <a href="/">Home</a> / <strong>Stories</strong>';
+    storyNav.innerHTML = '<a href="/">← Home</a> / <strong>Stories</strong>';
     header.appendChild(storyNav);
 
     // Create new contact button
