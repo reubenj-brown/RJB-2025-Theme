@@ -43,22 +43,65 @@ function astra_child_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'astra_child_enqueue_styles' );
 
 /**
- * Set posts per page for story archives
+ * Set posts per page for story archives and exclude photo-* categories
  */
 add_action('pre_get_posts', function($query) {
-    if (!is_admin() && $query->is_main_query() && (is_post_type_archive('story') || is_tax('story_category'))) {
+    if (!is_admin() && $query->is_main_query() && is_post_type_archive('story')) {
+        $query->set('posts_per_page', 24);
+
+        // Exclude photo-* categories from archive unless filtering by category
+        $category_filter = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+        if (empty($category_filter) && function_exists('get_photo_category_slugs')) {
+            $photo_slugs = get_photo_category_slugs();
+            if (!empty($photo_slugs)) {
+                $query->set('tax_query', [
+                    [
+                        'taxonomy' => 'story_category',
+                        'field' => 'slug',
+                        'terms' => $photo_slugs,
+                        'operator' => 'NOT IN'
+                    ]
+                ]);
+            }
+        }
+    } elseif (!is_admin() && $query->is_main_query() && is_tax('story_category')) {
         $query->set('posts_per_page', 24);
     }
 });
 
 /**
+ * Helper function to get photo category slugs to exclude from automated story selection
+ * Returns all story_category terms that start with "photo-"
+ *
+ * @return array Array of category slugs to exclude
+ */
+function get_photo_category_slugs() {
+    $photo_slugs = [];
+    $terms = get_terms([
+        'taxonomy' => 'story_category',
+        'hide_empty' => false,
+    ]);
+
+    if (!is_wp_error($terms)) {
+        foreach ($terms as $term) {
+            if (strpos($term->slug, 'photo-') === 0) {
+                $photo_slugs[] = $term->slug;
+            }
+        }
+    }
+
+    return $photo_slugs;
+}
+
+/**
  * Helper function to get stories for homepage sections
- * 
+ *
  * @param string $category - Story category slug
  * @param int $limit - Number of posts to retrieve
+ * @param bool $exclude_photo_categories - Whether to exclude photo-* categories (default true when no category specified)
  * @return WP_Query
  */
-function get_portfolio_stories($category = '', $limit = 6) {
+function get_portfolio_stories($category = '', $limit = 6, $exclude_photo_categories = null) {
     $args = [
         'post_type' => 'story',
         'posts_per_page' => $limit,
@@ -66,7 +109,12 @@ function get_portfolio_stories($category = '', $limit = 6) {
         'orderby' => 'date',
         'order' => 'DESC'
     ];
-    
+
+    // Default: exclude photo categories when no specific category is requested
+    if ($exclude_photo_categories === null) {
+        $exclude_photo_categories = empty($category);
+    }
+
     if (!empty($category)) {
         $args['tax_query'] = [
             [
@@ -75,8 +123,20 @@ function get_portfolio_stories($category = '', $limit = 6) {
                 'terms' => $category
             ]
         ];
+    } elseif ($exclude_photo_categories) {
+        $photo_slugs = get_photo_category_slugs();
+        if (!empty($photo_slugs)) {
+            $args['tax_query'] = [
+                [
+                    'taxonomy' => 'story_category',
+                    'field' => 'slug',
+                    'terms' => $photo_slugs,
+                    'operator' => 'NOT IN'
+                ]
+            ];
+        }
     }
-    
+
     return new WP_Query($args);
 }
 
@@ -256,6 +316,19 @@ function ajax_load_more_stories() {
                 'terms' => $category
             )
         );
+    } else {
+        // Exclude photo-* categories from "all stories" view
+        $photo_slugs = get_photo_category_slugs();
+        if (!empty($photo_slugs)) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'story_category',
+                    'field' => 'slug',
+                    'terms' => $photo_slugs,
+                    'operator' => 'NOT IN'
+                )
+            );
+        }
     }
 
     $query = new WP_Query($args);
