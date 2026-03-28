@@ -8,7 +8,7 @@
             <!-- Contact button for responsive display - hidden on story pages and story archive -->
             <?php if (!is_singular('story') && !is_post_type_archive('story')) : ?>
             <div class="footer-contact-button">
-                <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact ↓</a>
+                <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact <?php echo is_front_page() ? '↓' : '→'; ?></a>
             </div>
             <?php endif; ?>
             <div class="copyright">© Reuben J. Brown 2026</div>

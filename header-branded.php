@@ -460,9 +460,9 @@ if (is_singular()) {
         .site-header {
             max-width: 100vw;
             padding-top: calc(16px + env(safe-area-inset-top, 0px));
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-            height: calc(60px + 2vw + env(safe-area-inset-top));
+            padding-left: calc(4vw + env(safe-area-inset-left));
+            padding-right: calc(4vw + env(safe-area-inset-right));
+            height: calc(60px + env(safe-area-inset-top));
         }
 
         /* Extend blur pseudo-elements into safe-area on mobile */
@@ -481,9 +481,50 @@ if (is_singular()) {
             padding-top: env(safe-area-inset-top, 0px);
         }
 
+        /* Horizontal layout on mobile: name left, nav right */
+        .header-content {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0;
+        }
+
         .site-title-name {
-            font-size: 24px;
-            line-height: 24px;
+            font-size: 20px;
+            line-height: 20px;
+            position: static;
+            transform: none;
+            order: 1;
+        }
+
+        .main-nav {
+            position: static;
+            transform: none;
+            order: 2;
+        }
+
+        .main-nav a {
+            font-size: 1rem;
+        }
+
+        .main-nav li:not(:last-child)::after {
+            margin: 0 0.4rem;
+        }
+    }
+
+    /* Small mobile - even smaller nav text */
+    @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
+        .main-nav a {
+            font-size: 0.8rem;
+        }
+
+        .main-nav li:not(:last-child)::after {
+            margin: 0 0.3rem;
+        }
+
+        .site-title-name {
+            font-size: 18px;
+            line-height: 18px;
         }
     }
 </style>
