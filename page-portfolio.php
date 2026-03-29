@@ -64,7 +64,7 @@ add_action('wp_head', function() {
                 position: relative;
                 background: transparent !important; /* Override white background from .content-section */
                 margin-bottom: 0;
-                padding-bottom: 0;
+                padding: 24px 0 calc(2vw + 40px + 80px) 0; /* Top 24px, bottom = footer height + 80px */
             }
 
             /* Contact section gradient - mirrors About section but reversed */
@@ -139,7 +139,7 @@ add_action('wp_head', function() {
             .contact-item {
                 display: flex;
                 flex-direction: column;
-                gap: 0.25rem;
+                gap: 0;
             }
 
             .contact-item p {
@@ -219,6 +219,7 @@ add_action('wp_head', function() {
 
                 .contact-section {
                     min-height: auto;
+                    padding: 24px 0 calc(2vw + 35px + 80px) 0; /* Mobile footer height + 80px */
                 }
 
                 /* Contact section gradient mobile - constrain to viewport */
@@ -233,8 +234,11 @@ add_action('wp_head', function() {
                     grid-template-columns: 1fr;
                     text-align: center;
                     gap: 48px;
+                    width: 100%;
                     max-width: 100%;
                     padding: 0 4vw;
+                    box-sizing: border-box;
+                    overflow: hidden;
                 }
 
                 .contact-image {
@@ -254,6 +258,8 @@ add_action('wp_head', function() {
                 .contact-info {
                     text-align: left;
                     gap: 1.5rem;
+                    width: 100%;
+                    box-sizing: border-box;
                 }
 
                 .contact-info h3 {
