@@ -459,7 +459,7 @@ get_header('branded'); ?>
                 <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/03/Reuben_J_Brown_Multimedia-Journalist-photographer-writer-editor-HEADSHOT.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
             </div>
             <div class="contact-info">
-                <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">"You Were Right"</a> by Badly Drawn Boy. For actually serious things, contact me here:</h3>
+                <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me here:</h3>
                 <div class="contact-links-grid">
                     <!-- Left column -->
                     <div class="contact-column">
