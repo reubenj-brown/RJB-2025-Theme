@@ -86,11 +86,11 @@ add_action('wp_head', function() {
                 z-index: 1;
             }
 
-            /* Contact Section - Three Column Layout (matches cv-content) */
+            /* Contact Section - Two Column Layout (Photo | Info) */
             .contact-content {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                align-items: center;
+                grid-template-columns: 1fr 2fr;
+                align-items: start;
                 gap: 64px;
                 width: 100%;
                 max-width: 1200px;
@@ -103,7 +103,7 @@ add_action('wp_head', function() {
                 justify-self: start;
                 display: flex;
                 justify-content: flex-start;
-                align-items: center;
+                align-items: flex-start;
                 box-sizing: border-box;
             }
 
@@ -114,38 +114,57 @@ add_action('wp_head', function() {
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
             }
 
-            .contact-links-wrapper {
-                display: contents;
-            }
-
-            .contact-links {
+            .contact-info {
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
-                box-sizing: border-box;
+                gap: 2rem;
             }
 
-            .contact-links:first-child {
-                text-align: center;
+            .contact-info h3 {
+                margin: 0;
             }
 
-            .contact-links:last-child {
-                text-align: right;
+            .contact-links-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
             }
 
-            .contact-link {
-                /* Font properties from .display-headline in base-sections.css */
-                text-decoration: none;
-                transition: all 0.3s ease;
+            .contact-column {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .contact-item {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .contact-headline {
+                font-family: var(--primary-font) !important;
+                font-weight: 600 !important;
+                font-size: 1rem !important;
                 color: var(--text-color) !important;
+                margin: 0 !important;
             }
 
-            .contact-link:last-child {
-                margin-bottom: 0;
+            .contact-item p {
+                font-family: var(--primary-font) !important;
+                font-weight: 400 !important;
+                font-size: 1rem !important;
+                margin: 0 !important;
             }
 
-            .contact-link:hover {
-                color: var(--highlight-color) !important;
+            .contact-item a {
+                color: var(--text-color) !important;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .contact-item a:hover {
+                color: var(--link-hover-color) !important;
             }
 
             /* Hero section headline - PP Right Serif at 96px, block caps, not italic */
@@ -172,34 +191,22 @@ add_action('wp_head', function() {
             /* Tablet Responsive */
             @media (max-width: 1200px) {
                 .contact-content {
-                    flex-direction: column;
-                    text-align: left;
-                    width: 100%;
-                    padding: 2rem 3rem;
-                }
-
-                .contact-image {
-                    flex: none;
-                    margin: 0 auto;
-                    padding: 0;
+                    grid-template-columns: 1fr 2fr;
+                    gap: 48px;
+                    padding: 0 4vw;
                 }
 
                 .contact-image img {
-                    width: 350px;
-                    max-width: 90vw;
+                    max-width: 100%;
                 }
 
-                .contact-links-wrapper {
-                    flex: none;
-                    width: 100%;
-                    justify-content: space-around;
-                    gap: 3rem;
+                .contact-info h3 {
+                    font-size: 1.5rem;
                 }
 
-                .contact-links {
-                    flex: none;
+                .contact-links-grid {
+                    gap: 1.5rem;
                 }
-
             }
 
             /* General Mobile Responsive - See breakpoint reference in plugin base-sections.css */
@@ -229,7 +236,7 @@ add_action('wp_head', function() {
                 .contact-content {
                     grid-template-columns: 1fr;
                     text-align: center;
-                    gap: 64px;
+                    gap: 48px;
                     max-width: 100%;
                     padding: 0 4vw;
                 }
@@ -248,21 +255,21 @@ add_action('wp_head', function() {
                     object-fit: contain;
                 }
 
-                .contact-links-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0;
+                .contact-info {
+                    text-align: left;
+                    gap: 1.5rem;
                 }
 
-                .contact-links,
-                .contact-links:first-child,
-                .contact-links:last-child {
-                    gap: 0;
+                .contact-info h3 {
                     text-align: center;
                 }
 
-                .contact-link {
-                    font-weight: 400;
+                .contact-links-grid {
+                    gap: 1.5rem;
+                }
+
+                .contact-column {
+                    gap: 1rem;
                 }
             }
             
@@ -430,10 +437,10 @@ get_header('branded'); ?>
         </section>
         <div class="strategy-intro" style="padding-bottom: 0 !important;">
             <div class="strategy-intro-headline">
-                <span class="display-headline">Contact</span>
+                <span class="display-headline" id="contact">Contact</span>
             </div>
-            <div class="strategy-intro-body">
-                <h3 id="contact">My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
+            <div class="strategy-intro-body" style="display: none;">
+                <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
             </div>
         </div>
     </main>
@@ -444,14 +451,31 @@ get_header('branded'); ?>
             <div class="contact-image">
                 <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/03/Reuben_J_Brown_Multimedia-Journalist-photographer-writer-editor-HEADSHOT.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
             </div>
-            <div class="contact-links-wrapper">
-                <div class="contact-links">
-                    <a href="mailto:reubenjbrown@protonmail.com" class="contact-link display-headline">email</a>
-                    <a href="https://www.instagram.com/reubenj.brown/" class="contact-link display-headline" target="_blank" rel="noopener">instagram</a>
-                </div>
-                <div class="contact-links">
-                    <a href="https://www.linkedin.com/in/reuben-j-brown/" class="contact-link display-headline" target="_blank" rel="noopener">linkedin</a>
-                    <a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" class="contact-link display-headline" target="_blank" rel="noopener">signal</a>
+            <div class="contact-info">
+                <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">"You Were Right"</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
+                <div class="contact-links-grid">
+                    <!-- Left column -->
+                    <div class="contact-column">
+                        <div class="contact-item">
+                            <p class="contact-headline">Instagram</p>
+                            <p><a href="https://www.instagram.com/reubenj.brown/" target="_blank" rel="noopener">@reubenj.brown</a></p>
+                        </div>
+                        <div class="contact-item">
+                            <p class="contact-headline">Signal</p>
+                            <p><a href="https://signal.me/#eu/88vN3zt9qpBApa_mQdOvsnnIEJHj3HXbYNegw65lGjsrEYaS1wdGhq7o9cF3os1X" target="_blank" rel="noopener">@reubenjbrown.01</a></p>
+                        </div>
+                    </div>
+                    <!-- Right column -->
+                    <div class="contact-column">
+                        <div class="contact-item">
+                            <p class="contact-headline">Email</p>
+                            <p><a href="mailto:reubenjbrown@protonmail.com">reubenjbrown[at]protonmail.com</a></p>
+                        </div>
+                        <div class="contact-item">
+                            <p class="contact-headline">LinkedIn</p>
+                            <p><a href="https://www.linkedin.com/in/reuben-j-brown/" target="_blank" rel="noopener">/in/reuben-j-brown</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
