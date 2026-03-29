@@ -157,10 +157,16 @@
         color: #000 !important;
     }
 
-    /* Tablet Responsive - Show contact button in center */
+    /* Tablet Responsive - Show contact button in center (home page only) */
     @media (max-width: 1200px) {
         .footer-contact-button {
             display: block;
+        }
+
+        /* Hide on tablet for photography and stories pages - only show on mobile */
+        body.page-template-page-photography .footer-contact-button,
+        body.post-type-archive-story .footer-contact-button {
+            display: none;
         }
     }
 
@@ -231,6 +237,12 @@
         position: static;
         transform: none;
         left: auto;
+    }
+
+    /* Show contact button on mobile for photography/stories (hidden on tablet) */
+    body.page-template-page-photography .footer-contact-button,
+    body.post-type-archive-story .footer-contact-button {
+        display: block;
     }
 
     .footer-logo {
