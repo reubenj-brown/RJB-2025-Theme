@@ -122,6 +122,9 @@ add_action('wp_head', function() {
 
             .contact-info h3 {
                 margin: 0;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                max-width: 100%;
             }
 
             .contact-links-grid {
@@ -233,7 +236,7 @@ add_action('wp_head', function() {
                 .contact-content {
                     grid-template-columns: 1fr;
                     text-align: center;
-                    gap: 48px;
+                    gap: 32px;
                     width: 100%;
                     max-width: 100%;
                     padding: 0 4vw;
@@ -459,8 +462,8 @@ get_header('branded'); ?>
                     <!-- Left column -->
                     <div class="contact-column">
                         <div class="contact-item">
-                            <p class="contact-headline">Instagram</p>
-                            <p><a href="https://www.instagram.com/reubenj.brown/" target="_blank" rel="noopener">@reubenj.brown</a></p>
+                            <p class="contact-headline">Email</p>
+                            <p><a href="mailto:reubenjbrown@protonmail.com">reubenjbrown[at]protonmail.com</a></p>
                         </div>
                         <div class="contact-item">
                             <p class="contact-headline">Signal</p>
@@ -470,8 +473,8 @@ get_header('branded'); ?>
                     <!-- Right column -->
                     <div class="contact-column">
                         <div class="contact-item">
-                            <p class="contact-headline">Email</p>
-                            <p><a href="mailto:reubenjbrown@protonmail.com">reubenjbrown[at]protonmail.com</a></p>
+                            <p class="contact-headline">Instagram</p>
+                            <p><a href="https://www.instagram.com/reubenj.brown/" target="_blank" rel="noopener">@reubenj.brown</a></p>
                         </div>
                         <div class="contact-item">
                             <p class="contact-headline">LinkedIn</p>
