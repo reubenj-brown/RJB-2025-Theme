@@ -57,7 +57,7 @@ add_action('wp_head', function() {
 
             /* Contact Section */
             .contact-section {
-                min-height: calc(100vh - 100px - 4vw);
+                min-height: auto;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -90,7 +90,7 @@ add_action('wp_head', function() {
             .contact-content {
                 display: grid;
                 grid-template-columns: 1fr 2fr;
-                align-items: start;
+                align-items: center;
                 gap: 64px;
                 width: 100%;
                 max-width: 1200px;
@@ -142,19 +142,15 @@ add_action('wp_head', function() {
                 gap: 0.25rem;
             }
 
-            .contact-headline {
-                font-family: var(--primary-font) !important;
-                font-weight: 600 !important;
-                font-size: 1rem !important;
-                color: var(--text-color) !important;
-                margin: 0 !important;
-            }
-
             .contact-item p {
                 font-family: var(--primary-font) !important;
                 font-weight: 400 !important;
                 font-size: 1rem !important;
                 margin: 0 !important;
+            }
+
+            p.contact-headline {
+                font-weight: 600 !important;
             }
 
             .contact-item a {
@@ -222,7 +218,7 @@ add_action('wp_head', function() {
                 }
 
                 .contact-section {
-                    min-height: calc(100vh - 94px - 4vw - env(safe-area-inset-top));
+                    min-height: auto;
                 }
 
                 /* Contact section gradient mobile - constrain to viewport */
@@ -452,7 +448,7 @@ get_header('branded'); ?>
                 <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/03/Reuben_J_Brown_Multimedia-Journalist-photographer-writer-editor-HEADSHOT.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
             </div>
             <div class="contact-info">
-                <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">"You Were Right"</a> by Badly Drawn Boy. For actually serious things, contact me below:</h3>
+                <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">"You Were Right"</a> by Badly Drawn Boy. For actually serious things, contact me here:</h3>
                 <div class="contact-links-grid">
                     <!-- Left column -->
                     <div class="contact-column">
