@@ -266,10 +266,12 @@ add_action('wp_head', function() {
                 }
 
                 .contact-info h3 {
-                    text-align: center;
+                    text-align: left;
+                    font-size: 1.25rem;
                 }
 
                 .contact-links-grid {
+                    grid-template-columns: 1fr;
                     gap: 1.5rem;
                 }
 
