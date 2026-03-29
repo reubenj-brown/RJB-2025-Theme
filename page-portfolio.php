@@ -246,15 +246,16 @@ add_action('wp_head', function() {
 
                 .contact-image {
                     margin: 0;
-                    max-height: 40vh;
                     justify-self: center;
+                    display: flex;
                     justify-content: center;
                 }
 
                 .contact-image img {
-                    width: 60vw;
-                    max-width: 85vw;
-                    max-height: 100%;
+                    width: auto;
+                    max-width: 60vw;
+                    max-height: 40vh;
+                    height: auto;
                     object-fit: contain;
                 }
 
@@ -277,6 +278,10 @@ add_action('wp_head', function() {
 
                 .contact-column {
                     gap: 1rem;
+                }
+
+                .contact-item p {
+                    font-size: 14px !important;
                 }
             }
             
