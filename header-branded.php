@@ -415,73 +415,15 @@ if (is_singular()) {
         color: var(--text-color) !important;
     }
 
-    /* Tablet Responsive - Header Stacking */
+    /* Tablet Responsive - Horizontal layout (same as mobile) */
     @media (max-width: 1200px) {
         .site-header {
-            height: auto;
-            padding: 1rem 0;
-        }
-
-        .header-content {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .site-title-name {
-            font-size: 29.5px;
-            line-height: 29.5px;
-            position: static;
-            transform: none;
-            order: 1;
-        }
-
-        .main-nav {
-            position: static;
-            transform: none;
-            order: 2;
-        }
-
-        /* Hide contact button below 1200px */
-        .contact-button {
-            display: none;
-        }
-
-        .main-nav a {
-            font-size: 17px;
-        }
-
-        .main-nav li:not(:last-child)::after {
-            margin: 0 0.5rem;
-        }
-    }
-
-    /* Mobile Responsive - Further size reduction - See breakpoint reference in plugin base-sections.css */
-    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-        .site-header {
             max-width: 100vw;
-            padding-top: calc(16px + env(safe-area-inset-top, 0px));
-            padding-left: calc(4vw + env(safe-area-inset-left));
-            padding-right: calc(4vw + env(safe-area-inset-right));
-            height: calc(60px + env(safe-area-inset-top));
+            padding: 1rem 4vw;
+            height: auto;
         }
 
-        /* Extend blur pseudo-elements into safe-area on mobile */
-        .site-header::before {
-            top: calc(-1 * env(safe-area-inset-top, 0px));
-            padding-top: env(safe-area-inset-top, 0px);
-        }
-
-        .site-header::after {
-            top: calc(-1 * env(safe-area-inset-top, 0px));
-            padding-top: env(safe-area-inset-top, 0px);
-        }
-
-        .site-header .header-content::before {
-            top: calc(-1 * env(safe-area-inset-top, 0px));
-            padding-top: env(safe-area-inset-top, 0px);
-        }
-
-        /* Horizontal layout on mobile: name left, nav right */
+        /* Horizontal layout: name left, nav right */
         .header-content {
             flex-direction: row;
             justify-content: space-between;
@@ -503,12 +445,43 @@ if (is_singular()) {
             order: 2;
         }
 
+        /* Hide contact button below 1200px */
+        .contact-button {
+            display: none;
+        }
+
         .main-nav a {
             font-size: 1rem;
         }
 
         .main-nav li:not(:last-child)::after {
             margin: 0 0.4rem;
+        }
+    }
+
+    /* Mobile Responsive - Safe area handling */
+    @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+        .site-header {
+            padding-top: calc(16px + env(safe-area-inset-top, 0px));
+            padding-left: calc(4vw + env(safe-area-inset-left));
+            padding-right: calc(4vw + env(safe-area-inset-right));
+            height: calc(60px + env(safe-area-inset-top));
+        }
+
+        /* Extend blur pseudo-elements into safe-area on mobile */
+        .site-header::before {
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        .site-header::after {
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        .site-header .header-content::before {
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
         }
     }
 
