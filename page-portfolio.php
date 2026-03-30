@@ -244,7 +244,21 @@ add_action('wp_head', function() {
                     overflow: hidden;
                 }
 
+                .contact-info {
+                    display: contents; /* Allow children to participate in parent grid */
+                }
+
+                .contact-info h3 {
+                    text-align: center;
+                    font-size: 1.25rem;
+                    order: -1; /* Move above image */
+                    width: 100%;
+                    box-sizing: border-box;
+                    padding: 0 4vw;
+                }
+
                 .contact-image {
+                    order: 0;
                     margin: 0;
                     justify-self: center;
                     display: flex;
@@ -259,19 +273,8 @@ add_action('wp_head', function() {
                     object-fit: contain;
                 }
 
-                .contact-info {
-                    text-align: left;
-                    gap: 1.5rem;
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-
-                .contact-info h3 {
-                    text-align: left;
-                    font-size: 1.25rem;
-                }
-
                 .contact-links-grid {
+                    order: 1;
                     grid-template-columns: 1fr;
                     gap: 1.5rem;
                 }
