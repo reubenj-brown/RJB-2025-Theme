@@ -73,10 +73,25 @@ get_header('branded'); ?>
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
-window.addEventListener('load', function() {
+
+// Function to reset all photo scrollers to left position
+function resetPhotoScrollers() {
     document.querySelectorAll('.photo-scroll').forEach(function(scroller) {
         scroller.scrollLeft = 0;
+        scroller.scrollTo({ left: 0, behavior: 'instant' });
     });
+}
+
+// Run on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', resetPhotoScrollers);
+
+// Run on window load
+window.addEventListener('load', resetPhotoScrollers);
+
+// Run after a short delay to catch late-loading elements
+window.addEventListener('load', function() {
+    setTimeout(resetPhotoScrollers, 100);
+    setTimeout(resetPhotoScrollers, 300);
 });
 
 // Photo Lightbox functionality
