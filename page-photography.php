@@ -59,7 +59,7 @@ get_header('branded'); ?>
 
 <!-- Photo Lightbox -->
 <div class="photo-lightbox" id="photoLightbox">
-    <button class="photo-lightbox-close" aria-label="Close image">&times;</button>
+    <button class="photo-lightbox-close" aria-label="Close image">×</button>
     <img class="photo-lightbox-image" src="" alt="">
 </div>
 
@@ -79,9 +79,13 @@ window.addEventListener('load', function() {
     var lightbox = document.getElementById('photoLightbox');
     var lightboxImg = lightbox.querySelector('.photo-lightbox-image');
     var closeBtn = lightbox.querySelector('.photo-lightbox-close');
+    var currentImageElement = null;
+    var currentScroller = null;
 
     document.querySelectorAll('.photo-picture img').forEach(function(img) {
         img.addEventListener('click', function() {
+            currentImageElement = this;
+            currentScroller = this.closest('.photo-scroll');
             lightboxImg.src = this.src;
             lightboxImg.alt = this.alt;
             lightbox.classList.add('active');
@@ -91,14 +95,44 @@ window.addEventListener('load', function() {
     function closeLightbox() {
         lightbox.classList.remove('active');
         lightboxImg.src = '';
+        currentImageElement = null;
+        currentScroller = null;
+    }
+
+    function navigateImage(direction) {
+        if (!currentImageElement || !currentScroller) return;
+
+        var images = Array.from(currentScroller.querySelectorAll('.photo-picture img'));
+        var currentIndex = images.indexOf(currentImageElement);
+
+        if (currentIndex === -1) return;
+
+        var newIndex = currentIndex + direction;
+
+        // Loop around if at edges
+        if (newIndex < 0) newIndex = images.length - 1;
+        if (newIndex >= images.length) newIndex = 0;
+
+        currentImageElement = images[newIndex];
+        lightboxImg.src = currentImageElement.src;
+        lightboxImg.alt = currentImageElement.alt;
     }
 
     closeBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', function(e) {
         if (e.target === lightbox) closeLightbox();
     });
+
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+        if (!lightbox.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            navigateImage(-1);
+        } else if (e.key === 'ArrowRight') {
+            navigateImage(1);
+        }
     });
 })();
 
