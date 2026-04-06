@@ -42,8 +42,13 @@ get_header('branded'); ?>
 <main class="main-content">
     <!-- Intro Section with Gradient -->
     <div class="photo-intro-gradient">
-        <div class="photo-page-intro">
-            <h3>I’ve freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I’m a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship.</h3>
+        <div class="strategy-intro">
+            <div class="strategy-intro-headline" style="opacity: 1; filter: blur(0px);">
+                <span class="display-headline">Photography</span>
+            </div>
+            <div class="strategy-intro-body" style="opacity: 1; filter: blur(0px);">
+                <h3>I've freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I'm a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship.</h3>
+            </div>
         </div>
     </div>
 
