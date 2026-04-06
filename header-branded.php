@@ -522,7 +522,7 @@ if (is_singular()) {
             <nav class="main-nav">
                 <ul>
                     <li><a href="<?php echo home_url('/stories/'); ?>" class="nav-link">Stories</a></li>
-                    <li><a href="<?php echo home_url('/#photographs'); ?>" class="nav-link">Pictures</a></li>
+                    <li><a href="<?php echo home_url('/photography'); ?>" class="nav-link">Photography</a></li>
                     <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
                 </ul>
             </nav>
