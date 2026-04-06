@@ -5,12 +5,10 @@
             <div class="footer-logo">
                 <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
             </div>
-            <!-- Contact button for responsive display - hidden on individual story pages only -->
-            <?php if (!is_singular('story')) : ?>
+            <!-- Contact button for responsive display -->
             <div class="footer-contact-button">
                 <a href="<?php echo home_url('/#contact'); ?>" class="footer-contact-pill">contact <?php echo is_front_page() ? '↓' : '→'; ?></a>
             </div>
-            <?php endif; ?>
             <div class="copyright">© Reuben J. Brown 2026</div>
         </div>
     </footer>
@@ -157,16 +155,10 @@
         color: #000 !important;
     }
 
-    /* Tablet Responsive - Show contact button in center (home page only) */
+    /* Tablet Responsive - Show contact button in center below 1200px */
     @media (max-width: 1200px) {
         .footer-contact-button {
             display: block;
-        }
-
-        /* Hide on tablet for photography and stories pages - only show on mobile */
-        body.page-template-page-photography .footer-contact-button,
-        body.post-type-archive-story .footer-contact-button {
-            display: none;
         }
     }
 
@@ -233,16 +225,9 @@
 
     /* Move contact button to right on mobile */
     .footer-contact-button {
-        display: block;
         position: static;
         transform: none;
         left: auto;
-    }
-
-    /* Show contact button on mobile for photography/stories (hidden on tablet) */
-    body.page-template-page-photography .footer-contact-button,
-    body.post-type-archive-story .footer-contact-button {
-        display: block;
     }
 
     .footer-logo {
