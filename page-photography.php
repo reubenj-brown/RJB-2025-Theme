@@ -47,7 +47,7 @@ get_header('branded'); ?>
                 <span class="display-headline">Photography</span>
             </div>
             <div class="strategy-intro-body" style="opacity: 1; filter: blur(0px);">
-                <h3>According to one photo director, I am ”good at making boring things interesting.” I’ve freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I’m a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship.</h3>
+                <h3>I’ve freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I’m a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship. According to one magazine photo director, I make “boring things interesting.”</h3>
             </div>
         </div>
     </div>
