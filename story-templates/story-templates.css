@@ -62,7 +62,7 @@ html, body {
     color: var(--text-color);
 }
 
-/* Text elements limited to 900px width */
+/* Text elements limited to 760px width */
 .story-content-inner p,
 .story-content-inner h1,
 .story-content-inner h2,
@@ -73,7 +73,7 @@ html, body {
 .story-content-inner ul,
 .story-content-inner ol,
 .story-content-inner blockquote {
-    max-width: 900px;
+    max-width: 760px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -82,7 +82,7 @@ html, body {
 .story-content-inner h1,
 .story-content-inner h1.wp-block-heading {
     text-align: center !important;
-    max-width: 900px !important;
+    max-width: 760px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     display: block !important;
@@ -96,7 +96,7 @@ html, body {
 .story-content-inner h5.wp-block-heading,
 .story-content-inner h6.wp-block-heading {
     text-align: left;
-    max-width: 900px !important;
+    max-width: 760px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     width: 100% !important;
@@ -126,7 +126,7 @@ html, body {
 .story-content-inner .wp-block-uagb-image {
     width: 100%;
     max-width: 100%;
-    margin: 1.5rem auto 0 auto;
+    margin: 0;
     display: block;
     text-align: center;
 }
@@ -201,7 +201,7 @@ html, body {
 /* Audio block styling - matches contact button */
 .story-content-inner .wp-block-audio,
 .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio {
-    max-width: 900px;
+    max-width: 760px;
     margin: 0 auto !important;
     padding: 20px;
     background: var(--content-bg);
