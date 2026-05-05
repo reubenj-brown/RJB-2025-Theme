@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 $external_url = get_field('external_url');
                 if ($external_url) : 
                 ?>
-                    <p style="margin-top: 2rem; text-align: left; max-width: 900px; width: 900px; margin-left: auto; margin-right: auto;">
+                    <p style="margin-top: 2rem; text-align: left; max-width: 760px; width: 760px; margin-left: auto; margin-right: auto;">
                         <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener" style="color: var(--highlight-color); text-decoration: none; font-family: var(--primary-font); font-style: italic; font-weight: 400;">
                             Read the full story →
                         </a>
