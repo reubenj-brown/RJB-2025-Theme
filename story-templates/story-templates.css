@@ -110,6 +110,14 @@ html, body {
     margin-bottom: 1.5rem;
 }
 
+/* Sans-serif utility class for story templates */
+.story-content-inner .sans-rest,
+.story-content-inner p.sans-rest:not(.story-meta) {
+    font-family: var(--primary-font) !important;
+    font-size: 1.22rem !important;
+    font-weight: 600 !important;
+}
+
 .story-content-inner p.story-meta {
     margin-top: 16px;
 }
@@ -409,10 +417,6 @@ html, body {
 
 /* Tablet/Desktop Responsive adjustments */
 @media (max-width: 1200px) {
-    .story-content-inner .wp-block-uagb-image {
-        margin-top: 0.5rem;
-    }
-
     .story-content-inner .wp-block-uagb-image img {
         margin-top: 0 !important;
     }
