@@ -365,17 +365,17 @@ if (is_singular()) {
         font-weight: 600;
     }
 
-    .main-nav a.nav-stories:hover,
+    .site-header:not(.over-full-bleed) .main-nav a.nav-stories:hover,
     .site-header.over-full-bleed .main-nav a.nav-stories:hover {
         color: var(--cr-mango) !important;
     }
 
-    .main-nav a.nav-photography:hover,
+    .site-header:not(.over-full-bleed) .main-nav a.nav-photography:hover,
     .site-header.over-full-bleed .main-nav a.nav-photography:hover {
         color: var(--cr-cobalt) !important;
     }
 
-    .main-nav a.nav-cv:hover,
+    .site-header:not(.over-full-bleed) .main-nav a.nav-cv:hover,
     .site-header.over-full-bleed .main-nav a.nav-cv:hover {
         color: var(--cr-lime) !important;
     }
