@@ -365,6 +365,21 @@ if (is_singular()) {
         font-weight: 600;
     }
 
+    .main-nav a.nav-stories:hover,
+    .site-header.over-full-bleed .main-nav a.nav-stories:hover {
+        color: var(--cr-mango) !important;
+    }
+
+    .main-nav a.nav-photography:hover,
+    .site-header.over-full-bleed .main-nav a.nav-photography:hover {
+        color: var(--cr-cobalt) !important;
+    }
+
+    .main-nav a.nav-cv:hover,
+    .site-header.over-full-bleed .main-nav a.nav-cv:hover {
+        color: var(--cr-lime) !important;
+    }
+
     /* Header overlay styles for full-bleed section */
     .site-header.over-full-bleed::before,
     .site-header.over-full-bleed::after,
@@ -521,9 +536,9 @@ if (is_singular()) {
         <div class="header-content">
             <nav class="main-nav">
                 <ul>
-                    <li><a href="<?php echo home_url('/stories/'); ?>" class="nav-link">Stories</a></li>
-                    <li><a href="<?php echo home_url('/photography'); ?>" class="nav-link">Photography</a></li>
-                    <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link">CV</a></li>
+                    <li><a href="<?php echo home_url('/stories/'); ?>" class="nav-link nav-stories">Stories</a></li>
+                    <li><a href="<?php echo home_url('/photography'); ?>" class="nav-link nav-photography">Photography</a></li>
+                    <li><a href="<?php echo home_url('/#cv'); ?>" class="nav-link nav-cv">CV</a></li>
                 </ul>
             </nav>
             
