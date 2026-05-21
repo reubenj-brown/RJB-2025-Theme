@@ -50,9 +50,32 @@ Version: 1.0.2
   font-display: swap;
 }
 
-/* Custom styles for portfolio site - DEBUG: Child theme CSS is loading */
+/* Custom styles for portfolio site */
 :root {
+
+  /*Greens*/
   --highlight-color: #39e58f;
+  --cr-lime: #39e58f;
+  --cr-sprite: #d1ffe8; 
+  --cr-palm: #38b04a;
+
+  /*Warms*/
+  --cr-cherry: #ff193b;
+  --cr-sakura: #ffccd4;
+  
+  --cr-mango: #ffba1a;
+  --cr-page: #fff9f2;
+  
+  --cr-jaffna: #ff811a;
+
+  /*Blues*/
+  --cr-navy: #0a2066; 
+  --cr-cobalt: #003cff;
+  --cr-delft: #809eff;
+  --cr-lavender: #f5f9fc;
+  --cr-powder: #339fff;
+
+  /*fonts*/
   --primary-font: 'Innovator Grotesk';
   --serif-font: 'Legitima';
   --compressed-font: 'PP Right Serif';
