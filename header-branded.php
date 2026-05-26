@@ -114,6 +114,23 @@ if (is_singular()) {
     font-display: swap;
     }
 
+    @font-face {
+      font-family: 'PP Right Grotesk';
+      src: url('./fonts/PPRightGroteskText-CompactMedium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+@font-face {
+      font-family: 'PP Right Grotesk';
+      src: url('./fonts/PPRightGroteskText-CompactMediumItalic.woff2') format('woff2');
+      font-weight: 500;
+      font-style: italic;
+      font-display: swap;
+    }
+
+
     /* CSS Variables */
     :root {
     --highlight-color: #39e58f;
