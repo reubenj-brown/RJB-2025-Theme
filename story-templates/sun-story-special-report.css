@@ -39,9 +39,8 @@
 .sun-sr-kicker {
     font-family: var(--primary-font);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.rem;
     color: var(--cr-cobalt);
-    font-style: italic;
 }
 
 .sun-sr-headline {
@@ -168,7 +167,7 @@
     background: linear-gradient(180deg, var(--cr-page) 0%, #CC9E70 50%, #000 100%);
     /* Extra bottom padding lets the gradient extend behind the sticky footer
        so nothing white shows when scrolled all the way down. */
-    padding: 4rem 2vw 200px !important;
+    padding: 4rem 2vw !important;
     position: relative;
     z-index: 10;
 }
@@ -191,11 +190,13 @@
     max-width: 760px;
     margin: 1.5rem auto 3rem !important;
     text-align: center;
+   
 }
 
 .sun-sr-bottom-kicker a {
     color: #000;
     text-decoration: underline;
+    font-style: italic;
 }
 
 .sun-sr-bottom-stories {
@@ -209,12 +210,13 @@
 .sr-more-stories {
     display: block;
     font-family: var(--compressed-font);
+    font-weight: 600;
     font-size: 6rem;
     color: white;
     text-wrap: balance;
     text-decoration: none;
     margin-bottom: 3rem !important;
-    line-height: 1.15;
+    line-height: 0.9;
     text-align: center;
     transition: color 0.3s ease;
 }
@@ -227,7 +229,8 @@
    Pull the sticky footer up to overlay the Bottom section's dark gradient so
    no white block is visible when scrolled all the way down. JS toggles
    .over-full-bleed on the footer based on overlap with .sun-sr-bottom. */
-body.page-template-sun-story-special-report .site-footer {
+
+.site-footer {
     margin-top: -80px !important;
 }
 
