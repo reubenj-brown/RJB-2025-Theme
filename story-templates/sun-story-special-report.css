@@ -226,15 +226,15 @@
     margin-bottom: 3rem !important;
     line-height: 0.9;
     text-align: center;
-    transition: color 0.3s ease;
 }
 
 .sr-more-stories a {
-color: white;
+    color: white !important;
+    transition: color 0.3s ease;
 }
 
 .sr-more-stories a:hover {
-    color: var(--cr-cobalt);
+    color: var(--cr-cobalt) !important;
 }
 
 /* ===== Footer overlay on this template =====
