@@ -10,7 +10,7 @@
     margin-left: calc(-50vw + 50%) !important;
     margin-right: calc(-50vw + 50%) !important;
     background: linear-gradient(180deg, #000 0%, #CC9E70 50%, var(--cr-page) 100%);
-    padding: calc(60px + 2vw) 2vw 0 !important;
+    padding: calc(60px + 4vw) 2vw 0 !important;
     position: relative;
     z-index: 10;
 }
@@ -236,7 +236,7 @@ body.page-template-sun-story-special-report .site-footer {
 
 @media (max-width: 768px) {
     .sun-sr-hero {
-        padding: calc(60px + 2vw) 1rem 0 !important;
+        padding: calc(60px + 4vw) 1rem 0 !important;
     }
 
     .sun-sr-headline {
