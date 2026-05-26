@@ -201,7 +201,8 @@
     max-width: 760px;
     margin: 0 auto !important;
     text-align: center;
-    font-size: 4rem;
+    font-size: 6rem;
+    text-wrap: balance;
 }
 
 .sr-more-stories {
@@ -211,7 +212,7 @@
     color: white;
     text-wrap: balance;
     text-decoration: none;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 3rem !important;
     line-height: 1.15;
     text-align: center;
     transition: color 0.3s ease;
