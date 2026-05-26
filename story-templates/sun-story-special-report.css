@@ -163,6 +163,7 @@
 /* ===== Bottom Section ===== */
 .sun-sr-bottom {
     width: 100vw;
+    height: 100vh;
     margin-left: calc(-50vw + 50%) !important;
     margin-right: calc(-50vw + 50%) !important;
     background: linear-gradient(180deg, var(--cr-page) 0%, #CC9E70 50%, #000 100%);
