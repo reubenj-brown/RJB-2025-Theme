@@ -171,6 +171,7 @@
     align-content: center;
     margin-left: calc(-50vw + 50%) !important;
     margin-right: calc(-50vw + 50%) !important;
+    margin-top: -32px;
     background: linear-gradient(180deg, var(--cr-page) 0%, #CC9E70 50%, #000 100%);
     /* Extra bottom padding lets the gradient extend behind the sticky footer
        so nothing white shows when scrolled all the way down. */
