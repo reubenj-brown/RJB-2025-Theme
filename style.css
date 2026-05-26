@@ -51,6 +51,14 @@ Version: 1.0.2
 }
 
 @font-face {
+  font-family: 'PP Right Serif';
+  src: url('/PP-Right-Serif-Tall-Regular.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'PP Right Grotesk';
   src: url('/PPRightGroteskText-CompactMedium.woff2') format('woff2');
   font-weight: 500;
