@@ -138,6 +138,10 @@
     color: #000;
 }
 
+.sun-sr-body .story-content-inner p {
+    color: #000 !important;
+}
+
 .sun-sr-body .story-content-inner a {
     color: #000;
     text-decoration: underline;
