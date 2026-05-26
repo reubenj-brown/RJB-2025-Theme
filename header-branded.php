@@ -116,7 +116,7 @@ if (is_singular()) {
 
     @font-face {
       font-family: 'PP Right Grotesk';
-      src: url('./fonts/PPRightGroteskText-CompactMedium.woff2') format('woff2');
+      src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PPRightGroteskText-CompactMedium.woff2') format('woff2');
       font-weight: 500;
       font-style: normal;
       font-display: swap;
@@ -124,7 +124,7 @@ if (is_singular()) {
 
 @font-face {
       font-family: 'PP Right Grotesk';
-      src: url('./fonts/PPRightGroteskText-CompactMediumItalic.woff2') format('woff2');
+      src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PPRightGroteskText-CompactMediumItalic.woff2') format('woff2');
       font-weight: 500;
       font-style: italic;
       font-display: swap;
