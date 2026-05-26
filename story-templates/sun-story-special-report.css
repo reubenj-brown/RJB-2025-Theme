@@ -253,6 +253,12 @@
         padding: calc(60px + 4vw) 1rem 0 !important;
     }
 
+   .site-footer {
+    margin-top: calc(-2vw - env(safe-area-inset-bottom, 0px)) !important;
+}
+
+
+
     .sun-sr-headline {
         font-size: 3rem;
     }
