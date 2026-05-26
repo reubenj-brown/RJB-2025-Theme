@@ -96,7 +96,7 @@ get_header('branded'); ?>
         </div>
     </div>
     
-    <hr class="sun-sr-divider">
+    <hr class="sun-sr-divider-bottom">
     
 </section>
 
