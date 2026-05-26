@@ -220,13 +220,17 @@
     font-family: var(--compressed-font);
     font-weight: 600;
     font-size: 6rem;
-    color: white;
+    color: #808080;
     text-wrap: balance;
     text-decoration: none;
     margin-bottom: 3rem !important;
     line-height: 0.9;
     text-align: center;
     transition: color 0.3s ease;
+}
+
+.sr-more-stories a {
+color: white;
 }
 
 .sr-more-stories a:hover {
