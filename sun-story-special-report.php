@@ -95,12 +95,14 @@ get_header('branded'); ?>
             </article>
         </div>
     </div>
+    
+    <hr class="sun-sr-divider">
+    
 </section>
 
 <!-- Bottom -->
 <section class="sun-sr-bottom">
     <div class="sun-sr-bottom-inner">
-        <hr class="sun-sr-divider">
         <p class="sun-sr-bottom-kicker">More in <a href="/stories/cracking-the-sun">Cracking the Sun →</a></p>
         <div class="sun-sr-bottom-stories">
             <?php
