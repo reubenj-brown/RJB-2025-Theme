@@ -1,0 +1,246 @@
+/* Sun Story — Special Report template */
+/* Template-specific styles. Body content styling is inherited from story-templates.css */
+
+/* ===== Hero Section ===== */
+.sun-sr-hero {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    background: linear-gradient(180deg, #000 0%, #CC9E70 50%, var(--cr-page) 100%);
+    padding: 8rem 2vw 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.sun-sr-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+.sun-sr-hero-inner a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+.sun-sr-kicker,
+.sun-sr-headline,
+.sun-sr-excerpt {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+}
+
+.sun-sr-kicker {
+    font-family: var(--primary-font);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--cr-cobalt);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sun-sr-headline {
+    font-family: var(--compressed-font);
+    font-size: 6rem;
+    color: white;
+    line-height: 1.05;
+    margin: 0 auto 3rem;
+    font-weight: 400;
+}
+
+.sun-sr-hero-image {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+}
+
+.sun-sr-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.sun-sr-excerpt,
+.sun-sr-excerpt p {
+    font-family: var(--serif-font);
+    font-style: italic;
+    font-size: 1rem;
+    color: white;
+    margin: 1.5rem auto;
+}
+
+.sun-sr-divider {
+    height: 2px;
+    background: #000;
+    border: none;
+    margin: 2rem auto;
+}
+
+.sun-sr-hero .sun-sr-divider {
+    width: 900px;
+    max-width: 100%;
+}
+
+.sun-sr-index {
+    width: 900px;
+    max-width: 100%;
+    margin: 1rem auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--primary-font);
+    font-size: 1rem;
+    color: #000;
+}
+
+.sun-sr-index a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.sun-sr-index-left {
+    text-align: left;
+}
+
+.sun-sr-index-right {
+    text-align: right;
+}
+
+.sun-sr-dot {
+    margin: 0 0.4rem;
+}
+
+/* ===== Body Section ===== */
+.sun-sr-body {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    background: var(--cr-page);
+    padding: 4rem 2vw;
+    position: relative;
+    z-index: 10;
+}
+
+.sun-sr-body .story-content-inner {
+    color: #000;
+}
+
+.sun-sr-body .story-content-inner a {
+    color: var(--cr-cobalt);
+    text-decoration: underline;
+}
+
+.sun-sr-body .story-content-inner a:hover {
+    color: var(--cr-cobalt);
+}
+
+/* Small caps span (applied manually in the WP editor) */
+.sr-all-small-caps {
+    font-variant-caps: all-small-caps;
+}
+
+/* Drop cap (applied manually to a paragraph in the WP editor) */
+.sr-drop-cap::first-letter {
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
+    margin-right: 0.25em;
+    font-weight: inherit;
+}
+
+/* ===== Bottom Section ===== */
+.sun-sr-bottom {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    background: linear-gradient(180deg, var(--cr-page) 0%, #CC9E70 50%, #000 100%);
+    padding: 4rem 2vw 8rem;
+    position: relative;
+    z-index: 10;
+}
+
+.sun-sr-bottom-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sun-sr-bottom .sun-sr-divider {
+    width: 760px;
+    max-width: 100%;
+    margin-top: 0;
+}
+
+.sun-sr-bottom-kicker {
+    font-family: var(--primary-font);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--cr-cobalt);
+    max-width: 760px;
+    margin: 1.5rem auto 3rem;
+    text-align: left;
+}
+
+.sun-sr-bottom-kicker a {
+    color: var(--cr-cobalt);
+    text-decoration: underline;
+}
+
+.sun-sr-bottom-stories {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.sr-more-stories {
+    display: block;
+    font-family: var(--compressed-font);
+    font-size: 32px;
+    color: white;
+    text-wrap: balance;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+    transition: color 0.3s ease;
+}
+
+.sr-more-stories:hover {
+    color: var(--cr-cobalt);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+    .sun-sr-headline {
+        font-size: 4.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sun-sr-hero {
+        padding: 6rem 1rem 3rem;
+    }
+
+    .sun-sr-headline {
+        font-size: 3rem;
+    }
+
+    .sun-sr-index {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .sun-sr-index-right {
+        text-align: left;
+    }
+
+    .sun-sr-bottom {
+        padding: 3rem 1rem 6rem;
+    }
+
+    .sr-more-stories {
+        font-size: 26px;
+    }
+}
