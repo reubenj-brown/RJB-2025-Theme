@@ -44,7 +44,7 @@ Version: 1.0.2
 
 @font-face {
   font-family: 'PP Right Serif';
-  src: url('fonts/PP-Right-Serif-Tall-Fine.woff2') format('woff2');
+  src: url('./fonts/PP-Right-Serif-Tall-Fine.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -52,7 +52,7 @@ Version: 1.0.2
 
 @font-face {
   font-family: 'PP Right Serif';
-  src: url('fonts/PP-Right-Serif-Tall-Regular.woff2') format('woff2');
+  src: url('./fonts/PP-Right-Serif-Tall-Regular.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -60,7 +60,7 @@ Version: 1.0.2
 
 @font-face {
   font-family: 'PP Right Grotesk';
-  src: url('fonts/PPRightGroteskText-CompactMedium.woff2') format('woff2');
+  src: url('./fonts/PPRightGroteskText-CompactMedium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -68,7 +68,7 @@ Version: 1.0.2
 
 @font-face {
   font-family: 'PP Right Grotesk';
-  src: url('fonts/PPRightGroteskText-CompactMediumItalic.woff2') format('woff2');
+  src: url('./fonts/PPRightGroteskText-CompactMediumItalic.woff2') format('woff2');
   font-weight: 500;
   font-style: italic;
   font-display: swap;
