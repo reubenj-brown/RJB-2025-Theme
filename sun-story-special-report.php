@@ -43,7 +43,7 @@ get_header('branded'); ?>
         <?php endif; ?>
 
         <?php if ($long_headline) : ?>
-            <h1 class="sun-sr-headline"><?php echo esc_html($long_headline); ?></h1>
+            <p class="sun-sr-headline"><?php echo esc_html($long_headline); ?></p>
         <?php endif; ?>
 
         <?php if (has_post_thumbnail()) : ?>
