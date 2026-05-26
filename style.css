@@ -52,7 +52,7 @@ Version: 1.0.2
 
 @font-face {
   font-family: 'PP Right Serif';
-  src: url('/PP-Right-Serif-Tall-Regular.woff2') format('woff2');
+  src: url('fonts/PP-Right-Serif-Tall-Regular.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -60,7 +60,7 @@ Version: 1.0.2
 
 @font-face {
   font-family: 'PP Right Grotesk';
-  src: url('/PPRightGroteskText-CompactMedium.woff2') format('woff2');
+  src: url('fonts/PPRightGroteskText-CompactMedium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -121,6 +121,7 @@ h1, h2, h3, h4, h5, h6, p, div, span, a, li, td, th, label, input, textarea, but
 
 .index-font {
   font-family: var(--index-font) !important;
+  font-weight: 500;
   letter-spacing: -0.04em;
 }
 
