@@ -1,20 +1,23 @@
 /* Sun Story — Special Report template */
 /* Template-specific styles. Body content styling is inherited from story-templates.css */
+/* Note: body.single-story has * { margin: 0; padding: 0 } !important reset in
+   header-branded.php, so layout spacing rules here use !important where they need to
+   win against that reset. */
 
 /* ===== Hero Section ===== */
 .sun-sr-hero {
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
     background: linear-gradient(180deg, #000 0%, #CC9E70 50%, var(--cr-page) 100%);
-    padding: 8rem 2vw 4rem;
+    padding: calc(60px + 2vw) 2vw 0 !important;
     position: relative;
     z-index: 10;
 }
 
 .sun-sr-hero-inner {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto !important;
     text-align: center;
     color: white;
 }
@@ -28,8 +31,8 @@
 .sun-sr-headline,
 .sun-sr-excerpt {
     max-width: 760px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     text-wrap: balance;
 }
 
@@ -38,9 +41,7 @@
     font-weight: 600;
     font-size: 1rem;
     color: var(--cr-cobalt);
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    margin-bottom: 2rem !important;
 }
 
 .sun-sr-headline {
@@ -48,14 +49,14 @@
     font-size: 6rem;
     color: white;
     line-height: 1.05;
-    margin: 0 auto 3rem;
-    font-weight: 400;
+    margin: 0 auto 3rem !important;
+    font-weight: 600;
 }
 
 .sun-sr-hero-image {
     max-width: 1200px;
     width: 100%;
-    margin: 2rem auto;
+    margin: 2rem auto !important;
 }
 
 .sun-sr-hero-image img {
@@ -68,32 +69,29 @@
 .sun-sr-excerpt p {
     font-family: var(--serif-font);
     font-style: italic;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: white;
-    margin: 1.5rem auto;
+    margin: 1.5rem auto !important;
 }
 
 .sun-sr-divider {
     height: 2px;
     background: #000;
     border: none;
-    margin: 2rem auto;
-}
-
-.sun-sr-hero .sun-sr-divider {
-    width: 900px;
+    width: 1200px;
     max-width: 100%;
+    margin: 2rem auto !important;
 }
 
 .sun-sr-index {
-    width: 900px;
+    width: 1200px;
     max-width: 100%;
-    margin: 1rem auto 0;
+    margin: 1rem auto 0 !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    font-family: var(--primary-font);
+    font-family: var(--index-font);
     font-size: 1rem;
     color: #000;
 }
@@ -111,19 +109,28 @@
     text-align: right;
 }
 
+.sun-sr-index-right a {
+    font-style: italic;
+}
+
 .sun-sr-dot {
-    margin: 0 0.4rem;
+    margin: 0 0.4rem !important;
 }
 
 /* ===== Body Section ===== */
 .sun-sr-body {
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
     background: var(--cr-page);
-    padding: 4rem 2vw;
+    padding: 0 2vw !important;
     position: relative;
     z-index: 10;
+}
+
+/* Cancel the top padding the shared container applies inside the body section */
+.sun-sr-body .story-single-container {
+    padding: 0 2vw !important;
 }
 
 .sun-sr-body .story-content-inner {
@@ -131,12 +138,12 @@
 }
 
 .sun-sr-body .story-content-inner a {
-    color: var(--cr-cobalt);
+    color: #000;
     text-decoration: underline;
 }
 
 .sun-sr-body .story-content-inner a:hover {
-    color: var(--cr-cobalt);
+    color: #000;
 }
 
 /* Small caps span (applied manually in the WP editor) */
@@ -148,50 +155,52 @@
 .sr-drop-cap::first-letter {
     -webkit-initial-letter: 2;
     initial-letter: 2;
-    margin-right: 0.25em;
+    margin-right: 0.25em !important;
     font-weight: inherit;
 }
 
 /* ===== Bottom Section ===== */
 .sun-sr-bottom {
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
     background: linear-gradient(180deg, var(--cr-page) 0%, #CC9E70 50%, #000 100%);
-    padding: 4rem 2vw 8rem;
+    /* Extra bottom padding lets the gradient extend behind the sticky footer
+       so nothing white shows when scrolled all the way down. */
+    padding: 4rem 2vw 200px !important;
     position: relative;
     z-index: 10;
 }
 
 .sun-sr-bottom-inner {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto !important;
+    text-align: center;
 }
 
 .sun-sr-bottom .sun-sr-divider {
-    width: 760px;
-    max-width: 100%;
-    margin-top: 0;
+    margin-top: 0 !important;
 }
 
 .sun-sr-bottom-kicker {
     font-family: var(--primary-font);
     font-weight: 600;
-    font-size: 1rem;
-    color: var(--cr-cobalt);
+    font-size: 1.23rem;
+    color: #000;
     max-width: 760px;
-    margin: 1.5rem auto 3rem;
-    text-align: left;
+    margin: 1.5rem auto 3rem !important;
+    text-align: center;
 }
 
 .sun-sr-bottom-kicker a {
-    color: var(--cr-cobalt);
+    color: #000;
     text-decoration: underline;
 }
 
 .sun-sr-bottom-stories {
     max-width: 760px;
-    margin: 0 auto;
+    margin: 0 auto !important;
+    text-align: center;
 }
 
 .sr-more-stories {
@@ -201,13 +210,22 @@
     color: white;
     text-wrap: balance;
     text-decoration: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem !important;
     line-height: 1.15;
+    text-align: center;
     transition: color 0.3s ease;
 }
 
 .sr-more-stories:hover {
     color: var(--cr-cobalt);
+}
+
+/* ===== Footer overlay on this template =====
+   Pull the sticky footer up to overlay the Bottom section's dark gradient so
+   no white block is visible when scrolled all the way down. JS toggles
+   .over-full-bleed on the footer based on overlap with .sun-sr-bottom. */
+body.page-template-sun-story-special-report .site-footer {
+    margin-top: -80px !important;
 }
 
 /* ===== Responsive ===== */
@@ -219,25 +237,30 @@
 
 @media (max-width: 768px) {
     .sun-sr-hero {
-        padding: 6rem 1rem 3rem;
+        padding: calc(60px + 2vw) 1rem 0 !important;
     }
 
     .sun-sr-headline {
         font-size: 3rem;
     }
 
+    .sun-sr-excerpt,
+    .sun-sr-excerpt p {
+        font-size: 1.25rem;
+    }
+
     .sun-sr-index {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 0.5rem;
     }
 
     .sun-sr-index-right {
-        text-align: left;
+        text-align: center;
     }
 
     .sun-sr-bottom {
-        padding: 3rem 1rem 6rem;
+        padding: 3rem 1rem 200px !important;
     }
 
     .sr-more-stories {

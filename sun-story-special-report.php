@@ -34,8 +34,9 @@ get_header('branded'); ?>
     $external_url     = get_field('external_url');
 ?>
 
-<!-- Hero -->
-<section class="sun-sr-hero">
+<!-- Hero (story-hero-full-bleed class triggers the header-branded.php JS that
+     toggles .over-full-bleed on .site-header, giving white nav text here) -->
+<section class="sun-sr-hero story-hero-full-bleed">
     <div class="sun-sr-hero-inner">
         <?php if ($special_report) : ?>
             <p class="sun-sr-kicker"><?php echo esc_html($special_report); ?></p>
@@ -74,9 +75,9 @@ get_header('branded'); ?>
                     <?php echo esc_html($medium); ?> for
                 <?php endif; ?>
                 <?php if ($publication && $external_url) : ?>
-                    <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener"><?php echo esc_html($publication); ?> →</a>
+                    <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener"><em><?php echo esc_html($publication); ?></em> →</a>
                 <?php elseif ($publication) : ?>
-                    <?php echo esc_html($publication); ?> →
+                    <em><?php echo esc_html($publication); ?></em> →
                 <?php endif; ?>
             </div>
         </div>
@@ -102,14 +103,27 @@ get_header('branded'); ?>
         <hr class="sun-sr-divider">
         <p class="sun-sr-bottom-kicker">More in <a href="/stories/cracking-the-sun">Cracking the Sun↗</a></p>
         <div class="sun-sr-bottom-stories">
-            <?php if (have_rows('more_in_special_report')) :
-                while (have_rows('more_in_special_report')) : the_row();
-                    $h = get_sub_field('headline');
-                    $u = get_sub_field('url');
+            <?php
+            // ACF Textarea field 'more_in_special_report'. One story per line.
+            // Format per line:  Headline text | https://url-here/
+            // Lines without a pipe render as plain (un-linked) headlines.
+            $more_raw = get_field('more_in_special_report');
+            if ($more_raw) :
+                $lines = preg_split('/\r\n|\r|\n/', trim($more_raw));
+                foreach ($lines as $line) :
+                    $line = trim($line);
+                    if (!$line) continue;
+                    $parts = array_map('trim', explode('|', $line, 2));
+                    $h = $parts[0];
+                    $u = isset($parts[1]) ? $parts[1] : '';
                     if (!$h) continue;
             ?>
-                <a href="<?php echo esc_url($u); ?>" class="sr-more-stories"><?php echo esc_html($h); ?></a>
-            <?php endwhile; endif; ?>
+                <?php if ($u) : ?>
+                    <a href="<?php echo esc_url($u); ?>" class="sr-more-stories"><?php echo esc_html($h); ?></a>
+                <?php else : ?>
+                    <span class="sr-more-stories"><?php echo esc_html($h); ?></span>
+                <?php endif; ?>
+            <?php endforeach; endif; ?>
         </div>
     </div>
 </section>
@@ -176,6 +190,39 @@ document.addEventListener('DOMContentLoaded', function() {
     contactButton.className = 'story-header-contact';
     contactButton.textContent = 'contact →';
     header.appendChild(contactButton);
+});
+
+// Toggle .over-full-bleed on the footer while it overlaps the dark Bottom
+// section, so the logo and copyright go white and the blur layers turn off.
+document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.querySelector('.site-footer');
+    const bottom = document.querySelector('.sun-sr-bottom');
+    if (!footer || !bottom) return;
+
+    const logo = document.getElementById('footer-logo-img');
+    const copyright = footer.querySelector('.copyright');
+    const LOGO_WHITE = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-white.png';
+    const LOGO_BLACK = '/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png';
+
+    function updateFooter() {
+        const fRect = footer.getBoundingClientRect();
+        const bRect = bottom.getBoundingClientRect();
+        const overlaps = bRect.bottom > fRect.top && bRect.top < fRect.bottom;
+
+        if (overlaps) {
+            footer.classList.add('over-full-bleed');
+            if (logo) logo.src = LOGO_WHITE;
+            if (copyright) copyright.style.color = 'white';
+        } else {
+            footer.classList.remove('over-full-bleed');
+            if (logo) logo.src = LOGO_BLACK;
+            if (copyright) copyright.style.color = '';
+        }
+    }
+
+    updateFooter();
+    window.addEventListener('scroll', updateFooter, { passive: true });
+    window.addEventListener('resize', updateFooter);
 });
 </script>
 
