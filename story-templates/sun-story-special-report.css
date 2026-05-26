@@ -69,9 +69,9 @@
 .sun-sr-excerpt p {
     font-family: var(--serif-font);
     font-style: italic;
-    font-size: 1.5rem;
-    color: white;
-    margin: 1.5rem auto !important;
+    font-size: 2rem;
+    color: black;
+    margin: 2rem auto !important;
 }
 
 .sun-sr-divider {
