@@ -92,7 +92,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    font-family: var(--index-font);
+    font-family: var(--primary-font);
     font-size: 1rem;
     color: #000;
 }
