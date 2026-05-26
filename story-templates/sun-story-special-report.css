@@ -41,6 +41,7 @@
     font-weight: 600;
     font-size: 1rem;
     color: var(--cr-cobalt);
+    font-style: italic;
 }
 
 .sun-sr-headline {
@@ -266,6 +267,6 @@ body.page-template-sun-story-special-report .site-footer {
     }
 
     .sr-more-stories {
-        font-size: 26px;
+        font-size: 4rem;
     }
 }
