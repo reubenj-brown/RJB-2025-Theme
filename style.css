@@ -50,6 +50,22 @@ Version: 1.0.2
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'PP Right Grotesk';
+  src: url('/PPRightGroteskText-CompactMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Right Grotesk';
+  src: url('fonts/PPRightGroteskText-CompactMediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Custom styles for portfolio site */
 :root {
 
@@ -64,7 +80,7 @@ Version: 1.0.2
   --cr-sakura: #ffccd4;
   
   --cr-mango: #ffba1a;
-  --cr-page: #fff9f2;
+  --cr-page: #FEF5EC;
   
   --cr-jaffna: #ff811a;
 
@@ -79,6 +95,7 @@ Version: 1.0.2
   --primary-font: 'Innovator Grotesk';
   --serif-font: 'Legitima';
   --compressed-font: 'PP Right Serif';
+  --index-font: 'PP Right Grotesk';
 
   /* Global Dark Mode Variables - loaded from plugin base-sections.css */
 }
@@ -91,6 +108,11 @@ html, body {
 /* Force custom fonts on all text elements */
 h1, h2, h3, h4, h5, h6, p, div, span, a, li, td, th, label, input, textarea, button {
   font-family: inherit !important;
+}
+
+.index-font {
+  font-family: var(--index-font) !important;
+  letter-spacing: -0.04em;
 }
 
 a {
