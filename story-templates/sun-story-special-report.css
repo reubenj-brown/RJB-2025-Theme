@@ -229,7 +229,7 @@
     transition: color 0.3s ease;
 }
 
-.sr-more-stories:hover {
+.sr-more-stories a:hover {
     color: var(--cr-cobalt);
 }
 
