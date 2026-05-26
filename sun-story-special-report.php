@@ -68,7 +68,7 @@ get_header('branded'); ?>
                     <span><?php echo esc_html($reading_time); ?></span>
                     <span class="sun-sr-dot">⋅</span>
                 <?php endif; ?>
-                <a href="#" class="sun-sr-share">Share ↗</a>
+                <a href="#" class="sun-sr-share">Share ↑</a>
             </div>
             <div class="sun-sr-index-right">
                 <?php if ($medium) : ?>
