@@ -228,12 +228,12 @@
     text-align: center;
 }
 
-.sr-more-stories a {
+.sun-sr-more-stories a {
     color: white !important;
     transition: color 0.3s ease;
 }
 
-.sr-more-stories a:hover {
+.sun-sr-more-stories a:hover {
     color: var(--cr-cobalt) !important;
 }
 
