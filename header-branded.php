@@ -106,6 +106,14 @@ if (is_singular()) {
     font-display: swap;
     }
 
+    @font-face {
+    font-family: 'PP Right Serif';
+    src: url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Regular.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    }
+
     /* CSS Variables */
     :root {
     --highlight-color: #39e58f;
