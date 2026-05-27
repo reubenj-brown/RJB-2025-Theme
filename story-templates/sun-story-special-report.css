@@ -13,17 +13,17 @@ a {
 }
 
 a:hover,
-.sun-sr-hero-inner a:hover,
-.sun-sr-index a:hover,
-.sun-sr-body .story-content-inner a:hover,
-.sun-sr-bottom-kicker a:hover,
+.sr-hero-inner a:hover,
+.sr-index a:hover,
+.sr-body .story-content-inner a:hover,
+.sr-bottom-kicker a:hover,
 a.sr-more-stories:hover {
     color: var(--cr-cobalt);
     text-decoration: none;
 }
 
 /* ===== Hero Section ===== */
-.sun-sr-hero {
+.sr-hero {
     width: 100vw;
     margin-left: calc(-50vw + 50%) !important;
     margin-right: calc(-50vw + 50%) !important;
@@ -33,28 +33,28 @@ a.sr-more-stories:hover {
     z-index: 10;
 }
 
-.sun-sr-hero-inner {
+.sr-hero-inner {
     max-width: 1200px;
     margin: 0 auto !important;
     text-align: center;
     color: white;
 }
 
-.sun-sr-hero-inner a {
+.sr-hero-inner a {
     text-decoration: underline;
     color: inherit;
 }
 
-.sun-sr-kicker,
-.sun-sr-headline,
-.sun-sr-excerpt {
+.sr-kicker,
+.sr-headline,
+.sr-excerpt {
     max-width: 760px;
     margin-left: auto !important;
     margin-right: auto !important;
     text-wrap: balance;
 }
 
-.sun-sr-kicker {
+.sr-kicker {
     font-family: var(--primary-font);
     font-weight: 600;
     font-size: 1.rem;
@@ -62,7 +62,7 @@ a.sr-more-stories:hover {
     margin-bottom: 8px; 
 }
 
-.sun-sr-headline {
+.sr-headline {
     font-family: var(--compressed-font);
     font-size: 6rem;
     color: white;
@@ -84,7 +84,7 @@ a.sr-more-stories:hover {
 }
 
 /* Image credit below hero image */
-.sun-sr-image-credit {
+.sr-image-credit {
     text-align: left;
     margin-top: 8px !important;
     max-width: 1200px;
@@ -92,8 +92,8 @@ a.sr-more-stories:hover {
     margin-right: auto !important;
 }
 
-.sun-sr-excerpt,
-.sun-sr-excerpt p {
+.sr-excerpt,
+.sr-excerpt p {
     font-family: var(--serif-font);
     font-style: italic;
     font-size: 2rem;
@@ -101,7 +101,7 @@ a.sr-more-stories:hover {
     margin: 2rem auto 4rem !important;
 }
 
-.sun-sr-divider {
+.sr-divider {
     height: 2px;
     background: #000;
     border: none;
@@ -110,7 +110,7 @@ a.sr-more-stories:hover {
     margin: 2rem auto !important;
 }
 
-.sun-sr-divider-bottom {
+.sr-divider-bottom {
     height: 2px;
     background: #000;
     border: none;
@@ -119,7 +119,7 @@ a.sr-more-stories:hover {
     margin: 4rem auto 2rem auto !important;
 }
 
-.sun-sr-index {
+.sr-index {
     width: 1200px;
     max-width: 100%;
     margin: 0.5rem auto 0 !important;
@@ -134,29 +134,29 @@ a.sr-more-stories:hover {
     color: #000;
 }
 
-.sun-sr-index a {
+.sr-index a {
     color: inherit;
     text-decoration: underline;
 }
 
-.sun-sr-index-left {
+.sr-index-left {
     text-align: left;
 }
 
-.sun-sr-index-right {
+.sr-index-right {
     text-align: right;
 }
 
-.sun-sr-index-right a {
+.sr-index-right a {
     font-style: italic;
 }
 
-.sun-sr-dot {
+.sr-dot {
     margin: 0 0.2rem !important;
 }
 
 /* ===== Body Section ===== */
-.sun-sr-body {
+.sr-body {
     width: 100vw;
     margin-left: calc(-50vw + 50%) !important;
     margin-right: calc(-50vw + 50%) !important;
@@ -167,19 +167,19 @@ a.sr-more-stories:hover {
 }
 
 /* Cancel the top padding the shared container applies inside the body section */
-.sun-sr-body .story-single-container {
+.sr-body .story-single-container {
     padding: 0 2vw !important;
 }
 
-.sun-sr-body .story-content-inner {
+.sr-body .story-content-inner {
     color: #000;
 }
 
-.sun-sr-body .story-content-inner p {
+.sr-body .story-content-inner p {
     color: #000 !important;
 }
 
-.sun-sr-body .story-content-inner a {
+.sr-body .story-content-inner a {
     color: #000;
     text-decoration: underline;
 }
@@ -202,7 +202,7 @@ a.sr-more-stories:hover {
 }
 
 /* ===== Bottom Section ===== */
-.sun-sr-bottom {
+.sr-bottom {
     width: 100vw;
     height: 100vh;
     align-content: center;
@@ -217,17 +217,17 @@ a.sr-more-stories:hover {
     z-index: 10;
 }
 
-.sun-sr-bottom-inner {
+.sr-bottom-inner {
     max-width: 1200px;
     margin: 0 auto !important;
     text-align: center;
 }
 
-.sun-sr-bottom .sun-sr-divider {
+.sr-bottom .sr-divider {
     margin-top: 0 !important;
 }
 
-.sun-sr-bottom-kicker {
+.sr-bottom-kicker {
     font-family: var(--primary-font);
     font-weight: 600;
     font-size: 1.23rem;
@@ -238,13 +238,13 @@ a.sr-more-stories:hover {
    
 }
 
-.sun-sr-bottom-kicker a {
+.sr-bottom-kicker a {
     color: #000;
     text-decoration: underline;
     font-style: italic;
 }
 
-.sun-sr-bottom-stories {
+.sr-bottom-stories {
     max-width: 760px;
     margin: 0 auto !important;
     text-align: center;
@@ -273,7 +273,7 @@ a.sr-more-stories {
 /* ===== Footer overlay on this template =====
    Pull the sticky footer up to overlay the Bottom section's dark gradient so
    no white block is visible when scrolled all the way down. JS toggles
-   .over-full-bleed on the footer based on overlap with .sun-sr-bottom. */
+   .over-full-bleed on the footer based on overlap with .sr-bottom. */
 
 .site-footer {
     margin-top: -80px !important;
@@ -281,13 +281,13 @@ a.sr-more-stories {
 
 /* ===== Responsive ===== */
 @media (max-width: 1200px) {
-    .sun-sr-headline {
+    .sr-headline {
         font-size: 4.5rem;
     }
 }
 
 @media (max-width: 768px) {
-    .sun-sr-hero {
+    .sr-hero {
         padding: calc(60px + 4vw) 1rem 0 !important;
     }
 
@@ -297,26 +297,26 @@ a.sr-more-stories {
 
 
 
-    .sun-sr-headline {
+    .sr-headline {
         font-size: 3rem;
     }
 
-    .sun-sr-excerpt,
-    .sun-sr-excerpt p {
+    .sr-excerpt,
+    .sr-excerpt p {
         font-size: 1.25rem;
     }
 
-    .sun-sr-index {
+    .sr-index {
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
     }
 
-    .sun-sr-index-right {
+    .sr-index-right {
         text-align: center;
     }
 
-    .sun-sr-bottom {
+    .sr-bottom {
         padding: 3rem 1rem 200px !important;
     }
 

@@ -37,14 +37,14 @@ get_header('branded'); ?>
 
 <!-- Hero (story-hero-full-bleed class triggers the header-branded.php JS that
      toggles .over-full-bleed on .site-header, giving white nav text here) -->
-<section class="sun-sr-hero story-hero-full-bleed">
-    <div class="sun-sr-hero-inner">
+<section class="sr-hero story-hero-full-bleed">
+    <div class="sr-hero-inner">
         <?php if ($special_report) : ?>
-            <p class="sun-sr-kicker"><?php echo esc_html($special_report); ?></p>
+            <p class="sr-kicker"><?php echo esc_html($special_report); ?></p>
         <?php endif; ?>
 
         <?php if ($long_headline) : ?>
-            <p class="sun-sr-headline"><?php echo esc_html($long_headline); ?></p>
+            <p class="sr-headline"><?php echo esc_html($long_headline); ?></p>
         <?php endif; ?>
 
         <?php if (has_post_thumbnail()) : ?>
@@ -52,29 +52,29 @@ get_header('branded'); ?>
                 <?php the_post_thumbnail('full'); ?>
             </div>
             <?php if ($photo_credit) : ?>
-                <p class="story-image-credit sun-sr-image-credit"><?php echo esc_html($photo_credit); ?></p>
+                <p class="story-image-credit sr-image-credit"><?php echo esc_html($photo_credit); ?></p>
             <?php endif; ?>
         <?php endif; ?>
 
         <?php if (has_excerpt()) : ?>
-            <div class="sun-sr-excerpt"><?php the_excerpt(); ?></div>
+            <div class="sr-excerpt"><?php the_excerpt(); ?></div>
         <?php endif; ?>
 
-        <hr class="sun-sr-divider">
+        <hr class="sr-divider">
 
-        <div class="sun-sr-index">
-            <div class="sun-sr-index-left">
+        <div class="sr-index">
+            <div class="sr-index-left">
                 <?php if ($specific_date) : ?>
                     <span><?php echo esc_html($specific_date); ?></span>
-                    <span class="sun-sr-dot">⋅</span>
+                    <span class="sr-dot">⋅</span>
                 <?php endif; ?>
                 <?php if ($reading_time) : ?>
                     <span><?php echo esc_html($reading_time); ?></span>
-                    <span class="sun-sr-dot">⋅</span>
+                    <span class="sr-dot">⋅</span>
                 <?php endif; ?>
-                <a href="#" class="sun-sr-share">Share ↑</a>
+                <a href="#" class="sr-share">Share ↑</a>
             </div>
-            <div class="sun-sr-index-right">
+            <div class="sr-index-right">
                 <?php if ($medium) : ?>
                     <?php echo esc_html($medium); ?> for
                 <?php endif; ?>
@@ -89,7 +89,7 @@ get_header('branded'); ?>
 </section>
 
 <!-- Body -->
-<section class="sun-sr-body">
+<section class="sr-body">
     <div class="story-single-container">
         <div class="story-content-wrapper">
             <article class="story-content">
@@ -100,15 +100,15 @@ get_header('branded'); ?>
         </div>
     </div>
     
-    <hr class="sun-sr-divider-bottom">
+    <hr class="sr-divider-bottom">
     
 </section>
 
 <!-- Bottom -->
-<section class="sun-sr-bottom">
-    <div class="sun-sr-bottom-inner">
-        <p class="sun-sr-bottom-kicker">More in <a href="/stories/cracking-the-sun">Cracking the Sun →</a></p>
-        <div class="sun-sr-bottom-stories">
+<section class="sr-bottom">
+    <div class="sr-bottom-inner">
+        <p class="sr-bottom-kicker">More in <a href="/stories/cracking-the-sun">Cracking the Sun →</a></p>
+        <div class="sr-bottom-stories">
             <?php
             // ACF Textarea field 'more_in_special_report'. One story per line.
             // Format per line:  Headline text | https://url-here/
@@ -136,7 +136,7 @@ get_header('branded'); ?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const share = document.querySelector('.sun-sr-share');
+    const share = document.querySelector('.sr-share');
     if (!share) return;
     const originalText = share.textContent;
 
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // section, so the logo and copyright go white and the blur layers turn off.
 document.addEventListener('DOMContentLoaded', function() {
     const footer = document.querySelector('.site-footer');
-    const bottom = document.querySelector('.sun-sr-bottom');
+    const bottom = document.querySelector('.sr-bottom');
     if (!footer || !bottom) return;
 
     const logo = document.getElementById('footer-logo-img');
