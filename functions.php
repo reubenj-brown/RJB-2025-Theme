@@ -373,7 +373,7 @@ function ajax_load_more_stories() {
                                     <?php echo !empty($metadata['medium']) ? ' for ' : 'For '; ?><i><?php echo esc_html($metadata['publication']); ?></i>
                                 <?php endif; ?>
                                 <?php if (!empty($metadata['publish_date'])) : ?>
-                                    <?php echo !empty($metadata['publication']) ? ' in ' : ''; ?>
+                                    <?php echo !empty($metadata['publication']) ? ' ⋅ ' : ''; ?>
                                     <?php echo date('F Y', strtotime($metadata['publish_date'])); ?>
                                 <?php endif; ?>
                             </p>
