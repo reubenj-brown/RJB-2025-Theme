@@ -1,23 +1,9 @@
 <?php
 /*
-Template Name: Homepage Draft 2026
-*/
-
-show_admin_bar(false);
-
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_style('astra-theme-css');
-    wp_deregister_style('astra-theme-css');
-
-    wp_enqueue_style(
-        'homepage-draft-2026',
-        get_stylesheet_directory_uri() . '/2026-homepage-draft/homepage-draft.css',
-        array('astra-child-theme-css'),
-        '1.0.0'
-    );
-}, 100);
-
-get_header('branded');
+ * Homepage Draft 2026 — content partial
+ * Loaded by page-homepage-draft-2026.php (theme root)
+ * Do not use as a standalone template.
+ */
 ?>
 
 <main class="homepage-draft" id="top">
@@ -135,4 +121,4 @@ get_header('branded');
 })();
 </script>
 
-<?php get_footer('branded'); ?>
+<?php /* Footer is called by the root wrapper page-homepage-draft-2026.php */ ?>
