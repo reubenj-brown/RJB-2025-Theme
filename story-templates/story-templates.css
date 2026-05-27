@@ -1,20 +1,7 @@
 /* Story Templates Shared CSS */
 /* Common styles for single-story.php, single-story-split.php, and single-story-video.php */
 
-/* CSS Variables for Story Templates */
-:root {
-    --content-bg: white;
-    --text-color: #000;
-    --text-color-muted: #808080;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --content-bg: #050505;
-        --text-color: white;
-        --text-color-muted: #a8a8a8;
-    }
-}
+/* CSS variables are defined in the theme's style.css — no re-declarations here. */
 
 /* Global background for story pages */
 html, body {
