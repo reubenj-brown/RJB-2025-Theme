@@ -181,11 +181,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const storyNav = document.createElement('a');
-    storyNav.href = '/';
-    storyNav.className = 'story-header-nav';
-    storyNav.textContent = '← Home';
-    header.appendChild(storyNav);
+    const storyNavDesktop = document.createElement('a');
+    storyNavDesktop.href = '/';
+    storyNavDesktop.className = 'story-header-nav story-header-nav-desktop';
+    storyNavDesktop.textContent = '← Home';
+    header.appendChild(storyNavDesktop);
+
+    const storyNavMobile = document.createElement('a');
+    storyNavMobile.href = '/';
+    storyNavMobile.className = 'story-header-nav story-header-nav-mobile';
+    storyNavMobile.textContent = 'Home →';
+    header.appendChild(storyNavMobile);
 
     const contactButton = document.createElement('a');
     contactButton.href = '/#contact';
