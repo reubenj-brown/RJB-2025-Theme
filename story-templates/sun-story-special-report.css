@@ -185,6 +185,10 @@ a:hover {
 }
 
 /* Drop cap (applied manually to a paragraph in the WP editor) */
+.sr-drop-cap {
+    margin-top: 4rem !important;
+}
+
 .sr-drop-cap::first-letter {
     -webkit-initial-letter: 2;
     initial-letter: 2;
