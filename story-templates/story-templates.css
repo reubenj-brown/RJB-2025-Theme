@@ -6,8 +6,6 @@
     --content-bg: white;
     --text-color: #000;
     --text-color-muted: #808080;
-    --link-color: #808080;
-    --link-hover-color: #39e58f;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,8 +13,6 @@
         --content-bg: #050505;
         --text-color: white;
         --text-color-muted: #a8a8a8;
-        --link-color: white;
-        --link-hover-color: #39e58f;
     }
 }
 
@@ -203,7 +199,7 @@ html, body {
 }
 
 .story-content-inner a:hover {
-    color: var(--link-hover-color);
+    color: var(--highlight-color);
 }
 
 /* Audio block styling - matches contact button */
@@ -310,7 +306,7 @@ html, body {
 }
 
 .story-header-nav a:hover {
-    color: var(--link-hover-color);
+    color: var(--highlight-color);
 }
 
 .story-header-nav strong {
