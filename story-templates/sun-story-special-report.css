@@ -196,6 +196,13 @@ a.sr-more-stories:hover {
     text-decoration: underline;
 }
 
+/* Suppress the global p a::after lime-sweep from style.css — without position:relative on
+   the <a>, it anchors to .sr-body (position:relative) and renders a full-width lime bar
+   just above sr-divider-bottom. The cobalt hover color already handles the link state here. */
+.sr-body .story-content-inner p a::after {
+    content: none;
+}
+
 /* Small caps span (applied manually in the WP editor) */
 .sr-all-small-caps {
     font-variant-caps: all-small-caps;
