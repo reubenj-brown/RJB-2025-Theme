@@ -1,0 +1,410 @@
+/* ============================================================
+   Homepage Draft 2026
+   Companion stylesheet for homepage-draft.php
+   Inherits CSS variables from theme style.css
+   ============================================================ */
+
+/* ============================================================
+   PAGE SHELL
+   ============================================================ */
+
+.homepage-draft {
+    background: var(--main-content-bg);
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hp-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 500px;
+    overflow: hidden;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+}
+
+/* Background layer — video + fallback image */
+.hp-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.hp-hero-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hp-hero-fallback {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+/* Once video is ready, hide the fallback */
+.hp-hero-bg.hp-video-ready .hp-hero-fallback {
+    opacity: 0;
+}
+
+/* If video fails, hide video and show fallback */
+.hp-hero-bg.hp-video-error video {
+    opacity: 0;
+}
+
+.hp-hero-bg.hp-video-error .hp-hero-fallback {
+    opacity: 1;
+}
+
+/* Subtle gradient scrim so content is readable */
+.hp-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(0, 0, 0, 0.15) 55%,
+        rgba(0, 0, 0, 0.55) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Content sits above the scrim */
+.hp-hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: calc(100vh / 3);
+}
+
+/* Entire featured story is a single link block */
+.hp-hero-story-link {
+    display: block;
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease;
+    padding: 0 1.5rem;
+}
+
+.hp-hero-story-link:hover {
+    transform: translateY(-3px);
+}
+
+/* Kicker — small label above headline */
+.hp-kicker {
+    font-family: var(--primary-font);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cr-lime);
+    margin-bottom: 0.75rem;
+}
+
+/* Hero headline — compressed serif */
+.hp-hero-headline {
+    font-family: var(--compressed-font) !important;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    line-height: 1.0;
+    color: white;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    margin: 0 0 1.25rem 0;
+}
+
+/* Standfirst — serif body */
+.hp-hero-standfirst {
+    font-family: var(--serif-font) !important;
+    font-size: clamp(1rem, 1.5vw, 1.375rem);
+    font-weight: 400;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    margin: 0 0 1.25rem 0;
+}
+
+/* Story meta — reuses existing .story-meta class */
+.hp-hero-story-link .story-meta {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.875rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hp-hero-story-link .story-meta i {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* ============================================================
+   SHARED SECTION CHROME (label + "see all" link)
+   ============================================================ */
+
+.hp-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 0 2rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 2.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    .hp-section-header {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.hp-section-label {
+    font-family: var(--primary-font) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-color-muted) !important;
+    margin: 0 !important;
+}
+
+.hp-section-more {
+    font-family: var(--primary-font);
+    font-size: 0.875rem;
+    color: var(--text-color-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hp-section-more:hover {
+    color: var(--link-hover-color);
+}
+
+
+/* ============================================================
+   INTRO / ABOUT
+   ============================================================ */
+
+.hp-intro {
+    min-height: auto;
+    position: relative;
+    background: transparent !important;
+}
+
+/* Green gradient — mirrors existing about-section */
+.hp-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2vw;
+    right: -2vw;
+    bottom: 0;
+    background: linear-gradient(to bottom, var(--cr-lime) 0%, var(--cr-lime) 55%, var(--content-bg) 100%);
+    z-index: -1;
+}
+
+.hp-intro-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5vw 1.5rem 6vw;
+}
+
+.hp-intro-text {
+    font-family: var(--serif-font) !important;
+    font-size: clamp(1.75rem, 3vw, 3.5rem) !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
+    color: #000 !important;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* ============================================================
+   STORIES
+   ============================================================ */
+
+.hp-stories {
+    padding: 4rem 0;
+}
+
+
+/* ============================================================
+   PHOTOGRAPHY
+   ============================================================ */
+
+.hp-photography {
+    padding: 4rem 0;
+}
+
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+
+.hp-contact {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 1.5rem calc(2vw + 80px);
+    position: relative;
+    background: transparent !important;
+}
+
+/* Gradient mirrors the existing contact-section::before in page-portfolio.php */
+.hp-contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, var(--main-content-bg) 0%, var(--main-content-bg) 40%, var(--cr-lime) 100%);
+    z-index: -1;
+}
+
+.hp-contact-inner {
+    text-align: center;
+}
+
+/* .display-headline is defined in base-sections.css — used here directly */
+
+.hp-contact-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.hp-contact-links a {
+    font-family: var(--primary-font);
+    font-size: 1rem;
+    color: var(--text-color-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hp-contact-links a:hover {
+    color: var(--text-color);
+}
+
+.hp-contact-sep {
+    color: var(--text-color-muted);
+    margin: 0 0.75rem;
+    font-size: 1rem;
+    font-family: var(--primary-font);
+}
+
+
+/* ============================================================
+   RESPONSIVE — Tablet (≤ 1200px)
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .hp-intro::before {
+        left: -4vw;
+        right: -4vw;
+    }
+
+    .hp-hero-headline {
+        font-size: clamp(2.5rem, 10vw, 5rem);
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px or short viewport)
+   ============================================================ */
+
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    .hp-hero-content {
+        padding-bottom: 3.5rem;
+        align-items: center;
+    }
+
+    .hp-hero-story-link {
+        max-width: 94vw;
+        padding: 0;
+    }
+
+    .hp-hero-headline {
+        font-size: clamp(2.25rem, 12vw, 4rem);
+        margin-bottom: 1rem;
+    }
+
+    .hp-hero-standfirst {
+        font-size: 1rem;
+    }
+
+    .hp-intro-inner {
+        padding: 3rem 1rem 4rem;
+    }
+
+    .hp-intro-text {
+        font-size: 1.75rem !important;
+    }
+
+    .hp-intro::before {
+        left: -4vw;
+        right: -4vw;
+    }
+
+    .hp-section-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    .hp-stories,
+    .hp-photography {
+        padding: 2.5rem 0;
+    }
+
+    .hp-contact {
+        padding: 4rem 1rem calc(2vw + 80px);
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — Small mobile (≤ 480px or very short viewport)
+   ============================================================ */
+
+@media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
+    .hp-hero-headline {
+        font-size: clamp(2rem, 14vw, 3rem);
+    }
+
+    .hp-intro-text {
+        font-size: 1.5rem !important;
+    }
+
+    .hp-contact-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .hp-contact-sep {
+        display: none;
+    }
+}
