@@ -112,12 +112,14 @@ Version: 1.0.2
 }
 
 ::selection {
-  background-color: var(--selection-bg);
+  background-color: #39E38E80; /* fallback for browsers without var() support in ::selection */
+  background-color: var(--selection-bg, #39E38E80);
   color: black;
 }
 
 ::-moz-selection {
-  background-color: var(--selection-bg);
+  background-color: #39E38E80;
+  background-color: var(--selection-bg, #39E38E80);
   color: black;
 }
 

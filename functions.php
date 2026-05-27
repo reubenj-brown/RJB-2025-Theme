@@ -20,11 +20,12 @@ function astra_child_enqueue_styles() {
         wp_get_theme()->get('Version')
     );
     
-    // Enqueue child theme style
-    wp_enqueue_style( 
-        'astra-child-theme-css', 
-        get_stylesheet_directory_uri() . '/style.css', 
-        array('astra-theme-css'), 
+    // Enqueue child theme style (no dependency on astra-theme-css so it loads
+    // even on story templates that deregister the parent stylesheet)
+    wp_enqueue_style(
+        'astra-child-theme-css',
+        get_stylesheet_directory_uri() . '/style.css',
+        array(),
         wp_get_theme()->get('Version')
     );
     

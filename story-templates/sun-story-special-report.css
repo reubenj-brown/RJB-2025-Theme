@@ -8,6 +8,18 @@ body {
     --selection-bg: #003cff80;
 }
 
+::selection {
+    background-color: #003cff80;
+    background-color: var(--selection-bg, #003cff80);
+    color: black;
+}
+
+::-moz-selection {
+    background-color: #003cff80;
+    background-color: var(--selection-bg, #003cff80);
+    color: black;
+}
+
 a {
     transition: color 0.3s ease;
 }
