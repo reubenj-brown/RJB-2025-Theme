@@ -8,6 +8,15 @@ body {
     --selection-bg: #003cff80;
 }
 
+a {
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--cr-cobalt);
+    text-decoration: none;
+}
+
 /* ===== Hero Section ===== */
 .sun-sr-hero {
     width: 100vw;
@@ -159,12 +168,6 @@ body {
 .sun-sr-body .story-content-inner a {
     color: #000;
     text-decoration: underline;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-.sun-sr-body .story-content-inner a:hover {
-    color: var(--cr-cobalt);
-    text-decoration: none;
 }
 
 /* Small caps span (applied manually in the WP editor) */
@@ -247,10 +250,6 @@ body {
 
 a.sr-more-stories {
     color: white;
-}
-
-a.sr-more-stories:hover {
-    color: var(--cr-cobalt);
 }
 
 /* ===== Footer overlay on this template =====
