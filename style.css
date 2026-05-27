@@ -128,9 +128,11 @@ html, body {
   font-family: var(--primary-font) !important;
 }
 
-/* Force custom fonts on all text elements */
+/* Cascade primary font to all text elements.
+   No !important here so template-specific font-family rules (compressed-font on
+   headlines, serif-font on body copy, etc.) can override via source order. */
 h1, h2, h3, h4, h5, h6, p, div, span, a, li, td, th, label, input, textarea, button {
-  font-family: inherit !important;
+  font-family: inherit;
 }
 
 .index-font {
