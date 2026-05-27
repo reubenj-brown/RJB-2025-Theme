@@ -55,7 +55,7 @@ get_header('branded'); ?>
     <!-- Photography Sections -->
     <?php echo do_shortcode('[photo_section type="portraits"]'); ?>
     <?php echo do_shortcode('[photo_section type="infrastructure"]'); ?>
-    <?php echo do_shortcode('[photo_section type="events"]'); ?>
+    <?php echo do_shortcode('[photo_section type="politics"]'); ?>
     <?php echo do_shortcode('[photo_section type="cities"]'); ?>
     <?php echo do_shortcode('[photo_section type="landscapes"]'); ?>
     <?php echo do_shortcode('[photo_section type="stories"]'); ?>
