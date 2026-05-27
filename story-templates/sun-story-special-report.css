@@ -12,7 +12,12 @@ a {
     transition: color 0.3s ease;
 }
 
-a:hover {
+a:hover,
+.sun-sr-hero-inner a:hover,
+.sun-sr-index a:hover,
+.sun-sr-body .story-content-inner a:hover,
+.sun-sr-bottom-kicker a:hover,
+a.sr-more-stories:hover {
     color: var(--cr-cobalt);
     text-decoration: none;
 }
