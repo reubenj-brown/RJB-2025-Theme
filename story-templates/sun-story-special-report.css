@@ -306,3 +306,30 @@ a.sr-more-stories {
         font-size: 4rem;
     }
 }
+
+/* ===== Force light mode — dark mode has no effect on this template ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: light;
+        --content-bg: white;
+        --text-color: #000;
+        --text-color-muted: #808080;
+        --header-text-color: #000;
+    }
+
+    /* Undo story-templates.css dark mode header rules */
+    .site-header:not(.over-full-bleed) .story-header-nav {
+        color: #000 !important;
+    }
+
+    .site-header:not(.over-full-bleed) .story-header-contact {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .site-header:not(.over-full-bleed) .story-header-contact:hover {
+        background: #000 !important;
+        color: white !important;
+    }
+}
