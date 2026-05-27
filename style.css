@@ -94,11 +94,15 @@ Version: 1.0.2
   --cr-soil: #805533;
 
   /*Blues*/
-  --cr-navy: #0a2066; 
+  --cr-navy: #0a2066;
   --cr-cobalt: #003cff;
   --cr-delft: #809eff;
   --cr-lavender: #f5f9fc;
   --cr-powder: #339fff;
+
+  /*Greys*/
+  --cr-75grey: #bfbfbf;
+  --cr-50grey: #808080;
 
   /*fonts*/
   --primary-font: 'Innovator Grotesk';

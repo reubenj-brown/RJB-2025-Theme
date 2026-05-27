@@ -269,13 +269,22 @@ a.sr-more-stories:hover {
     font-family: var(--compressed-font);
     font-weight: 600;
     font-size: 6rem;
-    color: #bfbfbf;
+    color: var(--cr-75grey);
     text-wrap: balance;
     text-decoration: none;
     margin-bottom: 3rem !important;
     line-height: 0.9;
     text-align: center;
     transition: color 0.3s ease;
+}
+
+.sr-more-stories + .sr-more-stories::before {
+    content: '';
+    display: block;
+    width: 150px;
+    height: 1px;
+    background: var(--cr-75grey);
+    margin: 0 auto 3rem;
 }
 
 a.sr-more-stories {
