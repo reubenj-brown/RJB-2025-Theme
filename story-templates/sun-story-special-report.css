@@ -335,6 +335,13 @@ a.sr-more-stories {
         --header-text-color: #000;
     }
 
+    /* Undo header-branded.php dark mode: --text-color: white re-overrides our :root reset
+       because its inline <style> block loads after this linked stylesheet. Adding `body`
+       raises specificity from (0,3,0) to (0,3,1) so this rule wins regardless of order. */
+    body .site-header:not(.over-full-bleed) .site-title-name {
+        color: #000 !important;
+    }
+
     /* Undo story-templates.css dark mode header rules */
     .site-header:not(.over-full-bleed) .story-header-nav {
         color: #000 !important;
