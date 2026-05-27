@@ -101,6 +101,14 @@ html, body {
     font-weight: 600 !important;
 }
 
+/* Article note - editorial sans-serif note within story body */
+.story-content-inner .article-note,
+.story-content-inner p.article-note:not(.story-meta) {
+    font-family: var(--primary-font) !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
 .story-content-inner p.story-meta {
     margin-top: 16px;
 }
