@@ -305,8 +305,10 @@ html, body {
     text-decoration: none;
 }
 
+.story-header-nav:hover,
 .story-header-nav a:hover {
     color: var(--highlight-color);
+    font-weight: 600;
 }
 
 .story-header-nav strong {
