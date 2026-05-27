@@ -186,7 +186,7 @@ a:hover {
 
 /* Drop cap (applied manually to a paragraph in the WP editor) */
 .sr-drop-cap {
-    margin-top: 4rem !important;
+    padding-top: 4rem !important;
 }
 
 .sr-drop-cap::first-letter {
