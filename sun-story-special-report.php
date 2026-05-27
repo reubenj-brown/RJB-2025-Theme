@@ -48,7 +48,7 @@ get_header('branded'); ?>
         <?php endif; ?>
 
         <?php if (has_post_thumbnail()) : ?>
-            <div class="sun-sr-hero-image">
+            <div class="sr-hero-image">
                 <?php the_post_thumbnail('full'); ?>
             </div>
             <?php if ($photo_credit) : ?>
