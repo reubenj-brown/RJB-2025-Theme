@@ -32,6 +32,7 @@ get_header('branded'); ?>
     $publication      = get_field('publication');
     $medium           = get_field('medium');
     $external_url     = get_field('external_url');
+    $photo_credit     = get_field('photo_credit');
 ?>
 
 <!-- Hero (story-hero-full-bleed class triggers the header-branded.php JS that
@@ -50,6 +51,9 @@ get_header('branded'); ?>
             <div class="sun-sr-hero-image">
                 <?php the_post_thumbnail('full'); ?>
             </div>
+            <?php if ($photo_credit) : ?>
+                <p class="story-image-credit sun-sr-image-credit"><?php echo esc_html($photo_credit); ?></p>
+            <?php endif; ?>
         <?php endif; ?>
 
         <?php if (has_excerpt()) : ?>

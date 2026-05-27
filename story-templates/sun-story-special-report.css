@@ -78,6 +78,15 @@ a:hover {
     display: block;
 }
 
+/* Image credit below hero image */
+.sun-sr-image-credit {
+    text-align: left;
+    margin-top: 8px !important;
+    max-width: 1200px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .sun-sr-excerpt,
 .sun-sr-excerpt p {
     font-family: var(--serif-font);
