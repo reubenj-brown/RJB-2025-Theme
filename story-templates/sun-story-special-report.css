@@ -236,21 +236,21 @@ body {
     font-family: var(--compressed-font);
     font-weight: 600;
     font-size: 6rem;
-    color: #808080;
+    color: #bfbfbf;
     text-wrap: balance;
     text-decoration: none;
     margin-bottom: 3rem !important;
     line-height: 0.9;
     text-align: center;
-}
-
-.sun-sr-more-stories a {
-    color: white !important;
     transition: color 0.3s ease;
 }
 
-.sun-sr-more-stories a:hover {
-    color: var(--cr-cobalt) !important;
+a.sr-more-stories {
+    color: white;
+}
+
+a.sr-more-stories:hover {
+    color: var(--cr-cobalt);
 }
 
 /* ===== Footer overlay on this template =====
