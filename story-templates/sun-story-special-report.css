@@ -253,6 +253,7 @@ a.sr-more-stories:hover {
     max-width: 760px;
     margin: 1.5rem auto 3rem !important;
     text-align: center;
+    text-decoration: none !important; 
 }
 
 .sr-bottom-stories {
