@@ -107,6 +107,18 @@ Version: 1.0.2
   --index-font: 'PP Right Grotesk';
 
   /* Global Dark Mode Variables - loaded from plugin base-sections.css */
+
+  --selection-bg: #39E38E80;
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: black;
+}
+
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: black;
 }
 
 /* Ensure only custom fonts are used - no browser defaults */
