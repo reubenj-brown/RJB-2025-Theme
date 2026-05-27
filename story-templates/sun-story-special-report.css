@@ -4,6 +4,10 @@
    header-branded.php, so layout spacing rules here use !important where they need to
    win against that reset. */
 
+body {
+    --selection-bg: #003cff80;
+}
+
 /* ===== Hero Section ===== */
 .sun-sr-hero {
     width: 100vw;
