@@ -31,7 +31,8 @@ get_header('branded'); ?>
     $reading_time     = get_field('reading_time');
     $publication      = get_field('publication');
     $medium           = get_field('medium');
-    $external_url     = get_field('external_url');
+    $external_url              = get_field('external_url');
+    $publication_external_url  = get_field('publication_external_url');
     $photo_credit     = get_field('photo_credit');
 ?>
 
@@ -78,8 +79,8 @@ get_header('branded'); ?>
                 <?php if ($medium) : ?>
                     <?php echo esc_html($medium); ?> for
                 <?php endif; ?>
-                <?php if ($publication && $external_url) : ?>
-                    <a href="<?php echo esc_url($external_url); ?>" target="_blank" rel="noopener"><em><?php echo esc_html($publication); ?></em> →</a>
+                <?php if ($publication && $publication_external_url) : ?>
+                    <a href="<?php echo esc_url($publication_external_url); ?>" target="_blank" rel="noopener"><em><?php echo esc_html($publication); ?></em> →</a>
                 <?php elseif ($publication) : ?>
                     <em><?php echo esc_html($publication); ?></em> →
                 <?php endif; ?>
