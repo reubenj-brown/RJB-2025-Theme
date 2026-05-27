@@ -291,6 +291,21 @@ a.sr-more-stories {
     margin-top: -80px !important;
 }
 
+/* Footer contact button on tablet/mobile: match desktop story header style
+   (body prefix raises specificity to beat footer-branded.php inline styles) */
+@media (max-width: 1200px) {
+    body .footer-contact-pill {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: #000;
+        color: #000;
+    }
+
+    body .footer-contact-pill:hover {
+        background: #000;
+        color: white;
+    }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 1200px) {
     .sr-headline {
@@ -352,6 +367,12 @@ a.sr-more-stories {
        raises specificity from (0,3,0) to (0,3,1) so this rule wins regardless of order. */
     body .site-header:not(.over-full-bleed) .site-title-name {
         color: #000 !important;
+    }
+
+    /* Prevent footer logo inversion — keep black logo over cream body.
+       body prefix raises specificity from (0,1,1) to (0,1,2) to beat footer-branded.php. */
+    body .footer-logo img {
+        filter: none;
     }
 
     /* Undo story-templates.css dark mode header rules */
