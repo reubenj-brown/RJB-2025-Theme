@@ -285,14 +285,18 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <?php
             $publication = get_field('publication');
+            $medium = get_field('medium');
             $publish_date = get_field('publish_date');
             $photo_credit = get_field('photo_credit');
             ?>
-            
-            <?php if ($publication || $publish_date) : ?>
+
+            <?php if ($medium || $publication || $publish_date) : ?>
                 <p class="story-meta">
+                    <?php if ($medium) : ?>
+                        <?php echo esc_html($medium); ?>
+                    <?php endif; ?>
                     <?php if ($publication) : ?>
-                        For <i><?php echo esc_html($publication); ?></i>
+                        <?php echo $medium ? ' for ' : 'For '; ?><i><?php echo esc_html($publication); ?></i>
                     <?php endif; ?>
                     <?php if ($publish_date) : ?>
                         <?php echo $publication ? ' in ' : ''; ?>
