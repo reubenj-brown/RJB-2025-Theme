@@ -102,13 +102,13 @@ function get_photo_category_slugs() {
  * @param bool $exclude_photo_categories - Whether to exclude photo-* categories (default true when no category specified)
  * @return WP_Query
  */
-function get_portfolio_stories($category = '', $limit = 6, $exclude_photo_categories = null) {
+function get_portfolio_stories($category = '', $limit = 6, $exclude_photo_categories = null, $order = 'DESC') {
     $args = [
         'post_type' => 'story',
         'posts_per_page' => $limit,
         'post_status' => 'publish',
         'orderby' => 'date',
-        'order' => 'DESC'
+        'order' => $order
     ];
 
     // Default: exclude photo categories when no specific category is requested
