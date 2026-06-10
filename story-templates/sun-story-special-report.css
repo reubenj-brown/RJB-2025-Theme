@@ -109,6 +109,7 @@ a.sr-more-stories:hover {
     font-style: italic;
     font-size: 2rem;
     color: black;
+    line-height: 1.4;
     margin: 2rem auto 4rem !important;
 }
 
