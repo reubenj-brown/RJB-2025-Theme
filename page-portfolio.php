@@ -429,9 +429,7 @@ get_header('branded'); ?>
         
         <?php echo do_shortcode('[reuben_solar]'); ?>
 
-        <?php echo do_shortcode('[reuben_cronkite]'); ?>
-
-        <?php echo do_shortcode('[reuben_features]'); ?>
+        <?php echo do_shortcode('[reuben_reporting]'); ?>
 
         <section class="content-section photographs-section" id="photographs">
             <?php echo do_shortcode('[reuben_photographs]'); ?>
