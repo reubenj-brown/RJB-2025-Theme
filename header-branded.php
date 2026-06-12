@@ -45,10 +45,21 @@ if (is_singular()) {
 <meta name="twitter:description" content="I'm Reuben, a multimedia journalist with a background in design. I work as a writer, photographer and editor on stories about very big systems, the people shaping them, and the people they shape">
 <meta name="twitter:image" content="<?php echo esc_url($share_image); ?>">
 
-<link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css">
+<!-- Preconnect to Adobe Fonts (Typekit) -->
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
 
-<!-- Preload PP Right Serif font for early loading -->
-<link rel="preload" href="<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.otf" as="font" type="font/otf" crossorigin>
+<!-- Adobe Fonts (Legitima) - loaded async so it doesn't block render -->
+<link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://use.typekit.net/grj8tmk.css"></noscript>
+
+<?php if ( is_page_template('page-portfolio.php') ) : ?>
+<!-- Preload the hero AVIF: it is the LCP element on the homepage -->
+<link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url(home_url('/wp-content/uploads/2025/11/reuben-j-brown-almeria-greenhouses-el-ejido-agriculture.avif')); ?>">
+<?php endif; ?>
+
+<!-- Preload PP Right Serif (visible headline font) - woff2, not the missing .otf -->
+<link rel="preload" href="<?php echo get_stylesheet_directory_uri(); ?>/fonts/PP-Right-Serif-Tall-Fine.woff2" as="font" type="font/woff2" crossorigin>
 
 <?php wp_head(); ?>
 

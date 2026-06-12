@@ -3,21 +3,29 @@
 Template Name: Portfolio Page
 */
 
-// Debug: Template is loading
-error_log('Portfolio template is loading');
-echo '<!-- PORTFOLIO TEMPLATE LOADED -->';
-
 // Disable WordPress admin bar for this page
 show_admin_bar(false);
 
 // Remove theme's CSS and JS but keep essential WordPress functions
 add_action('wp_enqueue_scripts', function() {
-    // Remove theme styles but keep essential WordPress ones
+    // Remove parent Astra stylesheet - this template supplies its own styles
     wp_dequeue_style('astra-theme-css');
     wp_deregister_style('astra-theme-css');
-    
-    // Remove the manual CSS enqueue - the plugin handles this
+
+    // Astra's frontend JS only drives Astra's header/menu/scroll markup, which
+    // this template hides entirely. Drop it to cut unused JavaScript.
+    wp_dequeue_script('astra-theme-js');
+    wp_deregister_script('astra-theme-js');
+
+    // No Gutenberg blocks are rendered on this template (all shortcodes/markup).
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('classic-theme-styles');
 }, 100);
+
+// Disable the WordPress emoji detection script + styles (unused, render-blocking).
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
 
 // Add portfolio-specific styles to header
 add_action('wp_head', function() {
@@ -466,7 +474,7 @@ get_header('branded'); ?>
     <section class="content-section contact-section">
         <div class="contact-content">
             <div class="contact-image">
-                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/03/Reuben_J_Brown_Multimedia-Journalist-photographer-writer-editor-HEADSHOT.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." />
+                <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/03/Reuben_J_Brown_Multimedia-Journalist-photographer-writer-editor-HEADSHOT.avif')); ?>" alt="Headshot of journalist Reuben J. Brown in green soft, filtered light. He wears a black suede jacket." width="1920" height="2560" loading="lazy" decoding="async" />
             </div>
             <div class="contact-info">
                 <h3>My first gig – at two months old – was a starring role in the music video for <a href="https://youtu.be/K1BNOzDnOLI?t=202">“You Were Right”</a> by Badly Drawn Boy. For actually serious things, contact me here:</h3>

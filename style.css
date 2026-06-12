@@ -6,8 +6,9 @@ Template: astra
 Version: 1.0.3
 */
 
-/* Adobe Fonts - Legitima */
-@import url("https://use.typekit.net/ffl7rra.css");
+/* Adobe Fonts (Legitima) are loaded via the async <link> in header-branded.php
+   (kit grj8tmk). The previous render-blocking @import of kit ffl7rra was a
+   redundant second kit and has been removed. */
 
 /* Local font - Innovator Grotesk */
 @font-face {

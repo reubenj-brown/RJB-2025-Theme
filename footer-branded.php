@@ -3,7 +3,7 @@
     <div class="footer-blur-background"></div>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img">
+                <img src="/wp-content/uploads/2025/06/Reuben-J-Brown-logo-favicon-black.png" alt="RJB Logo" id="footer-logo-img" width="40" height="40" loading="lazy" decoding="async">
             </div>
             <!-- Contact button for responsive display -->
             <div class="footer-contact-button">
