@@ -140,7 +140,7 @@ html, body {
 /* Simple image caption below image */
 .story-image-caption {
     font-family: var(--primary-font);
-    font-size: 0.75rem;
+    font-size: 12.74px;
     line-height: 1.4;
     text-align: left; /* Bottom-left alignment */
     margin-top: 8px;
