@@ -387,7 +387,7 @@ if (is_singular()) {
 
     .main-nav a {
         font-family: var(--primary-font) !important;
-        font-size: 20px;
+        font-size: 19.8px;
         text-decoration: none;
         font-weight: 400;
         transition: all 0.5s ease;
