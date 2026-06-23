@@ -293,6 +293,29 @@ a.sr-more-stories {
     color: white;
 }
 
+.sr-img-fade-in {
+  /* Define the animation name and set it to a dummy duration (required for fallbacks) */
+  animation: fadeIn linear both;
+  
+  /* Link the animation to the root scroll container */
+  animation-timeline: view();
+  
+  /* Trigger the animation when the element enters the viewport 
+     and finish it when it reaches the vertical center (50%) */
+  animation-range: entry 0% contain 50%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95); /* Optional: Adds a subtle smooth zoom-in effect */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* ===== Footer overlay on this template =====
    Pull the sticky footer up to overlay the Bottom section's dark gradient so
    no white block is visible when scrolled all the way down. JS toggles
