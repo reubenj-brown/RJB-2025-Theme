@@ -387,6 +387,32 @@ a.sr-more-stories {
     }
 }
 
+/* ===== Header text always black, even over the hero =====
+   By default header-branded.php (.site-title-name) and story-templates.css
+   (.story-header-nav / .story-header-contact) turn the header white while the
+   header overlaps the full-bleed hero (.over-full-bleed). On this template we
+   want it black throughout. The `body` prefix raises specificity so these win
+   over header-branded.php's inline <style>, which loads after this stylesheet. */
+body .site-header.over-full-bleed .site-title-name {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+body .site-header.over-full-bleed .story-header-nav {
+    color: #000 !important;
+}
+
+body .site-header.over-full-bleed .story-header-contact {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: #000 !important;
+    color: #000 !important;
+}
+
+body .site-header.over-full-bleed .story-header-contact:hover {
+    background: #000 !important;
+    color: white !important;
+}
+
 /* ===== Force light mode — dark mode has no effect on this template ===== */
 @media (prefers-color-scheme: dark) {
     :root {

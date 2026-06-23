@@ -1,10 +1,10 @@
 <?php
 /**
- * Template Name: Sun Story — Special Report
+ * Template Name: Japan Story — Special Report
  * Template Post Type: story
  *
  * Special Report story template (Cracking the Sun series).
- * Structure: Hero (gradient) → Body (cr-page) → Bottom (gradient).
+ * Structure: Hero (gradient) → Body (cr-lavender) → Bottom (gradient).
  */
 
 show_admin_bar(false);
