@@ -403,51 +403,89 @@ html, body {
    over the full-bleed hero (i.e. :not(.over-full-bleed)).
    ============================================================ */
 
-/* Centered article headline lives in the header on story pages.
-   Hidden on tablet/mobile; on desktop it is always laid out and
-   cross-faded in/out via opacity so the state change animates. */
-.header-article-headline {
+/* ============================================================
+   Article header: 0.3s opacity cross-fade between two states.
+   Over-hero layer  = the default header elements (.site-title-name
+     centre, .story-header-nav "← Home", .story-header-contact).
+   Over-body layer  = .story-header-scrolled (compact name left,
+     headline centre, compact contact right).
+   The two layers fade across each other in place — each pair sits
+   at the same spot (left↔left, centre↔centre, right↔right) so
+   nothing slides. Desktop only; scoped to article pages via the
+   .story-single-container wrapper (the <body> has no body_class()). */
+
+/* Over-body layer is hidden by default (mobile/tablet, non-story pages). */
+.story-header-scrolled {
     display: none;
 }
 
-/* The article header/footer state switches instantly — no transition.
-   Overrides pre-existing `transition: all` rules (incl. an !important one on
-   .site-title-name over the hero) so neither scroll direction animates. */
-body:has(.story-single-container) .site-header .site-title-name,
-body:has(.story-single-container) .site-header .story-header-nav,
-body:has(.story-single-container) .site-header .story-header-contact,
-body:has(.story-single-container) .site-header .header-article-headline,
-body:has(.story-single-container) .site-footer .footer-logo {
-    transition: none !important;
-}
-
-/* Keep the blurred header background fading in/out. The blur lives on the
-   header pseudo-elements (independent of the element's transition above); the
-   .over-full-bleed rule already fades it out, this adds the matching fade-in. */
+/* Blurred header background fades in/out too (0.3s). The blur lives on the
+   header pseudo-elements; .over-full-bleed fades it out, this fades it in. */
 body:has(.story-single-container) .site-header::before,
 body:has(.story-single-container) .site-header::after,
 body:has(.story-single-container) .site-header .header-content::before {
     transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
 }
 
-/* Scoped to single story pages via the .story-single-container body wrapper
-   (present only on the article templates, not archive/photography). The body
-   tag carries no body_class(), so this :has() marker is the reliable signal. */
-@media (min-width: 1201px) {
-    /* Over the article body the header is shorter. transition: none so the
-       height change (and the name anchored to it) snaps rather than drifting. */
-    body:has(.story-single-container) .site-header {
-        transition: none !important;
-    }
+/* Footer logo eases between its two sizes over 0.3s. */
+body:has(.story-single-container) .site-footer .footer-logo {
+    transition: width 0.3s ease, height 0.3s ease;
+}
 
+@media (min-width: 1201px) {
+    /* Header compacts over the body — eased (0.3s) so both layers settle
+       together rather than the content jumping. */
+    body:has(.story-single-container) .site-header {
+        transition: height 0.3s ease;
+    }
     body:has(.story-single-container) .site-header:not(.over-full-bleed) {
         height: calc(40px + 2vw);
     }
 
-    /* Headline is always present on desktop story pages, faded out while
-       the header is over the hero, faded in once scrolled past it. */
-    body:has(.story-single-container) .header-article-headline {
+    /* --- Over-hero layer: fade out once over the body --- */
+    body:has(.story-single-container) .site-header .site-title-name,
+    body:has(.story-single-container) .site-header .story-header-nav-desktop,
+    body:has(.story-single-container) .site-header .story-header-contact {
+        transition: opacity 0.3s ease !important;
+    }
+    body:has(.story-single-container) .site-header:not(.over-full-bleed) .site-title-name,
+    body:has(.story-single-container) .site-header:not(.over-full-bleed) .story-header-nav-desktop,
+    body:has(.story-single-container) .site-header:not(.over-full-bleed) .story-header-contact {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* --- Over-body layer: fade in once over the body --- */
+    body:has(.story-single-container) .story-header-scrolled {
         display: block;
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    body:has(.story-single-container) .site-header:not(.over-full-bleed) .story-header-scrolled {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Compact "Reuben J. Brown", left (matches the masthead: serif italic) */
+    body:has(.story-single-container) .shs-name {
+        position: absolute;
+        left: calc(2vw + env(safe-area-inset-left));
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: var(--serif-font) !important;
+        font-style: italic;
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: 400;
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    /* Article headline, centred */
+    body:has(.story-single-container) .shs-headline {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -462,46 +500,47 @@ body:has(.story-single-container) .site-header .header-content::before {
         line-height: 1;
         font-weight: 400;
         color: var(--text-color);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
     }
 
-    /* "Reuben J. Brown" shrinks and pins to the left (instant — see the
-       transition: none override above) */
-    body:has(.story-single-container) .site-header:not(.over-full-bleed) .site-title-name {
-        font-size: 24px;
-        line-height: 24px;
-        left: calc(2vw + env(safe-area-inset-left));
+    /* Compact contact pill, right */
+    body:has(.story-single-container) .shs-contact {
+        position: absolute;
+        right: calc(2vw + env(safe-area-inset-right));
         top: 50%;
         transform: translateY(-50%);
-    }
-
-    /* Fade the "← Home" link out — the shrunken name takes its place
-       (animates via the transition: all 0.3s on .story-header-nav) */
-    body:has(.story-single-container) .site-header:not(.over-full-bleed) .story-header-nav-desktop {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-    /* Article headline fades in at center */
-    body:has(.story-single-container) .site-header:not(.over-full-bleed) .header-article-headline {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    /* Contact button shrinks (animates via transition: all 0.3s on
-       .story-header-contact) */
-    body:has(.story-single-container) .site-header:not(.over-full-bleed) .story-header-contact {
-        font-size: 12.74px;
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid #000;
+        color: #000;
         padding: 6px 12px;
+        border-radius: 20px;
+        font-family: var(--primary-font);
+        font-size: 12.74px;
+        font-weight: 400;
+        text-decoration: none;
+    }
+    body:has(.story-single-container) .shs-contact:hover {
+        background: #000;
+        color: #fff;
     }
 
-    /* Footer logo shrinks */
+    /* Footer logo shrinks over the body */
     body:has(.story-single-container) .site-footer:not(.over-full-bleed) .footer-logo {
         width: 30px;
         height: 30px;
+    }
+}
+
+/* Dark mode: compact contact pill uses light text/border on article pages
+   (the name and headline follow --text-color automatically). */
+@media (min-width: 1201px) and (prefers-color-scheme: dark) {
+    body:has(.story-single-container) .shs-contact {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #fff;
+        color: #fff;
+    }
+    body:has(.story-single-container) .shs-contact:hover {
+        background: #fff;
+        color: #000;
     }
 }
 

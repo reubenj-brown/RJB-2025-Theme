@@ -586,7 +586,11 @@ if (is_singular()) {
                 $hb_short_headline = get_field('short_headline');
                 $hb_headline = !empty($hb_short_headline) ? $hb_short_headline : get_the_title();
             ?>
-            <span class="header-article-headline"><?php echo esc_html($hb_headline); ?></span>
+            <div class="story-header-scrolled">
+                <a href="<?php echo home_url('/'); ?>" class="shs-name">Reuben J. Brown</a>
+                <span class="shs-headline"><?php echo esc_html($hb_headline); ?></span>
+                <a href="<?php echo home_url('/#contact'); ?>" class="shs-contact">contact →</a>
+            </div>
             <?php endif; ?>
 
             <div class="contact-button">
