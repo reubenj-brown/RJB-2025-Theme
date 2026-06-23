@@ -160,6 +160,12 @@
         .footer-contact-button {
             display: block;
         }
+
+        /* Match the header's horizontal inset: 4vw on tablet/mobile */
+        .site-footer {
+            padding-left: 4vw;
+            padding-right: 4vw;
+        }
     }
 
     /* Mobile Responsive - See breakpoint reference in plugin base-sections.css; Optimized for Safari Liquid Glass */
@@ -171,6 +177,9 @@
         overflow: visible;
         /* Keep the padding to protect text from the pill */
         padding-bottom: calc(2vw + env(safe-area-inset-bottom, 0px));
+        /* Match the header: 4vw inset plus safe-area on mobile */
+        padding-left: calc(4vw + env(safe-area-inset-left));
+        padding-right: calc(4vw + env(safe-area-inset-right));
     }
 
     /* Target the new background div */
