@@ -425,6 +425,16 @@ body:has(.story-single-container) .site-footer .footer-logo {
    (present only on the article templates, not archive/photography). The body
    tag carries no body_class(), so this :has() marker is the reliable signal. */
 @media (min-width: 1201px) {
+    /* Over the article body the header is shorter. transition: none so the
+       height change (and the name anchored to it) snaps rather than drifting. */
+    body:has(.story-single-container) .site-header {
+        transition: none !important;
+    }
+
+    body:has(.story-single-container) .site-header:not(.over-full-bleed) {
+        height: calc(40px + 2vw);
+    }
+
     /* Headline is always present on desktop story pages, faded out while
        the header is over the hero, faded in once scrolled past it. */
     body:has(.story-single-container) .header-article-headline {
@@ -439,7 +449,7 @@ body:has(.story-single-container) .site-footer .footer-logo {
         text-overflow: ellipsis;
         text-align: center;
         font-family: var(--compressed-font) !important;
-        font-size: 48px;
+        font-size: 40px;
         line-height: 1;
         font-weight: 400;
         color: var(--text-color);
@@ -448,8 +458,8 @@ body:has(.story-single-container) .site-footer .footer-logo {
         pointer-events: none;
     }
 
-    /* "Reuben J. Brown" shrinks and pins to the left (animates via the
-       transition: all 0.5s on .site-title-name) */
+    /* "Reuben J. Brown" shrinks and pins to the left (instant — see the
+       transition: none override above) */
     body:has(.story-single-container) .site-header:not(.over-full-bleed) .site-title-name {
         font-size: 24px;
         line-height: 24px;
