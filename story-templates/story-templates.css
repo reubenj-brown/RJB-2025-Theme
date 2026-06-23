@@ -410,6 +410,17 @@ html, body {
     display: none;
 }
 
+/* The article header/footer state switches instantly — no transition.
+   Overrides pre-existing `transition: all` rules (incl. an !important one on
+   .site-title-name over the hero) so neither scroll direction animates. */
+body:has(.story-single-container) .site-header .site-title-name,
+body:has(.story-single-container) .site-header .story-header-nav,
+body:has(.story-single-container) .site-header .story-header-contact,
+body:has(.story-single-container) .site-header .header-article-headline,
+body:has(.story-single-container) .site-footer .footer-logo {
+    transition: none !important;
+}
+
 /* Scoped to single story pages via the .story-single-container body wrapper
    (present only on the article templates, not archive/photography). The body
    tag carries no body_class(), so this :has() marker is the reliable signal. */
@@ -435,7 +446,6 @@ html, body {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transition: opacity 0.4s ease, visibility 0.4s ease;
     }
 
     /* "Reuben J. Brown" shrinks and pins to the left (animates via the
