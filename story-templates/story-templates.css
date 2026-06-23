@@ -544,6 +544,47 @@ body:has(.story-single-container) .site-footer .footer-logo {
     }
 }
 
+/* ============================================================
+   Special Report templates (japan / sun) — header override.
+   Scoped via body:has(.sr-hero) so it only affects the two
+   special-report layouts, not the regular single-story header.
+
+   Over the hero: a single "Reuben J. Brown" masthead sits on the
+   LEFT (links home) with the centre and right empty.
+   Over the body: that same name SHRINKS in place (no cross-fade)
+   while the headline (centre) and contact pill (right) fade in
+   from .story-header-scrolled. .shs-name is hidden so the masthead
+   is the only name element on the page.
+
+   The over-hero "← Home" link and contact button are not created
+   by the templates' JS, so there is nothing to fade out here. */
+
+/* Hide the over-body layer's duplicate name — the masthead shrinks instead. */
+body:has(.sr-hero) .shs-name {
+    display: none !important;
+}
+
+@media (min-width: 1201px) {
+    /* Masthead: left-aligned in both states (overrides header-branded.php's
+       centred absolute positioning). Transition the size and colour so the
+       name shrinks/recolours smoothly rather than cross-fading. */
+    body:has(.sr-hero) .site-header .site-title-name {
+        left: calc(2vw + env(safe-area-inset-left));
+        top: 50%;
+        transform: translateY(-50%);
+        transition: font-size 0.3s ease, line-height 0.3s ease, color 0.3s ease !important;
+    }
+
+    /* Over the body: keep the name visible (override the cross-fade fade-out)
+       and shrink it to the compact over-body size. */
+    body:has(.sr-hero) .site-header:not(.over-full-bleed) .site-title-name {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        font-size: 24px;
+        line-height: 24px;
+    }
+}
+
 /* Caption styling for photo credits */
 .caption {
     position: absolute;

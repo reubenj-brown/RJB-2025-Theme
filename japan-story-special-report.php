@@ -137,7 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Replace header nav for this story template, matching other single-story templates
+// Special-report header: a single "Reuben J. Brown" masthead, left-aligned,
+// linking home (replaces the old "← Home" button). Over the hero the centre and
+// right stay empty; as the header crosses into the body, story-templates.css
+// shrinks the name in place and fades in the headline (centre) + contact pill
+// (right) from the .story-header-scrolled layer in header-branded.php.
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.site-header');
     if (!header) return;
@@ -148,31 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mainNav) mainNav.remove();
     if (contactPill) contactPill.remove();
 
-    if (siteTitle) {
-        siteTitle.href = '#';
-        siteTitle.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    const storyNavDesktop = document.createElement('a');
-    storyNavDesktop.href = '/';
-    storyNavDesktop.className = 'story-header-nav story-header-nav-desktop';
-    storyNavDesktop.textContent = '← Home';
-    header.appendChild(storyNavDesktop);
-
-    const storyNavMobile = document.createElement('a');
-    storyNavMobile.href = '/';
-    storyNavMobile.className = 'story-header-nav story-header-nav-mobile';
-    storyNavMobile.textContent = 'Home →';
-    header.appendChild(storyNavMobile);
-
-    const contactButton = document.createElement('a');
-    contactButton.href = '/#contact';
-    contactButton.className = 'story-header-contact';
-    contactButton.textContent = 'contact →';
-    header.appendChild(contactButton);
+    if (siteTitle) siteTitle.href = '/';
 });
 
 // Toggle .over-full-bleed on the footer while it overlaps the dark Bottom
