@@ -421,6 +421,15 @@ body:has(.story-single-container) .site-footer .footer-logo {
     transition: none !important;
 }
 
+/* Keep the blurred header background fading in/out. The blur lives on the
+   header pseudo-elements (independent of the element's transition above); the
+   .over-full-bleed rule already fades it out, this adds the matching fade-in. */
+body:has(.story-single-container) .site-header::before,
+body:has(.story-single-container) .site-header::after,
+body:has(.story-single-container) .site-header .header-content::before {
+    transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+}
+
 /* Scoped to single story pages via the .story-single-container body wrapper
    (present only on the article templates, not archive/photography). The body
    tag carries no body_class(), so this :has() marker is the reliable signal. */
