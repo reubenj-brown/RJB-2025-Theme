@@ -581,7 +581,14 @@ if (is_singular()) {
             <a href="<?php echo home_url('/#top'); ?>" class="site-title-name">
                 Reuben J. Brown
             </a>
-            
+
+            <?php if ( is_singular('story') ) :
+                $hb_short_headline = get_field('short_headline');
+                $hb_headline = !empty($hb_short_headline) ? $hb_short_headline : get_the_title();
+            ?>
+            <span class="header-article-headline"><?php echo esc_html($hb_headline); ?></span>
+            <?php endif; ?>
+
             <div class="contact-button">
                 <a href="<?php echo home_url('/#contact'); ?>" class="contact-pill">contact ↓</a>
             </div>

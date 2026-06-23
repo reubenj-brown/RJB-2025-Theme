@@ -397,6 +397,65 @@ html, body {
     }
 }
 
+/* ============================================================
+   Article scrolled-header state (desktop only)
+   Applies on single story pages once the header is no longer
+   over the full-bleed hero (i.e. :not(.over-full-bleed)).
+   ============================================================ */
+
+/* Centered article headline lives in the header on story pages.
+   Hidden by default — only revealed in the scrolled desktop state. */
+.header-article-headline {
+    display: none;
+}
+
+@media (min-width: 1201px) {
+    /* "Reuben J. Brown" shrinks and pins to the left */
+    body.single-story .site-header:not(.over-full-bleed) .site-title-name {
+        font-size: 24px;
+        line-height: 24px;
+        left: calc(2vw + env(safe-area-inset-left));
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Hide the "← Home" link — the shrunken name takes its place */
+    body.single-story .site-header:not(.over-full-bleed) .story-header-nav-desktop {
+        display: none;
+    }
+
+    /* Article headline takes the center */
+    body.single-story .site-header:not(.over-full-bleed) .header-article-headline {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 50vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        font-family: var(--compressed-font) !important;
+        font-size: 48px;
+        line-height: 1;
+        font-weight: 400;
+        color: var(--text-color);
+    }
+
+    /* Contact button shrinks */
+    body.single-story .site-header:not(.over-full-bleed) .story-header-contact {
+        font-size: 12.74px;
+        padding: 6px 12px;
+    }
+
+    /* Footer logo shrinks */
+    body.single-story .site-footer:not(.over-full-bleed) .footer-logo {
+        width: 30px;
+        height: 30px;
+    }
+}
+
 /* Caption styling for photo credits */
 .caption {
     position: absolute;

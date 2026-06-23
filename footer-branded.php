@@ -101,7 +101,7 @@
     .copyright {
         color: #808080;
         background: transparent;
-        font-size: 16px;
+        font-size: 12.74px;
         font-family: var(--primary-font);
         transition: all 0.5s ease;    font-family: var(--primary-font);
         color: var(--text-color-muted);
@@ -240,7 +240,8 @@
     }
 
     .footer-contact-pill {
-        font-size: 14px;
+        font-size: 12.74px;
+        padding: 6px 12px;
     }
 }
     </style>
