@@ -325,6 +325,20 @@ a.sr-more-stories {
     margin-top: -80px !important;
 }
 
+/* This template is light top-to-bottom (hero, body and bottom are all light),
+   so the footer never wants the white "over-full-bleed" treatment that shared
+   JS applies over the hero. Force the R mark black and the copyright grey
+   throughout, overriding header-branded.php's inline white + the white logo PNG. */
+body .site-footer .footer-logo img {
+    /* brightness(0) renders the mark solid black whichever PNG src the JS swaps in */
+    filter: brightness(0) !important;
+}
+
+body .site-footer .copyright,
+body .site-footer.over-full-bleed .copyright {
+    color: var(--text-color-muted) !important;
+}
+
 /* Footer contact button on tablet/mobile: match desktop story header style
    (body prefix raises specificity to beat footer-branded.php inline styles) */
 @media (max-width: 1200px) {
