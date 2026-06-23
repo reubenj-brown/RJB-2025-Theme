@@ -387,17 +387,17 @@ a.sr-more-stories {
     }
 
     /* Undo story-templates.css dark mode header rules */
-    .site-header:not(.over-full-bleed) .story-header-nav {
+    .site-header .story-header-nav {
         color: #000 !important;
     }
 
-    .site-header:not(.over-full-bleed) .story-header-contact {
+    .site-header .story-header-contact {
         background: rgba(0, 0, 0, 0.05) !important;
         border-color: #000 !important;
         color: #000 !important;
     }
 
-    .site-header:not(.over-full-bleed) .story-header-contact:hover {
+    .site-header .story-header-contact:hover {
         background: #000 !important;
         color: white !important;
     }
