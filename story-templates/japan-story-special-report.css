@@ -1,0 +1,404 @@
+/* Sun Story — Special Report template */
+/* Template-specific styles. Body content styling is inherited from story-templates.css */
+/* Note: body.single-story has * { margin: 0; padding: 0 } !important reset in
+   header-branded.php, so layout spacing rules here use !important where they need to
+   win against that reset. */
+
+body {
+    --selection-bg: var(--cr-sakura);
+}
+
+::selection {
+    background-color: var(--cr-sakura);
+    background-color: var(--selection-bg, var(--cr-sakura));
+    color: black;
+}
+
+::-moz-selection {
+    background-color: var(--cr-sakura);
+    background-color: var(--selection-bg, var(--cr-sakura));
+    color: black;
+}
+
+a {
+    transition: color 0.3s ease;
+}
+
+a:hover,
+.sr-hero-inner a:hover,
+.sr-index a:hover,
+.sr-body .story-content-inner a:hover,
+a.sr-more-stories:hover {
+    color: var(--cr-cherry);
+    text-decoration: none;
+}
+
+/* ===== Hero Section ===== */
+.sr-hero {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    background: linear-gradient(180deg, white 0%, var(--cr-lavender) 50%, var(--cr-lavender) 100%);
+    padding: calc(60px + 4vw) 2vw 0 !important;
+    position: relative;
+    z-index: 10;
+}
+
+.sr-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto !important;
+    text-align: center;
+    color: black;
+}
+
+.sr-hero-inner a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+.sr-kicker,
+.sr-headline,
+.sr-excerpt {
+    max-width: 760px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-wrap: balance;
+}
+
+.sr-kicker {
+    font-family: var(--primary-font);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--cr-cherry);
+    margin-bottom: 12px;
+}
+
+.sr-headline {
+    font-family: var(--compressed-font);
+    font-size: 8rem;
+    color: black;
+    line-height: 0.9;
+    margin: 0 auto 3rem !important;
+    font-weight: 600;
+}
+
+.sr-hero-image {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto 0 !important;
+}
+
+.sr-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Image credit below hero image */
+.sr-image-credit {
+    text-align: left;
+    margin-top: 8px !important;
+    max-width: 1200px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.sr-excerpt,
+.sr-excerpt p {
+    font-family: var(--serif-font);
+    font-style: italic;
+    font-size: 2rem;
+    color: black;
+    line-height: 1.4;
+    margin: 2rem auto 4rem !important;
+}
+
+.sr-divider {
+    height: 2px;
+    background: #000;
+    border: none;
+    width: 1200px;
+    max-width: 100%;
+    margin: 2rem auto !important;
+}
+
+.sr-divider-bottom {
+    height: 2px;
+    background: #000;
+    border: none;
+    width: 1200px;
+    max-width: 100%;
+    margin: 4rem auto 2rem auto !important;
+}
+
+.sr-index {
+    width: 1200px;
+    max-width: 100%;
+    margin: 0.5rem auto 0 !important;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--primary-font);
+    font-weight: 600;
+    font-size: 1rem;
+    color: #000;
+}
+
+.sr-index a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.sr-index-left {
+    text-align: left;
+}
+
+.sr-index-right {
+    text-align: right;
+}
+
+.sr-index-right a {
+    font-style: italic;
+}
+
+.sr-dot {
+    margin: 0 0.2rem !important;
+}
+
+/* ===== Body Section ===== */
+.sr-body {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    background: var(--cr-page);
+    padding: 0 2vw !important;
+    position: relative;
+    z-index: 10;
+}
+
+/* Cancel the top padding the shared container applies inside the body section */
+.sr-body .story-single-container {
+    padding: 0 2vw !important;
+}
+
+.sr-body .story-content-inner {
+    color: #000;
+}
+
+.sr-body .story-content-inner p {
+    color: #000 !important;
+}
+
+.sr-body .story-content-inner a {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* Suppress the global p a::after lime-sweep from style.css — without position:relative on
+   the <a>, it anchors to .sr-body (position:relative) and renders a full-width lime bar
+   just above sr-divider-bottom. The cherry hover color already handles the link state here. */
+.sr-body .story-content-inner p a::after {
+    content: none;
+}
+
+/* Small caps span (applied manually in the WP editor) */
+.sr-all-small-caps {
+    font-variant-caps: all-small-caps;
+}
+
+/* Drop cap (applied manually to a paragraph in the WP editor) */
+.sr-drop-cap {
+    padding-top: 4rem !important;
+}
+
+.sr-drop-cap::first-letter {
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
+    margin-right: 0.25em !important;
+    font-weight: inherit;
+}
+
+/* ===== Bottom Section ===== */
+.sr-bottom {
+    width: 100vw;
+    height: 100vh;
+    align-content: center;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    margin-top: -32px;
+    background: linear-gradient(180deg, var(--cr-page) 0%, var(--cr-lavender) 50%, var(--cr-lavender) 100%);
+    /* Extra bottom padding lets the gradient extend behind the sticky footer
+       so nothing white shows when scrolled all the way down. */
+    padding: 4rem 2vw !important;
+    position: relative;
+    z-index: 10;
+}
+
+.sr-bottom-inner {
+    max-width: 1200px;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+.sr-bottom .sr-divider {
+    margin-top: 0 !important;
+}
+
+.sr-bottom-kicker {
+    font-family: var(--primary-font);
+    font-weight: 600;
+    font-size: 1.23rem;
+    color: var(--cr-cherry);
+    max-width: 760px;
+    margin: 1.5rem auto 3rem !important;
+    text-align: center;
+    text-decoration: none !important;
+}
+
+.sr-bottom-stories {
+    max-width: 760px;
+    margin: 0 auto !important;
+    text-align: center;
+    font-size: 6rem !important;
+    text-wrap: balance;
+}
+
+.sr-more-stories {
+    display: block;
+    font-family: var(--compressed-font);
+    font-weight: 600;
+    font-size: 6rem;
+    color: var(--cr-75grey);
+    text-wrap: balance;
+    text-decoration: none;
+    margin-bottom: 3rem !important;
+    line-height: 0.9;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.sr-more-stories+.sr-more-stories::before {
+    content: '';
+    display: block;
+    width: 150px;
+    height: 1px;
+    background: var(--cr-75grey);
+    margin: 0 auto 3rem;
+}
+
+a.sr-more-stories {
+    color: white;
+}
+
+/* ===== Footer overlay on this template =====
+   Pull the sticky footer up to overlay the Bottom section's dark gradient so
+   no white block is visible when scrolled all the way down. JS toggles
+   .over-full-bleed on the footer based on overlap with .sr-bottom. */
+
+.site-footer {
+    margin-top: -80px !important;
+}
+
+/* Footer contact button on tablet/mobile: match desktop story header style
+   (body prefix raises specificity to beat footer-branded.php inline styles) */
+@media (max-width: 1200px) {
+    body .footer-contact-pill {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: #000;
+        color: #000;
+    }
+
+    body .footer-contact-pill:hover {
+        background: #000;
+        color: white;
+    }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+    .sr-headline {
+        font-size: 4.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sr-hero {
+        padding: calc(60px + 4vw) 1rem 0 !important;
+    }
+
+    .site-footer {
+        margin-top: calc(-2vw - env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+
+
+    .sr-headline {
+        font-size: 3rem;
+    }
+
+    .sr-excerpt,
+    .sr-excerpt p {
+        font-size: 1.25rem;
+    }
+
+    .sr-index {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .sr-index-right {
+        text-align: center;
+    }
+
+    .sr-bottom {
+        padding: 3rem 1rem 200px !important;
+        margin-bottom: -50px;
+    }
+
+    .sr-more-stories {
+        font-size: 4rem;
+    }
+}
+
+/* ===== Force light mode — dark mode has no effect on this template ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: light;
+        --content-bg: white;
+        --text-color: #000;
+        --text-color-muted: #808080;
+        --header-text-color: #000;
+    }
+
+    /* Undo header-branded.php dark mode: --text-color: white re-overrides our :root reset
+       because its inline <style> block loads after this linked stylesheet. Adding `body`
+       raises specificity from (0,3,0) to (0,3,1) so this rule wins regardless of order. */
+    body .site-header:not(.over-full-bleed) .site-title-name {
+        color: #000 !important;
+    }
+
+    /* Prevent footer logo inversion — keep black logo over cream body.
+       body prefix raises specificity from (0,1,1) to (0,1,2) to beat footer-branded.php. */
+    body .footer-logo img {
+        filter: none;
+    }
+
+    /* Undo story-templates.css dark mode header rules */
+    .site-header:not(.over-full-bleed) .story-header-nav {
+        color: #000 !important;
+    }
+
+    .site-header:not(.over-full-bleed) .story-header-contact {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .site-header:not(.over-full-bleed) .story-header-contact:hover {
+        background: #000 !important;
+        color: white !important;
+    }
+}
