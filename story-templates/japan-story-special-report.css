@@ -206,6 +206,7 @@ a.sr-more-stories:hover {
 /* Small caps span (applied manually in the WP editor) */
 .sr-all-small-caps {
     font-variant-caps: all-small-caps;
+    text-transform: lowercase;
 }
 
 /* Drop cap (applied manually to a paragraph in the WP editor) */
