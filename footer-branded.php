@@ -111,6 +111,7 @@
     .footer-logo {
         width: 40px;
         height: 40px;
+        transition: width 0.4s ease, height 0.4s ease;
     }
 
     .footer-logo img {

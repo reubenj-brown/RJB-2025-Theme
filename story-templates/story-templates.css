@@ -404,28 +404,16 @@ html, body {
    ============================================================ */
 
 /* Centered article headline lives in the header on story pages.
-   Hidden by default — only revealed in the scrolled desktop state. */
+   Hidden on tablet/mobile; on desktop it is always laid out and
+   cross-faded in/out via opacity so the state change animates. */
 .header-article-headline {
     display: none;
 }
 
 @media (min-width: 1201px) {
-    /* "Reuben J. Brown" shrinks and pins to the left */
-    body.single-story .site-header:not(.over-full-bleed) .site-title-name {
-        font-size: 24px;
-        line-height: 24px;
-        left: calc(2vw + env(safe-area-inset-left));
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    /* Hide the "← Home" link — the shrunken name takes its place */
-    body.single-story .site-header:not(.over-full-bleed) .story-header-nav-desktop {
-        display: none;
-    }
-
-    /* Article headline takes the center */
-    body.single-story .site-header:not(.over-full-bleed) .header-article-headline {
+    /* Headline is always present on desktop story pages, faded out while
+       the header is over the hero, faded in once scrolled past it. */
+    body.single-story .header-article-headline {
         display: block;
         position: absolute;
         left: 50%;
@@ -441,9 +429,38 @@ html, body {
         line-height: 1;
         font-weight: 400;
         color: var(--text-color);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
     }
 
-    /* Contact button shrinks */
+    /* "Reuben J. Brown" shrinks and pins to the left (animates via the
+       transition: all 0.5s on .site-title-name) */
+    body.single-story .site-header:not(.over-full-bleed) .site-title-name {
+        font-size: 24px;
+        line-height: 24px;
+        left: calc(2vw + env(safe-area-inset-left));
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Fade the "← Home" link out — the shrunken name takes its place
+       (animates via the transition: all 0.3s on .story-header-nav) */
+    body.single-story .site-header:not(.over-full-bleed) .story-header-nav-desktop {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Article headline fades in at center */
+    body.single-story .site-header:not(.over-full-bleed) .header-article-headline {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Contact button shrinks (animates via transition: all 0.3s on
+       .story-header-contact) */
     body.single-story .site-header:not(.over-full-bleed) .story-header-contact {
         font-size: 12.74px;
         padding: 6px 12px;
