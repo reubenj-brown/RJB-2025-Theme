@@ -431,7 +431,7 @@ body .site-header.over-full-bleed .story-header-contact:hover {
 .sr-body .more-stories-section {
     background: transparent !important;
     margin-top: 2rem !important;
-    margin-bottom: 4rem !important;
+    margin-bottom: 0 !important;
     padding-bottom: 4rem !important;
 }
 
