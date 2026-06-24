@@ -388,10 +388,6 @@ a.sr-more-stories {
     }
 
     /* Undo story-templates.css dark mode header rules */
-    .site-header:not(.over-full-bleed) .story-header-nav {
-        color: #000 !important;
-    }
-
     .site-header:not(.over-full-bleed) .story-header-contact {
         background: rgba(0, 0, 0, 0.05) !important;
         border-color: #000 !important;

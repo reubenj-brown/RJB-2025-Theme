@@ -403,17 +403,13 @@ body .site-footer.over-full-bleed .copyright {
 
 /* ===== Header text always black, even over the hero =====
    By default header-branded.php (.site-title-name) and story-templates.css
-   (.story-header-nav / .story-header-contact) turn the header white while the
-   header overlaps the full-bleed hero (.over-full-bleed). On this template we
-   want it black throughout. The `body` prefix raises specificity so these win
-   over header-branded.php's inline <style>, which loads after this stylesheet. */
+   (.story-header-contact) turn the header white while the header overlaps the
+   full-bleed hero (.over-full-bleed). On this template we want it black
+   throughout. The `body` prefix raises specificity so these win over
+   header-branded.php's inline <style>, which loads after this stylesheet. */
 body .site-header.over-full-bleed .site-title-name {
     color: #000 !important;
     text-shadow: none !important;
-}
-
-body .site-header.over-full-bleed .story-header-nav {
-    color: #000 !important;
 }
 
 body .site-header.over-full-bleed .story-header-contact {
@@ -456,17 +452,7 @@ body .site-header.over-full-bleed .story-header-contact:hover {
         color: #000 !important;
     }
 
-    /* Prevent footer logo inversion — keep black logo over cream body.
-       body prefix raises specificity from (0,1,1) to (0,1,2) to beat footer-branded.php. */
-    body .footer-logo img {
-        filter: none;
-    }
-
     /* Undo story-templates.css dark mode header rules */
-    .site-header .story-header-nav {
-        color: #000 !important;
-    }
-
     .site-header .story-header-contact {
         background: rgba(0, 0, 0, 0.05) !important;
         border-color: #000 !important;
