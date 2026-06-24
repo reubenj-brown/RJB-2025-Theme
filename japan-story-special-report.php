@@ -153,6 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactPill) contactPill.remove();
 
     if (siteTitle) siteTitle.href = '/';
+
+    const contactButton = document.createElement('a');
+    contactButton.href = '/#contact';
+    contactButton.className = 'story-header-contact';
+    contactButton.textContent = 'contact →';
+    header.appendChild(contactButton);
 });
 
 // Toggle .over-full-bleed on the footer while it overlaps the dark Bottom
