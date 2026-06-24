@@ -427,6 +427,18 @@ body .site-header.over-full-bleed .story-header-contact:hover {
     color: white !important;
 }
 
+/* ===== More Stories block (Japan-specific overrides) ===== */
+.sr-body .more-stories-section {
+    background: transparent !important;
+    margin-top: 2rem !important;
+    margin-bottom: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+.sr-body .more-stories-head {
+    margin-bottom: 1rem !important;
+}
+
 /* ===== Force light mode — dark mode has no effect on this template ===== */
 @media (prefers-color-scheme: dark) {
     :root {
