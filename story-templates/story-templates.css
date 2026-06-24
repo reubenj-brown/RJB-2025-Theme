@@ -572,6 +572,15 @@ body:has(.sr-hero) .shs-contact {
     display: none !important;
 }
 
+/* The over-body layer (.story-header-scrolled) carries only the non-interactive
+   headline here (shs-name/shs-contact are hidden), but its inset:0 box would
+   otherwise blanket the header and swallow clicks to the masthead "Reuben J.
+   Brown" home link sitting beneath it. Let pointer events pass straight through
+   the container so the masthead stays clickable over the body. */
+body:has(.sr-hero) .site-header .story-header-scrolled {
+    pointer-events: none !important;
+}
+
 @media (min-width: 1201px) {
     /* Masthead: left-aligned in both states (overrides header-branded.php's
        centred absolute positioning). Transition the size and colour so the
