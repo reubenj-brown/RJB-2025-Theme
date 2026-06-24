@@ -359,7 +359,7 @@ if (is_singular()) {
         border-radius: 25px;
         text-decoration: none;
         font-family: var(--primary-font) !important;
-        font-size: 16px;
+        font-size: 14.15px;
         font-weight: 400;
         color: #000;
         transition: all 0.12s ease;
@@ -387,7 +387,7 @@ if (is_singular()) {
 
     .main-nav a {
         font-family: var(--primary-font) !important;
-        font-size: 19.8px;
+        font-size: 17px;
         text-decoration: none;
         font-weight: 400;
         transition: all 0.5s ease;
