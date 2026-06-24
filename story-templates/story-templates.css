@@ -443,7 +443,7 @@ body:has(.story-single-container) .site-footer .footer-logo {
         transition: height 0.3s ease;
     }
     body:has(.story-single-container) .site-header:not(.over-full-bleed) {
-        height: calc(40px + 2vw);
+        height: calc(24px + 2vw);
     }
 
     /* --- Over-hero layer: fade out once over the body --- */
