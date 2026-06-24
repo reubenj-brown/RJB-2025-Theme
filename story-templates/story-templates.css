@@ -563,8 +563,12 @@ body:has(.story-single-container) .site-footer .footer-logo {
    The over-hero "← Home" link and contact button are not created
    by the templates' JS, so there is nothing to fade out here. */
 
-/* Hide the over-body layer's duplicate name — the masthead shrinks instead. */
+/* Hide the over-body layer's duplicate name and contact — the masthead and
+   contact button shrink in place instead of cross-fading. */
 body:has(.sr-hero) .shs-name {
+    display: none !important;
+}
+body:has(.sr-hero) .shs-contact {
     display: none !important;
 }
 
@@ -586,6 +590,19 @@ body:has(.sr-hero) .shs-name {
         pointer-events: auto !important;
         font-size: 24px;
         line-height: 24px;
+    }
+
+    /* Contact button: keep visible in both states and shrink smoothly.
+       Overrides the cross-fade opacity:0 that applies on regular story pages. */
+    body:has(.sr-hero) .site-header .story-header-contact {
+        transition: font-size 0.3s ease, padding 0.3s ease,
+                    background 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
+    }
+    body:has(.sr-hero) .site-header:not(.over-full-bleed) .story-header-contact {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        font-size: 12.74px;
+        padding: 6px 12px;
     }
 }
 
