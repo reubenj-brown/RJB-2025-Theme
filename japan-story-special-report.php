@@ -102,7 +102,9 @@ get_header('branded'); ?>
     </div>
     
     <hr class="sr-divider-bottom">
-    
+
+    <?php echo do_shortcode('[more_stories tag="energy" limit="6"]'); ?>
+
 </section>
 
 <script>
