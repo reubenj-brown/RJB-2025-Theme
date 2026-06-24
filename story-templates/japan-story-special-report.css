@@ -39,7 +39,7 @@ a.sr-more-stories:hover {
     margin-left: calc(-50vw + 50%) !important;
     margin-right: calc(-50vw + 50%) !important;
     background: linear-gradient(180deg, white 0%, var(--cr-lavender) 50%, var(--cr-lavender) 100%);
-    padding: calc(60px + 4vw) 2vw 0 !important;
+    padding: 4vw 2vw 0 !important;
     position: relative;
     z-index: 10;
 }
