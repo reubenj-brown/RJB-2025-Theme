@@ -38,6 +38,10 @@ html, body {
     width: 100%;
 }
 
+.story-content-wrapper p {
+    line-height: 1.6;
+}
+
 .story-content-inner {
     font-family: var(--serif-font);
     font-size: 1.25rem;
