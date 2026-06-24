@@ -465,4 +465,20 @@ body .site-header.over-full-bleed .story-header-contact:hover {
         background: #000 !important;
         color: white !important;
     }
+
+    /* Keep scrolled-header layer black — story-templates.css turns these white in dark mode */
+    .shs-headline {
+        color: #000 !important;
+    }
+
+    .shs-contact {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-color: #000 !important;
+        color: #000 !important;
+    }
+
+    .shs-contact:hover {
+        background: #000 !important;
+        color: white !important;
+    }
 }
