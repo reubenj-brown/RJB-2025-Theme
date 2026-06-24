@@ -323,7 +323,7 @@ if (is_singular()) {
 
     .site-title-name {
         font-family: var(--serif-font) !important;
-        font-size: 48px;
+        font-size: 2.5rem;
         font-style: italic !important;
         line-height: 48px;
         font-weight: 400;
