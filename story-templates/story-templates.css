@@ -688,6 +688,10 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     .story-header-nav {
         font-size: 0.875rem;
     }
+
+    .caption {
+        font-size: 9.9px;
+    }
 }
 
 @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
