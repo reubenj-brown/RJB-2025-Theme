@@ -756,13 +756,9 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 }
 
-/* Scroll Items - Match Photography section dimensions */
-.architecture-scroll-item {
-    flex: 0 0 450px; /* Fixed width for horizontal scroll */
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
+/* .architecture-scroll-item base layout + width are single-sourced in the plugin's
+   stories-section.css, which loads standalone on single story pages (and in the
+   bundle elsewhere). That now also gives story pages the 250px tablet step. */
 
 /* Architecture section image styling - match story grid 4:3 aspect ratio */
 .architecture-scroll-item .story-image {
@@ -812,10 +808,6 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
         gap: 16px;
     }
 
-    .architecture-scroll-item {
-        flex: 0 0 220px; /* Mobile width */
-    }
-
     .architecture-scroll-item .story-content h2 {
         margin-top: 8px;
         margin-bottom: 12px;
@@ -830,10 +822,6 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
 @media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
     .architecture-scroll {
         gap: 16px;
-    }
-
-    .architecture-scroll-item {
-        flex: 0 0 220px; /* Small mobile width */
     }
 
     .architecture-scroll-item .story-content h2 {
