@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## No Browser Preview
+
+This is a live WordPress site, not a local app with a dev server. There is no `npm run dev` (or equivalent) that renders these PHP templates or CSS files — the `.claude/launch.json` entries only start the unrelated `interactive`/`interactive-map` widgets from the portfolio plugin.
+
+**Do not call `preview_start` or any other `preview_*` tool to try to verify PHP/CSS changes in this repo.** It cannot work and wastes tokens. After editing theme files, just report the change and where it lives (file/line) — verification happens on the live/staging WordPress site by the human, not in a local preview.
+
 ## Project Overview
 
 This is a two-part WordPress portfolio system for Reuben J. Brown, a multimedia journalist. The system consists of:
@@ -153,6 +159,7 @@ CSS custom properties defined in `:root`:
 - Use the Test Page template for isolated section testing
 - Use the Portfolio Page template for full site testing
 - CSS changes are conditionally loaded only on portfolio pages
+- No local preview is possible for this repo — see "No Browser Preview" above. Testing happens on the live/staging WordPress site, not via Claude Code's preview tools.
 
 ## Customization Notes
 

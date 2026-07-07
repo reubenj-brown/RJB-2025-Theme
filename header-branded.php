@@ -353,13 +353,13 @@ if (is_singular()) {
 
     .contact-pill {
         display: inline-block;
-        padding: 8px 20px;
+        padding: 8px 18px;
         background: white;
         border: 1px solid var(--highlight-color);
-        border-radius: 25px;
+        border-radius: 18px;
         text-decoration: none;
         font-family: var(--primary-font) !important;
-        font-size: 14.15px;
+        font-size: var(--fs-base);
         font-weight: 400;
         color: #000;
         transition: all 0.12s ease;
@@ -387,7 +387,7 @@ if (is_singular()) {
 
     .main-nav a {
         font-family: var(--primary-font) !important;
-        font-size: 17px;
+        font-size: var(--fs-md);
         text-decoration: none;
         font-weight: 400;
         transition: all 0.5s ease;
@@ -502,7 +502,7 @@ if (is_singular()) {
         }
 
         .main-nav a {
-            font-size: 17px;
+            font-size: var(--fs-md);
         }
 
         .main-nav li:not(:last-child)::after {

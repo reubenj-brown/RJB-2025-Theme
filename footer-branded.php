@@ -81,13 +81,13 @@
 
     .footer-contact-pill {
         display: inline-block;
-        padding: 8px 20px;
+        padding: 8px 18px;
         background: white;
         border: 1px solid var(--highlight-color);
-        border-radius: 25px;
+        border-radius: 18px;
         text-decoration: none;
         font-family: var(--primary-font) !important;
-        font-size: 16px;
+        font-size: var(--fs-base);
         font-weight: 400;
         color: #000;
         transition: all 0.3s ease;
@@ -101,7 +101,7 @@
     .copyright {
         color: #808080;
         background: transparent;
-        font-size: 12.74px;
+        font-size: var(--fs-sm);
         font-family: var(--primary-font);
         transition: all 0.5s ease;    font-family: var(--primary-font);
         color: var(--text-color-muted);
@@ -249,7 +249,7 @@
     }
 
     .footer-contact-pill {
-        font-size: 12.74px;
+        font-size: var(--fs-sm);
         padding: 6px 12px;
     }
 }

@@ -144,7 +144,7 @@ html, body {
 /* Simple image caption below image */
 .story-image-caption {
     font-family: var(--primary-font);
-    font-size: 12.74px;
+    font-size: var(--fs-sm);
     line-height: 1.4;
     text-align: left; /* Bottom-left alignment */
     margin-top: 8px;
@@ -292,7 +292,7 @@ html, body {
     transform: translateY(-50%);
     color: white;
     font-family: var(--primary-font);
-    font-size: 17px;
+    font-size: var(--fs-md);
     font-weight: 400;
     text-decoration: none;
     z-index: 1002;
@@ -351,7 +351,7 @@ html, body {
     padding: 8px 18px;
     border-radius: 18px;
     font-family: var(--primary-font);
-    font-size: 14.15px;
+    font-size: var(--fs-base);
     font-weight: 400;
     text-decoration: none;
     cursor: pointer;
@@ -518,7 +518,7 @@ body:has(.story-single-container) .site-footer .footer-logo {
         padding: 6px 12px;
         border-radius: 20px;
         font-family: var(--primary-font);
-        font-size: 12.74px;
+        font-size: var(--fs-sm);
         font-weight: 400;
         text-decoration: none;
     }
@@ -610,7 +610,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     body:has(.sr-hero) .site-header:not(.over-full-bleed) .story-header-contact {
         opacity: 1 !important;
         pointer-events: auto !important;
-        font-size: 12.74px;
+        font-size: var(--fs-sm);
         padding: 6px 12px;
     }
 }
@@ -637,7 +637,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 
     .story-header-nav {
-        font-size: 14.15px;
+        font-size: var(--fs-base);
     }
 
     .story-header-contact {
@@ -690,11 +690,11 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 
     .story-header-nav {
-        font-size: 12.74px;
+        font-size: var(--fs-sm);
     }
 
     .caption {
-        font-size: 9.9px;
+        font-size: var(--fs-2xs);
     }
 }
 

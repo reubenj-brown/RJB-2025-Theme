@@ -103,6 +103,19 @@ Version: 1.1.1
   --compressed-font: 'PP Right Serif';
   --index-font: 'PP Right Grotesk';
 
+  /* Innovator Grotesk type scale (per foundry's user manual) */
+  --fs-3xs: 8.5px;
+  --fs-2xs: 9.9px;
+  --fs-xs: 11.3px;
+  --fs-sm: 12.74px;
+  --fs-base: 14.15px;
+  --fs-md: 17px;
+  --fs-lg: 18.4px;
+  --fs-xl: 19.8px;
+  --fs-2xl: 21.2px;
+  --fs-3xl: 22.5px;
+  --fs-4xl: 24px;
+
   /* Functional / semantic variables */
   --content-bg: white;
   --main-content-bg: white;
