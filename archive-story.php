@@ -81,7 +81,6 @@ get_header('branded'); ?>
         border: 1px solid var(--highlight-color);
         cursor: pointer;
         font-family: inherit;
-        font-size: inherit;
         white-space: nowrap;
     }
 
