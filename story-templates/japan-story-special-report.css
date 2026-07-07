@@ -271,7 +271,7 @@ a.sr-more-stories:hover {
     font-family: var(--compressed-font);
     font-weight: 600;
     font-size: 6rem;
-    color: var(--cr-75grey);
+    color: #CC9E70;
     text-wrap: balance;
     text-decoration: none;
     margin-bottom: 3rem !important;
@@ -290,7 +290,7 @@ a.sr-more-stories:hover {
 }
 
 a.sr-more-stories {
-    color: #CC9E70;
+    color: white;
 }
 
 .sr-img-fade-in {
