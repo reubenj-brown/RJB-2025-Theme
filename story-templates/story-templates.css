@@ -292,7 +292,7 @@ html, body {
     transform: translateY(-50%);
     color: white;
     font-family: var(--primary-font);
-    font-size: 1.25rem;
+    font-size: 17px;
     font-weight: 400;
     text-decoration: none;
     z-index: 1002;
@@ -348,10 +348,10 @@ html, body {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid white;
     color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 8px 18px;
+    border-radius: 18px;
     font-family: var(--primary-font);
-    font-size: 1rem;
+    font-size: 14.15px;
     font-weight: 400;
     text-decoration: none;
     cursor: pointer;
@@ -633,7 +633,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 
     .story-header-nav {
-        font-size: 1rem;
+        font-size: 14.4px;
     }
 
     .story-header-contact {
@@ -686,7 +686,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 
     .story-header-nav {
-        font-size: 0.875rem;
+        font-size: 12.74px;
     }
 
     .caption {

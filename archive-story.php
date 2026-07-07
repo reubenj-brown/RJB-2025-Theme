@@ -42,7 +42,7 @@ get_header('branded'); ?>
 
     /* Category Filter Buttons */
     .category-filter {
-        padding: 28px 0 3rem 0;
+        padding: 0 0 36px 0;
         text-align: center;
     }
 
@@ -96,10 +96,6 @@ get_header('branded'); ?>
         .main-content {
             margin-top: calc(80px + env(safe-area-inset-top));
         }
-
-        .category-filter {
-            padding-top: 0;
-        }
     }
 
     /* Mobile Responsive - See breakpoint reference in plugin base-sections.css */
@@ -135,27 +131,46 @@ get_header('branded'); ?>
             </button>
 
             <?php
-            // Get all story categories, excluding photo-* categories (those are shown on /photography only)
-            // and the Japan special report category (not a general filter option)
+            // Get all story categories, excluding photo-* categories (those are shown on /photography only),
+            // the Japan special report category, and Photographs (not general filter options)
             $categories = get_terms([
                 'taxonomy' => 'story_category',
                 'hide_empty' => true,
             ]);
 
             $photo_slugs = function_exists('get_photo_category_slugs') ? get_photo_category_slugs() : [];
-            $hidden_slugs = array('japan');
+            $hidden_names = array('japan', 'photographs');
 
+            $visible_categories = [];
             if (!empty($categories) && !is_wp_error($categories)) :
                 foreach ($categories as $category) :
                     if (in_array($category->slug, $photo_slugs, true)) continue;
-                    if (in_array($category->slug, $hidden_slugs, true) || strtolower($category->name) === 'japan') continue;
+                    if (in_array(strtolower($category->name), $hidden_names, true)) continue;
+                    $visible_categories[] = $category;
+                endforeach;
+            endif;
+
+            // Manually order: Energy, Features, Cronkite, Reynolds Center first, then everything else
+            $priority_order = array('energy', 'features', 'cronkite', 'reynolds center');
+            $ordered_categories = [];
+            foreach ($priority_order as $priority_name) :
+                foreach ($visible_categories as $key => $category) :
+                    if (strtolower($category->name) === $priority_name) :
+                        $ordered_categories[] = $category;
+                        unset($visible_categories[$key]);
+                        break;
+                    endif;
+                endforeach;
+            endforeach;
+            $ordered_categories = array_merge($ordered_categories, array_values($visible_categories));
+
+            foreach ($ordered_categories as $category) :
             ?>
                     <button type="button" class="footer-contact-pill" data-category="<?php echo esc_attr($category->slug); ?>">
                         <?php echo esc_html(ucwords(strtolower($category->name))); ?>
                     </button>
             <?php
-                endforeach;
-            endif;
+            endforeach;
             ?>
         </div>
     </div>
