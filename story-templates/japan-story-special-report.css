@@ -68,7 +68,7 @@ a.sr-more-stories:hover {
 .sr-kicker {
     font-family: var(--primary-font);
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: var(--fs-2xl);
     color: var(--cr-cherry);
     margin-bottom: 12px;
 }
