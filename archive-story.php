@@ -136,16 +136,19 @@ get_header('branded'); ?>
 
             <?php
             // Get all story categories, excluding photo-* categories (those are shown on /photography only)
+            // and the Japan special report category (not a general filter option)
             $categories = get_terms([
                 'taxonomy' => 'story_category',
                 'hide_empty' => true,
             ]);
 
             $photo_slugs = function_exists('get_photo_category_slugs') ? get_photo_category_slugs() : [];
+            $hidden_slugs = array('japan');
 
             if (!empty($categories) && !is_wp_error($categories)) :
                 foreach ($categories as $category) :
                     if (in_array($category->slug, $photo_slugs, true)) continue;
+                    if (in_array($category->slug, $hidden_slugs, true) || strtolower($category->name) === 'japan') continue;
             ?>
                     <button type="button" class="footer-contact-pill" data-category="<?php echo esc_attr($category->slug); ?>">
                         <?php echo esc_html(ucwords(strtolower($category->name))); ?>
