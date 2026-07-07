@@ -628,6 +628,10 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
 
 /* Tablet/Desktop Responsive adjustments */
 @media (max-width: 1200px) {
+    .story-content-inner {
+        font-size: 1.25rem;
+    }
+
     .story-content-inner .wp-block-uagb-image img {
         margin-top: 0 !important;
     }
