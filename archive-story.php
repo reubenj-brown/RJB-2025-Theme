@@ -131,21 +131,24 @@ get_header('branded'); ?>
         <div class="category-filter-buttons">
             <!-- "All" button - active by default -->
             <button type="button" class="footer-contact-pill active" data-category="">
-                all
+                All
             </button>
 
             <?php
-            // Get all story categories
+            // Get all story categories, excluding photo-* categories (those are shown on /photography only)
             $categories = get_terms([
                 'taxonomy' => 'story_category',
                 'hide_empty' => true,
             ]);
 
+            $photo_slugs = function_exists('get_photo_category_slugs') ? get_photo_category_slugs() : [];
+
             if (!empty($categories) && !is_wp_error($categories)) :
                 foreach ($categories as $category) :
+                    if (in_array($category->slug, $photo_slugs, true)) continue;
             ?>
                     <button type="button" class="footer-contact-pill" data-category="<?php echo esc_attr($category->slug); ?>">
-                        <?php echo esc_html(strtolower($category->name)); ?>
+                        <?php echo esc_html(ucwords(strtolower($category->name))); ?>
                     </button>
             <?php
                 endforeach;
@@ -170,12 +173,6 @@ get_header('branded'); ?>
                                 <div class="story-image">
                                     <?php the_post_thumbnail('large'); ?>
                                 </div>
-                                <?php
-                                $photo_credit = get_post_meta(get_the_ID(), 'photo_credit', true);
-                                if ($photo_credit) :
-                                ?>
-                                    <div class="caption"><?php echo esc_html($photo_credit); ?></div>
-                                <?php endif; ?>
                             <?php endif; ?>
 
                             <div class="story-content">
@@ -194,7 +191,7 @@ get_header('branded'); ?>
                                             <?php echo !empty($metadata['medium']) ? ' for ' : 'For '; ?><i><?php echo esc_html($metadata['publication']); ?></i>
                                         <?php endif; ?>
                                         <?php if (!empty($metadata['publish_date'])) : ?>
-                                            <?php echo !empty($metadata['publication']) ? ' ⋅ ' : ''; ?>
+                                            <?php echo !empty($metadata['publication']) ? ' in ' : ''; ?>
                                             <?php echo date('F Y', strtotime($metadata['publish_date'])); ?>
                                         <?php endif; ?>
                                     </p>

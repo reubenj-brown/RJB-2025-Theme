@@ -338,12 +338,6 @@ function ajax_load_more_stories() {
                         <div class="story-image">
                             <?php the_post_thumbnail('large'); ?>
                         </div>
-                        <?php
-                        $photo_credit = get_post_meta(get_the_ID(), 'photo_credit', true);
-                        if ($photo_credit) :
-                        ?>
-                            <div class="caption"><?php echo esc_html($photo_credit); ?></div>
-                        <?php endif; ?>
                     <?php endif; ?>
 
                     <div class="story-content">
@@ -362,7 +356,7 @@ function ajax_load_more_stories() {
                                     <?php echo !empty($metadata['medium']) ? ' for ' : 'For '; ?><i><?php echo esc_html($metadata['publication']); ?></i>
                                 <?php endif; ?>
                                 <?php if (!empty($metadata['publish_date'])) : ?>
-                                    <?php echo !empty($metadata['publication']) ? ' ⋅ ' : ''; ?>
+                                    <?php echo !empty($metadata['publication']) ? ' in ' : ''; ?>
                                     <?php echo date('F Y', strtotime($metadata['publish_date'])); ?>
                                 <?php endif; ?>
                             </p>
