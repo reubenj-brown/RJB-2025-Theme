@@ -95,6 +95,51 @@ function get_photo_category_slugs() {
 }
 
 /**
+ * Build WP_Query args for the /stories archive feed (used by both the initial
+ * SSR render and the AJAX load-more handler, so they always stay in sync).
+ *
+ * @param string $category Story category slug to filter by, or '' for all (excludes photo-* categories).
+ * @param int $posts_per_page
+ * @param int $offset
+ * @return array
+ */
+function get_stories_archive_query_args($category = '', $posts_per_page = 24, $offset = 0) {
+    $args = array(
+        'post_type' => 'story',
+        'posts_per_page' => $posts_per_page,
+        'offset' => $offset,
+        'post_status' => 'publish',
+        'orderby' => 'date',
+        'order' => 'DESC'
+    );
+
+    if (!empty($category)) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'story_category',
+                'field' => 'slug',
+                'terms' => $category
+            )
+        );
+    } else {
+        // Exclude photo-* categories from "all stories" view
+        $photo_slugs = get_photo_category_slugs();
+        if (!empty($photo_slugs)) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'story_category',
+                    'field' => 'slug',
+                    'terms' => $photo_slugs,
+                    'operator' => 'NOT IN'
+                )
+            );
+        }
+    }
+
+    return $args;
+}
+
+/**
  * Helper function to get stories for homepage sections
  *
  * @param string $category - Story category slug
@@ -271,55 +316,20 @@ function save_story_hero_color_meta_box($post_id) {
 add_action('save_post_story', 'save_story_hero_color_meta_box');
 
 /**
- * AJAX handler for lazy loading more stories
- * Initial page load: 24 stories
- * Lazy load: 12 stories per batch
+ * AJAX handler for lazy loading more stories.
+ *
+ * Uses an explicit offset/limit sent by the client rather than a "page number",
+ * so the batch requested always lines up with how many stories are actually
+ * on screen — previously this assumed the first batch was always exactly 24
+ * stories, and any mismatch (e.g. the initial render coming up short) meant
+ * everything after that guessed cutoff got skipped forever.
  */
 function ajax_load_more_stories() {
-    $page = isset($_POST['page']) ? intval($_POST['page']) : 2;
+    $offset = isset($_POST['offset']) ? max(0, intval($_POST['offset'])) : 0;
+    $limit = isset($_POST['limit']) ? max(1, intval($_POST['limit'])) : 12;
     $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
 
-    // Page 1 = initial load (24 stories), Page 2+ = lazy load (12 stories each)
-    if ($page === 1) {
-        $offset = 0;
-        $posts_per_page = 24;
-    } else {
-        // Calculate offset: 24 initial + (page-2) * 12 for subsequent loads
-        $offset = 24 + (($page - 2) * 12);
-        $posts_per_page = 12;
-    }
-
-    $args = array(
-        'post_type' => 'story',
-        'posts_per_page' => $posts_per_page,
-        'offset' => $offset,
-        'post_status' => 'publish',
-        'orderby' => 'date',
-        'order' => 'DESC'
-    );
-
-    if (!empty($category)) {
-        $args['tax_query'] = array(
-            array(
-                'taxonomy' => 'story_category',
-                'field' => 'slug',
-                'terms' => $category
-            )
-        );
-    } else {
-        // Exclude photo-* categories from "all stories" view
-        $photo_slugs = get_photo_category_slugs();
-        if (!empty($photo_slugs)) {
-            $args['tax_query'] = array(
-                array(
-                    'taxonomy' => 'story_category',
-                    'field' => 'slug',
-                    'terms' => $photo_slugs,
-                    'operator' => 'NOT IN'
-                )
-            );
-        }
-    }
+    $args = get_stories_archive_query_args($category, $limit, $offset);
 
     $query = new WP_Query($args);
     $html = '';
@@ -372,10 +382,11 @@ function ajax_load_more_stories() {
     wp_reset_postdata();
 
     // Calculate if there are more posts
-    $has_more = $query->found_posts > ($offset + $posts_per_page);
+    $has_more = $query->found_posts > ($offset + $limit);
 
     wp_send_json_success(array(
         'html' => $html,
+        'count' => $query->post_count,
         'has_more' => $has_more
     ));
 }

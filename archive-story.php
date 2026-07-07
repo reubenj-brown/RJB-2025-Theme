@@ -176,10 +176,19 @@ get_header('branded'); ?>
     </div>
 
     <!-- Stories Grid -->
+    <?php
+    // Build the initial batch with our own explicit query (same args the AJAX
+    // load-more handler uses) rather than relying on WordPress's main query,
+    // whose posts_per_page can get overridden elsewhere before this template runs.
+    $initial_category = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+    $initial_limit = 24;
+    $story_query = new WP_Query(get_stories_archive_query_args($initial_category, $initial_limit, 0));
+    $initial_count = $story_query->post_count;
+    ?>
     <div class="stories-content">
         <div class="stories-grid" id="stories-grid">
-            <?php if (have_posts()) : ?>
-                <?php while (have_posts()) : the_post(); ?>
+            <?php if ($story_query->have_posts()) : ?>
+                <?php while ($story_query->have_posts()) : $story_query->the_post(); ?>
                     <?php
                     $metadata = function_exists('get_story_metadata') ? get_story_metadata(get_the_ID()) : [];
                     $story_url = !empty($metadata['external_url']) ? esc_url($metadata['external_url']) : get_permalink();
@@ -217,13 +226,13 @@ get_header('branded'); ?>
                             </div>
                         </a>
                     </article>
-                <?php endwhile; ?>
+                <?php endwhile; wp_reset_postdata(); ?>
             <?php else : ?>
                 <p class="no-stories-message">No stories found.</p>
             <?php endif; ?>
         </div>
 
-        <?php if (have_posts()) : ?>
+        <?php if ($story_query->found_posts > $initial_count) : ?>
             <div id="load-more-trigger" style="height: 1px; margin: 100px 0;"></div>
             <div id="loading-indicator" style="display: none; text-align: center; padding: 2rem; color: var(--text-color-muted); font-family: var(--primary-font);">
                 Loading more stories...
@@ -276,10 +285,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 (function() {
-    let currentPage = 1;
+    let loadedCount = <?php echo (int) $initial_count; ?>;
     let currentCategory = '';
     let isLoading = false;
-    let hasMorePosts = <?php echo $GLOBALS['wp_query']->found_posts > 24 ? 'true' : 'false'; ?>;
+    let hasMorePosts = <?php echo $story_query->found_posts > $initial_count ? 'true' : 'false'; ?>;
 
     const grid = document.getElementById('stories-grid');
     const trigger = document.getElementById('load-more-trigger');
@@ -345,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function filterStories(category) {
         currentCategory = category;
-        currentPage = 1;
+        loadedCount = 0;
         isLoading = true;
         hasMorePosts = true;
 
@@ -367,7 +376,8 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: new URLSearchParams({
                 action: 'load_more_stories',
-                page: 1,
+                offset: 0,
+                limit: 24,
                 category: category
             })
         })
@@ -375,6 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success && data.data.html) {
                 grid.innerHTML = data.data.html;
+                loadedCount = data.data.count;
                 hasMorePosts = data.data.has_more;
 
                 if (hasMorePosts) {
@@ -401,7 +412,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadMorePosts() {
         isLoading = true;
         loadingIndicator.style.display = 'block';
-        currentPage++;
 
         fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
             method: 'POST',
@@ -410,7 +420,8 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: new URLSearchParams({
                 action: 'load_more_stories',
-                page: currentPage,
+                offset: loadedCount,
+                limit: 12,
                 category: currentCategory
             })
         })
@@ -418,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success && data.data.html) {
                 grid.insertAdjacentHTML('beforeend', data.data.html);
+                loadedCount += data.data.count;
 
                 if (!data.data.has_more) {
                     hasMorePosts = false;
