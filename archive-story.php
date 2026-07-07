@@ -139,7 +139,7 @@ get_header('branded'); ?>
             ]);
 
             $photo_slugs = function_exists('get_photo_category_slugs') ? get_photo_category_slugs() : [];
-            $hidden_names = array('japan', 'photographs');
+            $hidden_names = array('japan', 'photographs', 'vertical video');
 
             $visible_categories = [];
             if (!empty($categories) && !is_wp_error($categories)) :
