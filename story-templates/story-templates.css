@@ -784,8 +784,9 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
 .architecture-scroll-item .story-content h2 {
     margin-top: 16px;
     margin-bottom: 16px;
-    font-size: 1.5rem !important; /* 24px headline on desktop */
-    font-family: var(--serif-font) !important;
+    /* Font-family (serif) and size inherit from the base h2 rule in the plugin's
+       base-sections.css (serif, 1.25rem) — matches how the scroller renders on the
+       homepage. No story-page-only serif/1.5rem override. */
 }
 
 .architecture-scroll-item .story-link:hover h2 {
@@ -795,7 +796,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
 .architecture-scroll-item .story-content p:not(.story-meta) {
     margin-bottom: 16px;
     color: var(--text-color-muted); /* Grey standfirst text */
-    font-family: var(--serif-font) !important;
+    /* Standfirst stays sans (base p / --primary-font), matching the homepage. */
 }
 
 .architecture-scroll-item .story-content .story-meta {
