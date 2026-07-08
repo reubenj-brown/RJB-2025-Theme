@@ -215,6 +215,13 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
        white (dark), overriding header-branded.php's white-over-full-bleed
        default. The over-body compact layer (.shs-*) is styled in
        story-templates.css. */
+
+    /* Solid bar behind the header while over the hero (split template only) —
+       the hero sits below the header, so this fills the strip above it. */
+    .site-header.over-full-bleed {
+        background: var(--content-bg) !important;
+    }
+
     @media (prefers-color-scheme: light) {
         .site-header.over-full-bleed .site-title-name,
         .site-header.over-full-bleed .story-header-nav {
@@ -351,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         For <i><?php echo esc_html($publication); ?></i>
                     <?php endif; ?>
                     <?php if ($publish_date) : ?>
-                        <?php echo $publication ? ' ⋅ ' : ''; ?>
+                        <?php echo $publication ? ' in ' : ''; ?>
                         <?php echo date('F Y', strtotime($publish_date)); ?>
                     <?php endif; ?>
                 </p>

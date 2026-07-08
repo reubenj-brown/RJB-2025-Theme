@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <?php echo $medium ? ' for ' : 'For '; ?><i><?php echo esc_html($publication); ?></i>
                     <?php endif; ?>
                     <?php if ($publish_date) : ?>
-                        <?php echo $publication ? ' ⋅ ' : ''; ?>
+                        <?php echo $publication ? ' in ' : ''; ?>
                         <?php echo date('F Y', strtotime($publish_date)); ?>
                     <?php endif; ?>
                 </p>
