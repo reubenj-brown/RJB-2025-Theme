@@ -61,7 +61,7 @@ get_header('branded'); ?>
 
 <!-- Photo Lightbox -->
 <div class="photo-lightbox" id="photoLightbox">
-    <button class="photo-lightbox-close" aria-label="Close image">×</button>
+    <button class="photo-lightbox-close" aria-label="Close image"></button>
     <img class="photo-lightbox-image" src="" alt="">
 </div>
 
