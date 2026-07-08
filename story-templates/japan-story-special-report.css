@@ -380,7 +380,7 @@ body .site-footer.over-full-bleed .copyright {
     .sr-index {
         flex-direction: column;
         align-items: center;
-        gap: 0.5rem;
+        gap: 1rem;
     }
 
     .sr-index-right {
