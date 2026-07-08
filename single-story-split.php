@@ -39,7 +39,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     }
 
     /* Split Hero Section - Two Column Layout */
-    .story-hero-full-bleed {
+    .split-hero {
         position: relative;
         top: calc(2vw + 60px);
         width: 100vw;
@@ -94,6 +94,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         margin-bottom: 1.5rem;
         line-height: 1.1;
         text-shadow: none;
+        text-wrap: balance;
     }
 
     .story-hero-text h2 {
@@ -104,11 +105,6 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         margin-bottom: 2rem;
         line-height: 1.3;
         text-shadow: none;
-    }
-
-    /* Ensure standfirst paragraph stays black in both light and dark mode */
-    .story-hero-text h2 p {
-        color: #000 !important;
     }
 
     .story-hero-text .story-meta {
@@ -130,7 +126,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     /* Tablet Responsive - Stack columns vertically with image on top */
     @media (max-width: 1200px) {
-        .story-hero-full-bleed {
+        .split-hero {
             top: 61px;
             height: calc(100vh - 61px);
             flex-direction: column;
@@ -168,7 +164,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     /* Mobile responsive adjustments for header height changes - See breakpoint reference in plugin base-sections.css */
     @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-        .story-hero-full-bleed {
+        .split-hero {
             top: 56px;
             height: calc(100vh - 56px);
         }
@@ -281,12 +277,33 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 </style>
 
 <script>
-// Header state (over-full-bleed = over the hero) is driven by the shared
-// updateHeaderAndFooterForFullBleed() handler in header-branded.php, exactly
-// like the video-hero template. Do NOT toggle over-full-bleed here — this
-// template's old handler used the inverted convention (adding over-full-bleed
-// once scrolled *past* the hero), which fought the shared header and inverted
-// the two-layer name/headline cross-fade in story-templates.css.
+// Header state for the split hero.
+// over-full-bleed = header is over the hero → shows "← Home / Reuben J. Brown /
+// contact" (over-hero layer). Absent = over the article body → cross-fades to
+// the compact "Reuben J. Brown / Headline / contact" layer (story-templates.css).
+//
+// The shared header-branded.php handler is intentionally NOT used here: the split
+// hero sits *below* the header (top: calc(2vw+60px)), so its pixel-overlap test
+// lands on a sub-pixel rounding boundary and flips unreliably. This dedicated
+// handler keys off the hero's bottom edge instead, which is robust. The hero
+// class is `split-hero` (not story-hero-full-bleed) so the shared handler skips
+// this page entirely and can't fight this one.
+function updateSplitHeader() {
+    const header = document.querySelector('.site-header');
+    const hero = document.querySelector('.split-hero');
+    if (!header || !hero) return;
+
+    // Over the hero while the hero still extends below the header's bottom edge.
+    if (hero.getBoundingClientRect().bottom > header.offsetHeight) {
+        header.classList.add('over-full-bleed');
+    } else {
+        header.classList.remove('over-full-bleed');
+    }
+}
+window.addEventListener('scroll', updateSplitHeader, { passive: true });
+window.addEventListener('resize', updateSplitHeader);
+window.addEventListener('load', updateSplitHeader);
+document.addEventListener('DOMContentLoaded', updateSplitHeader);
 
 // Replace header navigation for story pages
 document.addEventListener('DOMContentLoaded', function() {
@@ -333,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 <!-- Story Hero Split Layout -->
-<section class="story-hero-full-bleed">
+<section class="split-hero">
     <!-- Left column: Text content with green background -->
     <div class="story-hero-content">
         <div class="story-hero-text">
@@ -344,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <h1><?php echo esc_html($hero_title); ?></h1>
 
             <?php if (has_excerpt()) : ?>
-                <h2><?php the_excerpt(); ?></h2>
+                <h2><?php echo esc_html(get_the_excerpt()); ?></h2>
             <?php endif; ?>
 
             <?php
