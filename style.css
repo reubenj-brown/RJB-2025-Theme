@@ -80,6 +80,11 @@ Version: 1.1.1
 
   /* Colour palette */
   --highlight-color: #39e58f;
+  /* Translucent tint of the current highlight — derives via relative-colour
+     syntax, so it tracks any per-section --highlight-color override. Fallback
+     line keeps the lime tint on browsers without relative colour. */
+  --bg-highlight-color: rgba(57, 229, 143, 0.05);
+  --bg-highlight-color: rgb(from var(--highlight-color) r g b / 0.05);
   --cr-lime: #39e58f;
   --cr-sprite: #d1ffe8;
   --cr-palm: #38b04a;

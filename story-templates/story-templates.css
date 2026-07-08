@@ -215,7 +215,7 @@ html, body {
 
 .story-content-inner .wp-block-audio:hover,
 .story-content-inner .uagb-container-inner-blocks-wrap .wp-block-audio:hover {
-    background: rgba(57, 229, 143, 0.05);
+    background: var(--bg-highlight-color);
 }
 
 .story-content-inner .wp-block-audio audio,
