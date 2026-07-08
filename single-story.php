@@ -109,10 +109,11 @@ get_header('branded'); ?>
 
     .story-hero-text .story-meta {
         color: rgba(255, 255, 255, 0.9);
-        font-weight: 600;
+        font-weight: 400;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         font-family: var(--primary-font);
         font-size: 16px;
+        padding-top: 12px;
     }
 
     .story-hero-text .story-meta i {

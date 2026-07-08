@@ -113,10 +113,11 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     .story-hero-text .story-meta {
         color: rgba(0, 0, 0, 0.8) !important;
-        font-weight: 600;
+        font-weight: 400;
         text-shadow: none;
         font-family: var(--primary-font);
         font-size: 16px;
+        padding-top: 12px;
     }
 
     .story-hero-text .story-meta i {
