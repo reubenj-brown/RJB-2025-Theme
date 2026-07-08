@@ -112,7 +112,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         font-weight: 400;
         text-shadow: none;
         font-family: var(--primary-font);
-        font-size: var(--fs-md);
+        font-size: var(--fs-base);
         padding-top: 12px;
     }
 
