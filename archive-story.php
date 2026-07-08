@@ -35,7 +35,7 @@ get_header('branded'); ?>
         width: 100vw;
         max-width: 100vw;
         background: var(--main-content-bg);
-        margin-top: calc(48px + 2vw + env(safe-area-inset-top));
+        margin-top: calc(var(--header-height) + env(safe-area-inset-top));
         position: relative;
         z-index: 10;
     }

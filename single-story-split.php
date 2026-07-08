@@ -41,9 +41,9 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
     /* Split Hero Section - Two Column Layout */
     .split-hero {
         position: relative;
-        top: calc(2vw + 48px);
+        top: var(--header-height);
         width: 100vw;
-        height: calc(100vh - 48px - 2vw);
+        height: calc(100vh - var(--header-height));
         overflow: hidden;
         margin-left: calc(-50vw + 50%);
         margin-right: calc(-50vw + 50%);
@@ -186,7 +186,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 
     /* Split-specific padding and margin adjustment */
     .story-single-container {
-        margin-top: calc(2vw + 48px);
+        margin-top: var(--header-height);
         padding: 4rem 2vw 0 2vw;
     }
 
@@ -283,7 +283,7 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 // the compact "Reuben J. Brown / Headline / contact" layer (story-templates.css).
 //
 // The shared header-branded.php handler is intentionally NOT used here: the split
-// hero sits *below* the header (top: calc(2vw+48px)), so its pixel-overlap test
+// hero sits *below* the header (top: var(--header-height)), so its pixel-overlap test
 // lands on a sub-pixel rounding boundary and flips unreliably. This dedicated
 // handler keys off the hero's bottom edge instead, which is robust. The hero
 // class is `split-hero` (not story-hero-full-bleed) so the shared handler skips

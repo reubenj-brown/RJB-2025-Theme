@@ -152,6 +152,9 @@ if (is_singular()) {
     --compressed-semibold-font: 'PP Right Serif', serif;
     --header-text-color: white;
     --text-color: #000;
+    /* Desktop header height. Responsive (mobile/tablet) heights use their own
+       values in the relevant media queries. */
+    --header-height: calc(48px + 2vw);
     /* Note: Tablet breakpoint is 1200px across all files */
     }
 
@@ -268,7 +271,7 @@ if (is_singular()) {
         background: transparent;
         transition: all 0.5s ease;
         padding: 0;
-        height: calc(48px + 2vw);
+        height: var(--header-height);
     }
 
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
@@ -340,14 +343,14 @@ if (is_singular()) {
     .main-nav {
         position: absolute;
         left: 2vw;
-        top: calc((2vw + 48px) / 2);
+        top: calc(var(--header-height) / 2);
         transform: translateY(-50%);
     }
 
     .contact-button {
         position: absolute;
         right: 2vw;
-        top: calc((2vw + 48px) / 2);
+        top: calc(var(--header-height) / 2);
         transform: translateY(-50%);
     }
 
