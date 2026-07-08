@@ -263,11 +263,6 @@ html, body {
     padding: 2px 0;
 }
 
-/* Override base-sections.css h2 styling for more_stories shortcode */
-.architecture-scroll-item h2 {
-    font-size: 1.5rem !important;
-}
-
 /* Caption styling for more_stories shortcode - match homepage architecture scroller */
 .architecture-scroll-item .caption {
     font-size: 0.75rem;
@@ -776,27 +771,16 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     margin-top: 0 !important;
 }
 
-/* Architecture scroll area text spacing and styling */
+/* Architecture scroll area text spacing and styling.
+   Shared rules (h2 margin-bottom, :hover colour, standfirst spacing/colour,
+   story-meta margin) live in the plugin's stories-section.css, which always
+   loads alongside this file on story pages. Only story-page-specific additions
+   remain here. */
 .architecture-scroll-item .story-content h2 {
     margin-top: 16px;
-    margin-bottom: 16px;
-    /* Font-family (serif) and size inherit from the base h2 rule in the plugin's
-       base-sections.css (serif, 1.25rem) — matches how the scroller renders on the
-       homepage. No story-page-only serif/1.5rem override. */
-}
-
-.architecture-scroll-item .story-link:hover h2 {
-    color: var(--highlight-color);
-}
-
-.architecture-scroll-item .story-content p:not(.story-meta) {
-    margin-bottom: 16px;
-    color: var(--text-color-muted); /* Grey standfirst text */
-    /* Standfirst stays sans (base p / --primary-font), matching the homepage. */
 }
 
 .architecture-scroll-item .story-content .story-meta {
-    margin-bottom: 0;
     font-family: var(--primary-font) !important; /* Innovator Grotesk font */
     font-size: 0.875rem;
     color: var(--text-color-muted);
