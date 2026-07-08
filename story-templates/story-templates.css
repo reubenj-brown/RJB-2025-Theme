@@ -682,6 +682,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     .story-image-caption {
         width: 100%;
         margin-bottom: 1rem;
+        font-size: var(--fs-2xs);
     }
 
     .story-header-nav {
@@ -689,7 +690,7 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 
     .caption {
-        font-size: var(--fs-2xs);
+        font-size: var(--fs-3xs);
     }
 }
 
