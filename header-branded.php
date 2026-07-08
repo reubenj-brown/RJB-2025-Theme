@@ -268,7 +268,7 @@ if (is_singular()) {
         background: transparent;
         transition: all 0.5s ease;
         padding: 0;
-        height: calc(60px + 2vw);
+        height: calc(48px + 2vw);
     }
 
     /* Smoother gradient blur effect for header - 3 points with softer transitions */
@@ -340,14 +340,14 @@ if (is_singular()) {
     .main-nav {
         position: absolute;
         left: 2vw;
-        top: calc((2vw + 60px) / 2);
+        top: calc((2vw + 48px) / 2);
         transform: translateY(-50%);
     }
 
     .contact-button {
         position: absolute;
         right: 2vw;
-        top: calc((2vw + 60px) / 2);
+        top: calc((2vw + 48px) / 2);
         transform: translateY(-50%);
     }
 
