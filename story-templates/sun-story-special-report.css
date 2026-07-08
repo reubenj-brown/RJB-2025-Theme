@@ -5,6 +5,9 @@
    win against that reset. */
 
 body {
+    /* Special-report accent — feeds --highlight-color (and the derived
+       --bg-highlight-color) so this whole template themes cobalt. */
+    --highlight-color: var(--cr-cobalt);
     --selection-bg: #003cff40;
 }
 
@@ -29,7 +32,7 @@ a:hover,
 .sr-index a:hover,
 .sr-body .story-content-inner a:hover,
 a.sr-more-stories:hover {
-    color: var(--cr-cobalt);
+    color: var(--highlight-color);
     text-decoration: none;
 }
 
@@ -69,7 +72,7 @@ a.sr-more-stories:hover {
     font-family: var(--primary-font);
     font-weight: 600;
     font-size: var(--fs-2xl);
-    color: var(--cr-cobalt);
+    color: var(--highlight-color);
     margin-bottom: 12px;
 }
 
@@ -251,7 +254,7 @@ a.sr-more-stories:hover {
     font-family: var(--primary-font);
     font-weight: 600;
     font-size: 1.23rem;
-    color: var(--cr-cobalt);
+    color: var(--highlight-color);
     max-width: 760px;
     margin: 1.5rem auto 3rem !important;
     text-align: center;
