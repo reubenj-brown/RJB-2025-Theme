@@ -15,6 +15,26 @@
 
 
 /* ============================================================
+   PER-SECTION HIGHLIGHT COLOUR
+   --highlight-color is inherited, so redefining it on a section
+   wrapper cascades the new accent into every descendant that
+   reads var(--highlight-color) — including the story items from
+   [reuben_writing] / [reuben_photography]. Baseline stays the
+   brand lime (:root in style.css); override per section here.
+   ============================================================ */
+
+.hp-photography {
+    --highlight-color: var(--cr-cobalt);
+}
+
+/* Examples — uncomment / retune to theme other sections:
+.hp-stories      { --highlight-color: var(--cr-jaffna); }
+.hp-intro        { --highlight-color: var(--cr-cherry); }
+.hp-contact      { --highlight-color: var(--cr-mango);  }
+*/
+
+
+/* ============================================================
    HERO
    ============================================================ */
 
@@ -119,7 +139,7 @@
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--cr-lime);
+    color: var(--highlight-color);
     margin-bottom: 0.75rem;
 }
 
@@ -219,7 +239,7 @@
     left: -2vw;
     right: -2vw;
     bottom: 0;
-    background: linear-gradient(to bottom, var(--cr-lime) 0%, var(--cr-lime) 55%, var(--content-bg) 100%);
+    background: linear-gradient(to bottom, var(--highlight-color) 0%, var(--highlight-color) 55%, var(--content-bg) 100%);
     z-index: -1;
 }
 
@@ -277,7 +297,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, var(--main-content-bg) 0%, var(--main-content-bg) 40%, var(--cr-lime) 100%);
+    background: linear-gradient(to bottom, var(--main-content-bg) 0%, var(--main-content-bg) 40%, var(--highlight-color) 100%);
     z-index: -1;
 }
 
