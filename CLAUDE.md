@@ -6,7 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a live WordPress site, not a local app with a dev server. There is no `npm run dev` (or equivalent) that renders these PHP templates or CSS files — the `.claude/launch.json` entries only start the unrelated `interactive`/`interactive-map` widgets from the portfolio plugin.
 
-**Do not call `preview_start` or any other `preview_*` tool to try to verify PHP/CSS changes in this repo.** It cannot work and wastes tokens. After editing theme files, just report the change and where it lives (file/line) — verification happens on the live/staging WordPress site by the human, not in a local preview.
+**Do not call `preview_start` or any other `preview_*` tool to try to verify PHP/CSS changes in this repo.** It cannot work and wastes tokens.
+
+**Do not mention preview/verification at all** — not "I'll skip the preview workflow," not "no local preview capability," nothing. That narration is itself the waste this note exists to prevent. Silently skip straight to reporting the change and where it lives (file/line). Verification happens on the live/staging WordPress site by the human, not in a local preview, and doesn't need to be said out loud.
 
 ## Project Overview
 
