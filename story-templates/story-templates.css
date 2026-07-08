@@ -684,6 +684,10 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
         font-size: var(--fs-2xs);
     }
 
+    .story-image-credit {
+        font-size: var(--fs-2xs);
+    }
+
     .story-header-nav {
         font-size: var(--fs-sm);
     }
