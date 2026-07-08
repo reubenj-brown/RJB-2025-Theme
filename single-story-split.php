@@ -207,97 +207,45 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
         }
     }
 
-    /* Header styling for split template */
-    .site-header.over-split-hero {
-        background: var(--content-bg) !important;
-    }
-
-    /* Light mode: black text when over split hero */
+    /* Header text color for the split hero.
+       over-full-bleed = header is over the hero (shared header-branded.php
+       handler). Unlike the video template's dark image, the split hero sits
+       *below* the header, so over the hero the header floats over the light
+       (or dark) content-bg strip — keep the over-hero layer black (light) /
+       white (dark), overriding header-branded.php's white-over-full-bleed
+       default. The over-body compact layer (.shs-*) is styled in
+       story-templates.css. */
     @media (prefers-color-scheme: light) {
-        .site-header.over-split-hero .site-title-name {
-            color: #000 !important;
-        }
-
-        .site-header.over-split-hero .story-header-nav {
-            color: #000 !important;
-        }
-
-        .site-header.over-split-hero .story-header-contact {
-            background: rgba(0, 0, 0, 0.05) !important;
-            border-color: #000 !important;
-            color: #000 !important;
-        }
-
-        .site-header.over-split-hero .story-header-contact:hover {
-            background: #000 !important;
-            color: white !important;
-        }
-
-        /* Light mode: black text when over content area */
         .site-header.over-full-bleed .site-title-name,
-        .site-header:not(.over-split-hero) .site-title-name {
+        .site-header.over-full-bleed .story-header-nav {
             color: #000 !important;
         }
 
-        .site-header.over-full-bleed .story-header-nav,
-        .site-header:not(.over-split-hero) .story-header-nav {
-            color: #000 !important;
-        }
-
-        .site-header.over-full-bleed .story-header-contact,
-        .site-header:not(.over-split-hero) .story-header-contact {
+        .site-header.over-full-bleed .story-header-contact {
             background: rgba(0, 0, 0, 0.05) !important;
             border-color: #000 !important;
             color: #000 !important;
         }
 
-        .site-header.over-full-bleed .story-header-contact:hover,
-        .site-header:not(.over-split-hero) .story-header-contact:hover {
+        .site-header.over-full-bleed .story-header-contact:hover {
             background: #000 !important;
             color: white !important;
         }
     }
 
-    /* Dark mode: white text when over split hero */
     @media (prefers-color-scheme: dark) {
-        .site-header.over-split-hero .site-title-name {
+        .site-header.over-full-bleed .site-title-name,
+        .site-header.over-full-bleed .story-header-nav {
             color: white !important;
         }
 
-        .site-header.over-split-hero .story-header-nav {
-            color: white !important;
-        }
-
-        .site-header.over-split-hero .story-header-contact {
+        .site-header.over-full-bleed .story-header-contact {
             background: rgba(255, 255, 255, 0.2) !important;
             border-color: white !important;
             color: white !important;
         }
 
-        .site-header.over-split-hero .story-header-contact:hover {
-            background: white !important;
-            color: #000 !important;
-        }
-
-        /* Dark mode: white text when over content area */
-        .site-header.over-full-bleed .site-title-name,
-        .site-header:not(.over-split-hero) .site-title-name {
-            color: white !important;
-        }
-
-        .site-header.over-full-bleed .story-header-nav,
-        .site-header:not(.over-split-hero) .story-header-nav {
-            color: white !important;
-        }
-
-        .site-header.over-full-bleed .story-header-contact,
-        .site-header:not(.over-split-hero) .story-header-contact {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-color: white !important;
-            color: white !important;
-        }
-
-        .site-header:not(.over-full-bleed) .story-header-contact:hover {
+        .site-header.over-full-bleed .story-header-contact:hover {
             background: white !important;
             color: #000 !important;
         }
@@ -325,42 +273,12 @@ $hero_color = !empty($custom_hero_color) ? $custom_hero_color : '#39e58f';
 </style>
 
 <script>
-// Handle header transparency on scroll for split layout
-function handleSplitHeaderScroll() {
-    const header = document.querySelector('.site-header');
-
-    if (!header) return;
-
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Calculate header height based on breakpoint - fixed pixel values
-    let headerHeight;
-
-    if (window.innerWidth <= 768) {
-        headerHeight = 56; // Mobile height
-    } else if (window.innerWidth <= 1200) {
-        headerHeight = 61; // Tablet height
-    } else {
-        // Desktop: 2vw + 60px
-        const vwValue = window.innerWidth * 0.02;
-        headerHeight = vwValue + 60;
-    }
-
-    // Make header transparent when scrolled past header height
-    if (scrollTop > headerHeight) {
-        header.classList.remove('over-split-hero');
-        header.classList.add('over-full-bleed');
-    } else {
-        header.classList.add('over-split-hero');
-        header.classList.remove('over-full-bleed');
-    }
-}
-
-// Listen for scroll events
-window.addEventListener('scroll', handleSplitHeaderScroll);
-window.addEventListener('load', handleSplitHeaderScroll);
-
-// No scroll-based opacity transitions for split layout since text is fixed in position
+// Header state (over-full-bleed = over the hero) is driven by the shared
+// updateHeaderAndFooterForFullBleed() handler in header-branded.php, exactly
+// like the video-hero template. Do NOT toggle over-full-bleed here — this
+// template's old handler used the inverted convention (adding over-full-bleed
+// once scrolled *past* the hero), which fought the shared header and inverted
+// the two-layer name/headline cross-fade in story-templates.css.
 
 // Replace header navigation for story pages
 document.addEventListener('DOMContentLoaded', function() {
