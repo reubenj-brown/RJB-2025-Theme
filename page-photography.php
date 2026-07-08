@@ -27,7 +27,7 @@ get_header('branded'); ?>
         --link-hover-color: #003CFF;
     }
 
-    /* Main Content Wrapper - No margin, gradient starts at top */
+    /* Main Content Wrapper - No margin, content starts at top */
     .main-content {
         padding: 0;
         width: 100vw;
@@ -40,8 +40,8 @@ get_header('branded'); ?>
 </style>
 
 <main class="main-content">
-    <!-- Intro Section with Gradient -->
-    <div class="photo-intro-gradient">
+    <!-- Intro Section -->
+    <div class="photo-intro">
         <div class="strategy-intro">
             <div class="strategy-intro-headline" style="opacity: 1; filter: blur(0px);">
                 <span class="display-headline">Photography</span>
