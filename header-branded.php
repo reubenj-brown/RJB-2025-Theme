@@ -519,7 +519,7 @@ if (is_singular()) {
             padding-top: calc(16px + env(safe-area-inset-top, 0px));
             padding-left: calc(4vw + env(safe-area-inset-left));
             padding-right: calc(4vw + env(safe-area-inset-right));
-            height: calc(60px + env(safe-area-inset-top));
+            height: calc(48px + env(safe-area-inset-top));
         }
 
         /* Extend blur pseudo-elements into safe-area on mobile */
