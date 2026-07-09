@@ -316,6 +316,66 @@ function save_story_hero_color_meta_box($post_id) {
 add_action('save_post_story', 'save_story_hero_color_meta_box');
 
 /**
+ * Add meta box for flagging the lead (large, left) features story
+ */
+function add_story_lead_feature_meta_box() {
+    add_meta_box(
+        'story_lead_feature',
+        'Features Section',
+        'render_story_lead_feature_meta_box',
+        'story',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'add_story_lead_feature_meta_box');
+
+/**
+ * Render the lead-feature checkbox meta box
+ */
+function render_story_lead_feature_meta_box($post) {
+    wp_nonce_field('story_lead_feature_nonce', 'story_lead_feature_nonce');
+    $value = get_post_meta($post->ID, 'story_lead_feature', true);
+    ?>
+    <p>
+        <label>
+            <input type="checkbox" name="story_lead_feature" value="1" <?php checked($value, '1'); ?>>
+            Show as the lead (large, left) feature story
+        </label>
+    </p>
+    <p class="description">The story must also be in the "features" category. Only check one story; if several are checked, the most recent one wins.</p>
+    <?php
+}
+
+/**
+ * Save the lead-feature checkbox value
+ */
+function save_story_lead_feature_meta_box($post_id) {
+    // Check nonce
+    if (!isset($_POST['story_lead_feature_nonce']) || !wp_verify_nonce($_POST['story_lead_feature_nonce'], 'story_lead_feature_nonce')) {
+        return;
+    }
+
+    // Check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check permissions
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save (or clear) the flag
+    if (!empty($_POST['story_lead_feature'])) {
+        update_post_meta($post_id, 'story_lead_feature', '1');
+    } else {
+        delete_post_meta($post_id, 'story_lead_feature');
+    }
+}
+add_action('save_post_story', 'save_story_lead_feature_meta_box');
+
+/**
  * AJAX handler for lazy loading more stories.
  *
  * Uses an explicit offset/limit sent by the client rather than a "page number",
