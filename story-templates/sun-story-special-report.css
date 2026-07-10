@@ -72,6 +72,8 @@ a.sr-more-stories:hover {
     font-family: var(--primary-font);
     font-weight: 600;
     font-size: var(--fs-2xl);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--highlight-color);
     margin-bottom: 12px;
 }
