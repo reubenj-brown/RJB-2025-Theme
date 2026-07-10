@@ -108,7 +108,7 @@ get_header('branded'); ?>
 <!-- Bottom -->
 <section class="sr-bottom">
     <div class="sr-bottom-inner">
-        <p class="sr-bottom-kicker"><a href="/stories/cracking-the-sun">Cracking the Sun</a></p>
+        <p class="sr-bottom-kicker">Cracking the Sun</p>
         <div class="sr-bottom-stories">
             <?php
             // ACF Textarea field 'more_in_special_report'. One story per line.
