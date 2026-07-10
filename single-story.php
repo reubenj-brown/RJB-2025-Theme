@@ -112,7 +112,7 @@ get_header('branded'); ?>
         font-weight: 400;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         font-family: var(--primary-font);
-        font-size: var(--fs-xs);
+        font-size: var(--fs-base);
         padding-top: 12px;
     }
 
@@ -176,6 +176,10 @@ get_header('branded'); ?>
 
         .story-hero-text h2 {
             margin-bottom: 1rem;
+        }
+
+        .story-hero-text .story-meta {
+            font-size: var(--fs-xs);
         }
     }
 
