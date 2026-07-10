@@ -137,7 +137,7 @@ get_header('branded'); ?>
         font-weight: 400;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         font-family: var(--primary-font);
-        font-size: 16px;
+        font-size: var(--fs-xs);
         padding-top: 12px;
     }
 
