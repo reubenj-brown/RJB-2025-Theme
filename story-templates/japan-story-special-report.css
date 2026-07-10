@@ -436,6 +436,14 @@ body .site-header.over-full-bleed .story-header-contact:hover {
     color: white !important;
 }
 
+/* Mobile "Home →" nav: black over the light hero, and stays black on hover
+   (story-templates.css otherwise leaves it white over the hero and turns it the
+   cherry highlight on hover). */
+body .site-header.over-full-bleed .story-header-nav,
+body .site-header.over-full-bleed .story-header-nav:hover {
+    color: #000 !important;
+}
+
 /* ===== More Stories block (Japan-specific overrides) ===== */
 .sr-body .more-stories-section {
     background: transparent !important;
