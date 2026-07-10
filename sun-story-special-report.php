@@ -184,6 +184,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (siteTitle) siteTitle.href = '/';
 
+    // Mobile-only "Home →" nav on the right (matches the standard hero
+    // templates). Hidden above 1200px via .story-header-nav-mobile.
+    const storyNavMobile = document.createElement('a');
+    storyNavMobile.href = '/';
+    storyNavMobile.className = 'story-header-nav story-header-nav-mobile';
+    storyNavMobile.textContent = 'Home →';
+    header.appendChild(storyNavMobile);
+
     const contactButton = document.createElement('a');
     contactButton.href = '/#contact';
     contactButton.className = 'story-header-contact';
