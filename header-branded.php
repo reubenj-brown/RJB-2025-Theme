@@ -473,7 +473,7 @@ if (is_singular()) {
     @media (max-width: 1200px) {
         .site-header {
             max-width: 100vw;
-            padding: 1rem 4vw;
+            padding: 1rem 2vw;
             height: auto;
         }
 

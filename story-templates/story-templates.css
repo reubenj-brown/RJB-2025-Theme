@@ -316,7 +316,8 @@ html, body {
 .story-header-nav-mobile {
     display: block;
     left: auto;
-    right: calc(4vw + env(safe-area-inset-right));
+    /* Align to the content edge: 2vw on tablet (restored to 4vw at mobile below) */
+    right: calc(2vw + env(safe-area-inset-right));
 }
 
 /* Desktop nav: only show above 1200px */
@@ -689,6 +690,11 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
 
     .story-header-nav {
         font-size: var(--fs-sm);
+    }
+
+    /* Mobile content edge is 4vw, so realign the Home nav to match */
+    .story-header-nav-mobile {
+        right: calc(4vw + env(safe-area-inset-right));
     }
 
     .caption {

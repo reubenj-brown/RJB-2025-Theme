@@ -161,10 +161,10 @@
             display: block;
         }
 
-        /* Match the header's horizontal inset: 4vw on tablet/mobile */
+        /* Match the header's horizontal inset: 2vw on tablet */
         .site-footer {
-            padding-left: 4vw;
-            padding-right: 4vw;
+            padding-left: 2vw;
+            padding-right: 2vw;
         }
     }
 
