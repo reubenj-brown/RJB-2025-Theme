@@ -406,6 +406,13 @@ a.sr-more-stories {
         color: #000 !important;
     }
 
+    /* Keep the mobile "Home →" nav black — story-templates.css turns it white in
+       dark mode. body prefix raises specificity to (0,3,1) so this wins regardless
+       of load order. */
+    body .site-header:not(.over-full-bleed) .story-header-nav {
+        color: #000 !important;
+    }
+
     .site-header:not(.over-full-bleed) .story-header-contact:hover {
         background: #000 !important;
         color: white !important;
