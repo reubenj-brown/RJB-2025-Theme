@@ -610,6 +610,68 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 }
 
+/* ============================================================
+   Special Report templates — tablet & mobile (≤1200px)
+   ============================================================ */
+@media (max-width: 1200px) {
+    /* Footer R mark: the shared rules give it 30px over the body on desktop
+       (≥1201px) and 28px on mobile (≤768px), but the 769–1200px tablet band
+       keeps the 40px base — larger than both. Match mobile (28px) across ≤1200px. */
+    body:has(.sr-hero) .site-footer .footer-logo {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* Headline replaces the "Reuben J. Brown" masthead at the top-left. The
+       Home → nav on the right covers navigation home, so the name is redundant
+       here and the headline gives the reader context. */
+    body:has(.sr-hero) .site-header .site-title-name {
+        display: none !important;
+    }
+
+    /* Surface the over-body layer as a normal left-aligned flex child. Only the
+       headline is visible — .shs-name and .shs-contact are hidden further up. */
+    body:has(.sr-hero) .site-header .story-header-scrolled {
+        display: block;
+        position: static;
+        inset: auto;
+        opacity: 1;
+    }
+
+    body:has(.sr-hero) .shs-headline {
+        display: block;
+        position: static;
+        transform: none;
+        max-width: 62vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        font-family: var(--compressed-font) !important;
+        font-size: 2rem;
+        line-height: 1;
+        font-weight: 400;
+        transition: color 0.3s ease;
+    }
+
+    /* White over the hero (Sun's dark hero); black once over the light body.
+       Japan forces black over its light hero in japan-story-special-report.css. */
+    body:has(.sr-hero) .site-header.over-full-bleed .shs-headline {
+        color: #fff;
+    }
+    body:has(.sr-hero) .site-header:not(.over-full-bleed) .shs-headline {
+        color: #000;
+    }
+}
+
+/* Smaller headline on phones so it clears the Home → nav. */
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    body:has(.sr-hero) .shs-headline {
+        font-size: 1.5rem;
+        max-width: 58vw;
+    }
+}
+
 /* Caption styling for photo credits */
 .caption {
     position: absolute;
