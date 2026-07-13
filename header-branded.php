@@ -544,7 +544,7 @@ if (is_singular()) {
         }
 
         .main-nav a {
-            font-size: 1rem;
+            font-size: var(--fs-sm);
         }
 
         .main-nav li:not(:last-child)::after {
