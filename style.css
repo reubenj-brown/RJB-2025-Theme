@@ -120,6 +120,10 @@ Version: 1.1.1
   --fs-2xl: 21.2px;
   --fs-3xl: 22.5px;
   --fs-4xl: 24px;
+  --fs-5xl: 26.9px;
+  --fs-6xl: 29.7px;
+  --fs-7xl: 32.5px;
+  --fs-8xl: 36.8px;
 
   /* Functional / semantic variables */
   --content-bg: white;
