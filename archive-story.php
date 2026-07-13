@@ -149,8 +149,8 @@ get_header('branded'); ?>
                 endforeach;
             endif;
 
-            // Manually order: Energy, Features, Cronkite, Reynolds Center first, then everything else
-            $priority_order = array('energy', 'features', 'cronkite', 'reynolds center');
+            // Manually order: Energy, Features, Reporting, Reynolds Center first, then everything else
+            $priority_order = array('energy', 'features', 'reporting', 'reynolds center');
             $ordered_categories = [];
             foreach ($priority_order as $priority_name) :
                 foreach ($visible_categories as $key => $category) :
