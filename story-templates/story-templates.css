@@ -622,16 +622,19 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
         height: 28px;
     }
 
-    /* Headline replaces the "Reuben J. Brown" masthead at the top-left. The
-       Home → nav on the right covers navigation home, so the name is redundant
-       here and the headline gives the reader context. */
-    body:has(.sr-hero) .site-header .site-title-name {
+    /* Over the hero: the "Reuben J. Brown" masthead sits top-left (its default
+       mobile/tablet placement from header-branded.php). Over the body: the
+       masthead is hidden and the headline takes its place, giving the reader
+       context. The Home → nav on the right covers navigation home throughout. */
+    body:has(.sr-hero) .site-header:not(.over-full-bleed) .site-title-name {
         display: none !important;
     }
 
-    /* Surface the over-body layer as a normal left-aligned flex child. Only the
-       headline is visible — .shs-name and .shs-contact are hidden further up. */
-    body:has(.sr-hero) .site-header .story-header-scrolled {
+    /* Surface the over-body layer as a normal left-aligned flex child once the
+       header is over the body. Only the headline is visible — .shs-name and
+       .shs-contact are hidden further up. Over the hero it stays hidden (its
+       default display:none) so the masthead shows instead. */
+    body:has(.sr-hero) .site-header:not(.over-full-bleed) .story-header-scrolled {
         display: block;
         position: static;
         inset: auto;
@@ -654,11 +657,8 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
         transition: color 0.3s ease;
     }
 
-    /* White over the hero (Sun's dark hero); black once over the light body.
-       Japan forces black over its light hero in japan-story-special-report.css. */
-    body:has(.sr-hero) .site-header.over-full-bleed .shs-headline {
-        color: #fff;
-    }
+    /* Headline is black over the light body. (Over the hero the masthead shows
+       in its place, so no over-hero headline colour is needed here.) */
     body:has(.sr-hero) .site-header:not(.over-full-bleed) .shs-headline {
         color: #000;
     }
