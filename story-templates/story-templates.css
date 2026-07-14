@@ -418,6 +418,11 @@ html, body {
     display: none;
 }
 
+/* Headline tracking, applied across every context and screen size. */
+.shs-headline {
+    letter-spacing: 0.3px;
+}
+
 /* Blurred header background fades in/out too (0.3s). The blur lives on the
    header pseudo-elements; .over-full-bleed fades it out, this fades it in. */
 body:has(.story-single-container) .site-header::before,
