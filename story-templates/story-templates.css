@@ -664,11 +664,11 @@ body:has(.sr-hero) .site-header .story-header-scrolled {
     }
 }
 
-/* Smaller headline on phones so it clears the Home → nav. */
+/* Phone headline sizing (kept clear of the Home → nav). */
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
     body:has(.sr-hero) .shs-headline {
-        font-size: 1.5rem;
-        max-width: 58vw;
+        font-size: 2rem;
+        max-width: 75vw;
     }
 }
 

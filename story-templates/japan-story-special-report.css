@@ -448,13 +448,6 @@ body .site-header.over-full-bleed .story-header-nav:hover {
     color: #000 !important;
 }
 
-/* Tablet/mobile headline (shown top-left in place of the masthead): black over
-   the light hero too. story-templates.css defaults it white over the hero for
-   Sun's dark hero. */
-body .site-header.over-full-bleed .shs-headline {
-    color: #000 !important;
-}
-
 /* ===== More Stories block (Japan-specific overrides) ===== */
 .sr-body .more-stories-section {
     background: transparent !important;
