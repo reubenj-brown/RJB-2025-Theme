@@ -147,7 +147,24 @@ CSS custom properties defined in `:root`:
 
 - **Astra Theme**: Parent theme (must be installed)
 - **Adobe Fonts**: Legitima font family
-- **Images**: Carousel and content images hosted on `skyblue-mongoose-220265.hostingersite.com`
+- **Images**: Carousel and content images hosted on `reubenjbrown.com` (`/wp-content/uploads/`)
+
+## Live Site and Deployment
+
+- **Live site**: `reubenjbrown.com` — Hostinger shared hosting
+- **Hostinger staging domain**: `reubenjbrown-com-418819.hostingersite.com`
+- **SSH**: `ssh -p 65002 u240680038@82.197.80.158` (key auth)
+
+Both the theme and the plugin are plain git checkouts on `main` on the server:
+
+- Theme: `~/domains/reubenjbrown.com/public_html/wp-content/themes/astra-child`
+- Plugin: `~/domains/reubenjbrown.com/public_html/wp-content/plugins/reuben-portfolio-sections`
+
+Deploy with `./deploy.sh` (see `deploy.sh --help` usage comment) rather than the
+hPanel Deploy button — it pulls both repos and clears server-side cache in one
+step. `wp-cli` is available on the server. The `hostinger` MCP server, configured
+in `.mcp.json`, exposes cache and hosting controls; its token is read from the
+`HOSTINGER_API_TOKEN` env var, set in `~/.claude/settings.json`.
 
 ## Development Workflow
 

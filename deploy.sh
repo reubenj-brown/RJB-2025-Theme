@@ -38,12 +38,20 @@ pull() {
     sh "git -C ${dir} log --oneline -1" | sed 's/^/    now at /'
 }
 
+# wp-cli is primary, not the API. As of 2026-08-10 Hostinger's cache-clear
+# endpoint returns HTTP 500 ("[Hosting:9999] Request failed") for this account,
+# via both the MCP server and raw curl, so calling it first would mean a
+# guaranteed error on every deploy. wp-cli's LiteSpeed purge works reliably.
+#
+# The API version additionally purges the Hostinger CDN. If the endpoint starts
+# working, set HOSTINGER_USE_API=1 to prefer it:
+#   DELETE /api/hosting/v1/accounts/{username}/websites/{domain}/cache/clear
 clear_cache() {
     echo "==> Clearing cache"
-    if [[ -n "${HOSTINGER_API_TOKEN:-}" ]]; then
+    if [[ "${HOSTINGER_USE_API:-0}" == "1" && -n "${HOSTINGER_API_TOKEN:-}" ]]; then
         local code
         code=$(curl -s -o /tmp/hcache.out -w '%{http_code}' -X DELETE \
-            "https://developers.hostinger.com/api/hosting/v1/caches/${USERNAME}/${DOMAIN}" \
+            "https://developers.hostinger.com/api/hosting/v1/accounts/${USERNAME}/websites/${DOMAIN}/cache/clear" \
             -H "Authorization: Bearer ${HOSTINGER_API_TOKEN}" \
             -H 'Content-Type: application/json')
         if [[ "$code" == 2* ]]; then
@@ -52,8 +60,6 @@ clear_cache() {
         fi
         echo "    API returned HTTP ${code}: $(cat /tmp/hcache.out)"
         echo "    falling back to wp-cli"
-    else
-        echo "    HOSTINGER_API_TOKEN not set; using wp-cli"
     fi
     sh "cd ~/domains/${DOMAIN}/public_html && wp litespeed-purge all 2>/dev/null" \
         | grep -v '^Deprecated:' | sed 's/^/    /' || echo "    wp-cli purge failed"
