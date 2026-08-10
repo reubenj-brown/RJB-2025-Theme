@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hostinger": {
+      "command": "/Users/reubenj.brown/.npm-global/bin/hostinger-hosting-mcp",
+      "args": [],
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN}"
+      }
+    }
+  }
+}
