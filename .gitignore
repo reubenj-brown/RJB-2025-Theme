@@ -33,7 +33,9 @@ wp-config.php
 *.log
 
 # htaccess
-/.htaccess
+# NOTE: the upstream WordPress.gitignore ignores /.htaccess because it assumes
+# the repo root is the WP install root. This repo IS the theme directory, so
+# its .htaccess is theme config and must be version controlled and deployed.
 
 # All plugins
 #

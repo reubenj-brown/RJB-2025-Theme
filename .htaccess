@@ -1,0 +1,10 @@
+# Theme directory hardening.
+#
+# Files that live in this repo for development but must never be served to
+# visitors. Without this, e.g. /wp-content/themes/astra-child/CLAUDE.md is
+# publicly readable and exposes the project's structure and infrastructure.
+
+# Markdown docs (CLAUDE.md, README.md) and macOS metadata.
+<FilesMatch "(\.md|\.DS_Store)$">
+    Require all denied
+</FilesMatch>
