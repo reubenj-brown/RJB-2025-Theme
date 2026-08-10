@@ -5,6 +5,10 @@
 # publicly readable and exposes the project's structure and infrastructure.
 
 # Markdown docs (CLAUDE.md, README.md) and macOS metadata.
-<FilesMatch "(\.md|\.DS_Store)$">
+#
+# .json is safe to deny here: the only JSON in this repo is local dev config
+# (.mcp.json, .claude/launch.json). No theme asset is fetched as JSON at
+# runtime, so nothing on the front end depends on these being reachable.
+<FilesMatch "(\.md|\.json|\.DS_Store)$">
     Require all denied
 </FilesMatch>
