@@ -1,0 +1,248 @@
+/* ============================================================
+   Photography Draft 2026
+   Companion stylesheet for photography-draft.php
+   Inherits CSS variables from theme style.css
+   Breakpoints follow the canonical reference in plugin
+   assets/base-sections.css (1200 / 768 / 480, compound height rules)
+   ============================================================ */
+
+.photography-draft {
+    background: var(--main-content-bg);
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   INTRO — modeled on the homepage's .hp-intro-text / .large-intro-text
+   ============================================================ */
+
+.photo-draft-intro {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8vw 2vw 4vw;
+    text-wrap: balance;
+}
+
+.photo-draft-intro h3 {
+    font-family: var(--serif-font) !important;
+    font-size: min(3vw, 63px) !important;
+    line-height: 1.2 !important;
+    font-weight: 400 !important;
+    color: #000 !important;
+    text-align: center;
+    margin: 0;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    .photo-draft-intro h3 {
+        color: #fff !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .photo-draft-intro {
+        padding: 10vw 4vw 3rem;
+    }
+    .photo-draft-intro h3 {
+        font-size: 3rem !important;
+    }
+}
+
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    .photo-draft-intro h3 {
+        font-size: 1.84375rem !important;
+    }
+}
+
+
+/* ============================================================
+   FLOATING GRID
+   Flexbox-wrap keeps DOM order == visual order (unlike CSS Grid
+   `dense`, which can visually reorder ahead of DOM position) —
+   the CMS's linear card order stays the reading/tab order too.
+   ============================================================ */
+
+.photo-floating-grid {
+    /* Desktop reveal motion — single source of truth for tuning later */
+    --reveal-x: 55%;
+    --reveal-y: -8%;
+    --reveal-scale: 1.18;
+    --reveal-duration: 0.5s;
+    --reveal-easing: cubic-bezier(.22, .68, 0, 1.01);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2vw 6rem;
+}
+
+.flip-card {
+    flex: 0 1 calc(33.333% - 2.5rem);
+    perspective: 1200px;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Organic feel: vertical stagger only, no rotation, cycling every 4 cards */
+.flip-card:nth-child(4n+1) { --offset: 0px; }
+.flip-card:nth-child(4n+2) { --offset: 36px; }
+.flip-card:nth-child(4n+3) { --offset: 12px; }
+.flip-card:nth-child(4n+4) { --offset: 48px; }
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    cursor: pointer;
+    transform: translateY(var(--offset, 0));
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    inset: 0;
+}
+
+.flip-card-front {
+    overflow: hidden;
+}
+
+.flip-card-front img,
+.flip-card-front video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.flip-card-front video {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.flip-card.video-loaded .flip-card-front video {
+    opacity: 1;
+}
+
+.flip-card.video-loaded .flip-card-front .flip-card-poster {
+    opacity: 0;
+}
+
+.flip-card-poster {
+    transition: opacity 0.4s ease;
+}
+
+.flip-card-back {
+    background: var(--content-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.75rem;
+}
+
+.flip-card-back-text {
+    font-family: var(--primary-font);
+    font-size: var(--fs-md);
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+.flip-card-see-more {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: var(--primary-font);
+    font-size: var(--fs-base);
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.flip-card-see-more:hover {
+    color: var(--link-hover-color);
+}
+
+
+/* ============================================================
+   MOBILE / TABLET (<= 1200px): flip in 3D
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .flip-card-inner {
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+        transform: translateY(var(--offset, 0)) rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        backface-visibility: hidden;
+    }
+
+    .flip-card-back {
+        transform: rotateY(180deg);
+    }
+}
+
+
+/* ============================================================
+   DESKTOP (> 1200px): slide the front face off to reveal the back
+   ============================================================ */
+
+@media (min-width: 1201px) {
+    .flip-card {
+        overflow: visible;
+    }
+
+    .flip-card-back {
+        z-index: 0;
+    }
+
+    .flip-card-front {
+        z-index: 1;
+        transition: transform var(--reveal-duration) var(--reveal-easing);
+    }
+
+    .flip-card.flipped .flip-card-front {
+        transform: translate(var(--reveal-x), var(--reveal-y)) scale(var(--reveal-scale));
+        z-index: 5;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — grid columns and stagger scale
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .flip-card {
+        flex-basis: calc(50% - 2.5rem);
+    }
+    .flip-card:nth-child(4n+1) { --offset: 0px; }
+    .flip-card:nth-child(4n+2) { --offset: 20px; }
+    .flip-card:nth-child(4n+3) { --offset: 8px; }
+    .flip-card:nth-child(4n+4) { --offset: 28px; }
+
+    .photo-floating-grid {
+        padding: 2rem 4vw 4rem;
+    }
+}
+
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    .flip-card {
+        flex-basis: 100%;
+        --offset: 0px !important;
+    }
+
+    .photo-floating-grid {
+        gap: 1.75rem;
+    }
+}
