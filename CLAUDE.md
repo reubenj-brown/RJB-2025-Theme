@@ -1,205 +1,84 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
+
+> **📖 Read [`PROJECT.md`](PROJECT.md) before any styling, template, or
+> architecture work.** It is the authority on design standards, design tokens,
+> file structure, the content model, the shortcode reference, and the project's
+> known traps. This file is only the always-loaded index.
 
 ## No Browser Preview
 
-This is a live WordPress site, not a local app with a dev server. There is no `npm run dev` (or equivalent) that renders these PHP templates or CSS files — the `.claude/launch.json` entries only start the unrelated `interactive`/`interactive-map` widgets from the portfolio plugin.
+This is a live WordPress site, not a local app with a dev server. There is no
+`npm run dev` (or equivalent) that renders these PHP templates or CSS files —
+the `.claude/launch.json` entries only start the unrelated
+`interactive`/`interactive-map` widgets from the portfolio plugin.
 
-**Do not call `preview_start` or any other `preview_*` tool to try to verify PHP/CSS changes in this repo.** It cannot work and wastes tokens.
+**Do not call `preview_start` or any other `preview_*` tool to try to verify
+PHP/CSS changes in this repo.** It cannot work and wastes tokens.
 
-**Do not mention preview/verification at all** — not "I'll skip the preview workflow," not "no local preview capability," nothing. That narration is itself the waste this note exists to prevent. Silently skip straight to reporting the change and where it lives (file/line). Verification happens on the live/staging WordPress site by the human, not in a local preview, and doesn't need to be said out loud.
+**Do not mention preview/verification at all** — not "I'll skip the preview
+workflow," not "no local preview capability," nothing. That narration is itself
+the waste this note exists to prevent. Silently skip straight to reporting the
+change and where it lives (file/line). Verification happens on the live/staging
+WordPress site by the human, not in a local preview, and doesn't need to be said
+out loud.
 
-## Project Overview
+## The two repos
 
-This is a two-part WordPress portfolio system for Reuben J. Brown, a multimedia journalist. The system consists of:
+A WordPress portfolio system for Reuben J. Brown, multimedia journalist.
 
-1. **RJB-2025-Theme** (this repository): A WordPress child theme built on Astra
-2. **RJB-2025-portfolio-plugin**: A custom WordPress plugin providing shortcodes for portfolio sections
+| | Path | Holds |
+|---|---|---|
+| **Theme** (Astra child) | `/Users/reubenj.brown/RJB-2025-Theme` | chrome, design tokens, page + story templates |
+| **Plugin** | `/Users/reubenj.brown/RJB-2025-portfolio-plugin` | shortcodes, section templates + CSS, `story` CPT, viz islands |
 
-Both repositories are cloned locally:
-- Theme: `/Users/reubenj.brown/RJB-2025-Theme/`
-- Plugin: `/Users/reubenj.brown/RJB-2025-portfolio-plugin/`
+**Where a change goes:** a section rendered inside the page body → **plugin**.
+The wrapper, the type system, or a story-article layout → **theme**. Separate
+git checkouts; a change touching both needs two commits and two pushes.
 
-## Architecture
+## Non-negotiables
 
-### Theme Structure (This Repository)
-- **Base Theme**: Child theme of Astra WordPress theme
-- **Primary Template**: `page-portfolio.php` - Custom full-page portfolio template that bypasses most WordPress theme elements
-- **Test Template**: `test-page.php` - Simplified template for testing shortcodes and sections
-- **Custom Styling**: Inline CSS in templates with custom font loading and responsive design
+1. **Design tokens live only in the theme's `style.css` `:root`.** Plugin CSS
+   consumes them and defines none. Never redefine a token in a section file.
+   (Exceptions — the `header-branded.php` inline `:root`, per-page accent
+   overrides, and genuinely local scoped tokens — are catalogued in `PROJECT.md` §5.)
+2. **Global element typography lives only in the plugin's
+   `assets/base-sections.css`** (`h1`–`h3`, `p`, `.caption`,
+   `.display-headline`). Section files override, never restate.
+3. **Never edit the generated CSS bundle**
+   (`wp-content/uploads/reuben-portfolio/portfolio-combined.css`). Edit the
+   source file in `assets/`. `base-sections.css` must stay first in
+   `portfolio_css_files()`.
+4. **Copy the breakpoints verbatim** from the reference block at the top of
+   `base-sections.css`. The compound `max-height` clauses are load-bearing for
+   landscape phones and short tablets.
+5. **Reuse before adding.** Check `stories-section.css`, `base-sections.css` and
+   `style.css` first. `.story-item` / `.story-link` / `.story-image` /
+   `.story-content` / `.story-meta` / `.caption` / `.strategy-intro` /
+   `.display-headline` / `.content-section` are the shared vocabulary, and the
+   AJAX handler emits exactly that markup. New CSS is fine when justified — put
+   anything reusable in the shared stylesheet.
+6. **`<body>` has no `body_class()`** on branded pages. Scope single-story CSS
+   with `body:has(.story-single-container)`.
+7. **Always `git push` immediately after `git commit`**, in both repos. Never
+   leave commits unpushed. Never chain diagnostic `git stash`/`reset` into a
+   "just checking" one-liner.
+8. **`interactive/` needs `npm run build`** before deploying — `dist/` is
+   committed and the server has no build step.
 
-### Plugin Structure (Companion Repository)
-- **Main Plugin File**: `reuben-portfolio-sections.php` - Defines shortcodes and portfolio functionality
-- **Assets Directory**: Contains modular CSS files for each section
-- **Templates Directory**: PHP template files for rendering portfolio sections
-- **Modular Design**: Each section has its own CSS and PHP template file
+## Deploying
 
-## File Structure
+Both server checkouts are plain git on `main`. Use the script, not the hPanel
+Deploy button. Commit and push first.
 
-### Theme Files (This Repository)
-```
-RJB-2025-Theme/
-├── fonts/                          # Custom font files
-│   ├── InnovatorGrotesk-Regular.woff2
-│   ├── InnovatorGrotesk-RegularItalic.woff2
-│   ├── InnovatorGrotesk-SemiBold.woff2
-│   └── InnovatorGrotesk-SemiBoldItalic.woff2
-├── functions.php                    # WordPress theme functions
-├── page-portfolio.php               # Main portfolio template
-├── style.css                        # Theme stylesheet header
-├── test-page.php                    # Test template
-└── README.md                        # Basic project description
-```
-
-### Plugin Files (Companion Repository)
-```
-RJB-2025-portfolio-plugin/
-├── assets/                          # Modular CSS files
-│   ├── base-sections.css            # Shared styles for all sections
-│   ├── about-section.css            # About section specific styles
-│   ├── writing-section.css          # Writing section specific styles
-│   ├── strategy-section.css         # Strategy section specific styles
-│   └── cv-section.css               # CV section specific styles
-├── templates/                       # PHP template files
-│   ├── about-section.php            # About section HTML structure
-│   ├── writing-section.php          # Writing section HTML structure
-│   ├── strategy-section.php         # Strategy section HTML structure
-│   └── cv-section.php               # CV section HTML structure
-├── reuben-portfolio-sections.php    # Main plugin file with shortcode definitions
-└── README.md                        # Plugin description
-```
-
-## Development Commands
-
-### WordPress Development Setup
-1. **Local WordPress Installation**: Set up a local WordPress environment
-2. **Install Astra Theme**: Install and activate the Astra parent theme
-3. **Install Child Theme**: Copy theme files to WordPress themes directory and activate
-4. **Install Plugin**: Copy plugin files to WordPress plugins directory and activate
-5. **Create Pages**: Create pages using the "Portfolio Page" or "Test Page" templates
-
-### Version Control
-Both repositories use Git:
 ```bash
-# Theme repository
-cd /Users/reubenj.brown/RJB-2025-Theme
-git status
-git add .
-git commit -m "commit message"
-
-# Plugin repository  
-cd /Users/reubenj.brown/RJB-2025-portfolio-plugin
-git status
-git add .
-git commit -m "commit message"
+./deploy.sh            # theme + plugin + cache clear
 ```
 
-## Shortcodes System
+`./deploy.sh theme|plugin|cache` for a subset. Bumping `Version:` in `style.css`
+is the cache-bust lever for everything in `story-templates/` (hand-echoed
+`?v=` links); plugin assets bust on `filemtime()` automatically.
 
-The plugin provides these shortcodes for dynamic content:
-- `[reuben_about]` - About section with photo and bio
-- `[reuben_writing]` - Writing portfolio section
-- `[reuben_photography]` - Photography portfolio section
-- `[reuben_strategy]` - Strategy section
-- `[reuben_cv]` - CV/Resume section
-
-### Shortcode Implementation
-- Each shortcode renders via `templates/*.php` files
-- Styling is handled by corresponding `assets/*.css` files
-- Base styles are shared via `assets/base-sections.css`
-- CSS is conditionally loaded only on portfolio pages
-
-## Key Features
-
-### Fonts
-- **Innovator Grotesk**: Local font files stored in theme `/fonts/` directory
-- **Legitima**: Adobe Fonts (loaded via typekit.net)
-
-### Design System
-CSS custom properties defined in `:root`:
-- `--highlight-color: #39e58f`
-- `--primary-font: 'Innovator Grotesk', [fallbacks]`
-- `--serif-font: 'Legitima', [fallbacks]`
-
-### Portfolio Template Features
-- Full-screen image carousel background with 5 rotating images
-- Fixed transparent header that transforms on scroll
-- Smooth scroll navigation between sections
-- Responsive design with mobile-specific optimizations
-- Footer with social links and logo that adapts to scroll position
-
-## Template Usage
-
-### Portfolio Page Template
-- Creates a full-screen, single-page portfolio layout
-- Bypasses most WordPress theme elements
-- Uses hardcoded image URLs for carousel background
-- Includes custom JavaScript for carousel and scroll behavior
-- Renders shortcodes in main content area
-
-### Test Page Template
-- Simplified template for testing shortcodes
-- Maintains WordPress structure but with custom styling
-- Useful for development and testing individual sections
-
-## External Dependencies
-
-- **Astra Theme**: Parent theme (must be installed)
-- **Adobe Fonts**: Legitima font family
-- **Images**: Carousel and content images hosted on `reubenjbrown.com` (`/wp-content/uploads/`)
-
-## Live Site and Deployment
-
-- **Live site**: `reubenjbrown.com` — Hostinger shared hosting
-- **Hostinger staging domain**: `reubenjbrown-com-418819.hostingersite.com`
-- **SSH**: `ssh -p 65002 u240680038@82.197.80.158` (key auth)
-
-Both the theme and the plugin are plain git checkouts on `main` on the server:
-
-- Theme: `~/domains/reubenjbrown.com/public_html/wp-content/themes/astra-child`
-- Plugin: `~/domains/reubenjbrown.com/public_html/wp-content/plugins/reuben-portfolio-sections`
-
-Deploy with `./deploy.sh` (see `deploy.sh --help` usage comment) rather than the
-hPanel Deploy button — it pulls both repos and clears server-side cache in one
-step. `wp-cli` is available on the server. The `hostinger` MCP server, configured
-in `.mcp.json`, exposes cache and hosting controls; its token is read from the
-`HOSTINGER_API_TOKEN` env var, set in `~/.claude/settings.json`.
-
-## Development Workflow
-
-### Making Changes
-1. **Theme Changes**: Edit files in `/Users/reubenj.brown/RJB-2025-Theme/`
-2. **Content Changes**: Edit template files in `/Users/reubenj.brown/RJB-2025-portfolio-plugin/templates/`
-3. **Styling Changes**: Edit CSS files in `/Users/reubenj.brown/RJB-2025-portfolio-plugin/assets/`
-4. **Functionality Changes**: Edit plugin main file `reuben-portfolio-sections.php`
-
-### Testing
-- Use the Test Page template for isolated section testing
-- Use the Portfolio Page template for full site testing
-- CSS changes are conditionally loaded only on portfolio pages
-- No local preview is possible for this repo — see "No Browser Preview" above. Testing happens on the live/staging WordPress site, not via Claude Code's preview tools.
-
-## Customization Notes
-
-### Theme Customization
-- Font files should be updated in `/fonts/` directory and corresponding `@font-face` declarations
-- Color scheme can be modified via CSS custom properties
-- Image carousel backgrounds are hardcoded in `page-portfolio.php` lines 182-186
-- Social links and footer content are hardcoded in templates
-
-### Plugin Customization
-- Add new sections by creating new template and CSS files
-- Register new shortcodes in the main plugin file
-- All sections follow the same pattern: shortcode → template → CSS
-- Base styles are shared across all sections
-
-## WordPress Integration
-
-The system integrates with WordPress through:
-- Standard WordPress template hierarchy
-- WordPress enqueue system for styles and scripts
-- Custom post templates via Template Name headers
-- WordPress shortcode system for dynamic content sections
-- Child theme architecture extending Astra parent theme
-- Plugin architecture for modular content management
+Details, SSH access, cacheless dev mode, and the deploy failure modes are in
+`PROJECT.md` §8 and the `deploy-live` / `dev-mode` skills.
