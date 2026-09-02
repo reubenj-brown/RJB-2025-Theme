@@ -417,6 +417,41 @@ individual enqueues if it can't write.
 
 ---
 
+## 4.6 Adding a new section
+
+Every section follows the same four-step pattern. **Step 4 is the one that is
+easy to miss** — a new CSS file that isn't in the bundle array simply never
+loads.
+
+1. **Template** — `plugin/templates/<name>.php`. Plain PHP partial, no
+   `<?php` wrapper class needed; it's `include`d inside an output buffer.
+2. **CSS** — `plugin/assets/<name>-section.css`. Consume tokens, don't define
+   them. Don't restate anything `base-sections.css` already sets.
+3. **Register the shortcode** — in `register_shortcodes()`, plus the matching
+   `public function <name>_section($atts)` that `ob_start()` / `include` /
+   `ob_get_clean()`s the template.
+4. **Add the CSS to the bundle** — append the filename to
+   `portfolio_css_files()`. Keep `base-sections.css` first; array order is
+   cascade order.
+
+Then drop the shortcode into `page-portfolio.php` (or wherever it belongs),
+usually wrapped in `<section class="content-section <name>-section" id="<name>">`.
+
+### Where hardcoded content lives
+
+Not everything is post-driven. This copy is edited in the file, not in WP admin:
+
+- **Nav links** and the contact pill — `header-branded.php`.
+- **Footer logo, copyright year, contact link** — `footer-branded.php`.
+- **Contact section** (headshot, email, Signal, Instagram, LinkedIn) and the CV
+  PDF link — `page-portfolio.php`.
+- **Section intro copy** (About, Reporting, Solar/"Cracking the Sun", CV
+  standfirst) — the plugin's `templates/*.php` and the `.strategy-intro` blocks
+  in `page-portfolio.php`.
+- **OG/Twitter description and default share image** — `header-branded.php`.
+
+---
+
 ## 5. Content model
 
 ### 5.1 `story` custom post type
@@ -665,3 +700,10 @@ Things that will waste time if you don't know them.
 13. The `2026-homepage-draft/` and `2026-photography-draft/` pages are private,
     unlinked, and not in the nav. Don't wire them into navigation without being
     asked.
+14. **`test-page.php` no longer exists** in the theme, but the plugin still
+    gates its style and script enqueues on `is_page_template('test-page.php')`
+    (`reuben-portfolio-sections.php:464` and `:517`). Harmless — the adjacent
+    `is_page()` check already covers everything — but the condition is dead.
+    The project's old docs also described a 5-image hero carousel in
+    `page-portfolio.php`; that was replaced by `[featured_story_full_bleed]`
+    and no carousel code remains.
