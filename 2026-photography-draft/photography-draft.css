@@ -74,13 +74,13 @@
    ============================================================ */
 
 .photo-floating-grid {
-    --cols: 4;
+    --cols: 3;
     --half-drop: 7vw;
 
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
     align-items: center;
-    column-gap: 2rem;
+    column-gap: 6vw;
     row-gap: 14vw;
     margin: 0 auto;
     padding: 2rem 2vw 6rem;
@@ -95,23 +95,15 @@
     transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* 4 columns: drop columns 2 and 4. nth-child is modulo the column count,
-   so these select a whole column down the page, not just the first row.
+/* Drop the middle column. nth-child is modulo the column count, so this
+   selects a whole column down the page, not just the first row.
 
-   Every drop rule is wrapped in :where() to keep it at the same specificity
-   as the bare `.photo-card` reset above. Without that, the reset in each
-   breakpoint below would lose to these on specificity despite coming later,
-   and a 4-column drop would leak into the 3-column and mobile layouts. */
-.photo-card:where(:nth-child(4n+2), :nth-child(4n+4)) {
+   Wrapped in :where() to keep it at the same specificity as the bare
+   `.photo-card` reset above — without that, the mobile reset below would
+   lose on specificity despite coming later, and the stagger would survive
+   into the single-column layout. */
+.photo-card:where(:nth-child(3n+2)) {
     --drop: var(--half-drop);
-}
-
-@media (max-width: 1200px) {
-    .photo-floating-grid { --cols: 3; }
-
-    /* 3 columns: drop the middle one. */
-    .photo-card { --drop: 0px; }
-    .photo-card:where(:nth-child(3n+2)) { --drop: var(--half-drop); }
 }
 
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
@@ -203,11 +195,15 @@
     border: 1px solid var(--text-color);
 }
 
-/* Standard body size, fixed — deliberately independent of --card-scale, so
-   copy reads identically whatever size its card happened to roll. */
+/* Article body prose, matching `.story-content-inner p` in
+   story-templates.css exactly — same serif, same 1.5 / 1.25 / 1.125rem
+   steps at the same breakpoints. Fixed at each step and deliberately
+   independent of --card-scale, so copy reads identically whatever size
+   its card happened to roll. The responsive steps live with the rest of
+   the breakpoints at the foot of this file. */
 .wc-text-body {
     font-family: var(--serif-font);
-    font-size: var(--fs-base);
+    font-size: 1.5rem;
     line-height: 1.4;
     color: var(--text-color);
 }
@@ -277,4 +273,18 @@
     .photo-card:nth-child(even) .wc-stage {
         margin-left: calc((1 - var(--card-scale, 1)) * 100%);
     }
+}
+
+
+/* ============================================================
+   CARD TEXT — the article prose scale, copied from
+   `.story-content-inner p:not(.story-meta)` in story-templates.css.
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .wc-text-body { font-size: 1.25rem; }
+}
+
+@media (max-width: 480px), ((max-width: 1200px) and (max-height: 480px)) {
+    .wc-text-body { font-size: 1.125rem; }
 }
