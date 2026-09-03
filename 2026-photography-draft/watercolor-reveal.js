@@ -699,7 +699,6 @@
         const figure = lightbox.querySelector('.photo-lightbox-figure');
         const fallbackImg = lightbox.querySelector('.photo-lightbox-image');
         const canvas = lightbox.querySelector('.photo-lightbox-gl');
-        const closeBtn = lightbox.querySelector('.photo-lightbox-close');
         const buttons = Array.prototype.slice.call(grid.querySelectorAll('.wc-expand'));
         if (!figure || !fallbackImg || !buttons.length) return;
 
@@ -710,6 +709,7 @@
         let imgW = 0, imgH = 0, cssW = 0, cssH = 0, coverUV = [1, 1, 0, 0];
         let front = 0, transitioning = false;
         let animFrom = 0, animTo = 0, animStart = 0, onSettled = null;
+        let pendingDismiss = false; // a click that arrived mid-animation
         let generation = 0; // guards against a slow full-res load landing late
 
         const imgCache = Object.create(null);
@@ -773,6 +773,13 @@
                     const done = onSettled;
                     onSettled = null;
                     if (done) done();
+                    // A click that landed while this was still running. If
+                    // `done` was hide(), isOpen is already false and there's
+                    // nothing left to dismiss.
+                    if (pendingDismiss && isOpen) {
+                        pendingDismiss = false;
+                        animate(maxRadius(), hide);
+                    }
                 }
             }
             if (!textureReady) return;
@@ -852,11 +859,12 @@
             lastFocused = document.activeElement;
             isOpen = true;
             lightbox.classList.add('active');
-            if (closeBtn) closeBtn.focus();
+            lightbox.focus(); // tabindex="-1" on the overlay
 
             front = 0;
             transitioning = false;
             onSettled = null;
+            pendingDismiss = false;
             show(i, true);
             if (useGL) rafId = requestAnimationFrame(frame);
         }
@@ -865,6 +873,7 @@
             isOpen = false;
             transitioning = false;
             onSettled = null;
+            pendingDismiss = false;
             generation++; // orphan any in-flight image loads
             if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
             textureReady = false;
@@ -878,15 +887,16 @@
             lastFocused = null;
         }
 
-        // Clicking the photo or the backdrop plays the dissolve in reverse and
-        // hides once it lands. Ignored mid-animation, for the same reason the
-        // cards are non-interruptible: reversing without tracking true
-        // mid-flight state reads as a snap. Escape and the close button always
-        // dismiss instantly, so there's an immediate way out either way.
+        // Clicking anywhere plays the dissolve in reverse and closes once it
+        // lands. A click that arrives while an animation is still running is
+        // queued rather than dropped, so it always ends in a close — the
+        // animation isn't cut short, for the same reason the cards are
+        // non-interruptible: reversing without tracking true mid-flight state
+        // reads as a snap. Escape still closes instantly at any point.
         function dismissAnimated() {
             if (!isOpen) return;
             if (!useGL || !textureReady) { hide(); return; }
-            if (transitioning) return;
+            if (transitioning) { pendingDismiss = true; return; }
             animate(maxRadius(), hide);
         }
 
@@ -894,17 +904,7 @@
             btn.addEventListener('click', function () { open(i); });
         });
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                hide();
-            });
-        }
-
-        lightbox.addEventListener('click', function (e) {
-            if (e.target.closest('.photo-lightbox-close')) return;
-            dismissAnimated();
-        });
+        lightbox.addEventListener('click', dismissAnimated);
 
         document.addEventListener('keydown', function (e) {
             if (!isOpen) return;

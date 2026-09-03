@@ -144,6 +144,14 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* A black shadow is invisible on a near-black ground, so it flips to white —
+   reading as a soft lift off the page rather than a cast shadow. */
+@media (prefers-color-scheme: dark) {
+    .wc-stage {
+        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+    }
+}
+
 /* Video cards are non-interactive — nothing to click, so no crosshair. */
 .photo-card-video .wc-stage {
     cursor: default;
