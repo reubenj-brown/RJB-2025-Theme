@@ -45,10 +45,21 @@
 
 /* base-sections.css gives .strategy-intro `padding: 200px 0 6rem` for its
    usual job as a section lead-in. Here the 66vh box does the spacing, so
-   that padding has to go or the text sits low rather than centred. */
+   that padding has to go or the text sits low rather than centred. This also
+   clears the 3rem padding/margin the tablet breakpoint adds for the divider
+   below, since that would push the text off centre at those sizes. */
 .photo-draft-intro .strategy-intro {
     padding: 0;
     margin: 0;
+}
+
+/* Below 1200px base-sections.css draws a 50%-width hairline under
+   .strategy-intro to separate it from the section that follows. On this page
+   the intro is followed by a lot of deliberate air and a scattered grid, so
+   the rule reads as a stray mark rather than a divider. Scoped to this
+   page's wrapper, so the shared component keeps it everywhere else. */
+.photo-draft-intro .strategy-intro::after {
+    display: none;
 }
 
 /* photograph-page.css sets this for the same block on the live photography
