@@ -206,6 +206,12 @@
     // small scroll jitter right at the boundary doesn't thrash init/teardown.
     const ROOT_MARGIN = '400px 0px 400px 0px';
 
+    // Hard ceiling on the long edge of any card texture. The gallery already
+    // serves a 1920-capped size, so normally this changes nothing — it's here
+    // so the cap still holds on an attachment that falls back to its full-size
+    // original because the 'wc-card' size was never generated for it.
+    const MAX_CARD_EDGE = 1920;
+
     // ---- one persistent controller per card ----
     // All per-card state and functions live in this one closure for the
     // card's entire lifetime on the page. init()/teardown() only create and
@@ -410,12 +416,13 @@
         //    image into the canvas colour space (sRGB) with proper management,
         //    so what reaches the GPU already matches what the poster showed.
         //
-        // 2. SIZE. Full-resolution originals routinely run past the GPU's
-        //    MAX_TEXTURE_SIZE — commonly 4096 on older mobile hardware.
-        //    texImage2D fails on an oversized source and leaves the card blank,
-        //    its poster having already been removed. Same canvas pass caps it.
+        // 2. SIZE. The same canvas pass caps the long edge at MAX_CARD_EDGE,
+        //    which is also below every GPU's MAX_TEXTURE_SIZE (commonly 4096
+        //    on older mobile hardware). That second limit matters because
+        //    texImage2D fails outright on an oversized source and leaves the
+        //    card blank, its poster having already been removed.
         function makeTextureSource(img) {
-            const maxDim = gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096;
+            const maxDim = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096, MAX_CARD_EDGE);
             const longest = Math.max(img.naturalWidth, img.naturalHeight);
             const k = longest > maxDim ? maxDim / longest : 1;
 
