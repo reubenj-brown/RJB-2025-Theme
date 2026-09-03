@@ -13,45 +13,41 @@
 
 
 /* ============================================================
-   INTRO — modeled on the homepage's .hp-intro-text / .large-intro-text
+   INTRO
+   Uses the shared .strategy-intro / .strategy-intro-body structure, so
+   everything typographic — serif face, 1.875rem stepping to 1.25rem on
+   mobile, centred, var(--text-color), and the opacity/filter transition
+   the scroll fade rides on — comes from base-sections.css. Nothing about
+   the type is restated here.
+
+   All this file adds is the 66vh box the text centres inside.
    ============================================================ */
 
 .photo-draft-intro {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 8vw 2vw 4vw;
+    min-height: 66vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2vw;
+}
+
+/* base-sections.css gives .strategy-intro `padding: 200px 0 6rem` for its
+   usual job as a section lead-in. Here the 66vh box does the spacing, so
+   that padding has to go or the text sits low rather than centred. */
+.photo-draft-intro .strategy-intro {
+    padding: 0;
+    margin: 0;
+}
+
+/* photograph-page.css sets this for the same block on the live photography
+   page, but that stylesheet only loads on page-photography.php. */
+.photo-draft-intro h3 {
     text-wrap: balance;
 }
 
-.photo-draft-intro h3 {
-    font-family: var(--serif-font) !important;
-    font-size: min(3vw, 63px) !important;
-    line-height: 1.2 !important;
-    font-weight: 400 !important;
-    color: #000 !important;
-    text-align: center;
-    margin: 0;
-    transition: opacity 0.3s ease, filter 0.3s ease;
-}
-
-@media (prefers-color-scheme: dark) {
-    .photo-draft-intro h3 {
-        color: #fff !important;
-    }
-}
-
-@media (max-width: 1200px) {
-    .photo-draft-intro {
-        padding: 10vw 4vw 3rem;
-    }
-    .photo-draft-intro h3 {
-        font-size: 3rem !important;
-    }
-}
-
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-    .photo-draft-intro h3 {
-        font-size: 1.84375rem !important;
+    .photo-draft-intro {
+        padding: 0 4vw;
     }
 }
 

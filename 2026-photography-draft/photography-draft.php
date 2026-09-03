@@ -12,9 +12,14 @@
 
 <main class="photography-draft">
 
-    <!-- Intro -->
+    <!-- Intro. Same shared structure as the live photography page, so the
+         type comes from base-sections.css rather than being restated here. -->
     <div class="photo-draft-intro">
-        <h3>I’ve freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I’m a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship. Photo editors say I’m good at making boring things look interesting.</h3>
+        <div class="strategy-intro">
+            <div class="strategy-intro-body">
+                <h3>I’ve freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I’m a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship. Photo editors say I’m good at making boring things look interesting.</h3>
+            </div>
+        </div>
     </div>
 
     <!-- Watercolor reveal cards -->
