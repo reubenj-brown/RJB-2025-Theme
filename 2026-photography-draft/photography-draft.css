@@ -54,11 +54,13 @@
 
 /* ============================================================
    THE GRID
-   Plain (non-`dense`) grid, so DOM order == visual order — the CMS's
-   linear card order stays the reading and tab order too. Grid rather
-   than flex-wrap because the column width is then exact by
-   construction, with no `calc(100% - n*gap)/n` basis to round badly
-   and drop a card onto the next row.
+   Plain (non-`dense`) grid, so DOM order == visual order, and the reading
+   and tab order follow what's actually on screen. (The gallery template
+   shuffles the cards on every load by moving the elements themselves, for
+   the same reason — CSS `order` would have split the two apart.) Grid
+   rather than flex-wrap because the column width is then exact by
+   construction, with no `calc(100% - n*gap)/n` basis to round badly and
+   drop a card onto the next row.
 
    Column count is a single token, set once per breakpoint.
 
@@ -71,13 +73,16 @@
 
 .photo-floating-grid {
     --cols: 3;
-    --half-drop: 7vw;
+    /* Half the row gap. Keeping that ratio means every column holds the same
+       vertical rhythm, just phase-shifted — a dropped card and the undropped
+       one below it stay exactly as far apart as two undropped ones. */
+    --half-drop: 10vw;
 
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
     align-items: center;
     column-gap: 6vw;
-    row-gap: 14vw;
+    row-gap: 20vw;
     margin: 0 auto;
     padding: 2rem 2vw 6rem;
 }
@@ -114,7 +119,7 @@
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
     .photo-floating-grid {
         --cols: 1;
-        row-gap: 12vw;
+        row-gap: 16vw;
         padding-left: 4vw;
         padding-right: 4vw;
     }
