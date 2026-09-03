@@ -190,7 +190,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 2vw;
+    padding: 1vw;
     opacity: 0;
     border: 1px solid var(--text-color);
 }
@@ -281,7 +281,10 @@
    `.story-content-inner p:not(.story-meta)` in story-templates.css.
    ============================================================ */
 
+/* Covers tablet and mobile both: the mobile query's compound clause sits
+   inside max-width 1200 too, so a landscape phone matches this as well. */
 @media (max-width: 1200px) {
+    .wc-text { padding: 2vw; }
     .wc-text-body { font-size: 1.25rem; }
 }
 
