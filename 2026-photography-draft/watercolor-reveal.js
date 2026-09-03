@@ -1049,6 +1049,13 @@
             // The card's own file is already in the browser cache, so the
             // animation can start immediately on that; the full-size original
             // is fetched in parallel and swapped in underneath once decoded.
+            //
+            // The gallery now serves cards at full size, so the two are
+            // usually the same file — in which case the first load is the
+            // whole story and the second is skipped rather than re-uploading
+            // an identical texture. The two-stage path stays for any
+            // attachment where they do differ.
+            const twoStage = btn.dataset.full !== btn.dataset.card;
             loadImage(btn.dataset.card).then(function (img) {
                 if (gen !== generation || !isOpen) return;
                 applyTexture(img);
@@ -1058,7 +1065,13 @@
                 } else {
                     front = restFront();
                 }
-            }).catch(function () { /* full-size load below may still rescue it */ });
+            }).catch(function () {
+                // On the two-stage path the full-size load below may still
+                // rescue it; when there is no second stage this is the failure.
+                if (!twoStage) console.error('Lightbox: image failed to load:', btn.dataset.card);
+            });
+
+            if (!twoStage) return;
 
             loadImage(btn.dataset.full).then(function (img) {
                 if (gen !== generation || !isOpen) return;
