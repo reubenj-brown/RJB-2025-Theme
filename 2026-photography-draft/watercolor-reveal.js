@@ -30,7 +30,10 @@
     // ---- shared, card-independent setup ----
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const ANIM_DUR_S = 5;
+    // Both directions share this and the curve below — deliberately, per the
+    // design reference. It also sets the non-interruptible window, since a
+    // trigger is ignored until the previous animation has run its course.
+    const ANIM_DUR_S = 4;
     const ANIM_DUR_MS = ANIM_DUR_S * 1000;
     const CURVE = [0.65, 0, 0.35, 1]; // cubic-bezier control points, ease-in-out
 
@@ -157,9 +160,20 @@
           float chromaVary = 0.5 + 0.5 * fbm(vec3(fragCss * 0.012, uTime * 0.05 + 91.0));
           float chroma = uChromaAmp * chromaVary;
 
-          float dR = dist - (uFront + chroma);
+          // Each channel is thresholded against a slightly different radius,
+          // and where the three disagree the output reads as a tinted fringe.
+          // Which way it tints is decided here: the channel given the SMALLER
+          // front survives furthest into the boundary, so that channel is the
+          // colour of the fringe.
+          //
+          // Red gets the smaller front, blue the larger — so blue lifts off
+          // first and red stains longest, and the halo runs warm. (Swapping
+          // these two lines is what turns it cool again.) It's also the more
+          // faithful behaviour: in real watercolour the warm earth pigments
+          // granulate and stain the paper while cooler ones lift more readily.
+          float dR = dist - (uFront - chroma);
           float dG = dist - uFront;
-          float dB = dist - (uFront - chroma);
+          float dB = dist - (uFront + chroma);
 
           float lo = -uEdgeWidth + granWobble;
           float hi = uEdgeWidth + granWobble;
