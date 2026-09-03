@@ -7,6 +7,18 @@
    ============================================================ */
 
 .photography-draft {
+    /* Per-page accent (PROJECT.md §2.4), matching the live photography page's
+       cobalt. Routed through the semantic tokens rather than painting the raw
+       pigment onto the controls, so anything accent-coloured added later
+       follows automatically.
+
+       Scoped to this container rather than :root deliberately: header-branded.php
+       re-declares --highlight-color in an inline :root that loads AFTER
+       wp_head(), so a :root here would lose to it. Declaring on the element
+       beats the inherited value whatever the ancestor's specificity. */
+    --highlight-color: var(--cr-cobalt);
+    --link-hover-color: var(--cr-cobalt);
+
     background: var(--main-content-bg);
     overflow-x: hidden;
 }
