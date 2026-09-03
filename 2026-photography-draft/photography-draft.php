@@ -59,8 +59,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     const p = (scrollY - fadeStart) / (fadeEnd - fadeStart);
                     opacity = 1 - p; blur = p * 10;
                 }
-                el.style.opacity = opacity;
-                el.style.filter = 'blur(' + blur + 'px)';
+                // Only touch the DOM when a value actually changed, and drop
+                // `filter` entirely at blur 0 rather than writing blur(0px).
+                // Any non-none filter forces the card onto its own compositing
+                // layer and a filter pass over its contents every repaint —
+                // and its contents are a live WebGL canvas. Most cards on
+                // screen are not fading at all, so this was pure cost.
+                if (el._wcOpacity !== opacity) {
+                    el.style.opacity = opacity;
+                    el._wcOpacity = opacity;
+                }
+                if (el._wcBlur !== blur) {
+                    el.style.filter = blur > 0 ? 'blur(' + blur + 'px)' : '';
+                    el._wcBlur = blur;
+                }
             });
         }
         update();

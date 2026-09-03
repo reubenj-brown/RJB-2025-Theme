@@ -490,6 +490,7 @@
             stageCssH = rect.height;
             syncCanvasSize(ctx.gl, canvas, stageCssW, stageCssH);
             computeCoverUV();
+            scheduleFrame();
         }
 
         function draw(timeSec) {
@@ -501,9 +502,20 @@
             }, timeSec);
         }
 
-        function frame(nowMs) {
-            if (!active) return; // stop the loop once torn down
+        // Draw only when something has actually changed. The shader evaluates
+        // 12 octaves of 3D simplex noise per pixel, and an idle card was
+        // paying that every frame forever to redraw an identical image: at
+        // rest the front is either fully in or fully out, so the noise fields
+        // are saturated and invisible. They only show at a MOVING boundary,
+        // which only exists mid-transition.
+        function scheduleFrame() {
+            if (!active || rafId !== null) return;
             rafId = requestAnimationFrame(frame);
+        }
+
+        function frame(nowMs) {
+            rafId = null;
+            if (!active) return; // torn down mid-flight
             if (transitioning) {
                 const elapsed = nowMs - animStart;
                 const frac = Math.min(1, elapsed / ANIM_DUR_MS);
@@ -514,6 +526,7 @@
                 }
             }
             draw(nowMs / 1000);
+            if (transitioning) scheduleFrame();
         }
 
         function triggerAt(x, y) {
@@ -528,6 +541,7 @@
             animTo = revealing ? maxRadiusFrom(x, y, stageCssW, stageCssH) : 0;
             animStart = now;
             transitioning = true;
+            scheduleFrame();
 
             const curveCss = `cubic-bezier(${CURVE.join(',')})`;
             textLayer.style.transitionProperty = 'opacity';
@@ -549,6 +563,7 @@
             computeCoverUV();
             textureReady = true;
             if (posterLayer) { posterLayer.remove(); posterLayer = null; }
+            scheduleFrame();
         }
 
         function teardown() {
@@ -604,7 +619,7 @@
             // activation — its onload (already pointed at uploadTexture) will
             // fire and pick up whichever context is current at that point.
 
-            rafId = requestAnimationFrame(frame);
+            scheduleFrame();
         }
 
         if (reduceMotion) {
@@ -714,6 +729,14 @@
 
         const imgCache = Object.create(null);
 
+        // One constant drives both: the backdrop fades over exactly as long as
+        // the watercolor takes, so opening and dismissing read as a single
+        // transition rather than two in sequence.
+        const FADE_QUICK = '0.25s';
+        function setFade(seconds) {
+            lightbox.style.setProperty('--lightbox-fade', seconds);
+        }
+
         function loadImage(url) {
             return new Promise(function (resolve, reject) {
                 let img = imgCache[url];
@@ -747,10 +770,16 @@
             syncCanvasSize(ctx.gl, canvas, cssW, cssH);
             coverUV = coverUVFor(cssW, cssH, imgW, imgH);
             textureReady = true;
+            scheduleFrame();
         }
 
         function maxRadius() {
             return maxRadiusFrom(cssW / 2, cssH / 2, cssW, cssH);
+        }
+
+        function scheduleFrame() {
+            if (!isOpen || rafId !== null) return;
+            rafId = requestAnimationFrame(frame);
         }
 
         function animate(to, done) {
@@ -759,11 +788,14 @@
             animStart = performance.now();
             transitioning = true;
             onSettled = done || null;
+            scheduleFrame();
         }
 
+        // Same demand-driven rule as the cards: an idle lightbox is showing a
+        // saturated front, so the noise fields have nothing to move.
         function frame(nowMs) {
+            rafId = null;
             if (!isOpen) return;
-            rafId = requestAnimationFrame(frame);
             if (transitioning) {
                 const frac = Math.min(1, (nowMs - animStart) / ANIM_DUR_MS);
                 front = animFrom + (animTo - animFrom) * ease(frac);
@@ -774,20 +806,22 @@
                     onSettled = null;
                     if (done) done();
                     // A click that landed while this was still running. If
-                    // `done` was hide(), isOpen is already false and there's
+                    // `done` was finalise(), isOpen is already false and there's
                     // nothing left to dismiss.
                     if (pendingDismiss && isOpen) {
                         pendingDismiss = false;
-                        animate(maxRadius(), hide);
+                        beginDismiss();
                     }
                 }
             }
-            if (!textureReady) return;
-            drawWatercolor(ctx, {
-                imgW: imgW, imgH: imgH,
-                cssW: cssW, cssH: cssH,
-                coverUV: coverUV, center: [cssW / 2, cssH / 2], front: front,
-            }, nowMs / 1000);
+            if (textureReady && isOpen) {
+                drawWatercolor(ctx, {
+                    imgW: imgW, imgH: imgH,
+                    cssW: cssW, cssH: cssH,
+                    coverUV: coverUV, center: [cssW / 2, cssH / 2], front: front,
+                }, nowMs / 1000);
+            }
+            if (transitioning) scheduleFrame();
         }
 
         // Shows image `i`. `animateIn` is true when entering the lightbox and
@@ -858,6 +892,7 @@
 
             lastFocused = document.activeElement;
             isOpen = true;
+            setFade(useGL ? ANIM_DUR_S + 's' : FADE_QUICK);
             lightbox.classList.add('active');
             lightbox.focus(); // tabindex="-1" on the overlay
 
@@ -869,7 +904,9 @@
             if (useGL) rafId = requestAnimationFrame(frame);
         }
 
-        function hide() {
+        // Clears state once the exit has finished playing. The backdrop is
+        // already mid-fade by the time this runs on an animated dismissal.
+        function finalise() {
             isOpen = false;
             transitioning = false;
             onSettled = null;
@@ -877,7 +914,7 @@
             generation++; // orphan any in-flight image loads
             if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
             textureReady = false;
-            lightbox.classList.remove('active');
+            lightbox.classList.remove('active'); // no-op if already removed
             fallbackImg.src = '';
             index = -1;
             // Back where it came from rather than the top of the document. The
@@ -895,9 +932,26 @@
         // reads as a snap. Escape still closes instantly at any point.
         function dismissAnimated() {
             if (!isOpen) return;
-            if (!useGL || !textureReady) { hide(); return; }
+            if (!useGL || !textureReady) { closeNow(); return; }
             if (transitioning) { pendingDismiss = true; return; }
-            animate(maxRadius(), hide);
+            beginDismiss();
+        }
+
+        // .active comes off at the START of the dissolve, not the end, so the
+        // backdrop fades out across the same window the photo dissolves in —
+        // one transition rather than the photo finishing and the mask then
+        // fading separately. The fade duration matches, so the canvas stays
+        // visible for the whole animation.
+        function beginDismiss() {
+            lightbox.classList.remove('active');
+            animate(maxRadius(), finalise);
+        }
+
+        // Escape: out immediately, on a short fade rather than the full four
+        // seconds. The duration is reset on the next open.
+        function closeNow() {
+            setFade(FADE_QUICK);
+            finalise();
         }
 
         buttons.forEach(function (btn, i) {
@@ -908,7 +962,7 @@
 
         document.addEventListener('keydown', function (e) {
             if (!isOpen) return;
-            if (e.key === 'Escape') { hide(); }
+            if (e.key === 'Escape') { closeNow(); }
             else if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1, false); }
             else if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1, false); }
         });
