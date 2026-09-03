@@ -91,15 +91,24 @@
     transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* Drop the middle column. nth-child is modulo the column count, so this
-   selects a whole column down the page, not just the first row.
+/* 3 columns: drop the middle one. nth-child is modulo the column count, so
+   this selects a whole column down the page, not just the first row — which
+   is also why the pattern has to be restated per breakpoint.
 
-   Wrapped in :where() to keep it at the same specificity as the bare
-   `.photo-card` reset above — without that, the mobile reset below would
-   lose on specificity despite coming later, and the stagger would survive
-   into the single-column layout. */
+   Every drop rule is wrapped in :where() to hold it at the same specificity
+   as the bare `.photo-card` reset above. Without that the resets below would
+   lose on specificity despite coming later, and this 3-column stagger would
+   leak into the 2-column and single-column layouts on top of theirs. */
 .photo-card:where(:nth-child(3n+2)) {
     --drop: var(--half-drop);
+}
+
+@media (max-width: 1200px) {
+    .photo-floating-grid { --cols: 2; }
+
+    /* 2 columns: drop the right-hand one. */
+    .photo-card { --drop: 0px; }
+    .photo-card:where(:nth-child(2n)) { --drop: var(--half-drop); }
 }
 
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
