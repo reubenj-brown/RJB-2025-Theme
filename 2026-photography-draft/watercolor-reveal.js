@@ -398,13 +398,50 @@
             revealed = revealing;
         }
 
+        // Every upload is routed through a 2D canvas rather than handed the
+        // <img> directly. Two reasons, both load-bearing:
+        //
+        // 1. COLOUR. A WebGL texture upload is not colour-managed — raw decoded
+        //    pixels go to the GPU and get composited as though they were sRGB.
+        //    A Display-P3 or Adobe RGB photo therefore renders visibly shifted
+        //    on the canvas while the poster <img> underneath it renders
+        //    correctly, so swapping the poster out for the canvas produced a
+        //    jarring colour pop. drawImage() into a 2D canvas converts the
+        //    image into the canvas colour space (sRGB) with proper management,
+        //    so what reaches the GPU already matches what the poster showed.
+        //
+        // 2. SIZE. Full-resolution originals routinely run past the GPU's
+        //    MAX_TEXTURE_SIZE — commonly 4096 on older mobile hardware.
+        //    texImage2D fails on an oversized source and leaves the card blank,
+        //    its poster having already been removed. Same canvas pass caps it.
+        function makeTextureSource(img) {
+            const maxDim = gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096;
+            const longest = Math.max(img.naturalWidth, img.naturalHeight);
+            const k = longest > maxDim ? maxDim / longest : 1;
+
+            const c = document.createElement('canvas');
+            c.width = Math.max(1, Math.round(img.naturalWidth * k));
+            c.height = Math.max(1, Math.round(img.naturalHeight * k));
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            return c;
+        }
+
         function uploadTexture() {
             if (!gl || !texture) return; // torn down again before this image finished loading
-            imgNaturalW = cachedImg.naturalWidth;
-            imgNaturalH = cachedImg.naturalHeight;
+            const source = makeTextureSource(cachedImg);
+            // Whatever actually reached the GPU, not the original — uImageSize
+            // drives the wet-bleed's texel step, and computeCoverUV wants the
+            // uploaded aspect (identical, since any downscale is proportional).
+            imgNaturalW = source.width;
+            imgNaturalH = source.height;
             computeCoverUV();
             gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, cachedImg);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+            // Release the intermediate immediately. At full resolution this
+            // backing store is tens of MB, and iOS Safari in particular is slow
+            // to reclaim canvas memory on GC alone. The decoded <img> stays
+            // cached, so re-activating after teardown just redraws.
+            source.width = source.height = 1;
             textureReady = true;
             if (posterLayer) { posterLayer.remove(); posterLayer = null; }
         }

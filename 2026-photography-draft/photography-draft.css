@@ -65,41 +65,65 @@
    and drop a card onto the next row.
 
    Column count is a single token, set once per breakpoint.
+
+   HALF-DROP: alternate columns are pushed down by --half-drop, the way
+   a half-drop textile repeat staggers its tiles. Cards centre on their
+   grid line first (align-items: center), then the drop is applied as a
+   transform on top of that — a transform rather than a margin so the
+   offset is purely visual and doesn't inflate the row it sits in.
    ============================================================ */
 
 .photo-floating-grid {
     --cols: 4;
+    --half-drop: 7vw;
 
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
-    align-items: start;
+    align-items: center;
     column-gap: 2rem;
-    row-gap: 6vw;
+    row-gap: 14vw;
     margin: 0 auto;
     padding: 2rem 2vw 6rem;
-}
-
-@media (min-width: 1921px) {
-    .photo-floating-grid { --cols: 5; }
-}
-
-@media (max-width: 1200px) {
-    .photo-floating-grid { --cols: 3; }
-}
-
-@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-    .photo-floating-grid {
-        --cols: 1;
-        padding-left: 4vw;
-        padding-right: 4vw;
-    }
 }
 
 /* One grid item == one column slot. The photo inside is smaller than
    the slot; the empty remainder is what creates the organic scatter. */
 .photo-card {
     min-width: 0;
+    --drop: 0px;
+    transform: translateY(var(--drop));
     transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* 4 columns: drop columns 2 and 4. nth-child is modulo the column count,
+   so these select a whole column down the page, not just the first row.
+
+   Every drop rule is wrapped in :where() to keep it at the same specificity
+   as the bare `.photo-card` reset above. Without that, the reset in each
+   breakpoint below would lose to these on specificity despite coming later,
+   and a 4-column drop would leak into the 3-column and mobile layouts. */
+.photo-card:where(:nth-child(4n+2), :nth-child(4n+4)) {
+    --drop: var(--half-drop);
+}
+
+@media (max-width: 1200px) {
+    .photo-floating-grid { --cols: 3; }
+
+    /* 3 columns: drop the middle one. */
+    .photo-card { --drop: 0px; }
+    .photo-card:where(:nth-child(3n+2)) { --drop: var(--half-drop); }
+}
+
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    .photo-floating-grid {
+        --cols: 1;
+        row-gap: 12vw;
+        padding-left: 4vw;
+        padding-right: 4vw;
+    }
+
+    /* Single column — nothing to stagger against. */
+    .photo-card { --drop: 0px; }
 }
 
 
@@ -174,24 +198,20 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* % padding resolves against the card's own width, so the inset stays
-       proportional at every scale and column count with no multiplier. */
-    padding: 7%;
+    padding: 2vw;
     opacity: 0;
     border: 1px solid var(--text-color);
 }
 
+/* Standard body size, fixed — deliberately independent of --card-scale, so
+   copy reads identically whatever size its card happened to roll. */
 .wc-text-body {
     font-family: var(--serif-font);
-    /* Scales with the card: 17px at full size, ~11.2px at the 0.66 floor —
-       which lands on the site's own caption size rather than below it. */
-    font-size: calc(var(--fs-md) * var(--card-scale, 1));
+    font-size: var(--fs-base);
     line-height: 1.4;
     color: var(--text-color);
 }
 
-/* Deliberately NOT scaled — the control stays a consistent size across
-   the whole grid while the caption copy shrinks with its card. */
 .wc-read-more {
     margin-top: auto;
     align-self: flex-end;
