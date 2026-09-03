@@ -31,10 +31,28 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     /* ---------------------------------------------------------------
-       Scroll fade — same technique as the homepage/about intro text
-       (window.scrollY + getBoundingClientRect, linear opacity/blur).
+       Scroll fade — elements blur and dissolve as they leave the top of
+       the viewport.
+
+       Keyed to each element's BOTTOM edge, not its top. Keying to the top
+       meant a card hit zero opacity the instant its top edge touched the
+       top of the screen — while several hundred pixels of photo still
+       filled the viewport underneath it. It also made the fade depend on
+       card height: --card-scale randomises that, so cards side by side in
+       a row started fading together but looked nothing alike doing it.
+
+       Off the bottom edge the fade tracks the element actually leaving, so
+       it behaves the same whatever height a card happened to roll.
+
+       FADE_BAND is how far above the top of the viewport the ramp runs,
+       as a fraction of viewport height: the fade starts when the bottom
+       edge is that far down the screen, and completes when it reaches the
+       top. This is the one number to turn.
     --------------------------------------------------------------- */
-    function fadeOnApproach(elements, thresholdPct) {
+    const FADE_BAND = 0.45;
+    const MAX_BLUR = 10;
+
+    function fadeOnApproach(elements) {
         let queued = false;
         function onScroll() {
             // rAF-throttled: this reads getBoundingClientRect() for every card,
@@ -45,20 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
             requestAnimationFrame(function() { queued = false; update(); });
         }
         function update() {
-            const scrollY = window.scrollY;
-            const vh = window.innerHeight;
+            const band = (window.innerHeight * FADE_BAND) || 1;
             elements.forEach(function(el) {
-                const rect = el.getBoundingClientRect();
-                const elTop = scrollY + rect.top;
-                const fadeStart = elTop - (vh * thresholdPct);
-                const fadeEnd = elTop;
-                let opacity = 1, blur = 0;
-                if (scrollY >= fadeEnd) {
-                    opacity = 0; blur = 10;
-                } else if (scrollY > fadeStart) {
-                    const p = (scrollY - fadeStart) / (fadeEnd - fadeStart);
-                    opacity = 1 - p; blur = p * 10;
+                const bottom = el.getBoundingClientRect().bottom;
+                let p = 0; // 0 = untouched, 1 = fully faded
+                if (bottom <= 0) {
+                    p = 1;                      // wholly above the viewport
+                } else if (bottom < band) {
+                    p = 1 - bottom / band;
                 }
+                const opacity = 1 - p;
+                const blur = p * MAX_BLUR;
                 // Only touch the DOM when a value actually changed, and drop
                 // `filter` entirely at blur 0 rather than writing blur(0px).
                 // Any non-none filter forces the card onto its own compositing
@@ -81,10 +96,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const intro = document.querySelector('.photo-draft-intro h3');
-    if (intro) fadeOnApproach([intro], 0.20);
+    if (intro) fadeOnApproach([intro]);
 
     const cards = document.querySelectorAll('.photo-card');
-    if (cards.length) fadeOnApproach(Array.prototype.slice.call(cards), 0.18);
+    if (cards.length) fadeOnApproach(Array.prototype.slice.call(cards));
 
     /* ---------------------------------------------------------------
        Replace header navigation with the "← Home / Photography"
