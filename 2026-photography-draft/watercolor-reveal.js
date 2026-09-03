@@ -229,17 +229,6 @@
         }
       `;
 
-    function compileShader(gl, type, src) {
-        const shader = gl.createShader(type);
-        gl.shaderSource(shader, src);
-        gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            console.error('Shader compile error:', gl.getShaderInfoLog(shader));
-            gl.deleteShader(shader);
-            return null;
-        }
-        return shader;
-    }
 
     const UNIFORM_NAMES = [
         'uImage', 'uImageSize', 'uStageCss', 'uCoverUV', 'uCenter', 'uFront',
@@ -280,38 +269,46 @@
        once rather than in each controller.
     --------------------------------------------------------------- */
 
-    // Returns {gl, program, uniforms, texture} or null if WebGL is unavailable
-    // or the program won't build. Callers fall back to a plain crossfade.
+    // Returns a context handle, or null if WebGL is unavailable. Callers fall
+    // back to a plain crossfade when it's null, or when ctx.failed goes true.
+    //
+    // The program is NOT ready when this returns. Browsers compile shaders on
+    // a background thread and only make the main thread wait when you ask for
+    // the result — so gl.getShaderParameter(COMPILE_STATUS) and the matching
+    // LINK_STATUS query are blocking calls, and this fragment shader is a
+    // couple of hundred lines of 3D simplex noise with three four-octave fbm
+    // evaluations. Asking inside an IntersectionObserver callback meant every
+    // card that scrolled into range stalled the main thread mid-scroll.
+    //
+    // So: kick off the compile, hand back a handle, and let poll() pick up the
+    // result later. With KHR_parallel_shader_compile the readiness check is
+    // genuinely non-blocking; without it poll() asks the blocking question on
+    // its first call, exactly as before, so there's no regression anywhere.
     function createWatercolorContext(canvas) {
         const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true })
             || canvas.getContext('experimental-webgl', { alpha: true, premultipliedAlpha: true });
         if (!gl) return null;
 
-        const vertShader = compileShader(gl, gl.VERTEX_SHADER, VERT_SRC);
-        const fragShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAG_SRC);
-        if (!vertShader || !fragShader) return null;
+        const vertShader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vertShader, VERT_SRC);
+        gl.compileShader(vertShader);
+
+        const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fragShader, FRAG_SRC);
+        gl.compileShader(fragShader);
 
         const program = gl.createProgram();
         gl.attachShader(program, vertShader);
         gl.attachShader(program, fragShader);
         gl.linkProgram(program);
-        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-            console.error('Program link error:', gl.getProgramInfoLog(program));
-            return null;
-        }
-        gl.useProgram(program);
 
+        // Buffer and texture don't depend on the program, so they can be set
+        // up now while it's still building.
         const quadBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
             -1, -1, 1, -1, -1, 1, 1, 1
         ]), gl.STATIC_DRAW);
-        const aPosition = gl.getAttribLocation(program, 'aPosition');
-        gl.enableVertexAttribArray(aPosition);
-        gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
-
-        const uniforms = {};
-        UNIFORM_NAMES.forEach((name) => { uniforms[name] = gl.getUniformLocation(program, name); });
 
         const texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -324,7 +321,38 @@
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
-        return { gl, program, uniforms, texture };
+        const parallel = gl.getExtension('KHR_parallel_shader_compile');
+        const ctx = { gl, program, texture, uniforms: null, ready: false, failed: false };
+
+        // False while the program is still building; true once it's usable.
+        ctx.poll = function () {
+            if (ctx.ready) return true;
+            if (ctx.failed) return false;
+            // The only non-blocking question available. Without the extension
+            // we have to ask the blocking one.
+            if (parallel && !gl.getProgramParameter(program, parallel.COMPLETION_STATUS_KHR)) {
+                return false;
+            }
+            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                console.error('Program link error:', gl.getProgramInfoLog(program));
+                console.error('Vertex:', gl.getShaderInfoLog(vertShader));
+                console.error('Fragment:', gl.getShaderInfoLog(fragShader));
+                ctx.failed = true;
+                return false;
+            }
+            gl.useProgram(program);
+            gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+            const aPosition = gl.getAttribLocation(program, 'aPosition');
+            gl.enableVertexAttribArray(aPosition);
+            gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+            ctx.uniforms = {};
+            UNIFORM_NAMES.forEach((name) => { ctx.uniforms[name] = gl.getUniformLocation(program, name); });
+            ctx.ready = true;
+            return true;
+        };
+
+        return ctx;
     }
 
     // Every upload is routed through a 2D canvas rather than handed the <img>
@@ -407,7 +435,10 @@
     }
 
     // view: {imgW, imgH, cssW, cssH, coverUV, center, front}
+    // Returns false while the program is still building, so the caller knows
+    // to come back for another frame.
     function drawWatercolor(ctx, view, timeSec) {
+        if (!ctx.poll()) return false;
         const { gl, program, uniforms, texture } = ctx;
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
@@ -430,6 +461,7 @@
         gl.uniform1f(uniforms.uTime, timeSec);
 
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        return true;
     }
 
     // Backing-store size for a CSS-pixel surface, DPR capped at 2.
@@ -501,6 +533,48 @@
     // small scroll jitter right at the boundary doesn't thrash init/teardown.
     const ROOT_MARGIN = '400px 0px 400px 0px';
 
+    /* ---------------------------------------------------------------
+       Live-context budget.
+
+       Cards used to be torn down the moment they left the activation band
+       and rebuilt on the way back — and a rebuild means recompiling the
+       shader, so nudging the scroll back and forth over a boundary paid
+       that cost again and again.
+
+       Contexts are now kept until the budget forces one out, and the
+       furthest card from the viewport is the one that goes. That caps how
+       many live contexts exist — browsers allow somewhere around 8-16 per
+       page and silently blank the oldest past that, which is why simply
+       never tearing down isn't an option — while making ordinary scrolling
+       cost nothing.
+    --------------------------------------------------------------- */
+    const MAX_LIVE_CONTEXTS = 8;
+    const liveCards = [];
+
+    function noteCardActive(card) {
+        const i = liveCards.indexOf(card);
+        if (i !== -1) liveCards.splice(i, 1);
+        liveCards.push(card);
+
+        while (liveCards.length > MAX_LIVE_CONTEXTS) {
+            // Evict the furthest from the viewport, never the newest arrival.
+            let worst = -1, worstDist = -Infinity;
+            for (let j = 0; j < liveCards.length - 1; j++) {
+                const d = liveCards[j].distance();
+                if (d > worstDist) { worstDist = d; worst = j; }
+            }
+            if (worst < 0) break;
+            // Spliced first: teardown() calls noteCardInactive, which then
+            // finds nothing left to remove.
+            liveCards.splice(worst, 1)[0].teardown();
+        }
+    }
+
+    function noteCardInactive(card) {
+        const i = liveCards.indexOf(card);
+        if (i !== -1) liveCards.splice(i, 1);
+    }
+
     // Card textures are uploaded a little larger than the card currently is,
     // so the common small window resize costs nothing. The lightbox doesn't
     // take this margin: it is already at the size budget's ceiling, and it
@@ -546,6 +620,18 @@
         let revealed = false;
 
         textLayer.inert = true;
+
+        // What the live-context budget tracks this card by.
+        const budgetEntry = {
+            teardown: function () { teardown(); },
+            distance: function () {
+                const r = stage.getBoundingClientRect();
+                const vh = window.innerHeight;
+                if (r.bottom < 0) return -r.bottom;   // above the viewport
+                if (r.top > vh) return r.top - vh;    // below it
+                return 0;                             // on screen
+            },
+        };
 
         function ensurePoster() {
             if (!posterLayer || !posterLayer.isConnected) {
@@ -624,8 +710,8 @@
         }
 
         function draw(timeSec) {
-            if (!ctx || !textureReady) return;
-            drawWatercolor(ctx, {
+            if (!ctx || !textureReady) return false;
+            return drawWatercolor(ctx, {
                 imgW: imgNaturalW, imgH: imgNaturalH,
                 cssW: stageCssW, cssH: stageCssH,
                 coverUV: coverUV, center: center, front: currentFront,
@@ -663,7 +749,10 @@
                 }
             }
             draw(nowMs / 1000);
-            if (transitioning) scheduleFrame();
+            if (ctx && ctx.failed) { enableFallback(); return; }
+            // Keep coming back while the program is still building, otherwise
+            // a card that settled before its shader linked would never paint.
+            if (transitioning || (ctx && !ctx.ready)) scheduleFrame();
         }
 
         function triggerAt(x, y) {
@@ -753,6 +842,7 @@
             ctx = null;
             textureReady = false;
             uploadedEdge = 0;
+            noteCardInactive(budgetEntry);
             resetLogicalState();
             ensurePoster();
         }
@@ -763,6 +853,7 @@
 
             ctx = createWatercolorContext(canvas);
             if (!ctx) { enableFallback(); return; }
+            noteCardActive(budgetEntry);
 
             textureReady = false;
             sizeObserver = new ResizeObserver(syncCanvasGeometry);
@@ -813,14 +904,13 @@
             }
         });
 
+        // Activation only. Releasing is the budget's job, so scrolling a card
+        // just out of range and back no longer rebuilds its context.
         const io = new IntersectionObserver((entries) => {
             for (const entry of entries) {
-                if (entry.isIntersecting) {
-                    init();
-                    if (usingFallback) { io.disconnect(); return; } // WebGL failed — no lazy management needed
-                } else {
-                    teardown();
-                }
+                if (!entry.isIntersecting) continue;
+                init();
+                if (usingFallback) { io.disconnect(); return; } // WebGL failed — no lazy management needed
             }
         }, { rootMargin: ROOT_MARGIN, threshold: 0 });
         io.observe(stage);
@@ -1011,7 +1101,7 @@
                     coverUV: coverUV, center: [cssW / 2, cssH / 2], front: front,
                 }, nowMs / 1000);
             }
-            if (transitioning) scheduleFrame();
+            if (transitioning || (isOpen && ctx && !ctx.ready && !ctx.failed)) scheduleFrame();
         }
 
         // Shows image `i`. `animateIn` is true when entering the lightbox and

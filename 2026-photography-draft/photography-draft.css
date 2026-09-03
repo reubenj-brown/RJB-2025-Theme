@@ -20,7 +20,12 @@
     --link-hover-color: var(--cr-cobalt);
 
     background: var(--main-content-bg);
-    overflow-x: hidden;
+    /* `clip`, not `hidden`. overflow-x: hidden forces the other axis to
+       compute as `auto`, which quietly makes this element a scroll container
+       — an extra scrollport the browser manages, with its own scroll
+       anchoring, wrapped around the whole page. `clip` cuts off horizontal
+       overflow without any of that. */
+    overflow-x: clip;
 }
 
 

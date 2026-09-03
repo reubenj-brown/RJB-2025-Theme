@@ -65,15 +65,27 @@ document.addEventListener('DOMContentLoaded', function() {
             queued = true;
             requestAnimationFrame(function() { queued = false; update(); });
         }
+        // Reused between frames so a scroll doesn't allocate per element.
+        const tops = new Array(elements.length);
+
         function update() {
             const vh = window.innerHeight;
             const from = fromVh * vh;
             const to = toVh * vh;
             const span = (from - to) || 1;
-            elements.forEach(function(el) {
-                const top = el.getBoundingClientRect().top;
+
+            // Read every position BEFORE writing any style. Interleaving them
+            // means each write invalidates style and the next
+            // getBoundingClientRect() has to flush it again — one forced
+            // recalc per card per frame instead of one for the whole batch.
+            for (let i = 0; i < elements.length; i++) {
+                tops[i] = elements[i].getBoundingClientRect().top;
+            }
+
+            for (let i = 0; i < elements.length; i++) {
+                const el = elements[i];
                 // 0 = untouched, 1 = fully faded
-                let p = (from - top) / span;
+                let p = (from - tops[i]) / span;
                 if (p < 0) p = 0; else if (p > 1) p = 1;
                 const opacity = 1 - p;
                 const blur = p * MAX_BLUR;
@@ -91,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     el.style.filter = blur > 0 ? 'blur(' + blur + 'px)' : '';
                     el._wcBlur = blur;
                 }
-            });
+            }
         }
         update();
         window.addEventListener('scroll', onScroll, { passive: true });
