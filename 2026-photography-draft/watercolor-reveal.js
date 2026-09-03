@@ -246,12 +246,32 @@
         'uEdgeWidth', 'uEdgeAmp', 'uGranAmp', 'uChromaAmp', 'uBleedWidth', 'uTime'
     ];
 
-    // Hard ceiling on the long edge of any texture. The gallery already serves
-    // a 1920-capped size, so normally this changes nothing — it's here so the
-    // cap still holds on an attachment that falls back to its full-size
-    // original because the 'wc-card' size was never generated for it, and on
-    // the lightbox, which deliberately loads the full original.
-    const MAX_CARD_EDGE = 1920;
+    // Absolute ceiling on the long edge of any texture, as a backstop against
+    // a pathologically large original. The real limit is per-surface: each
+    // caller asks for the number of pixels its own canvas can actually show
+    // (see textureEdgeFor / the lightbox's applyTexture), so nothing is
+    // uploaded larger than it will be displayed.
+    //
+    // This used to be a flat 1920 shared by the cards and the lightbox, which
+    // meant a full-screen photo on a retina display was a 1920px texture
+    // stretched across a ~2800px canvas — the whole point of fetching the
+    // original was being thrown away on upload.
+    const MAX_TEXTURE_EDGE = 4096;
+
+    // Device pixels per CSS pixel, capped at 2. Above 2 the extra resolution
+    // is past what the effect resolves and the fill-rate cost is real, and
+    // syncCanvasSize() caps the backing store the same way — so the texture
+    // budget has to use the same number or it oversamples for nothing.
+    function pixelRatio() {
+        return Math.min(window.devicePixelRatio || 1, 2);
+    }
+
+    // How many texture pixels a surface of this CSS size actually needs.
+    // `headroom` buys a margin so an ordinary window resize doesn't
+    // immediately undersample and force a re-upload.
+    function textureEdgeFor(cssW, cssH, headroom) {
+        return Math.ceil(Math.max(cssW, cssH) * pixelRatio() * (headroom || 1));
+    }
 
     /* ---------------------------------------------------------------
        Shared WebGL plumbing. The cards and the lightbox run the same
@@ -317,23 +337,37 @@
     //    2D canvas converts into the canvas colour space (sRGB) properly, so
     //    what reaches the GPU matches what the browser would have painted.
     //
-    // 2. SIZE. The same pass caps the long edge at MAX_CARD_EDGE, which is
-    //    also below every GPU's MAX_TEXTURE_SIZE (commonly 4096 on older
-    //    mobile). That second limit matters because texImage2D fails outright
-    //    on an oversized source, leaving nothing drawn at all.
+    // 2. SIZE. The same pass resamples down to the caller's pixel budget, and
+    //    clamps that against the GPU's MAX_TEXTURE_SIZE (commonly 4096 on
+    //    older mobile). That second limit matters because texImage2D fails
+    //    outright on an oversized source, leaving nothing drawn at all.
+    //
+    // `maxEdge` is the caller's own budget — the long edge, in texture pixels,
+    // that its canvas can actually display. It is clamped by the GPU limit and
+    // by MAX_TEXTURE_EDGE, and never upscales: a source smaller than the budget
+    // is uploaded as-is.
     //
     // Returns the uploaded {width, height}, which is what the caller must use
     // for uImageSize and the cover-fit maths — not the original's dimensions.
-    function uploadImage(ctx, img) {
+    function uploadImage(ctx, img, maxEdge) {
         const { gl, texture } = ctx;
-        const maxDim = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096, MAX_CARD_EDGE);
+        const hardCap = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096, MAX_TEXTURE_EDGE);
+        const maxDim = Math.max(1, Math.min(hardCap, maxEdge || hardCap));
         const longest = Math.max(img.naturalWidth, img.naturalHeight);
         const k = longest > maxDim ? maxDim / longest : 1;
 
         const c = document.createElement('canvas');
         c.width = Math.max(1, Math.round(img.naturalWidth * k));
         c.height = Math.max(1, Math.round(img.naturalHeight * k));
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        const c2d = c.getContext('2d');
+        // The default smoothing quality is 'low' — a cheap bilinear tap that
+        // discards most of the source when the reduction is more than about
+        // 2x, which is exactly what a 1920px file drawn into a ~900px card
+        // does. On a detailed photograph that reads as aliasing, and aliasing
+        // reads as compression. 'high' asks for a properly filtered resample.
+        c2d.imageSmoothingEnabled = true;
+        c2d.imageSmoothingQuality = 'high';
+        c2d.drawImage(img, 0, 0, c.width, c.height);
 
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c);
@@ -467,6 +501,12 @@
     // small scroll jitter right at the boundary doesn't thrash init/teardown.
     const ROOT_MARGIN = '400px 0px 400px 0px';
 
+    // Card textures are uploaded a little larger than the card currently is,
+    // so the common small window resize costs nothing. The lightbox doesn't
+    // take this margin: it is already at the size budget's ceiling, and it
+    // re-uploads on resize instead.
+    const CARD_TEXTURE_HEADROOM = 1.2;
+
     // ---- one persistent controller per card ----
     // All per-card state and functions live in this one closure for the
     // card's entire lifetime on the page. init()/teardown() only create and
@@ -494,6 +534,7 @@
 
         let cachedImg = null; // decoded <img>, kept across teardown/reinit cycles
         let textureReady = false;
+        let uploadedEdge = 0; // long edge of whatever is currently on the GPU
         let stageCssW = 0, stageCssH = 0, imgNaturalW = 0, imgNaturalH = 0;
         let coverUV = [1, 1, 0, 0];
 
@@ -567,6 +608,18 @@
             // Rest position depends on the tuning, which scales off the card's
             // size — so it has to be recomputed whenever that size changes.
             if (!revealed && !transitioning) currentFront = restFrontFor(stageCssW, stageCssH);
+
+            // A widened window (or a rotation) can make the card bigger than
+            // the texture that was uploaded for it. Re-upload only when the
+            // shortfall is real AND the source file actually has the extra
+            // pixels, so a drag-resize doesn't re-upload on every frame and a
+            // card that is already showing its source 1:1 never re-uploads.
+            if (textureReady && cachedImg) {
+                const want = textureEdgeFor(stageCssW, stageCssH, CARD_TEXTURE_HEADROOM);
+                const available = Math.max(cachedImg.naturalWidth, cachedImg.naturalHeight);
+                if (want > uploadedEdge * 1.1 && uploadedEdge < available) uploadTexture();
+            }
+
             scheduleFrame();
         }
 
@@ -655,12 +708,22 @@
 
         function uploadTexture() {
             if (!ctx) return; // torn down again before this image finished loading
+            // Upload at the card's own display resolution rather than the
+            // file's. A 1920px source minified onto a ~900px canvas by the
+            // sampler (LINEAR, and WebGL 1 can't mipmap a non-power-of-two
+            // texture) aliased badly; resampling once, properly, on the way in
+            // and then sampling near 1:1 is both sharper and a fraction of the
+            // texture memory.
+            //
             // Whatever actually reached the GPU, not the original — uImageSize
             // drives the wet-bleed's texel step, and the cover-fit maths wants
             // the uploaded aspect (identical, since the cap is proportional).
-            const size = uploadImage(ctx, cachedImg);
+            const size = uploadImage(
+                ctx, cachedImg, textureEdgeFor(stageCssW, stageCssH, CARD_TEXTURE_HEADROOM)
+            );
             imgNaturalW = size.width;
             imgNaturalH = size.height;
+            uploadedEdge = Math.max(size.width, size.height);
             computeCoverUV();
             textureReady = true;
             if (posterLayer) { posterLayer.remove(); posterLayer = null; }
@@ -689,6 +752,7 @@
             }
             ctx = null;
             textureReady = false;
+            uploadedEdge = 0;
             resetLogicalState();
             ensurePoster();
         }
@@ -823,6 +887,7 @@
         let isOpen = false, index = -1, lastFocused = null;
         let textureReady = false, rafId = null;
         let imgW = 0, imgH = 0, cssW = 0, cssH = 0, coverUV = [1, 1, 0, 0];
+        let uploadedImg = null; // source behind the current texture, for re-upload on resize
         let front = 0, transitioning = false;
         let animFrom = 0, animTo = 0, animStart = 0, onSettled = null;
         let animCutMs = ANIM_DUR_MS;
@@ -869,11 +934,21 @@
             cssH = rect.height;
         }
 
+        // Fit the frame BEFORE uploading. The figure's box comes from the
+        // photo's aspect ratio, which the texture budget never changes — so
+        // fitting first gives the real CSS size the canvas is about to have,
+        // and therefore how many pixels the texture actually needs.
+        //
+        // This is the fix for the soft lightbox: the upload used to be capped
+        // at the cards' 1920, so a full-screen photo on a retina display was a
+        // 1920px texture magnified across a ~2800px canvas. The full-size file
+        // was already on the wire; it just wasn't reaching the GPU.
         function applyTexture(img) {
-            const size = uploadImage(ctx, img);
+            fitFigure(img.naturalWidth, img.naturalHeight);
+            const size = uploadImage(ctx, img, textureEdgeFor(cssW, cssH));
             imgW = size.width;
             imgH = size.height;
-            fitFigure(imgW, imgH);
+            uploadedImg = img;
             syncCanvasSize(ctx.gl, canvas, cssW, cssH);
             coverUV = coverUVFor(cssW, cssH, imgW, imgH);
             textureReady = true;
@@ -1032,6 +1107,7 @@
             generation++; // orphan any in-flight image loads
             if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
             textureReady = false;
+            uploadedImg = null;
             lightbox.classList.remove('active'); // no-op if already removed
             fallbackImg.src = '';
             index = -1;
@@ -1096,9 +1172,20 @@
 
         window.addEventListener('resize', function () {
             if (!isOpen || !useGL || !textureReady) return;
-            fitFigure(imgW, imgH);
-            syncCanvasSize(ctx.gl, canvas, cssW, cssH);
-            coverUV = coverUVFor(cssW, cssH, imgW, imgH);
+            // A window that grew (or a rotation into landscape) can outrun the
+            // texture uploaded for the old frame. applyTexture() refits and
+            // re-uploads in one pass; otherwise just refit, which is free.
+            const want = textureEdgeFor(cssW, cssH);
+            const available = uploadedImg
+                ? Math.max(uploadedImg.naturalWidth, uploadedImg.naturalHeight)
+                : 0;
+            if (uploadedImg && want > Math.max(imgW, imgH) * 1.1 && Math.max(imgW, imgH) < available) {
+                applyTexture(uploadedImg);
+            } else {
+                fitFigure(imgW, imgH);
+                syncCanvasSize(ctx.gl, canvas, cssW, cssH);
+                coverUV = coverUVFor(cssW, cssH, imgW, imgH);
+            }
             if (!transitioning) front = restFront();
             scheduleFrame();
         });
