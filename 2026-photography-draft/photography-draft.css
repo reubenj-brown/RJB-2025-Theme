@@ -137,6 +137,11 @@
     aspect-ratio: var(--card-ratio, 4/5);
     cursor: crosshair;
     outline-offset: 4px;
+    /* Same shadow as the homepage reviews section. On the stage rather than
+       on the media inside it: `overflow: hidden` clips an element's children,
+       not its own box-shadow, so this renders — the previous attempt put it on
+       the image, where the stage's overflow swallowed it on all four sides. */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* Video cards are non-interactive — nothing to click, so no crosshair. */
@@ -204,18 +209,42 @@
     color: var(--text-color);
 }
 
-.wc-read-more {
+/* Bottom row of the card: expand on the left, read more on the right.
+   space-between puts expand hard left when it's the only one there, which
+   is the common case — read more is opt-in per card in the CMS. */
+.wc-card-actions {
     margin-top: auto;
-    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+/* One rule for both controls — they're the same thing wearing different
+   labels. Fixed size, deliberately not tied to --card-scale. */
+.wc-read-more,
+.wc-expand {
     font-family: var(--primary-font);
     font-size: var(--fs-base);
     font-weight: 600;
     color: var(--text-color);
     text-decoration: none;
+    /* <button> resets, so .wc-expand matches the anchor exactly */
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
 }
 
-.wc-read-more:hover {
+.wc-read-more:hover,
+.wc-expand:hover {
     color: var(--link-hover-color);
+}
+
+/* Belt and braces: keeps read more right-aligned even if expand is absent. */
+.wc-read-more {
+    margin-left: auto;
 }
 
 

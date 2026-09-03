@@ -5,8 +5,9 @@
    Ported verbatim (bar selectors) from watercolor-reveal-gallery.html,
    the canonical reference implementation. Clicking a card dissolves the
    photo away from the click point with an organic, pigment-like edge,
-   revealing the caption underneath over 5 seconds; clicking again flows
-   it back.
+   revealing the caption underneath over ANIM_DUR_S seconds; clicking again
+   flows it back. Each card also carries an "expand" control that opens the
+   full-size original in the site's shared .photo-lightbox.
 
    Four things in here look wrong and are not — see the design reference:
 
@@ -567,7 +568,7 @@
         if (reduceMotion) {
             enableFallback();
             stage.addEventListener('click', function (e) {
-                if (e.target.closest('.wc-read-more')) return;
+                if (e.target.closest('.wc-card-actions')) return;
                 crossfadeToggle();
             });
             stage.addEventListener('keydown', (e) => {
@@ -577,8 +578,9 @@
         }
 
         stage.addEventListener('click', (e) => {
-            // Let the read-more link do its job without also firing a reveal.
-            if (e.target.closest('.wc-read-more')) return;
+            // Let the card's own controls do their job without also firing a
+            // reveal underneath them.
+            if (e.target.closest('.wc-card-actions')) return;
             const rect = stage.getBoundingClientRect();
             triggerAt(e.clientX - rect.left, e.clientY - rect.top);
         });
@@ -633,9 +635,72 @@
         if (p && p.catch) p.catch(function () { });
     }
 
+    /* ---------------------------------------------------------------
+       Lightbox. Reuses the site's existing .photo-lightbox component —
+       same markup contract and same styles as the one on the live
+       photography page, which now live in the plugin's base-sections.css
+       so both pages can reach them.
+
+       The card shows a 1920-capped file; the lightbox asks for the
+       original, which is only fetched at the moment someone expands.
+    --------------------------------------------------------------- */
+    function setupLightbox(grid) {
+        const lightbox = document.getElementById('photoLightbox');
+        if (!lightbox) return;
+        const img = lightbox.querySelector('.photo-lightbox-image');
+        const closeBtn = lightbox.querySelector('.photo-lightbox-close');
+        const buttons = Array.prototype.slice.call(grid.querySelectorAll('.wc-expand'));
+        if (!img || !buttons.length) return;
+
+        let index = -1;
+        let lastFocused = null;
+
+        function show(i) {
+            index = (i + buttons.length) % buttons.length; // wrap both ways
+            img.src = buttons[index].dataset.full;
+            img.alt = buttons[index].dataset.alt || '';
+        }
+
+        function open(i) {
+            lastFocused = document.activeElement;
+            show(i);
+            lightbox.classList.add('active');
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function close() {
+            lightbox.classList.remove('active');
+            img.src = '';
+            index = -1;
+            // Send focus back where it came from rather than to the top of
+            // the document — the button that opened this is inside a text
+            // layer that may since have been hidden, hence the guard.
+            if (lastFocused && lastFocused.isConnected) lastFocused.focus();
+            lastFocused = null;
+        }
+
+        buttons.forEach(function (btn, i) {
+            btn.addEventListener('click', function () { open(i); });
+        });
+
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) close(); // backdrop only, not the image
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') { close(); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+        });
+    }
+
     function boot() {
         const grid = document.getElementById('photoFloatingGrid');
         if (!grid) return;
+
+        setupLightbox(grid);
 
         grid.querySelectorAll('.photo-card:not(.photo-card-video) .wc-stage')
             .forEach(setupCard);
