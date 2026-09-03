@@ -34,25 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
        Scroll fade — elements blur and dissolve as they leave the top of
        the viewport.
 
-       Keyed to each element's BOTTOM edge, not its top. Keying to the top
-       meant a card hit zero opacity the instant its top edge touched the
-       top of the screen — while several hundred pixels of photo still
-       filled the viewport underneath it. It also made the fade depend on
-       card height: --card-scale randomises that, so cards side by side in
-       a row started fading together but looked nothing alike doing it.
+       The ramp is a straight line between two positions of the element's
+       top edge, both given as fractions of viewport height: positive is
+       below the top of the screen, negative is above it. Two callers with
+       deliberately different shapes:
 
-       Off the bottom edge the fade tracks the element actually leaving, so
-       it behaves the same whatever height a card happened to roll.
+       INTRO  0.20 -> 0     the original behaviour. Fades over the last
+                            fifth of a screen of approach and is gone as
+                            it reaches the top.
 
-       FADE_BAND is how far above the top of the viewport the ramp runs,
-       as a fraction of viewport height: the fade starts when the bottom
-       edge is that far down the screen, and completes when it reaches the
-       top. This is the one number to turn.
+       CARDS  0 -> -0.35    starts the instant a card's top edge touches
+                            the top of the screen, then dissolves over the
+                            next third of a screen of travel.
+
+       Cards were keyed off their bottom edge for a while, which read as
+       far too soft: a card tall enough that its bottom only entered the
+       band once it had all but gone would barely blur at all. Starting
+       at zero fires for every card at the same moment regardless of the
+       height --card-scale rolled for it, which is the point.
     --------------------------------------------------------------- */
-    const FADE_BAND = 0.45;
     const MAX_BLUR = 10;
 
-    function fadeOnApproach(elements) {
+    function fadeOnApproach(elements, fromVh, toVh) {
         let queued = false;
         function onScroll() {
             // rAF-throttled: this reads getBoundingClientRect() for every card,
@@ -63,15 +66,15 @@ document.addEventListener('DOMContentLoaded', function() {
             requestAnimationFrame(function() { queued = false; update(); });
         }
         function update() {
-            const band = (window.innerHeight * FADE_BAND) || 1;
+            const vh = window.innerHeight;
+            const from = fromVh * vh;
+            const to = toVh * vh;
+            const span = (from - to) || 1;
             elements.forEach(function(el) {
-                const bottom = el.getBoundingClientRect().bottom;
-                let p = 0; // 0 = untouched, 1 = fully faded
-                if (bottom <= 0) {
-                    p = 1;                      // wholly above the viewport
-                } else if (bottom < band) {
-                    p = 1 - bottom / band;
-                }
+                const top = el.getBoundingClientRect().top;
+                // 0 = untouched, 1 = fully faded
+                let p = (from - top) / span;
+                if (p < 0) p = 0; else if (p > 1) p = 1;
                 const opacity = 1 - p;
                 const blur = p * MAX_BLUR;
                 // Only touch the DOM when a value actually changed, and drop
@@ -96,10 +99,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const intro = document.querySelector('.photo-draft-intro h3');
-    if (intro) fadeOnApproach([intro]);
+    if (intro) fadeOnApproach([intro], 0.20, 0);
 
     const cards = document.querySelectorAll('.photo-card');
-    if (cards.length) fadeOnApproach(Array.prototype.slice.call(cards));
+    if (cards.length) fadeOnApproach(Array.prototype.slice.call(cards), 0, -0.35);
 
     /* ---------------------------------------------------------------
        Replace header navigation with the "← Home / Photography"
