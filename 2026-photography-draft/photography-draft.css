@@ -302,6 +302,59 @@
 
 
 /* ============================================================
+   LIGHTBOX FIGURE
+   The backdrop and close button come from the shared .photo-lightbox
+   component in the plugin's base-sections.css. What's added here is the
+   frame the watercolor canvas draws into.
+
+   The figure takes the photo's own aspect ratio and is sized to the
+   largest box of that ratio that fits inside 96vw x 96vh — so the canvas
+   matches the image exactly, the shader's cover-fit crops nothing, and
+   the effect's geometry is identical to a card's.
+   ============================================================ */
+
+.photo-lightbox-figure {
+    position: relative;
+    --lb-ratio: 1.5;
+    aspect-ratio: var(--lb-ratio);
+    width: min(96vw, calc(96vh * var(--lb-ratio)));
+    max-width: 96vw;
+    max-height: 96vh;
+    cursor: crosshair;
+}
+
+/* Inside the figure this is the no-WebGL / reduced-motion fallback, so it
+   fills the frame rather than sizing itself the way it does standalone on
+   the live photography page. */
+.photo-lightbox-figure .photo-lightbox-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+}
+
+.photo-lightbox-gl {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Exactly one of the two is ever live. */
+.photo-lightbox-figure.wc-gl-active .photo-lightbox-image {
+    visibility: hidden;
+}
+
+.photo-lightbox-figure:not(.wc-gl-active) .photo-lightbox-gl {
+    display: none;
+}
+
+
+/* ============================================================
    CARD TEXT — the article prose scale, copied from
    `.story-content-inner p:not(.story-meta)` in story-templates.css.
    ============================================================ */

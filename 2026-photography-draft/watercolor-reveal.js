@@ -215,17 +215,186 @@
         return shader;
     }
 
+    const UNIFORM_NAMES = [
+        'uImage', 'uImageSize', 'uStageCss', 'uCoverUV', 'uCenter', 'uFront',
+        'uEdgeWidth', 'uEdgeAmp', 'uGranAmp', 'uChromaAmp', 'uBleedWidth', 'uTime'
+    ];
+
+    // Hard ceiling on the long edge of any texture. The gallery already serves
+    // a 1920-capped size, so normally this changes nothing — it's here so the
+    // cap still holds on an attachment that falls back to its full-size
+    // original because the 'wc-card' size was never generated for it, and on
+    // the lightbox, which deliberately loads the full original.
+    const MAX_CARD_EDGE = 1920;
+
+    /* ---------------------------------------------------------------
+       Shared WebGL plumbing. The cards and the lightbox run the same
+       shader over the same quad and differ only in what drives uFront,
+       so everything from context creation to the draw call lives here
+       once rather than in each controller.
+    --------------------------------------------------------------- */
+
+    // Returns {gl, program, uniforms, texture} or null if WebGL is unavailable
+    // or the program won't build. Callers fall back to a plain crossfade.
+    function createWatercolorContext(canvas) {
+        const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true })
+            || canvas.getContext('experimental-webgl', { alpha: true, premultipliedAlpha: true });
+        if (!gl) return null;
+
+        const vertShader = compileShader(gl, gl.VERTEX_SHADER, VERT_SRC);
+        const fragShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAG_SRC);
+        if (!vertShader || !fragShader) return null;
+
+        const program = gl.createProgram();
+        gl.attachShader(program, vertShader);
+        gl.attachShader(program, fragShader);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            console.error('Program link error:', gl.getProgramInfoLog(program));
+            return null;
+        }
+        gl.useProgram(program);
+
+        const quadBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+            -1, -1, 1, -1, -1, 1, 1, 1
+        ]), gl.STATIC_DRAW);
+        const aPosition = gl.getAttribLocation(program, 'aPosition');
+        gl.enableVertexAttribArray(aPosition);
+        gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+        const uniforms = {};
+        UNIFORM_NAMES.forEach((name) => { uniforms[name] = gl.getUniformLocation(program, name); });
+
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 0]));
+
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+        return { gl, program, uniforms, texture };
+    }
+
+    // Every upload is routed through a 2D canvas rather than handed the <img>
+    // directly. Two reasons, both load-bearing:
+    //
+    // 1. COLOUR. A WebGL texture upload is not colour-managed — raw decoded
+    //    pixels go to the GPU and get composited as though they were sRGB.
+    //    A Display-P3 or Adobe RGB photo therefore renders visibly shifted
+    //    against a colour-managed <img> of the same file. drawImage() into a
+    //    2D canvas converts into the canvas colour space (sRGB) properly, so
+    //    what reaches the GPU matches what the browser would have painted.
+    //
+    // 2. SIZE. The same pass caps the long edge at MAX_CARD_EDGE, which is
+    //    also below every GPU's MAX_TEXTURE_SIZE (commonly 4096 on older
+    //    mobile). That second limit matters because texImage2D fails outright
+    //    on an oversized source, leaving nothing drawn at all.
+    //
+    // Returns the uploaded {width, height}, which is what the caller must use
+    // for uImageSize and the cover-fit maths — not the original's dimensions.
+    function uploadImage(ctx, img) {
+        const { gl, texture } = ctx;
+        const maxDim = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096, MAX_CARD_EDGE);
+        const longest = Math.max(img.naturalWidth, img.naturalHeight);
+        const k = longest > maxDim ? maxDim / longest : 1;
+
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.naturalWidth * k));
+        c.height = Math.max(1, Math.round(img.naturalHeight * k));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c);
+
+        const size = { width: c.width, height: c.height };
+        // Release the intermediate immediately. At full resolution this backing
+        // store is tens of MB and iOS Safari is slow to reclaim it on GC alone.
+        c.width = c.height = 1;
+        return size;
+    }
+
+    // Cover-fit UV transform: [scaleX, scaleY, offsetX, offsetY].
+    function coverUVFor(cssW, cssH, imgW, imgH) {
+        if (!cssW || !cssH || !imgW || !imgH) return [1, 1, 0, 0];
+        const stageAspect = cssW / cssH;
+        const imageAspect = imgW / imgH;
+        if (imageAspect > stageAspect) {
+            const sx = stageAspect / imageAspect;
+            return [sx, 1, (1 - sx) / 2, 0];
+        }
+        const sy = imageAspect / stageAspect;
+        return [1, sy, 0, (1 - sy) / 2];
+    }
+
+    // Edge/granulation/chroma/bleed amounts, all scaled off the surface's
+    // short side so the look holds from a small card up to a full-screen
+    // lightbox. Set by eye against a handful of test photos.
+    function tuningFor(cssW, cssH) {
+        const s = Math.min(cssW, cssH) || 480;
+        return {
+            edgeWidth: s * 0.02,
+            edgeAmp: s * 0.05,
+            granAmp: 0.9,
+            chromaAmp: s * 0.012,
+            bleedWidth: s * 0.05,
+        };
+    }
+
+    // view: {imgW, imgH, cssW, cssH, coverUV, center, front}
+    function drawWatercolor(ctx, view, timeSec) {
+        const { gl, program, uniforms, texture } = ctx;
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.useProgram(program);
+
+        const t = tuningFor(view.cssW, view.cssH);
+        gl.uniform1i(uniforms.uImage, 0);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.uniform2f(uniforms.uImageSize, view.imgW, view.imgH);
+        gl.uniform2f(uniforms.uStageCss, view.cssW, view.cssH);
+        gl.uniform4f(uniforms.uCoverUV, view.coverUV[0], view.coverUV[1], view.coverUV[2], view.coverUV[3]);
+        gl.uniform2f(uniforms.uCenter, view.center[0], view.center[1]);
+        gl.uniform1f(uniforms.uFront, view.front);
+        gl.uniform1f(uniforms.uEdgeWidth, t.edgeWidth);
+        gl.uniform1f(uniforms.uEdgeAmp, t.edgeAmp);
+        gl.uniform1f(uniforms.uGranAmp, t.granAmp);
+        gl.uniform1f(uniforms.uChromaAmp, t.chromaAmp);
+        gl.uniform1f(uniforms.uBleedWidth, t.bleedWidth);
+        gl.uniform1f(uniforms.uTime, timeSec);
+
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+
+    // Backing-store size for a CSS-pixel surface, DPR capped at 2.
+    function syncCanvasSize(gl, canvas, cssW, cssH) {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = Math.max(1, Math.round(cssW * dpr));
+        const h = Math.max(1, Math.round(cssH * dpr));
+        if (canvas.width !== w || canvas.height !== h) {
+            canvas.width = w;
+            canvas.height = h;
+            gl.viewport(0, 0, w, h);
+        }
+    }
+
+    // The furthest any point of a wxh surface sits from (x, y), plus headroom
+    // so the noise-displaced edge still clears the corners.
+    function maxRadiusFrom(x, y, w, h) {
+        return Math.hypot(Math.max(x, w - x), Math.max(y, h - y)) * 1.15;
+    }
+
     // How far outside the actual viewport (in CSS px) a card activates
     // before becoming visible, and stays active after leaving — a buffer
     // so cards don't visibly pop in/out right at the viewport edge, and so
     // small scroll jitter right at the boundary doesn't thrash init/teardown.
     const ROOT_MARGIN = '400px 0px 400px 0px';
-
-    // Hard ceiling on the long edge of any card texture. The gallery already
-    // serves a 1920-capped size, so normally this changes nothing — it's here
-    // so the cap still holds on an attachment that falls back to its full-size
-    // original because the 'wc-card' size was never generated for it.
-    const MAX_CARD_EDGE = 1920;
 
     // ---- one persistent controller per card ----
     // All per-card state and functions live in this one closure for the
@@ -246,7 +415,7 @@
         let posterLayer = stage.querySelector('.wc-poster');
         let canvas = stage.querySelector('.wc-gl');
 
-        let gl = null, program = null, texture = null, uniforms = null;
+        let ctx = null; // {gl, program, uniforms, texture} while active
         let sizeObserver = null;
         let rafId = null;
         let active = false;       // has a live WebGL context + render loop right now
@@ -311,68 +480,25 @@
         }
 
         function computeCoverUV() {
-            if (!stageCssW || !stageCssH || !imgNaturalW || !imgNaturalH) return;
-            const stageAspect = stageCssW / stageCssH;
-            const imageAspect = imgNaturalW / imgNaturalH;
-            if (imageAspect > stageAspect) {
-                const sx = stageAspect / imageAspect;
-                coverUV = [sx, 1, (1 - sx) / 2, 0];
-            } else {
-                const sy = imageAspect / stageAspect;
-                coverUV = [1, sy, 0, (1 - sy) / 2];
-            }
+            coverUV = coverUVFor(stageCssW, stageCssH, imgNaturalW, imgNaturalH);
         }
 
         function syncCanvasGeometry() {
-            if (!gl) return;
+            if (!ctx) return;
             const rect = stage.getBoundingClientRect();
             stageCssW = rect.width;
             stageCssH = rect.height;
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            const w = Math.max(1, Math.round(stageCssW * dpr));
-            const h = Math.max(1, Math.round(stageCssH * dpr));
-            if (canvas.width !== w || canvas.height !== h) {
-                canvas.width = w;
-                canvas.height = h;
-                gl.viewport(0, 0, w, h);
-            }
+            syncCanvasSize(ctx.gl, canvas, stageCssW, stageCssH);
             computeCoverUV();
         }
 
-        function tuning() {
-            const s = Math.min(stageCssW, stageCssH) || 480;
-            return {
-                edgeWidth: s * 0.02,
-                edgeAmp: s * 0.05,
-                granAmp: 0.9,
-                chromaAmp: s * 0.012,
-                bleedWidth: s * 0.05,
-            };
-        }
-
         function draw(timeSec) {
-            if (!gl || !textureReady) return;
-            gl.clearColor(0, 0, 0, 0);
-            gl.clear(gl.COLOR_BUFFER_BIT);
-            gl.useProgram(program);
-
-            const t = tuning();
-            gl.uniform1i(uniforms.uImage, 0);
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.uniform2f(uniforms.uImageSize, imgNaturalW, imgNaturalH);
-            gl.uniform2f(uniforms.uStageCss, stageCssW, stageCssH);
-            gl.uniform4f(uniforms.uCoverUV, coverUV[0], coverUV[1], coverUV[2], coverUV[3]);
-            gl.uniform2f(uniforms.uCenter, center[0], center[1]);
-            gl.uniform1f(uniforms.uFront, currentFront);
-            gl.uniform1f(uniforms.uEdgeWidth, t.edgeWidth);
-            gl.uniform1f(uniforms.uEdgeAmp, t.edgeAmp);
-            gl.uniform1f(uniforms.uGranAmp, t.granAmp);
-            gl.uniform1f(uniforms.uChromaAmp, t.chromaAmp);
-            gl.uniform1f(uniforms.uBleedWidth, t.bleedWidth);
-            gl.uniform1f(uniforms.uTime, timeSec);
-
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            if (!ctx || !textureReady) return;
+            drawWatercolor(ctx, {
+                imgW: imgNaturalW, imgH: imgNaturalH,
+                cssW: stageCssW, cssH: stageCssH,
+                coverUV: coverUV, center: center, front: currentFront,
+            }, timeSec);
         }
 
         function frame(nowMs) {
@@ -390,13 +516,6 @@
             draw(nowMs / 1000);
         }
 
-        function maxRadiusFor(x, y) {
-            return Math.hypot(
-                Math.max(x, stageCssW - x),
-                Math.max(y, stageCssH - y)
-            ) * 1.15;
-        }
-
         function triggerAt(x, y) {
             if (!active || usingFallback) return; // offscreen/inactive card ignores input
             const now = performance.now();
@@ -406,7 +525,7 @@
             center = [x, y];
             const revealing = !revealed;
             animFrom = currentFront;
-            animTo = revealing ? maxRadiusFor(x, y) : 0;
+            animTo = revealing ? maxRadiusFrom(x, y, stageCssW, stageCssH) : 0;
             animStart = now;
             transitioning = true;
 
@@ -419,51 +538,15 @@
             revealed = revealing;
         }
 
-        // Every upload is routed through a 2D canvas rather than handed the
-        // <img> directly. Two reasons, both load-bearing:
-        //
-        // 1. COLOUR. A WebGL texture upload is not colour-managed — raw decoded
-        //    pixels go to the GPU and get composited as though they were sRGB.
-        //    A Display-P3 or Adobe RGB photo therefore renders visibly shifted
-        //    on the canvas while the poster <img> underneath it renders
-        //    correctly, so swapping the poster out for the canvas produced a
-        //    jarring colour pop. drawImage() into a 2D canvas converts the
-        //    image into the canvas colour space (sRGB) with proper management,
-        //    so what reaches the GPU already matches what the poster showed.
-        //
-        // 2. SIZE. The same canvas pass caps the long edge at MAX_CARD_EDGE,
-        //    which is also below every GPU's MAX_TEXTURE_SIZE (commonly 4096
-        //    on older mobile hardware). That second limit matters because
-        //    texImage2D fails outright on an oversized source and leaves the
-        //    card blank, its poster having already been removed.
-        function makeTextureSource(img) {
-            const maxDim = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096, MAX_CARD_EDGE);
-            const longest = Math.max(img.naturalWidth, img.naturalHeight);
-            const k = longest > maxDim ? maxDim / longest : 1;
-
-            const c = document.createElement('canvas');
-            c.width = Math.max(1, Math.round(img.naturalWidth * k));
-            c.height = Math.max(1, Math.round(img.naturalHeight * k));
-            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-            return c;
-        }
-
         function uploadTexture() {
-            if (!gl || !texture) return; // torn down again before this image finished loading
-            const source = makeTextureSource(cachedImg);
+            if (!ctx) return; // torn down again before this image finished loading
             // Whatever actually reached the GPU, not the original — uImageSize
-            // drives the wet-bleed's texel step, and computeCoverUV wants the
-            // uploaded aspect (identical, since any downscale is proportional).
-            imgNaturalW = source.width;
-            imgNaturalH = source.height;
+            // drives the wet-bleed's texel step, and the cover-fit maths wants
+            // the uploaded aspect (identical, since the cap is proportional).
+            const size = uploadImage(ctx, cachedImg);
+            imgNaturalW = size.width;
+            imgNaturalH = size.height;
             computeCoverUV();
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
-            // Release the intermediate immediately. At full resolution this
-            // backing store is tens of MB, and iOS Safari in particular is slow
-            // to reclaim canvas memory on GC alone. The decoded <img> stays
-            // cached, so re-activating after teardown just redraws.
-            source.width = source.height = 1;
             textureReady = true;
             if (posterLayer) { posterLayer.remove(); posterLayer = null; }
         }
@@ -474,8 +557,8 @@
             if (rafId) cancelAnimationFrame(rafId);
             rafId = null;
             if (sizeObserver) { sizeObserver.disconnect(); sizeObserver = null; }
-            if (gl) {
-                const ext = gl.getExtension('WEBGL_lose_context');
+            if (ctx) {
+                const ext = ctx.gl.getExtension('WEBGL_lose_context');
                 if (ext) ext.loseContext();
             }
             // A context explicitly lost this way doesn't reliably come back on
@@ -488,7 +571,7 @@
                 canvas.replaceWith(fresh);
                 canvas = fresh;
             }
-            gl = null; program = null; texture = null; uniforms = null;
+            ctx = null;
             textureReady = false;
             resetLogicalState();
             ensurePoster();
@@ -498,49 +581,8 @@
             if (active || usingFallback) return;
             active = true;
 
-            gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true })
-                || canvas.getContext('experimental-webgl', { alpha: true, premultipliedAlpha: true });
-            if (!gl) { enableFallback(); return; }
-
-            const vertShader = compileShader(gl, gl.VERTEX_SHADER, VERT_SRC);
-            const fragShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAG_SRC);
-            if (!vertShader || !fragShader) { enableFallback(); return; }
-
-            program = gl.createProgram();
-            gl.attachShader(program, vertShader);
-            gl.attachShader(program, fragShader);
-            gl.linkProgram(program);
-            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-                console.error('Program link error:', gl.getProgramInfoLog(program));
-                enableFallback();
-                return;
-            }
-            gl.useProgram(program);
-
-            const quadBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-                -1, -1, 1, -1, -1, 1, 1, 1
-            ]), gl.STATIC_DRAW);
-            const aPosition = gl.getAttribLocation(program, 'aPosition');
-            gl.enableVertexAttribArray(aPosition);
-            gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
-
-            uniforms = {};
-            ['uImage', 'uImageSize', 'uStageCss', 'uCoverUV', 'uCenter', 'uFront', 'uEdgeWidth',
-                'uEdgeAmp', 'uGranAmp', 'uChromaAmp', 'uBleedWidth', 'uTime'
-            ].forEach((name) => { uniforms[name] = gl.getUniformLocation(program, name); });
-
-            texture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 0]));
-
-            gl.enable(gl.BLEND);
-            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+            ctx = createWatercolorContext(canvas);
+            if (!ctx) { enableFallback(); return; }
 
             textureReady = false;
             sizeObserver = new ResizeObserver(syncCanvasGeometry);
@@ -560,7 +602,7 @@
             }
             // else: cachedImg exists and is still loading from an earlier
             // activation — its onload (already pointed at uploadTexture) will
-            // fire and pick up whatever gl/texture are current at that point.
+            // fire and pick up whichever context is current at that point.
 
             rafId = requestAnimationFrame(frame);
         }
@@ -636,63 +678,246 @@
     }
 
     /* ---------------------------------------------------------------
-       Lightbox. Reuses the site's existing .photo-lightbox component —
-       same markup contract and same styles as the one on the live
-       photography page, which now live in the plugin's base-sections.css
-       so both pages can reach them.
+       Lightbox — the same shader, driven the other way round.
 
-       The card shows a 1920-capped file; the lightbox asks for the
-       original, which is only fetched at the moment someone expands.
+       On a card, uFront GROWS from the click point, so the region inside
+       it becomes transparent and the photo dissolves away. Run that in
+       reverse — uFront shrinking from the far corner back to the centre —
+       and the photo floods in from the outside edges instead. That's the
+       whole trick here: opening animates uFront max -> 0, dismissing
+       animates 0 -> max, and no shader change was needed for either.
+
+       Centre is the middle of the frame rather than a click point, so
+       both directions stay symmetrical.
+
+       Reuses the site's .photo-lightbox component for the backdrop and
+       close button; the figure and canvas are this page's addition.
     --------------------------------------------------------------- */
     function setupLightbox(grid) {
         const lightbox = document.getElementById('photoLightbox');
         if (!lightbox) return;
-        const img = lightbox.querySelector('.photo-lightbox-image');
+        const figure = lightbox.querySelector('.photo-lightbox-figure');
+        const fallbackImg = lightbox.querySelector('.photo-lightbox-image');
+        const canvas = lightbox.querySelector('.photo-lightbox-gl');
         const closeBtn = lightbox.querySelector('.photo-lightbox-close');
         const buttons = Array.prototype.slice.call(grid.querySelectorAll('.wc-expand'));
-        if (!img || !buttons.length) return;
+        if (!figure || !fallbackImg || !buttons.length) return;
 
-        let index = -1;
-        let lastFocused = null;
+        let ctx = null;
+        let useGL = !reduceMotion && !!canvas;
+        let isOpen = false, index = -1, lastFocused = null;
+        let textureReady = false, rafId = null;
+        let imgW = 0, imgH = 0, cssW = 0, cssH = 0, coverUV = [1, 1, 0, 0];
+        let front = 0, transitioning = false;
+        let animFrom = 0, animTo = 0, animStart = 0, onSettled = null;
+        let generation = 0; // guards against a slow full-res load landing late
 
-        function show(i) {
-            index = (i + buttons.length) % buttons.length; // wrap both ways
-            img.src = buttons[index].dataset.full;
-            img.alt = buttons[index].dataset.alt || '';
+        const imgCache = Object.create(null);
+
+        function loadImage(url) {
+            return new Promise(function (resolve, reject) {
+                let img = imgCache[url];
+                if (img) {
+                    if (img.complete && img.naturalWidth) { resolve(img); return; }
+                } else {
+                    img = new Image();
+                    imgCache[url] = img;
+                    img.src = url;
+                }
+                img.addEventListener('load', function () { resolve(img); }, { once: true });
+                img.addEventListener('error', reject, { once: true });
+            });
+        }
+
+        function fitFigure(w, h) {
+            // The figure takes the photo's own aspect ratio inside the
+            // 96vw/96vh box, so the canvas matches the image exactly and the
+            // shader's cover-fit becomes a no-op — nothing is cropped.
+            figure.style.setProperty('--lb-ratio', (w / h).toFixed(4));
+            const rect = figure.getBoundingClientRect();
+            cssW = rect.width;
+            cssH = rect.height;
+        }
+
+        function applyTexture(img) {
+            const size = uploadImage(ctx, img);
+            imgW = size.width;
+            imgH = size.height;
+            fitFigure(imgW, imgH);
+            syncCanvasSize(ctx.gl, canvas, cssW, cssH);
+            coverUV = coverUVFor(cssW, cssH, imgW, imgH);
+            textureReady = true;
+        }
+
+        function maxRadius() {
+            return maxRadiusFrom(cssW / 2, cssH / 2, cssW, cssH);
+        }
+
+        function animate(to, done) {
+            animFrom = front;
+            animTo = to;
+            animStart = performance.now();
+            transitioning = true;
+            onSettled = done || null;
+        }
+
+        function frame(nowMs) {
+            if (!isOpen) return;
+            rafId = requestAnimationFrame(frame);
+            if (transitioning) {
+                const frac = Math.min(1, (nowMs - animStart) / ANIM_DUR_MS);
+                front = animFrom + (animTo - animFrom) * ease(frac);
+                if (frac >= 1) {
+                    transitioning = false;
+                    front = animTo;
+                    const done = onSettled;
+                    onSettled = null;
+                    if (done) done();
+                }
+            }
+            if (!textureReady) return;
+            drawWatercolor(ctx, {
+                imgW: imgW, imgH: imgH,
+                cssW: cssW, cssH: cssH,
+                coverUV: coverUV, center: [cssW / 2, cssH / 2], front: front,
+            }, nowMs / 1000);
+        }
+
+        // Shows image `i`. `animateIn` is true when entering the lightbox and
+        // false when arrowing between photos, which swaps straight to the next
+        // one — a 4s dissolve per keypress would make browsing unusable.
+        function show(i, animateIn) {
+            index = (i + buttons.length) % buttons.length; // wraps both ways
+            const btn = buttons[index];
+            const gen = ++generation;
+
+            const alt = btn.dataset.alt || '';
+            fallbackImg.alt = alt;
+            if (canvas) {
+                // The fallback <img> is visibility:hidden while the canvas is
+                // driving, which takes it out of the accessibility tree — so
+                // the canvas has to carry the description itself.
+                canvas.setAttribute('role', 'img');
+                canvas.setAttribute('aria-label', alt || 'Photograph');
+            }
+
+            if (!useGL) {
+                fallbackImg.src = btn.dataset.full;
+                // The GL path sizes the figure in applyTexture(); this path
+                // still needs the frame to match the photo.
+                loadImage(btn.dataset.full).then(function (img) {
+                    if (gen !== generation) return;
+                    fitFigure(img.naturalWidth, img.naturalHeight);
+                }).catch(function () {
+                    console.error('Lightbox: image failed to load:', btn.dataset.full);
+                });
+                return;
+            }
+
+            textureReady = false;
+            // The card's own file is already in the browser cache, so the
+            // animation can start immediately on that; the full-size original
+            // is fetched in parallel and swapped in underneath once decoded.
+            loadImage(btn.dataset.card).then(function (img) {
+                if (gen !== generation || !isOpen) return;
+                applyTexture(img);
+                if (animateIn) {
+                    front = maxRadius();
+                    animate(0);
+                } else {
+                    front = 0;
+                }
+            }).catch(function () { /* full-size load below may still rescue it */ });
+
+            loadImage(btn.dataset.full).then(function (img) {
+                if (gen !== generation || !isOpen) return;
+                const wasReady = textureReady;
+                applyTexture(img);
+                // Straight swap of the same picture at higher resolution —
+                // don't disturb an animation already in flight.
+                if (!wasReady) { front = animateIn ? maxRadius() : 0; if (animateIn) animate(0); }
+            }).catch(function () {
+                console.error('Lightbox: image failed to load:', btn.dataset.full);
+            });
         }
 
         function open(i) {
+            if (isOpen) return;
+            if (useGL && !ctx) {
+                ctx = createWatercolorContext(canvas);
+                if (!ctx) useGL = false; // no WebGL — plain image from here on
+            }
+            figure.classList.toggle('wc-gl-active', useGL);
+
             lastFocused = document.activeElement;
-            show(i);
+            isOpen = true;
             lightbox.classList.add('active');
             if (closeBtn) closeBtn.focus();
+
+            front = 0;
+            transitioning = false;
+            onSettled = null;
+            show(i, true);
+            if (useGL) rafId = requestAnimationFrame(frame);
         }
 
-        function close() {
+        function hide() {
+            isOpen = false;
+            transitioning = false;
+            onSettled = null;
+            generation++; // orphan any in-flight image loads
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            textureReady = false;
             lightbox.classList.remove('active');
-            img.src = '';
+            fallbackImg.src = '';
             index = -1;
-            // Send focus back where it came from rather than to the top of
-            // the document — the button that opened this is inside a text
-            // layer that may since have been hidden, hence the guard.
+            // Back where it came from rather than the top of the document. The
+            // button lives in a text layer that may have been hidden or torn
+            // down while the lightbox was up, hence the guard.
             if (lastFocused && lastFocused.isConnected) lastFocused.focus();
             lastFocused = null;
+        }
+
+        // Clicking the photo or the backdrop plays the dissolve in reverse and
+        // hides once it lands. Ignored mid-animation, for the same reason the
+        // cards are non-interruptible: reversing without tracking true
+        // mid-flight state reads as a snap. Escape and the close button always
+        // dismiss instantly, so there's an immediate way out either way.
+        function dismissAnimated() {
+            if (!isOpen) return;
+            if (!useGL || !textureReady) { hide(); return; }
+            if (transitioning) return;
+            animate(maxRadius(), hide);
         }
 
         buttons.forEach(function (btn, i) {
             btn.addEventListener('click', function () { open(i); });
         });
 
-        if (closeBtn) closeBtn.addEventListener('click', close);
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                hide();
+            });
+        }
+
         lightbox.addEventListener('click', function (e) {
-            if (e.target === lightbox) close(); // backdrop only, not the image
+            if (e.target.closest('.photo-lightbox-close')) return;
+            dismissAnimated();
         });
 
         document.addEventListener('keydown', function (e) {
-            if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'Escape') { close(); }
-            else if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
-            else if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+            if (!isOpen) return;
+            if (e.key === 'Escape') { hide(); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1, false); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1, false); }
+        });
+
+        window.addEventListener('resize', function () {
+            if (!isOpen || !useGL || !textureReady) return;
+            fitFigure(imgW, imgH);
+            syncCanvasSize(ctx.gl, canvas, cssW, cssH);
+            coverUV = coverUVFor(cssW, cssH, imgW, imgH);
         });
     }
 
