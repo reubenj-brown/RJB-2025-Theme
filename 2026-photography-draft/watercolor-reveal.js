@@ -36,7 +36,20 @@
     // trigger is ignored until the previous animation has run its course.
     const ANIM_DUR_S = 4;
     const ANIM_DUR_MS = ANIM_DUR_S * 1000;
-    const CURVE = [0.65, 0, 0.35, 1]; // cubic-bezier control points, ease-in-out
+
+    // Fast to leave, slow to settle. The reference curve was
+    // cubic-bezier(0.65, 0, 0.35, 1), a symmetric ease-in-out, and its flat
+    // start meant a click appeared to do nothing: measured on a 400x500 card
+    // it advanced 0.14% in the first ten frames — 0.6px of a 409px travel —
+    // and the first pixel didn't change for 488ms. Those figures are ratios
+    // of the travel, so they held at every card size.
+    //
+    // This curve reaches 11.6% by frame ten and breaks the first pixel within
+    // one, while still spending the bulk of the four seconds on the slow
+    // spread. It stays a single constant used by both directions, the caption
+    // fade and the lightbox backdrop, so the design reference's rule that
+    // every part of the transition shares one curve still holds.
+    const CURVE = [0.25, 0.7, 0.35, 1];
 
     function makeBezierEasing(x1, y1, x2, y2) {
         function a(a1, a2) { return 1.0 - 3.0 * a2 + 3.0 * a1; }
@@ -758,9 +771,9 @@
         // The backdrop is driven from this file's own constants so it moves
         // with the dissolve rather than merely alongside it: same duration,
         // and the same curve. Matching the curve matters as much as the
-        // duration — the component's default `ease` front-loads, while
-        // CURVE is a symmetric ease-in-out that barely moves for the first
-        // beat, so on equal durations the fade still looked like it ran first.
+        // duration — two transitions of equal length on different curves
+        // still visibly run apart, which is what made the wash look like it
+        // was leading the dissolve.
         const FADE_QUICK = '0.25s';
         lightbox.style.setProperty('--lightbox-ease', 'cubic-bezier(' + CURVE.join(',') + ')');
 
