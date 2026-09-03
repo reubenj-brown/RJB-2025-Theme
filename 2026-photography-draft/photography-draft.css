@@ -347,6 +347,35 @@
    the effect's geometry is identical to a card's.
    ============================================================ */
 
+/* The shared component fades the whole overlay's opacity — and the canvas is
+   inside it, so the photo was being faded out by CSS while the watercolor
+   dissolve had barely started. Two exits at once, the quicker one winning.
+
+   So here the backdrop colour moves onto a ::before that fades by itself and
+   the container stays fully opaque. The photo is then dissolved by the shader
+   alone, against a wash that fades over exactly the same window. Both use the
+   duration and curve watercolor-reveal.js publishes from its own constants. */
+.photography-draft .photo-lightbox,
+.photography-draft .photo-lightbox.active {
+    background: transparent;
+    opacity: 1;
+}
+
+.photography-draft .photo-lightbox::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--lightbox-bg);
+    opacity: 0;
+    transition: opacity var(--lightbox-fade) var(--lightbox-ease);
+}
+
+.photography-draft .photo-lightbox.active::before {
+    opacity: 1;
+}
+
+/* Absolute ::before, positioned figure, both z-index auto — so they paint in
+   DOM order and the photo sits above the wash. */
 .photo-lightbox-figure {
     position: relative;
     --lb-ratio: 1.5;

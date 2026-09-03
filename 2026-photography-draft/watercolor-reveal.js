@@ -755,10 +755,15 @@
 
         const imgCache = Object.create(null);
 
-        // One constant drives both: the backdrop fades over exactly as long as
-        // the watercolor takes, so opening and dismissing read as a single
-        // transition rather than two in sequence.
+        // The backdrop is driven from this file's own constants so it moves
+        // with the dissolve rather than merely alongside it: same duration,
+        // and the same curve. Matching the curve matters as much as the
+        // duration — the component's default `ease` front-loads, while
+        // CURVE is a symmetric ease-in-out that barely moves for the first
+        // beat, so on equal durations the fade still looked like it ran first.
         const FADE_QUICK = '0.25s';
+        lightbox.style.setProperty('--lightbox-ease', 'cubic-bezier(' + CURVE.join(',') + ')');
+
         function setFade(seconds) {
             lightbox.style.setProperty('--lightbox-fade', seconds);
         }
