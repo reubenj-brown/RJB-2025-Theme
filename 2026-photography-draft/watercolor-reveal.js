@@ -384,6 +384,25 @@
         }
     }
 
+    // The "fully opaque" value for uFront.
+    //
+    // Zero is NOT fully opaque. alpha = smoothstep(-edge, +edge, dist - front),
+    // and dist is measured from uCenter, so at front = 0 the pixels around the
+    // centre point have dist ≈ 0 and land inside the transition band — leaving
+    // a small noisy translucent notch there (at the top-left corner of a card
+    // at rest, since uCenter starts at 0,0; dead centre of a lightboxed photo).
+    //
+    // Pushing the front negative by more than the worst-case excursion clears
+    // the band for every pixel, so the smoothstep saturates at 1 everywhere:
+    //   dist  is displaced by up to  1.0 * edgeAmp   (fbm's negative extreme)
+    //   the band's top edge reaches  1.9 * edgeWidth (granulation wobble)
+    //   the blue channel is offset a further chromaAmp
+    // 2x edgeWidth covers the 1.9 with a little margin.
+    function restFrontFor(cssW, cssH) {
+        const t = tuningFor(cssW, cssH);
+        return -(t.edgeAmp + t.chromaAmp + 2 * t.edgeWidth);
+    }
+
     // The furthest any point of a wxh surface sits from (x, y), plus headroom
     // so the noise-displaced edge still clears the corners.
     function maxRadiusFrom(x, y, w, h) {
@@ -426,6 +445,8 @@
         let stageCssW = 0, stageCssH = 0, imgNaturalW = 0, imgNaturalH = 0;
         let coverUV = [1, 1, 0, 0];
 
+        // Corrected to restFrontFor() by syncCanvasGeometry() before the first
+        // draw — nothing is drawn until a texture is up, and that's later still.
         let currentFront = 0, center = [0, 0], transitioning = false;
         let animFrom = 0, animTo = 0, animStart = 0, lastTrigger = -Infinity;
         let revealed = false;
@@ -453,7 +474,7 @@
 
         function resetLogicalState() {
             revealed = false;
-            currentFront = 0;
+            currentFront = restFrontFor(stageCssW, stageCssH);
             transitioning = false;
             center = [0, 0];
             lastTrigger = -Infinity;
@@ -490,6 +511,9 @@
             stageCssH = rect.height;
             syncCanvasSize(ctx.gl, canvas, stageCssW, stageCssH);
             computeCoverUV();
+            // Rest position depends on the tuning, which scales off the card's
+            // size — so it has to be recomputed whenever that size changes.
+            if (!revealed && !transitioning) currentFront = restFrontFor(stageCssW, stageCssH);
             scheduleFrame();
         }
 
@@ -538,7 +562,9 @@
             center = [x, y];
             const revealing = !revealed;
             animFrom = currentFront;
-            animTo = revealing ? maxRadiusFrom(x, y, stageCssW, stageCssH) : 0;
+            animTo = revealing
+                ? maxRadiusFrom(x, y, stageCssW, stageCssH)
+                : restFrontFor(stageCssW, stageCssH);
             animStart = now;
             transitioning = true;
             scheduleFrame();
@@ -777,6 +803,10 @@
             return maxRadiusFrom(cssW / 2, cssH / 2, cssW, cssH);
         }
 
+        function restFront() {
+            return restFrontFor(cssW, cssH);
+        }
+
         function scheduleFrame() {
             if (!isOpen || rafId !== null) return;
             rafId = requestAnimationFrame(frame);
@@ -864,9 +894,9 @@
                 applyTexture(img);
                 if (animateIn) {
                     front = maxRadius();
-                    animate(0);
+                    animate(restFront());
                 } else {
-                    front = 0;
+                    front = restFront();
                 }
             }).catch(function () { /* full-size load below may still rescue it */ });
 
@@ -876,7 +906,10 @@
                 applyTexture(img);
                 // Straight swap of the same picture at higher resolution —
                 // don't disturb an animation already in flight.
-                if (!wasReady) { front = animateIn ? maxRadius() : 0; if (animateIn) animate(0); }
+                if (!wasReady) {
+                    front = animateIn ? maxRadius() : restFront();
+                    if (animateIn) animate(restFront());
+                }
             }).catch(function () {
                 console.error('Lightbox: image failed to load:', btn.dataset.full);
             });
@@ -896,12 +929,12 @@
             lightbox.classList.add('active');
             lightbox.focus(); // tabindex="-1" on the overlay
 
-            front = 0;
+            front = restFront(); // show() resets it properly once sized
             transitioning = false;
             onSettled = null;
             pendingDismiss = false;
             show(i, true);
-            if (useGL) rafId = requestAnimationFrame(frame);
+            if (useGL) scheduleFrame();
         }
 
         // Clears state once the exit has finished playing. The backdrop is
@@ -972,6 +1005,8 @@
             fitFigure(imgW, imgH);
             syncCanvasSize(ctx.gl, canvas, cssW, cssH);
             coverUV = coverUVFor(cssW, cssH, imgW, imgH);
+            if (!transitioning) front = restFront();
+            scheduleFrame();
         });
     }
 
