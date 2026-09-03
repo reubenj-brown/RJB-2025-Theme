@@ -112,7 +112,10 @@
     column-gap: 6vw;
     row-gap: 20vw;
     margin: 0 auto;
-    padding: 2rem 2vw 6rem;
+    /* 10vh on top of the 6rem that was already there. On its own 10vh would
+       have been a wash — 90px against the existing 96px on a 900px viewport —
+       so this is additive, which is the only reading that changes anything. */
+    padding: 2rem 2vw calc(6rem + 10vh);
 }
 
 /* One grid item == one column slot. The photo inside is smaller than
