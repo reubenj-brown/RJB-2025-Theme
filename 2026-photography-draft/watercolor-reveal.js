@@ -76,6 +76,19 @@
     }
     const ease = makeBezierEasing(CURVE[0], CURVE[1], CURVE[2], CURVE[3]);
 
+    // Fraction of the duration at which the eased value first reaches `y`.
+    // Used to find when a transition stops changing anything on screen.
+    function easeInverse(y) {
+        if (y <= 0) return 0;
+        if (y >= 1) return 1;
+        let lo = 0, hi = 1;
+        for (let i = 0; i < 24; i++) {
+            const mid = (lo + hi) / 2;
+            if (ease(mid) < y) lo = mid; else hi = mid;
+        }
+        return (lo + hi) / 2;
+    }
+
     const VERT_SRC = `
         attribute vec2 aPosition;
         varying vec2 vUv;
@@ -416,6 +429,32 @@
         return -(t.edgeAmp + t.chromaAmp + 2 * t.edgeWidth);
     }
 
+    // The front past which nothing more can change: every pixel is already
+    // fully clear once the front has passed the furthest corner plus the
+    // worst-case noise displacement, granulation wobble and chroma offset.
+    //
+    // maxRadiusFrom() deliberately overshoots this by 15% so the ragged edge
+    // clears the corners under any noise. That overshoot is invisible, but on
+    // an ease-out curve it is not cheap: the last couple of percent of travel
+    // eats the final second of a four-second animation. Knowing where the
+    // picture is actually finished lets the transition stop there.
+    function clearFrontFor(cssW, cssH, cx, cy) {
+        const t = tuningFor(cssW, cssH);
+        const d = Math.hypot(Math.max(cx, cssW - cx), Math.max(cy, cssH - cy));
+        return d + t.edgeAmp + t.chromaAmp + 1.9 * t.edgeWidth;
+    }
+
+    // How long a run from `from` to `to` needs before it stops changing
+    // anything, given it stops being visible once it passes `doneAt`.
+    // Returns the full duration when the whole run matters.
+    function visibleDurationMs(from, to, doneAt) {
+        const span = to - from;
+        if (!span) return ANIM_DUR_MS;
+        const need = (doneAt - from) / span;
+        // Never below a frame — a zero-length transition would read as a snap.
+        return Math.max(1000 / 60, ANIM_DUR_MS * Math.min(1, easeInverse(need)));
+    }
+
     // The furthest any point of a wxh surface sits from (x, y), plus headroom
     // so the noise-displaced edge still clears the corners.
     function maxRadiusFrom(x, y, w, h) {
@@ -461,7 +500,8 @@
         // Corrected to restFrontFor() by syncCanvasGeometry() before the first
         // draw — nothing is drawn until a texture is up, and that's later still.
         let currentFront = 0, center = [0, 0], transitioning = false;
-        let animFrom = 0, animTo = 0, animStart = 0, lastTrigger = -Infinity;
+        let animFrom = 0, animTo = 0, animStart = 0, lockUntil = -Infinity;
+        let animCutMs = ANIM_DUR_MS; // when this run stops changing anything
         let revealed = false;
 
         textLayer.inert = true;
@@ -490,7 +530,7 @@
             currentFront = restFrontFor(stageCssW, stageCssH);
             transitioning = false;
             center = [0, 0];
-            lastTrigger = -Infinity;
+            lockUntil = -Infinity;
             // Snap back with no transition — this only ever runs while the
             // card is offscreen (that's what triggered teardown), so there's
             // nothing to animate for anyone to see.
@@ -555,10 +595,17 @@
             if (!active) return; // torn down mid-flight
             if (transitioning) {
                 const elapsed = nowMs - animStart;
+                // frac is measured against the FULL duration, not the cut, so
+                // the trajectory is identical to an uncut run — the cut only
+                // decides when to stop, never how fast to move.
                 const frac = Math.min(1, elapsed / ANIM_DUR_MS);
                 currentFront = animFrom + (animTo - animFrom) * ease(frac);
-                if (frac >= 1) {
+                if (elapsed >= animCutMs) {
                     transitioning = false;
+                    // Jump to the nominal end. Everything between here and
+                    // there is already fully dissolved, so this is invisible,
+                    // and it leaves the state exactly where an uncut run would
+                    // have left it for the return trip.
                     currentFront = animTo;
                 }
             }
@@ -569,8 +616,7 @@
         function triggerAt(x, y) {
             if (!active || usingFallback) return; // offscreen/inactive card ignores input
             const now = performance.now();
-            if (now - lastTrigger < ANIM_DUR_MS) return;
-            lastTrigger = now;
+            if (now < lockUntil) return;
 
             center = [x, y];
             const revealing = !revealed;
@@ -578,13 +624,29 @@
             animTo = revealing
                 ? maxRadiusFrom(x, y, stageCssW, stageCssH)
                 : restFrontFor(stageCssW, stageCssH);
+
+            // Revealing overshoots the corners by 15% so the ragged edge always
+            // clears them, and the last of that is invisible — on this curve it
+            // was costing about a second of every four. Stop when the picture
+            // is actually gone. Returning ends exactly at the resting front, so
+            // there's nothing spare to trim.
+            animCutMs = revealing
+                ? visibleDurationMs(animFrom, animTo, clearFrontFor(stageCssW, stageCssH, x, y))
+                : ANIM_DUR_MS;
+
             animStart = now;
+            // The card unlocks when it stops moving, not when the nominal
+            // duration is up — waiting out invisible frames was what stopped
+            // people closing a card the moment its caption had arrived.
+            lockUntil = now + animCutMs;
             transitioning = true;
             scheduleFrame();
 
             const curveCss = `cubic-bezier(${CURVE.join(',')})`;
             textLayer.style.transitionProperty = 'opacity';
-            textLayer.style.transitionDuration = `${ANIM_DUR_S}s`;
+            // Matched to the trimmed run so the caption lands with the photo
+            // rather than still creeping in after it.
+            textLayer.style.transitionDuration = `${(animCutMs / 1000).toFixed(3)}s`;
             textLayer.style.transitionTimingFunction = curveCss;
             setRevealedState(revealing);
 
@@ -763,6 +825,7 @@
         let imgW = 0, imgH = 0, cssW = 0, cssH = 0, coverUV = [1, 1, 0, 0];
         let front = 0, transitioning = false;
         let animFrom = 0, animTo = 0, animStart = 0, onSettled = null;
+        let animCutMs = ANIM_DUR_MS;
         let pendingDismiss = false; // a click that arrived mid-animation
         let generation = 0; // guards against a slow full-res load landing late
 
@@ -830,9 +893,10 @@
             rafId = requestAnimationFrame(frame);
         }
 
-        function animate(to, done) {
+        function animate(to, done, cutMs) {
             animFrom = front;
             animTo = to;
+            animCutMs = cutMs || ANIM_DUR_MS;
             animStart = performance.now();
             transitioning = true;
             onSettled = done || null;
@@ -845,9 +909,12 @@
             rafId = null;
             if (!isOpen) return;
             if (transitioning) {
-                const frac = Math.min(1, (nowMs - animStart) / ANIM_DUR_MS);
+                const elapsed = nowMs - animStart;
+                // Eased against the full duration whatever the cut, so trimming
+                // the tail never alters the speed of what's actually seen.
+                const frac = Math.min(1, elapsed / ANIM_DUR_MS);
                 front = animFrom + (animTo - animFrom) * ease(frac);
-                if (frac >= 1) {
+                if (elapsed >= animCutMs) {
                     transitioning = false;
                     front = animTo;
                     const done = onSettled;
@@ -994,8 +1061,17 @@
         // fading separately. The fade duration matches, so the canvas stays
         // visible for the whole animation.
         function beginDismiss() {
+            // Same trim as a card reveal, and it matters more here: the overlay
+            // can't actually close until the run ends, so the invisible tail
+            // was leaving a blank wash on screen for about a second after the
+            // photo had gone.
+            const to = maxRadius();
+            const cut = visibleDurationMs(front, to, clearFrontFor(cssW, cssH, cssW / 2, cssH / 2));
+            // The backdrop has to fade over the trimmed window too, or it would
+            // still be fading after the overlay had been torn down.
+            setFade((cut / 1000).toFixed(3) + 's');
             lightbox.classList.remove('active');
-            animate(maxRadius(), finalise);
+            animate(to, finalise, cut);
         }
 
         // Escape: out immediately, on a short fade rather than the full four
