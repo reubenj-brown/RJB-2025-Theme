@@ -57,109 +57,144 @@
 
 
 /* ============================================================
-   FLOATING GRID
-   Flexbox-wrap keeps DOM order == visual order (unlike CSS Grid
-   `dense`, which can visually reorder ahead of DOM position) —
-   the CMS's linear card order stays the reading/tab order too.
+   THE GRID
+   Plain (non-`dense`) grid, so DOM order == visual order — the CMS's
+   linear card order stays the reading and tab order too. Grid rather
+   than flex-wrap because the column width is then exact by
+   construction, with no `calc(100% - n*gap)/n` basis to round badly
+   and drop a card onto the next row.
+
+   Column count is a single token, set once per breakpoint.
    ============================================================ */
 
 .photo-floating-grid {
-    /* Desktop reveal motion — single source of truth for tuning later */
-    --reveal-x: 55%;
-    --reveal-y: -8%;
-    --reveal-scale: 1.18;
-    --reveal-duration: 0.5s;
-    --reveal-easing: cubic-bezier(.22, .68, 0, 1.01);
+    --cols: 4;
 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    align-items: start;
+    column-gap: 2rem;
+    row-gap: 6vw;
     margin: 0 auto;
     padding: 2rem 2vw 6rem;
 }
 
-.flip-card {
-    flex: 0 1 calc(33.333% - 2.5rem);
-    perspective: 1200px;
+@media (min-width: 1921px) {
+    .photo-floating-grid { --cols: 5; }
+}
+
+@media (max-width: 1200px) {
+    .photo-floating-grid { --cols: 3; }
+}
+
+@media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
+    .photo-floating-grid {
+        --cols: 1;
+        padding-left: 4vw;
+        padding-right: 4vw;
+    }
+}
+
+/* One grid item == one column slot. The photo inside is smaller than
+   the slot; the empty remainder is what creates the organic scatter. */
+.photo-card {
+    min-width: 0;
     transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* Organic feel: vertical stagger only, no rotation, cycling every 4 cards */
-.flip-card:nth-child(4n+1) { --offset: 0px; }
-.flip-card:nth-child(4n+2) { --offset: 36px; }
-.flip-card:nth-child(4n+3) { --offset: 12px; }
-.flip-card:nth-child(4n+4) { --offset: 48px; }
 
-.flip-card-inner {
+/* ============================================================
+   CARD GEOMETRY
+   --card-scale (0.66–1) and --card-offset (0 … 1 - scale) are
+   assigned per card, per page load, by the inline randomizer the
+   plugin's photo-floating-gallery.php emits after the grid.
+   Because offset never exceeds (1 - scale), width + margin-left
+   never exceeds 100% — a card cannot leave its column by
+   construction, with no clamping needed.
+   The fallbacks (1 / 0) render a full-width left-aligned grid if
+   that script never runs.
+   ============================================================ */
+
+.wc-stage {
     position: relative;
-    width: 100%;
+    overflow: hidden;
+    width: calc(var(--card-scale, 1) * 100%);
+    margin-left: calc(var(--card-offset, 0) * 100%);
     /* --card-ratio is set inline per card from the image's real dimensions,
        so the box exactly matches its aspect ratio — no cropping needed. */
     aspect-ratio: var(--card-ratio, 4/5);
-    cursor: pointer;
-    transform: translateY(var(--offset, 0));
+    cursor: crosshair;
+    outline-offset: 4px;
 }
 
-.flip-card-front,
-.flip-card-back {
+/* Video cards are non-interactive — nothing to click, so no crosshair. */
+.photo-card-video .wc-stage {
+    cursor: default;
+}
+
+.wc-layer {
     position: absolute;
     inset: 0;
 }
 
-.flip-card-front {
-    overflow: hidden;
+/* Static photo shown while a card has no live WebGL context: before its
+   first activation, and again after teardown while offscreen. The canvas
+   paints fully opaque over it once active, and the JS removes it entirely
+   on the first successful texture upload. */
+.wc-poster {
+    background-size: cover;
+    background-position: center;
 }
 
-.flip-card-front img,
-.flip-card-front video {
-    position: absolute;
-    inset: 0;
+.wc-gl {
     width: 100%;
     height: 100%;
-    /* contain, not cover — the box already matches the image's own aspect
-       ratio (via --card-ratio), so this is just a safety net against crop */
-    object-fit: contain;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    display: block;
+    /* The canvas covers the whole card and sits on top, so it would swallow
+       every click on the "read more" link underneath it. It's decorative —
+       let clicks fall through. The reveal listener is on .wc-stage, and it
+       reads coordinates from the stage's own rect, so nothing depends on
+       which layer was actually hit. */
+    pointer-events: none;
 }
 
-.flip-card-front video {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
 
-.flip-card.video-loaded .flip-card-front video {
-    opacity: 1;
-}
+/* ============================================================
+   REVEALED TEXT
+   No background — the watercolor dissolve exposes the page itself.
+   The border lives on the same element as the text, so it fades in
+   and out in lockstep with it.
 
-.flip-card.video-loaded .flip-card-front .flip-card-poster {
-    opacity: 0;
-}
+   While hidden this layer is `inert` (toggled by watercolor-reveal.js),
+   which keeps the invisible "read more" link out of the tab order and
+   un-clickable — opacity: 0 alone leaves it both focusable and hittable.
+   ============================================================ */
 
-.flip-card-poster {
-    transition: opacity 0.4s ease;
-}
-
-.flip-card-back {
-    background: var(--content-bg);
-    outline: 1px solid var(--text-color);
+.wc-text {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 1.75rem;
+    align-items: flex-start;
+    /* % padding resolves against the card's own width, so the inset stays
+       proportional at every scale and column count with no multiplier. */
+    padding: 7%;
+    opacity: 0;
+    border: 1px solid var(--text-color);
 }
 
-.flip-card-back-text {
-    font-family: var(--primary-font);
-    font-size: var(--fs-md);
+.wc-text-body {
+    font-family: var(--serif-font);
+    /* Scales with the card: 17px at full size, ~11.2px at the 0.66 floor —
+       which lands on the site's own caption size rather than below it. */
+    font-size: calc(var(--fs-md) * var(--card-scale, 1));
     line-height: 1.4;
     color: var(--text-color);
 }
 
-.flip-card-see-more {
-    display: inline-block;
-    margin-top: 1rem;
+/* Deliberately NOT scaled — the control stays a consistent size across
+   the whole grid while the caption copy shrinks with its card. */
+.wc-read-more {
+    margin-top: auto;
+    align-self: flex-end;
     font-family: var(--primary-font);
     font-size: var(--fs-base);
     font-weight: 600;
@@ -167,86 +202,59 @@
     text-decoration: none;
 }
 
-.flip-card-see-more:hover {
+.wc-read-more:hover {
     color: var(--link-hover-color);
 }
 
 
 /* ============================================================
-   MOBILE / TABLET (<= 1200px): flip in 3D
+   VIDEO CARDS
+   Deferred load (preload="none" + data-src), poster cross-fades out
+   once the video can play through.
    ============================================================ */
 
-@media (max-width: 1200px) {
-    .flip-card-inner {
-        transform-style: preserve-3d;
-        transition: transform 0.6s;
-    }
+.photo-card-video .wc-poster-img,
+.photo-card-video video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* contain, not cover — the box already matches the media's own aspect
+       ratio (via --card-ratio), so this is just a safety net against crop */
+    object-fit: contain;
+}
 
-    .flip-card.flipped .flip-card-inner {
-        transform: translateY(var(--offset, 0)) rotateY(180deg);
-    }
+.photo-card-video video {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
 
-    .flip-card-front,
-    .flip-card-back {
-        backface-visibility: hidden;
-    }
+.photo-card-video.video-loaded video {
+    opacity: 1;
+}
 
-    .flip-card-back {
-        transform: rotateY(180deg);
-    }
+.photo-card-video .wc-poster-img {
+    transition: opacity 0.4s ease;
+}
+
+.photo-card-video.video-loaded .wc-poster-img {
+    opacity: 0;
 }
 
 
 /* ============================================================
-   DESKTOP (> 1200px): slide the front face off to reveal the back
+   MOBILE — single column.
+   Scale stays random, but the horizontal offset is pinned so cards
+   alternate flush-left / flush-right down the page instead of
+   drifting to arbitrary positions in a very wide column.
    ============================================================ */
-
-@media (min-width: 1201px) {
-    .flip-card {
-        overflow: visible;
-    }
-
-    .flip-card-back {
-        z-index: 0;
-    }
-
-    .flip-card-front {
-        z-index: 1;
-        transition: transform var(--reveal-duration) var(--reveal-easing);
-    }
-
-    .flip-card.flipped .flip-card-front {
-        transform: translate(var(--reveal-x), var(--reveal-y)) scale(var(--reveal-scale));
-        z-index: 5;
-    }
-}
-
-
-/* ============================================================
-   RESPONSIVE — grid columns and stagger scale
-   ============================================================ */
-
-@media (max-width: 1200px) {
-    .flip-card {
-        flex-basis: calc(50% - 2.5rem);
-    }
-    .flip-card:nth-child(4n+1) { --offset: 0px; }
-    .flip-card:nth-child(4n+2) { --offset: 20px; }
-    .flip-card:nth-child(4n+3) { --offset: 8px; }
-    .flip-card:nth-child(4n+4) { --offset: 28px; }
-
-    .photo-floating-grid {
-        padding: 2rem 4vw 4rem;
-    }
-}
 
 @media (max-width: 768px), ((max-width: 1200px) and (max-height: 768px)) {
-    .flip-card {
-        flex-basis: 100%;
-        --offset: 0px !important;
+    .photo-card:nth-child(odd) .wc-stage {
+        margin-left: 0;
     }
 
-    .photo-floating-grid {
-        gap: 1.75rem;
+    .photo-card:nth-child(even) .wc-stage {
+        margin-left: calc((1 - var(--card-scale, 1)) * 100%);
     }
 }

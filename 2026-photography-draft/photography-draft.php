@@ -3,6 +3,10 @@
  * Photography Draft 2026 — content partial
  * Loaded by page-photography-draft-2026.php (theme root)
  * Do not use as a standalone template.
+ *
+ * Card behaviour (the watercolor reveal, and the deferred video loading)
+ * lives in watercolor-reveal.js, enqueued by the root wrapper. What's left
+ * inline here is page chrome only.
  */
 ?>
 
@@ -13,7 +17,7 @@
         <h3>I’ve freelanced for <i>The Wall Street Journal</i> and worked as a photo assistant for editorial and TV clients. I’m a member of the LA Press Photographers Association and winner of a 2026 National Press Photographers Foundation scholarship. Photo editors say I’m good at making boring things look interesting.</h3>
     </div>
 
-    <!-- Floating photo/video cards -->
+    <!-- Watercolor reveal cards -->
     <?php echo do_shortcode('[photo_floating_gallery]'); ?>
 
 </main>
@@ -26,6 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
        (window.scrollY + getBoundingClientRect, linear opacity/blur).
     --------------------------------------------------------------- */
     function fadeOnApproach(elements, thresholdPct) {
+        let queued = false;
+        function onScroll() {
+            // rAF-throttled: this reads getBoundingClientRect() for every card,
+            // which forces layout. Once per frame is plenty; once per scroll
+            // event is a lot of forced reflow across a ~30-card grid.
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(function() { queued = false; update(); });
+        }
         function update() {
             const scrollY = window.scrollY;
             const vh = window.innerHeight;
@@ -46,79 +59,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         update();
-        window.addEventListener('scroll', update);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
     }
 
     const intro = document.querySelector('.photo-draft-intro h3');
     if (intro) fadeOnApproach([intro], 0.20);
 
-    const cards = document.querySelectorAll('.flip-card');
+    const cards = document.querySelectorAll('.photo-card');
     if (cards.length) fadeOnApproach(Array.prototype.slice.call(cards), 0.18);
-
-    /* ---------------------------------------------------------------
-       Flip / reveal toggle — one delegated listener for every card.
-       CSS decides whether .flipped means "rotate" (mobile/tablet) or
-       "slide off and reveal" (desktop) — see photography-draft.css.
-    --------------------------------------------------------------- */
-    const grid = document.getElementById('photoFloatingGrid');
-    if (grid) {
-        grid.addEventListener('click', function(e) {
-            if (e.target.closest('.flip-card-see-more')) return;
-            const card = e.target.closest('.flip-card');
-            if (card) card.classList.toggle('flipped');
-        });
-    }
-
-    /* ---------------------------------------------------------------
-       Deferred video loading — same mechanic as the homepage hero
-       (preload="none" + data-src, save-data guard), but gated per
-       card by IntersectionObserver instead of a single page-load
-       timer, since a grid can hold many video cards at once.
-    --------------------------------------------------------------- */
-    function loadCardVideo(card) {
-        const video = card.querySelector('video[data-src]');
-        if (!video) return;
-        if (!video.canPlayType || !video.canPlayType('video/mp4')) return;
-        const conn = navigator.connection;
-        if (conn && (conn.saveData || /^(slow-2g|2g)$/.test(conn.effectiveType || ''))) return;
-
-        video.src = video.dataset.src;
-        video.addEventListener('canplaythrough', function() {
-            card.classList.add('video-loaded'); // fades the poster out via CSS
-        });
-        video.addEventListener('ended', function() { video.currentTime = 0; video.play(); });
-        video.addEventListener('pause', function() {
-            if (card.classList.contains('video-loaded')) video.play();
-        });
-        video.addEventListener('error', function() { card.classList.remove('video-loaded'); });
-
-        video.load();
-        const p = video.play();
-        if (p && p.catch) p.catch(function() {});
-    }
-
-    if (grid) {
-        const videoCards = grid.querySelectorAll('.flip-card[data-media="video"]');
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        loadCardVideo(entry.target);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { rootMargin: '200px 0px' });
-            videoCards.forEach(function(card) { observer.observe(card); });
-        } else {
-            videoCards.forEach(loadCardVideo);
-        }
-    }
 
     /* ---------------------------------------------------------------
        Replace header navigation with the "← Home / Photography"
        breadcrumb (same script as the live photography page).
     --------------------------------------------------------------- */
     const header = document.querySelector('.site-header');
+    if (!header) return;
+
     const mainNav = header.querySelector('.main-nav');
     const contactPill = header.querySelector('.contact-pill');
     const siteTitle = header.querySelector('.site-title-name');
