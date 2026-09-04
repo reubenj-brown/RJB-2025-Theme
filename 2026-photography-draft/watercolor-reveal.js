@@ -22,7 +22,8 @@
       on first successful texture upload — otherwise it permanently
       blocks the reveal from ever showing the caption.
 
-   Contexts are created lazily and torn down again offscreen: browsers cap
+   Contexts are created lazily as cards scroll into range and released by a
+   budget that only ever drops cards outside that range: browsers cap
    simultaneous live WebGL contexts (commonly 8–16), well under this page's
    card count, and exceeding it silently blanks older cards.
    ============================================================ */
@@ -548,7 +549,9 @@
        never tearing down isn't an option — while making ordinary scrolling
        cost nothing.
     --------------------------------------------------------------- */
-    const MAX_LIVE_CONTEXTS = 8;
+    // Only ever bites for cards outside the activation band, so the real
+    // bound is how many fit in that band — comfortably under this.
+    const MAX_LIVE_CONTEXTS = 12;
     const liveCards = [];
 
     function noteCardActive(card) {
@@ -557,9 +560,20 @@
         liveCards.push(card);
 
         while (liveCards.length > MAX_LIVE_CONTEXTS) {
-            // Evict the furthest from the viewport, never the newest arrival.
+            // ONLY cards outside the activation band may be released.
+            //
+            // An IntersectionObserver does not re-fire for an element that is
+            // already intersecting, so nothing would ever bring an in-band card
+            // back: it would sit there showing its restored poster, looking
+            // completely normal, and silently ignore every click. Cards leaving
+            // the band set inBand false and become evictable, and re-entering it
+            // is a real transition, so the observer fires and rebuilds them.
+            //
+            // If everything live is in-band there is nothing safe to drop, so
+            // stay over budget — the band's own size keeps that bounded.
             let worst = -1, worstDist = -Infinity;
             for (let j = 0; j < liveCards.length - 1; j++) {
+                if (liveCards[j].inBand()) continue;
                 const d = liveCards[j].distance();
                 if (d > worstDist) { worstDist = d; worst = j; }
             }
@@ -621,9 +635,15 @@
 
         textLayer.inert = true;
 
+        // Whether the observer currently reports this card inside the
+        // activation band. The budget must not release a card while this is
+        // true — see noteCardActive.
+        let inBand = false;
+
         // What the live-context budget tracks this card by.
         const budgetEntry = {
             teardown: function () { teardown(); },
+            inBand: function () { return inBand; },
             distance: function () {
                 const r = stage.getBoundingClientRect();
                 const vh = window.innerHeight;
@@ -756,7 +776,14 @@
         }
 
         function triggerAt(x, y) {
-            if (!active || usingFallback) return; // offscreen/inactive card ignores input
+            if (usingFallback) return;
+            // A card should never be clickable while torn down, but if one ever
+            // is, re-arm it rather than swallowing the click in silence — that
+            // failure looks identical to a working card that does nothing.
+            if (!active) {
+                init();
+                if (!active || usingFallback) return;
+            }
             const now = performance.now();
             if (now < lockUntil) return;
 
@@ -908,7 +935,8 @@
         // just out of range and back no longer rebuilds its context.
         const io = new IntersectionObserver((entries) => {
             for (const entry of entries) {
-                if (!entry.isIntersecting) continue;
+                inBand = entry.isIntersecting;
+                if (!inBand) continue;
                 init();
                 if (usingFallback) { io.disconnect(); return; } // WebGL failed — no lazy management needed
             }
